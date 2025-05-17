@@ -1,5 +1,4 @@
-requests==2.31.0
-beautifulsoup4==4.12.2
-tkinter>=8.6
-dataclasses>=0.6
-typing>=3.7.4 
+requests>=2.31.0
+Pillow==9.5.0
+PyQt5>=5.15.0
+selenium>=4.15.0

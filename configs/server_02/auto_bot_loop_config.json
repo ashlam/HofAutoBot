@@ -1,0 +1,57 @@
+{
+    "boss_cost_stamina": 10,
+    "quest_cost_stamina": 300,
+    "stage_cost_stamina": 100,
+    "max_stamnia_limit": 4000,
+    "recover_stamina_per_hour": 1000,
+    "challege_boss_cooldown_seconds": 1200,
+    "is_challenge_vip_stage": false,
+    "is_challenge_vip_boss": true,
+    "is_challenge_pvp": false,
+    "is_challenge_world_pvp": false,
+    "keep_stamnia_for_change_stage": 1000,
+    "vip_boss_need_watch" : [
+        {
+            "union_id": 17,
+            "plan_action_id": 800170,
+            "kill_cooldown_seconds": 14400
+        }
+    ],
+    "normal_boss_loop_order": [
+        {
+            "union_id": 20,
+            "plan_action_id": 800200
+        },
+        {
+            "union_id": 1,
+            "plan_action_id": 800010
+        },
+        {
+            "union_id": 25,
+            "plan_action_id": 800250
+        },
+        {
+            "union_id": 15,
+            "plan_action_id": 800150
+        },
+        {
+            "union_id": 3,
+            "plan_action_id": 800030
+        }
+    ],
+    "vip_stage_need_watch" : [
+        {
+            "stage_name": "ocean1",
+            "plan_action_id": 1,
+            "apperance_time": "10:00"
+        }
+    ],
+    "normal_stage_loop_order": [
+        {
+            "stage_name": "ocean1",
+            "plan_action_id": 1
+        }
+    ],
+    "pvp_plan_action_id": 3,
+    "world_pvp_plan_action_id": 3
+}

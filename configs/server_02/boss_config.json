@@ -1,0 +1,160 @@
+{
+  "boss_list": [
+    {
+      "name": "黑龍軍團",
+      "level_limit": 400,
+      "union_id": 0,
+      "image_path": "./image/char/mon_013r.gif"
+    },
+    {
+      "name": "金牛衝鋒隊",
+      "level_limit": 250,
+      "union_id": 1,
+      "image_path": "./image/char/mon_014.gif"
+    },
+    {
+      "name": "假英雄",
+      "level_limit": 300,
+      "union_id": 2,
+      "image_path": "./image/char/hero.gif"
+    },
+    {
+      "name": "土匪群",
+      "level_limit": 250,
+      "union_id": 3,
+      "image_path": "./image/char/mon_216.gif"
+    },
+    {
+      "name": "早餐時間",
+      "level_limit": 100,
+      "union_id": 4,
+      "image_path": "./image/char/mon_054rz.gif"
+    },
+    {
+      "name": "午餐時間",
+      "level_limit": 100,
+      "union_id": 5,
+      "image_path": "./image/char/mon_054ry.gif"
+    },
+    {
+      "name": "晚餐時間",
+      "level_limit": 100,
+      "union_id": 6,
+      "image_path": "./image/char/mon_054r.gif"
+    },
+    {
+      "name": "猿猴的憤怒",
+      "level_limit": 150,
+      "union_id": 7,
+      "image_path": "./image/char/mon_008r.gif"
+    },
+    {
+      "name": "鳥巢",
+      "level_limit": 200,
+      "union_id": 8,
+      "image_path": "./image/char/mon_208rz.gif"
+    },
+    {
+      "name": "冥界鬥士",
+      "level_limit": 200,
+      "union_id": 9,
+      "image_path": "./image/char/mon_238.gif"
+    },
+    {
+      "name": "藍色哨兵",
+      "level_limit": 200,
+      "union_id": 10,
+      "image_path": "./image/char/mon_117k.gif"
+    },
+    {
+      "name": "食人魔軍團",
+      "level_limit": 200,
+      "union_id": 11,
+      "image_path": "./image/char/mon_168.gif"
+    },
+    {
+      "name": "上古之神",
+      "level_limit": 450,
+      "union_id": 12,
+      "image_path": "./image/char/mon_eve001.gif"
+    },
+    {
+      "name": "靈魂法師",
+      "level_limit": 180,
+      "union_id": 13,
+      "image_path": "./image/char/mon_106.gif"
+    },
+    {
+      "name": "遠古封印",
+      "level_limit": 250,
+      "union_id": 14,
+      "image_path": "./image/char/mon_264r.png"
+    },
+    {
+      "name": "深海幼幼",
+      "level_limit": 180,
+      "union_id": 15,
+      "image_path": "./image/char/mon_016.gif"
+    },
+    {
+      "name": "鋼鍊之地",
+      "level_limit": 320,
+      "union_id": 16,
+      "image_path": "./image/char/mon_091.gif"
+    },
+    {
+      "name": "炫風已起",
+      "level_limit": 320,
+      "union_id": 17,
+      "image_path": "./image/char/mon_091.gif"
+    },
+    {
+      "name": "功夫皇帝",
+      "level_limit": 280,
+      "union_id": 18,
+      "image_path": "./image/char/Nintendob-001.gif"
+    },
+    {
+      "name": "咒拳鄉逆襲",
+      "level_limit": 430,
+      "union_id": 19,
+      "image_path": "./image/char/mon_nu019_5.gif"
+    },
+    {
+      "name": "夢幻莊園",
+      "level_limit": 320,
+      "union_id": 20,
+      "image_path": "./image/char/Michael.gif"
+    },
+    {
+      "name": "史萊姆第二個家",
+      "level_limit": 150,
+      "union_id": 21,
+      "image_path": "./image/char/mon_002.gif"
+    },
+    {
+      "name": "光明神廟(前院)",
+      "level_limit": 220,
+      "union_id": 22,
+      "image_path": "./image/char/mon_2022.gif"
+    },
+    {
+      "name": "過往英雄",
+      "level_limit": 300,
+      "union_id": 23,
+      "image_path": "./image/char/mon_150r.gif"
+    },
+    {
+      "name": "過往與未來",
+      "level_limit": 300,
+      "union_id": 25,
+      "image_path": "./image/char/mon_158.gif"
+    },
+    {
+      "name": "終焉之刻",
+      "level_limit": 480,
+      "union_id": 26,
+      "image_path": "./image/char/mon_260r.png"
+    }
+  ]
+}

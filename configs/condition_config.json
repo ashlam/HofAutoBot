@@ -1,0 +1,59 @@
+{
+    "1": {
+        "name": "判断是否可以打Boss",
+        "note": "做任务用",
+        "conditions": [
+            {
+                "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=__union_id__')\">",
+                "container_info": "",
+                "contract_below": true,
+                "validation": [
+                    {
+                        "value_of_placeholder": "__union_id__",
+                        "target_value": 8,
+                        "type": "EQUAL"
+                    }
+                ],
+                "default_result": false
+            },
+            {
+                "element_info": "<div style=\"margin:0 20px\">離下次戰鬥還需要 : <span class=\"bold\">${wait_time}</span></div>",
+                "container_info": "",
+                "contract_below": false,
+                "validation": [
+                    {
+                        "value_of_placeholder": "wait_time",
+                        "target_value": "",
+                        "type": "NOT_EQUAL"
+                    }
+                ],
+                "default_result": true,
+                "jump_to_action_group_id": 10001
+            },
+            {
+                "element_info": "<div style=\"width:40%;float:right\"><span class=\"bold\">時間</span> : <span id=\"mtime\">${my_time}</span>/4000</div>",
+                "container_info": "",
+                "contract_below": false,
+                "validation": [
+                    {
+                        "value_of_placeholder": "my_time",
+                        "target_value": 1000,
+                        "type": "GREATER_THAN"
+                    }
+                ],
+                "default_result": false,
+                "jump_to_action_group_id": 10002
+            }
+        ]
+    },
+    "2": {
+        "name": "必定执行",
+        "note": "一般挂机用",
+        "conditions": [
+            {
+                "default_result": true,
+                "jump_to_action_group_id": 10001
+            }
+        ]
+    }
+}

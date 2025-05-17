@@ -1,0 +1,22 @@
+{
+    "server_address": [
+        {
+            "id": 1,
+            "name": "1服",
+            "url": "http://pim0110.com/hall/",
+            "character_source_code_path": "source_codes/source_code_character_1",
+            "config_path": "configs/server_01",
+            "auto_bot_loop_config_path": "auto_bot_loop_config.json",
+            "hunt_page": "index.php?hunt#"
+        },
+        {
+            "id": 2,
+            "name": "2服（测试服）",
+            "url": "http://pim0110.com/hall02/",
+            "character_source_code_path": "source_codes/source_code_character_2",
+            "config_path": "configs/server_02",
+            "auto_bot_loop_config_path": "auto_bot_loop_config.json",
+            "hunt_page": "index.php?hunt#"
+        }
+    ]
+}

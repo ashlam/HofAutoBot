@@ -1,0 +1,112 @@
+<div id="Jq_Conten"> <script type="text/javascript">
+          function getCaptcha() {       // 讓使用者可更換圖案
+            var d = new Date();
+            document.getElementById("captchaImage").
+              setAttribute('src' , 'ajax_return.php?menu=captcha&r='+ d.getTime());
+          }
+        </script>
+<div id="LOGINFROM">
+<div class="right_div">
+<form action="index.php" method="post">
+<!-- 登陸相關資料 -->
+<h4>登錄</h4>
+<table><tbody>
+<tr>
+<td style="width:50px"><div style="text-align:right">帳號:</div></td>
+<td><input class="text" maxlength="16" name="id" style="width:160px" type="text" value=""/></td>
+</tr>
+<tr>
+<td><div style="text-align:right">密碼:</div></td>
+<td><input class="text" maxlength="16" name="pass" style="width:160px" type="password" value=""/></td>
+</tr>
+<tr>
+<td><div style="text-align:right">驗證碼:</div></td>
+<td><img alt="" id="captchaImage" onclick="getCaptcha();" src="ajax_return.php?menu=captcha" style="cursor: pointer;"/>
+<span onclick="getCaptcha();" style="cursor: pointer; color: rgb(255, 0, 0);">換另外一張圖</span><br/>
+<input class="text" maxlength="16" name="captcha" style="width:160px" type="text"/>
+</td>
+</tr>
+<tr><td>
+</td><td><input name="rember" type="checkbox" value="checked"/><label for="checkbox"> 記住我</label>
+</td></tr><tr><td>
+</td><td><input id="isSubmitted" name="isSubmitted" type="hidden" value="TRUE"/>
+<input class="btn" name="Login" style="width:60px" type="submit" value="登錄"/>
+<input class="btn" onclick='location.href="?newgame"' style="width:60px" type="button" value="註冊"/>
+</td></tr><tr><td>
+</td><td><a href="https://www.facebook.com/dialog/oauth?&amp;scope=email&amp;display=touch&amp;client_id=163204064071&amp;redirect_uri=https%3A%2F%2Fpim0110.com%2Fhall%2Fapi.php%3Fitem%3Dfacebook_login"><img alt="facebook登入" src="./image/button/facebook_login.png" style="margin-top: 5px;" title="facebook登入" width="120px"/></a>
+</td></tr></tbody></table>
+</form>
+<h4>排行榜</h4>
+<table cellspacing="0" style="padding-left:20px">
+<tbody><tr><td class="td6" style="text-align:center">排位</td><td class="td6" style="text-align:center">隊伍</td></tr>
+<tr><td class="td7" style="text-align:center" valign="middle">
+<img alt="" class="vcent" src="./image/icon/crown01.png"/></td><td class="td8">
+陸斯坎軍團老兵 (3083戰 2257勝759敗 67引 29防 勝率73%)<br/>
+</td></tr>
+<tr><td class="td7" style="text-align:center" valign="middle">
+<img alt="" class="vcent" src="./image/icon/crown02.png"/></td><td class="td8">
+方向音痴 (1808戰 1011勝752敗 45引 189防 勝率56%)<br/>
+天邊小星星 (296戰 240勝55敗 1引 3防 勝率81%)<br/>
+</td></tr>
+<tr><td class="td7" style="text-align:center" valign="middle">
+<img alt="" class="vcent" src="./image/icon/crown03.png"/></td><td class="td8">
+暗夜幽魂 (3565戰 1154勝2396敗 15引 13防 勝率32%)<br/>
+克蘇恩之眼 (7946戰 5447勝2203敗 296引 614防 勝率69%)<br/>
+黑色的方舟 (15689戰 3069勝12196敗 424引 0防 勝率20%)<br/>
+</td></tr>
+<tr><td class="td7" style="text-align:center" valign="middle">
+4位</td><td class="td8">
+魔神仔 (3472戰 2098勝1269敗 105引 1012防 勝率60%)<br/>
+大家冷靜兩下 (5097戰 3062勝1995敗 40引 526防 勝率60%)<br/>
+Always like this  -Leon (1531戰 397勝1098敗 36引 4防 勝率26%)<br/>
+</td></tr>
+<tr><td class="td7" style="text-align:center" valign="middle">
+5位</td><td class="td8">
+FF (2646戰 893勝1689敗 64引 147防 勝率34%)<br/>
+壓虎騎貘姿勢佳 (20138戰 6929勝11840敗 1369引 130防 勝率34%)<br/>
+Jeremy (7560戰 3877勝3495敗 188引 0防 勝率51%)<br/>
+</td></tr>
+</tbody></table>
+</div>
+<div class="left_div">
+<div style="width:350px;padding:5px;float:left;">
+<div style="width:350px;text-align:center">
+<a href="/hall">
+<img alt="蚊子大戰" src="./image/top04.jpg" style="margin-bottom:20px"/>
+</a>
+</div>
+<div style="margin-left:20px">
+<div class="u">關於一服說明</div>
+<ul>
+<li>一服有關於制度方面的變動。 </li>
+<li>速度會顯得比較慢。 </li>
+<li>但是相對來說比較穩定。 </li>
+<li>如果想當先行者可以到二服。 </li>
+<li><a href="/hall02">二服「蚊子起步」</a></li></ul>
+<br/>
+<div class="u">建議瀏覽器</div>
+<ul>
+<li>本站適用IE7以上,Firefox,Chrome。 </li>
+<li>建議不要使用IE6.0以下進行遊戲、<br/>以免產生白圖現象。</li></ul>
+<br/>
+<div class="u">這到底是什麼遊戲?</div>
+<ul>
+<li>遊戲的目的是得到第一、<br/>並且保持住第一的位置。 </li>
+<li>因該有些冒險的要素、<br/>但有點深奧的戰鬥系統。 </li></ul>
+<div class="u">戰鬥的感覺是什麼?</div>
+<ul>
+<li>5人的人物構成隊伍 。 </li>
+<li>各人物各持不同模式、<br/>根據戰鬥的狀況來使用技能。 </li>
+<li><a class="a0" href="?log">這邊</a>可以回覽戰鬥記錄。 </li>
+<div class="u">網站相關推薦</div>
+<ul><li><g:plusone annotation="inline" width="200"></g:plusone>
+<div class="fb-like" data-send="true" data-show-faces="true" data-width="400"></div></li></ul>
+</ul></div></div>
+</div>
+<div class="c-both"></div>
+</div>
+<div style="margin:15px">
+<h4>提示</h4>
+        用戶數: 2000 / 2000<br/>
+        90日中資料沒變化的話資料將消失。</div>
+</div>

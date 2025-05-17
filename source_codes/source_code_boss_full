@@ -1,0 +1,225 @@
+<div id="mybody">	
+    			<div id="menu">
+			<table width="100%"><tbody><tr>
+			  <td>
+				<a href="#" onclick="RA_UseBack('index2.php?team')">軍團資訊</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php')">角色</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?item')">道具</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?town')">城鎮</a><span class="divide"></span>				<a href="#" onclick="RA_UseBack('index2.php?setting')">設置</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?eslog')">記錄</a><span class="divide"></span>
+				<a href="/bb3" rel="external">遊戲論壇</a><span class="divide"></span>
+			  </td><td align="right" width="10%">
+                 <div id="online_num_div"><img src="./image/icon/online-icon.png" alt="線上人數" class="top_icon" id="online_num_img" data-hasqtip="20" oldtitle="線上人數" title=""><b id="online_num" data-hasqtip="21">2</b></div>
+			  </td><td align="right" width="5%">
+				<a href="#" onclick="RA_UseBack('index2.php?menu=mail')">
+<img alt="信箱" title="信箱" class="top_icon" src="./image/system/icon_mail_3.gif">				</a>
+			</td></tr></tbody></table>
+			</div>
+			<div id="menu2">
+			<div style="width:100%">
+			<div style="width:30%;float:left">陸斯坎軍團老兵</div>
+			<div style="width:60%;float:right">
+			<div style="width:40%;float:left"><span class="bold">資金</span> : $&nbsp;424,702,784</div>
+			<div style="width:40%;float:right"><span class="bold">時間</span> : <span id="mtime">3740</span>/4000</div>
+			</div>
+			<div class="c-both"></div>
+			</div>
+			<div style="width:100%">
+			<div style="width:30%;float:left"><span class="bold">國家:
+<a href="javascript:void(0)" onclick="RA_UseBack('index2.php?menu=country&amp;country_id=11')">Hall of Luskan</a>			</span> </div>
+			<div style="width:60%;float:right">
+			<div style="width:40%;float:left"><span class="bold">榮譽</span> : $&nbsp;197</div>
+						</div>
+			<div class="c-both"></div>
+			</div>
+</div><div id="Jq_Conten">﻿<div style="margin:15px"><h4>普通怪物</h4><div style="margin:0 20px"><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=gb0')">哥布林(最弱)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=gb1')">強一點的哥布林</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=gb2')">哥布林戰士</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac0')">古之洞穴</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac1')">古之洞穴(B2)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac2')">古之洞穴(B3)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac3')">古之洞穴(B4)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac4')">古之洞穴(B5)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=snow0')">滴凍入口</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=snow1')">滴凍中腹</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=snow2')">滴凍頂上</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=sea0')">藏寶海岸</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ocean0')">無盡之海</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ocean1')">偉大的航路</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=sand0')">傑斯卡柏</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=volc0')">黑石黑淵</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=volc1')">火融之核</a></p></div>
+<h4>BOSS</h4><div style="margin:0 20px">離下次戰鬥還需要 : <span class="bold">19:23</span></div></div><table cellspacing="0" style="width:100%" class="li_no_type"><tbody><tr>	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=0')"><img src="./image/char/mon_013r.gif"></a></div>
+	<div class="bold dmg">黑龍軍團</div>限制級別:400級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=1')"><img src="./image/char/mon_014.gif"></a></div>
+	<div class="bold dmg">金牛衝鋒隊</div>限制級別:250級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_pavement01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=2')"><img src="./image/char/hero.gif"></a></div>
+	<div class="bold dmg">假英雄</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_sand.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=3')"><img src="./image/char/mon_216.gif"></a></div>
+	<div class="bold dmg">土匪群</div>限制級別:250級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=4')"><img src="./image/char/mon_054rz.gif"></a></div>
+	<div class="bold dmg">早餐時間</div>限制級別:100級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=5')"><img src="./image/char/mon_054ry.gif"></a></div>
+	<div class="bold dmg">午餐時間</div>限制級別:100級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=6')"><img src="./image/char/mon_054r.gif"></a></div>
+	<div class="bold dmg">晚餐時間</div>限制級別:100級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=7')"><img src="./image/char/mon_008r.gif"></a></div>
+	<div class="bold dmg">猿猴的憤怒</div>限制級別:150級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_nest.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=8')"><img src="./image/char/mon_208rz.gif"></a></div>
+	<div class="bold dmg">鳥巢</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=9')"><img src="./image/char/mon_238.gif"></a></div>
+	<div class="bold dmg">冥界鬥士</div>限制級別:200級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=10')"><img src="./image/char/mon_117k.gif"></a></div>
+	<div class="bold dmg">藍色哨兵</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=11')"><img src="./image/char/mon_168.gif"></a></div>
+	<div class="bold dmg">食人魔軍團</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=12')"><img src="./image/char/mon_eve001.gif"></a></div>
+	<div class="bold dmg">上古之神</div>限制級別:450級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=13')"><img src="./image/char/mon_106.gif"></a></div>
+	<div class="bold dmg">靈魂法師</div>限制級別:180級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=14')"><img src="./image/char/mon_264r.png"></a></div>
+	<div class="bold dmg">遠古封印</div>限制級別:250級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=15')"><img src="./image/char/mon_016.gif"></a></div>
+	<div class="bold dmg">深海幼幼</div>限制級別:180級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=16')"><img src="./image/char/mon_091.gif"></a></div>
+	<div class="bold dmg">鋼鍊之地</div>限制級別:320級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_Nintendo.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=18')"><img src="./image/char/Nintendob-001.gif"></a></div>
+	<div class="bold dmg">功夫皇帝</div>限制級別:280級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=19')"><img src="./image/char/mon_nu019_5.gif"></a></div>
+	<div class="bold dmg">咒拳鄉逆襲</div>限制級別:430級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=21')"><img src="./image/char/mon_002.gif"></a></div>
+	<div class="bold dmg">史萊姆第二個家</div>限制級別:150級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_lava.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=22')"><img src="./image/char/mon_2022.gif"></a></div>
+	<div class="bold dmg">光明神廟(前院)</div>限制級別:220級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=23')"><img src="./image/char/mon_150r.gif"></a></div>
+	<div class="bold dmg">過往英雄</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=25')"><img src="./image/char/mon_158.gif"></a></div>
+	<div class="bold dmg">過往與未來</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=26')"><img src="./image/char/mon_260r.png"></a></div>
+	<div class="bold dmg">終焉之刻</div>限制級別:480級
+	</div></td>
+</tr></tbody></table><div style="margin:0 15px">
+<h4>BOSS戰記錄 <a href="?ulog">全表示</a></h4>
+<div style="margin:0 20px">
+[ <a href="?ulog=1746605284413866
+" onclick="RA_History()">05/07 PM 04:08:04</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(8: 45.3)<br>[ <a href="?ulog=1746604772213258
+" onclick="RA_History()">05/07 PM 03:59:32</a> ]&nbsp;
+<span class="bold">115</span>回&nbsp;
+<span class="dmg"><span class="support">[訊息隱藏]</span> 天邊小星星</span>(5: 58.3) vs <span class="recover">鳥巢
+</span>(27: 45.3)<br>[ <a href="?ulog=1746604565948310
+" onclick="RA_History()">05/07 PM 03:56:05</a> ]&nbsp;
+<span class="bold">62</span>回&nbsp;
+<span class="dmg"><span class="support">[訊息隱藏]</span> 方向音痴</span>(1: 60) vs <span class="recover">深海幼幼
+</span>(5: 28)<br>[ <a href="?ulog=1746603526590099
+" onclick="RA_History()">05/07 PM 03:38:46</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(13: 45.3)<br>[ <a href="?ulog=1746602683785436
+" onclick="RA_History()">05/07 PM 03:24:43</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 天邊小星星(8: 58.3) vs 鳥巢
+(18: 45.3)<br>[ <a href="?ulog=1746602236169425
+" onclick="RA_History()">05/07 PM 03:17:16</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(10: 45.3)<br>[ <a href="?ulog=1746601699114343
+" onclick="RA_History()">05/07 PM 03:08:19</a> ]&nbsp;
+<span class="bold">125</span>回&nbsp;
+<span class="recover"><span class="support">[訊息隱藏]</span> K-極也</span>(76: 60) vs <span class="dmg">炫風已起
+</span>(5: 72.4)<br>[ <a href="?ulog=1746600104053660
+" onclick="RA_History()">05/07 PM 02:41:44</a> ]&nbsp;
+<span class="bold">130</span>回&nbsp;
+<span class="dmg"><span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵</span>(5: 39.6) vs <span class="recover">鳥巢
+</span>(22: 45.3)<br>[ <a href="?ulog=1746600081321294
+" onclick="RA_History()">05/07 PM 02:41:21</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> ATX(21: 60) vs 深海幼幼
+(5: 28)<br>[ <a href="?ulog=1746599622797077
+" onclick="RA_History()">05/07 PM 02:33:42</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 天邊小星星(7: 59) vs 深海幼幼
+(5: 28)<br>[ <a href="?ulog=1746598795034850
+" onclick="RA_History()">05/07 PM 02:19:55</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> K-極也(4: 46.8) vs 鳥巢
+(14: 45.3)<br>[ <a href="?ulog=1746598410740638
+" onclick="RA_History()">05/07 PM 02:13:30</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 天邊小星星(7: 59) vs 深海幼幼
+(5: 28)<br>[ <a href="?ulog=1746598121573098
+" onclick="RA_History()">05/07 PM 02:08:41</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(10: 45.3)<br>[ <a href="?ulog=1746596650581515
+" onclick="RA_History()">05/07 PM 01:44:10</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(6: 45.3)<br>[ <a href="?ulog=1746595407964508
+" onclick="RA_History()">05/07 PM 01:23:27</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(8: 45.3)<br></div></div>
+</div></div>

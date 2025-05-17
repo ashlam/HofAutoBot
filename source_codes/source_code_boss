@@ -1,0 +1,125 @@
+<table cellspacing="0" style="width:100%" class="li_no_type"><tbody><tr>	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=0')"><img src="./image/char/mon_013r.gif"></a></div>
+	<div class="bold dmg">黑龍軍團</div>限制級別:400級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=1')"><img src="./image/char/mon_014.gif"></a></div>
+	<div class="bold dmg">金牛衝鋒隊</div>限制級別:250級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_pavement01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=2')"><img src="./image/char/hero.gif"></a></div>
+	<div class="bold dmg">假英雄</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_sand.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=3')"><img src="./image/char/mon_216.gif"></a></div>
+	<div class="bold dmg">土匪群</div>限制級別:250級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=4')"><img src="./image/char/mon_054rz.gif"></a></div>
+	<div class="bold dmg">早餐時間</div>限制級別:100級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=5')"><img src="./image/char/mon_054ry.gif"></a></div>
+	<div class="bold dmg">午餐時間</div>限制級別:100級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=6')"><img src="./image/char/mon_054r.gif"></a></div>
+	<div class="bold dmg">晚餐時間</div>限制級別:100級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=7')"><img src="./image/char/mon_008r.gif"></a></div>
+	<div class="bold dmg">猿猴的憤怒</div>限制級別:150級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_nest.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=8')"><img src="./image/char/mon_208rz.gif"></a></div>
+	<div class="bold dmg">鳥巢</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=9')"><img src="./image/char/mon_238.gif"></a></div>
+	<div class="bold dmg">冥界鬥士</div>限制級別:200級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=10')"><img src="./image/char/mon_117k.gif"></a></div>
+	<div class="bold dmg">藍色哨兵</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=11')"><img src="./image/char/mon_168.gif"></a></div>
+	<div class="bold dmg">食人魔軍團</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=12')"><img src="./image/char/mon_eve001.gif"></a></div>
+	<div class="bold dmg">上古之神</div>限制級別:450級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=13')"><img src="./image/char/mon_106.gif"></a></div>
+	<div class="bold dmg">靈魂法師</div>限制級別:180級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=14')"><img src="./image/char/mon_264r.png"></a></div>
+	<div class="bold dmg">遠古封印</div>限制級別:250級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=15')"><img src="./image/char/mon_016.gif"></a></div>
+	<div class="bold dmg">深海幼幼</div>限制級別:180級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=16')"><img src="./image/char/mon_091.gif"></a></div>
+	<div class="bold dmg">鋼鍊之地</div>限制級別:320級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_Nintendo.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=18')"><img src="./image/char/Nintendob-001.gif"></a></div>
+	<div class="bold dmg">功夫皇帝</div>限制級別:280級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=19')"><img src="./image/char/mon_nu019_5.gif"></a></div>
+	<div class="bold dmg">咒拳鄉逆襲</div>限制級別:430級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=21')"><img src="./image/char/mon_002.gif"></a></div>
+	<div class="bold dmg">史萊姆第二個家</div>限制級別:150級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_lava.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=22')"><img src="./image/char/mon_2022.gif"></a></div>
+	<div class="bold dmg">光明神廟(前院)</div>限制級別:220級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=23')"><img src="./image/char/mon_150r.gif"></a></div>
+	<div class="bold dmg">過往英雄</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=25')"><img src="./image/char/mon_158.gif"></a></div>
+	<div class="bold dmg">過往與未來</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=26')"><img src="./image/char/mon_260r.png"></a></div>
+	<div class="bold dmg">終焉之刻</div>限制級別:480級
+	</div></td>
+</tr></tbody></table>
