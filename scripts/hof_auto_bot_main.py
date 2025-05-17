@@ -70,32 +70,36 @@ class AutoBotConfigManager:
 class HofAutoBot:
     def __init__(self):
         """构造函数"""
+        self.current_state = None
         pass
+
+    # 定义游戏状态
+    GAME_STATE_BOSS = 'boss'
+    GAME_STATE_PVP = 'pvp'
+    GAME_STATE_WORLD_PVP = 'world_pvp'
+    GAME_STATE_NORMAL_STAGE = 'normal_stage'
 
     def run(self):
         """运行主循环"""
-        # 定义游戏状态
-        GAME_STATE_BOSS = 'boss'
-        GAME_STATE_PVP = 'pvp'
-        GAME_STATE_WORLD_PVP = 'world_pvp'
-        GAME_STATE_NORMAL_STAGE = 'normal_stage'
         
-        current_state = GAME_STATE_BOSS
+        self.current_state = self.GAME_STATE_BOSS
         
         while True:
             # 根据当前状态执行相应的操作
-            if current_state == GAME_STATE_BOSS:
-                current_state = self._process_boss_battle()
-            elif current_state == GAME_STATE_PVP and self.auto_bot_config_manager.is_challenge_pvp:
-                self.pvp_manager.execute_pvp_action(self.auto_bot_config_manager.pvp_plan_action_id)
-                current_state = GAME_STATE_WORLD_PVP
-            elif current_state == GAME_STATE_WORLD_PVP and self.auto_bot_config_manager.is_challenge_world_pvp:
-                self.pvp_manager.execute_world_pvp_action(self.auto_bot_config_manager.world_pvp_plan_action_id)
-                current_state = GAME_STATE_NORMAL_STAGE
-            elif current_state == GAME_STATE_NORMAL_STAGE:
-                current_state = self._execute_normal_stage()
+            if self.current_state == self.GAME_STATE_BOSS:
+                self.current_state = self._process_boss_battle()
+            elif self.current_state == self.GAME_STATE_PVP:
+                if self.auto_bot_config_manager.is_challenge_pvp:
+                    self.pvp_manager.execute_pvp_action(self.auto_bot_config_manager.pvp_plan_action_id)
+                self.current_state = self.GAME_STATE_WORLD_PVP
+            elif self.current_state == self.GAME_STATE_WORLD_PVP:
+                if self.auto_bot_config_manager.is_challenge_world_pvp:
+                    self.pvp_manager.execute_world_pvp_action(self.auto_bot_config_manager.world_pvp_plan_action_id)
+                self.current_state = self.GAME_STATE_NORMAL_STAGE
+            elif self.current_state == self.GAME_STATE_NORMAL_STAGE:
+                self.current_state = self._execute_normal_stage()
             else:
-                current_state = GAME_STATE_BOSS
+                self.current_state = self.GAME_STATE_BOSS
 
     def _update_info_from_hunt_page(self):
         current_server_data = self.server_config_manager.current_server_data
@@ -258,7 +262,12 @@ class HofAutoBot:
             self._process_boss_battle()
             return
         # 否则，执行下一个动作
-        self._execute_pvp_action()
+        # self._execute_pvp_action()
+        self._set_state(self.GAME_STATE_PVP)
+
+    def _set_state(self, state):
+        """设置当前状态"""
+        self.current_state = state
 
     def _execute_pvp_action(self):
         """执行PVP战斗动作"""
@@ -272,7 +281,8 @@ class HofAutoBot:
 
     def _challenge_pvp_finished(self):
         """处理PVP竞技场完成后的逻辑"""
-        self._execute_world_pvp_action()
+        # self._execute_world_pvp_action()
+        self._set_state(self.GAME_STATE_PVP)
 
     def _execute_world_pvp_action(self):
         """执行世界PVP战斗动作"""
@@ -286,7 +296,8 @@ class HofAutoBot:
 
     def _on_challenge_world_pvp_finished(self):
         """处理世界PVP战斗完成后的逻辑"""
-        self._execute_normal_stage()
+        # self._execute_normal_stage()
+        self._set_state(self.GAME_STATE_NORMAL_STAGE)
 
     def _execute_normal_stage(self):
         """执行普通小怪战斗
@@ -312,7 +323,8 @@ class HofAutoBot:
 
     def _on_challenge_normal_stage_finished(self):
         """处理普通小怪战斗完成后的逻辑"""
-        self._process_boss_battle()
+        # self._process_boss_battle()
+        self._set_state('boss')
 
     def _initialize(self):
         """等待登录"""
