@@ -78,6 +78,10 @@ class HofAutoBot:
     GAME_STATE_PVP = 'pvp'
     GAME_STATE_WORLD_PVP = 'world_pvp'
     GAME_STATE_NORMAL_STAGE = 'normal_stage'
+    IDLE_SECONDS_FOR_REFRESH = 4
+    IDLE_SECONDS_FOR_RECOVER_STAMINA = 7
+    IDLE_SECONDS_FOR_CHALLENGE_BOSS = 30
+    COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS = 1200
 
     def run(self):
         """运行主循环"""
@@ -87,19 +91,15 @@ class HofAutoBot:
         while True:
             # 根据当前状态执行相应的操作
             if self.current_state == self.GAME_STATE_BOSS:
-                self.current_state = self._process_boss_battle()
+                self._process_boss_battle()
             elif self.current_state == self.GAME_STATE_PVP:
-                if self.auto_bot_config_manager.is_challenge_pvp:
-                    self.pvp_manager.execute_pvp_action(self.auto_bot_config_manager.pvp_plan_action_id)
-                self.current_state = self.GAME_STATE_WORLD_PVP
+                self._execute_pvp_action()
             elif self.current_state == self.GAME_STATE_WORLD_PVP:
-                if self.auto_bot_config_manager.is_challenge_world_pvp:
-                    self.pvp_manager.execute_world_pvp_action(self.auto_bot_config_manager.world_pvp_plan_action_id)
-                self.current_state = self.GAME_STATE_NORMAL_STAGE
+                self._execute_world_pvp_action()
             elif self.current_state == self.GAME_STATE_NORMAL_STAGE:
-                self.current_state = self._execute_normal_stage()
+                self._execute_normal_stage()
             else:
-                self.current_state = self.GAME_STATE_BOSS
+                self._set_state(self.GAME_STATE_BOSS)
 
     def _update_info_from_hunt_page(self):
         current_server_data = self.server_config_manager.current_server_data
@@ -126,45 +126,45 @@ class HofAutoBot:
         
         # 如果体力不足
         if player_stamina < self.auto_bot_config_manager.boss_cost_stamina:
-            print('体力不足，无法挑战boss，等待5秒后重试')
-            time.sleep(5)
-            return 'boss'
+            print(f'体力不足，无法挑战boss，等待{self.IDLE_SECONDS_FOR_RECOVER_STAMINA}秒后重试')
+            time.sleep(self.IDLE_SECONDS_FOR_RECOVER_STAMINA)
+            self._set_state(self.GAME_STATE_BOSS)
+            return
         
         # 处理冷却时间
         if challenge_next_cooldown > 0:
-            if challenge_next_cooldown > 10:
+            if challenge_next_cooldown > self.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
                 # 如果在冷却中，且体力大于一定值，执行小怪战斗
                 if player_stamina >= self.auto_bot_config_manager.keep_stamnia_for_change_stage:
                     next_challange_real_time = time.time() + challenge_next_cooldown
-                    print(f'冷却中，当前体力：{player_stamina}，下次boss挑战时间：{next_challange_real_time}，于是去练级')
-                    return 'pvp'
+                    print(f'BOSS冷却还早，当前体力：{player_stamina}，下次boss挑战时间：{next_challange_real_time}，于是去干别的')
+                    self._set_state(self.GAME_STATE_PVP)
+                    return
                 else:
-                    print(f'Boss挑战冷却中，还剩{challenge_next_cooldown}秒，但体力不足，等待10秒后重试')
-                    time.sleep(10)
-                    return 'boss'
+                    print(f'Boss挑战冷却中，还剩{challenge_next_cooldown}秒，但体力不足以去打小怪，等待10秒后重试')
+                    time.sleep(self.IDLE_SECONDS_FOR_RECOVER_STAMINA)
+                    challenge_next_cooldown -= self.IDLE_SECONDS_FOR_RECOVER_STAMINA
             else:
                 print(f'Boss挑战冷却中，还剩{challenge_next_cooldown}秒，等待冷却结束')
                 time.sleep(challenge_next_cooldown)
-                return 'boss'
+                challenge_next_cooldown = 0
         
         # 如果没有冷却时间，可以打boss
         print('进入vip boss检查流程')
         # 检查是否需要打VIP boss
         if self.auto_bot_config_manager.is_challenge_vip_boss and self.auto_bot_config_manager.vip_boss_need_watch:
             for vip_boss in self.auto_bot_config_manager.vip_boss_need_watch:
-                vip_boss_id = vip_boss['union_id']
-                if not vip_boss_id in all_alived_boss_ids:
-                    continue
                 # 处理Vip boss，如果返回True，则表示打过了Boss或已设定等待打该Boss。否则继续处理下一个VIP boss
                 if self._handle_vip_boss(vip_boss):
-                    # 如果成功处理了VIP boss战斗，则进入PVP状态
-                    return 'pvp'
+                    # 如果成功处理了VIP boss战斗，则进入后续状态
+                    self._on_challenge_boss_finished()
+                    return
                 else:
                     continue
 
         print('进入普通 boss检查流程')
         # 如果没有VIP boss或不需要打VIP boss，则处理普通boss
-        return self._process_normal_boss()
+        self._process_normal_boss()
 
     def _handle_vip_boss(self, vip_boss: Dict) -> bool:
         """处理VIP boss战斗
@@ -188,30 +188,35 @@ class HofAutoBot:
             return True
         # 否则说明当前没有该boss存在，即已被打败
         else:
+            boss_log_url = f"{self.server_config_manager.current_server_data['url']}?ulog"
             # 获取boss下次被击败的时间
-            next_battle_info = self.battle_watcher_manager.get_boss_next_battle_real_time(union_id, kill_cooldown)
-            if not next_battle_info or next_battle_info:
+            next_battle_info = self.battle_watcher_manager.get_boss_next_battle_real_time(union_id, kill_cooldown, boss_log_url)
+            if not next_battle_info:
                 # 如果没有记录，说明可能boss记录太多了，那也没办法，就算了
                 print(f'未找到上次boss被击败的时间，id: {union_id} ，没有办法处理boss({union_id})，中止处理。')
                 return False
             # 计算下次刷新时间
-            next_spawn_time = next_battle_info['future_unixtime']
+            next_spawn_time = datetime.fromtimestamp(next_battle_info['future_unixtime'])
             time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
+            print(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{time_until_spawn:.2f}秒")
+            print(f"将于{time_until_spawn - self.COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS * 2}秒后暂停挑战普通boss行为，专心等vip")
 
-            # 如果20分钟内会刷新
-            if time_until_spawn < 30:
+            # 如果很快就会刷新，等一等直接打
+            if time_until_spawn < self.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
                 print(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新，尝试处理。')
                 time.sleep(time_until_spawn)
                 # 虽然上次没有出现，但根据计算现在已经刷新，直接执行boss战斗动作
                 self.action_executor.execute_actions(self.driver, action)
                 return True
-            elif time_until_spawn < 1200:
-                print(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，可以去打小怪。')
-                # 20分钟内会刷新，去打小怪，不要去打Boss
+            # 如果20分钟
+            elif time_until_spawn < self.COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS * 2:
+                print(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，去干别的。')
+                
                 return True
             else:
                 print(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。时间还早，去处理其他Boss。')
                 return False
+    
 
     def _process_normal_boss(self):
         """处理普通boss战斗
@@ -222,18 +227,20 @@ class HofAutoBot:
         self._update_info_from_hunt_page()
         challenge_next_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
         player_stamina = self.battle_watcher_manager.get_player_stamina()
-        idle_seconds = 60
+        idle_seconds = self.IDLE_SECONDS_FOR_CHALLENGE_BOSS
 
         # 检查冷却时间
         if challenge_next_cooldown > idle_seconds:
             # 如果在冷却中，且体力大于一定值，执行小怪战斗
             if player_stamina >= self.auto_bot_config_manager.keep_stamnia_for_change_stage:
                 print(f'冷却中，当前体力：{player_stamina}，于是去练级')
-                return 'pvp'
+                self._on_challenge_boss_finished()
+                return
             else:
                 print(f'冷却中，当前体力：{player_stamina}，等待{idle_seconds}秒后重试')
                 time.sleep(idle_seconds)
-                return 'boss'
+                self._process_boss_battle()
+                return
 
         print('没有冷却，准备刷boss')
         for boss in self.auto_bot_config_manager.normal_boss_loop_order:
@@ -246,11 +253,12 @@ class HofAutoBot:
                 action = self.server_config_manager.all_action_config_by_server.get(f"{boss['plan_action_id']}")
                 self.action_executor.execute_actions(self.driver, action)
                 time.sleep(5)
-                return 'pvp'
+                self._on_challenge_boss_finished()
+                return
         
         # 如果没有可以打的boss，进入PVP状态
         print(f'没有普通boss需要处理, 普通boss清单：{self.auto_bot_config_manager.normal_boss_loop_order}')
-        return 'pvp'
+        self._on_challenge_boss_finished()
 
     def _on_challenge_boss_finished(self):
         """处理boss战斗完成后的逻辑"""
@@ -267,6 +275,7 @@ class HofAutoBot:
 
     def _set_state(self, state):
         """设置当前状态"""
+        print(f'状态切换：{self.current_state} -> {state}')
         self.current_state = state
 
     def _execute_pvp_action(self):
@@ -282,7 +291,7 @@ class HofAutoBot:
     def _challenge_pvp_finished(self):
         """处理PVP竞技场完成后的逻辑"""
         # self._execute_world_pvp_action()
-        self._set_state(self.GAME_STATE_PVP)
+        self._set_state(self.GAME_STATE_WORLD_PVP)
 
     def _execute_world_pvp_action(self):
         """执行世界PVP战斗动作"""
@@ -304,27 +313,27 @@ class HofAutoBot:
         Returns:
             str: 下一个游戏状态
         """
-        # 刷一下战斗界面，看看剩余体力
-        self._update_info_from_hunt_page()
-        player_stamina = self.battle_watcher_manager.get_player_stamina()
-        if (player_stamina < self.auto_bot_config_manager.keep_stamnia_for_change_stage):
-            print(f'体力不足，回boss界面...')
-            return 'boss'
 
         for stage in self.auto_bot_config_manager.normal_stage_loop_order:
+            # 刷一下战斗界面，看看剩余体力
+            self._update_info_from_hunt_page()
+            player_stamina = self.battle_watcher_manager.get_player_stamina()
+            if (player_stamina < self.auto_bot_config_manager.keep_stamnia_for_change_stage):
+                print(f'体力不足打小怪...')
+                break
             action = self.server_config_manager.all_action_config_by_server.get(f"{stage['plan_action_id']}")
             if action:
                 print(f'进行普通小怪挑战：{stage["plan_action_id"]}')
                 self.action_executor.execute_actions(self.driver, action)
                 time.sleep(5)
-        
+
         # 完成所有小怪战斗后，返回boss状态
-        return 'boss'
+        self._on_challenge_normal_stage_finished()
 
     def _on_challenge_normal_stage_finished(self):
         """处理普通小怪战斗完成后的逻辑"""
         # self._process_boss_battle()
-        self._set_state('boss')
+        self._set_state(self.GAME_STATE_BOSS)
 
     def _initialize(self):
         """等待登录"""

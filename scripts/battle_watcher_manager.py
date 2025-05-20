@@ -25,7 +25,7 @@ class BattleWatcherManager:
             return None
 
 
-    def process_timestamp(self, timestamp_str, minutes_to_add=240):
+    def process_timestamp(self, timestamp_str, seconds_to_add):
         """处理16位时间戳，转换为标准时间格式并计算未来时间"""
         try:
             # 取前10位转换为整数
@@ -34,7 +34,7 @@ class BattleWatcherManager:
             # 转换为datetime对象
             original_time = datetime.fromtimestamp(unix_timestamp)
             # 计算未来时间
-            future_time = original_time + timedelta(minutes=minutes_to_add)
+            future_time = original_time + timedelta(seconds=seconds_to_add)
             
             # 格式化输出
             return {
@@ -47,12 +47,12 @@ class BattleWatcherManager:
             print(f'处理时间戳失败: {str(e)}')
             return None
 
-    def get_boss_next_battle_real_time(self, union_id, minutes_to_add=240):
+    def get_boss_next_battle_real_time(self, union_id, seconds_to_add=240, url = 'http://pim0110.com/hall?ulog'):
         """获取指定boss的下次战斗时间"""
         def get_lastest_timestamp_from_boss_battle_log(union_id):
             """获取指定boss的最近一次战斗记录时间戳"""
-            url = 'http://pim0110.com/hall?ulog'
             boss_info = self.get_boss_info(union_id)
+            print(f'获取{boss_info["name"]}的最近一次战斗记录时间戳')
             if not boss_info:
                 return None
             boss_name = boss_info["name"]
@@ -71,7 +71,11 @@ class BattleWatcherManager:
                 
                 match = re.search(timestamp_pattern, first_matched_boss_text, re.DOTALL)
                 if match:
-                    return match.group(1)
+                    matched_text =  match.group(1)
+                    print("matched_text = "+ matched_text)
+                    return matched_text
+                else:
+                    print(f'未找到{boss_name}的最近一次战斗记录, url = {url},\n\n timestamp_pattern = {timestamp_pattern} \n\n res.content = {content}')
                 return None
             except Exception as e:
                 print(f'获取战斗日志失败: {str(e)}')
@@ -79,9 +83,11 @@ class BattleWatcherManager:
         # 获取boss信息
         latest_timestamp_str = get_lastest_timestamp_from_boss_battle_log(union_id)
         if latest_timestamp_str:
-            time_info = self.process_timestamp(latest_timestamp_str, minutes_to_add)
+            time_info = self.process_timestamp(latest_timestamp_str, seconds_to_add)
             if time_info:
+                print(f'>>>下次战斗时间: {time_info}')
                 return time_info
+        print('获取log -> 下次战斗时间失败, latest_timestamp_str = ' + latest_timestamp_str)
         return None
 
     def get_player_challenge_boss_cooldown(self):

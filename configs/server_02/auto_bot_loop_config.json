@@ -9,7 +9,7 @@
     "is_challenge_vip_boss": true,
     "is_challenge_pvp": false,
     "is_challenge_world_pvp": false,
-    "keep_stamnia_for_change_stage": 1000,
+    "keep_stamnia_for_change_stage": 3000,
     "vip_boss_need_watch" : [
         {
             "union_id": 17,
