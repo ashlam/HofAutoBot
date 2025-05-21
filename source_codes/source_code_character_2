@@ -325,7 +325,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1344748774310334)" style="height:128px" title="武器:萊姆棍&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:黑萊姆卡&lt;br&gt;"> <img src="./image/char/mon_005r.png"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1344748774310334)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:黑萊姆卡&lt;br&gt;"> <img src="./image/char/mon_005r.png"/></a>
 </div>
 </div>
 </div>
@@ -415,11 +415,11 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1348929337177116)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1348929337177116)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
 </div>
 </div>
 </div>
-				文學少女<span class="bold charge">*</span><br/>Lv.60 護聖使				<div style="display:none">
+				文學少女<br/>Lv.60 護聖使				<div style="display:none">
 <span data-type="base">31</span>
 <span data-type="job">311</span>
 <span data-type="name">文學少女</span>
@@ -433,7 +433,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1349400276521230)" style="height:128px" title="武器:棒&lt;br&gt;副手:&lt;br&gt;　甲:+4 Iriss外衣&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1349400276521230)" style="height:128px" title="武器:+4 棒&lt;br&gt;副手:&lt;br&gt;　甲:+4 Iriss外衣&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214w.gif"/></a>
 </div>
 </div>
 </div>
@@ -523,11 +523,11 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1352810957852085)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+5 忍術密傳&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1352810957852085)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
 </div>
 </div>
 </div>
-				爲你而戰我的女士<br/>Lv.60 護聖使				<div style="display:none">
+				爲你而戰我的女士<span class="bold charge">*</span><br/>Lv.60 護聖使				<div style="display:none">
 <span data-type="base">16</span>
 <span data-type="job">311</span>
 <span data-type="name">爲你而戰我的女士</span>
@@ -649,7 +649,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1357103327369766)" style="height:128px" title="武器:+4 真-卡拉伊之刃&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 英魂甲冑&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:魔劍使女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n115wa_01.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1357103327369766)" style="height:128px" title="武器:+4 真-卡拉伊之刃&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 英魂甲冑&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:魔劍使女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n115wa_01.gif"/></a>
 </div>
 </div>
 </div>
@@ -959,7 +959,7 @@
 </div>
 </div>
 </div>
-				罰<span class="bold charge">*</span><br/>Lv.60 星界法師				<div style="display:none">
+				罰<br/>Lv.60 星界法師				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">215</span>
 <span data-type="name">罰</span>
@@ -1193,11 +1193,11 @@
 </div>
 </div>
 </div>
-				L.<span class="bold charge">*</span><br/>Lv.59 獵人				<div style="display:none">
+				L.<span class="bold charge">*</span><br/>Lv.60 獵人				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">400</span>
 <span data-type="name">L.</span>
-<span data-type="level">59</span>
+<span data-type="level">60</span>
 <span data-type="type_0"></span>
 </div>
 </div>
@@ -1211,11 +1211,47 @@
 </div>
 </div>
 </div>
-				M.<span class="bold charge">*</span><br/>Lv.56 戰士				<div style="display:none">
+				M.<span class="bold charge">*</span><br/>Lv.60 戰士				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">100</span>
 <span data-type="name">M.</span>
-<span data-type="level">56</span>
+<span data-type="level">60</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li>
+<li data-id="id-67" data-type="warrior" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1747625201700430)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:木盾&lt;br&gt;　甲:仙女長袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
+</div>
+</div>
+</div>
+				N.<span class="bold charge">*</span><br/>Lv.18 戰士				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">100</span>
+<span data-type="name">N.</span>
+<span data-type="level">18</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li>
+<li data-id="id-68" data-type="warrior" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1747625233364827)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:木盾&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_079.gif"/></a>
+</div>
+</div>
+</div>
+				O<span class="bold charge">*</span><br/>Lv.48 戰士				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">100</span>
+<span data-type="name">O</span>
+<span data-type="level">48</span>
 <span data-type="type_0"></span>
 </div>
 </div>

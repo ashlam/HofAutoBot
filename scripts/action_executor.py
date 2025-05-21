@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 import time
 import re
-from element_finder import find_element_by_html, find_element_by_text_and_url
+from scripts.element_finder import find_element_by_html, find_element_by_text_and_url
 
 class ActionExecutor:
     def __init__(self):

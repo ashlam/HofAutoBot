@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 import time
 import json
 from selenium import webdriver
-from server_config_manager import ServerConfigManager
-from battle_watcher_manager import BattleWatcherManager
-from action_executor import ActionExecutor
+from scripts.server_config_manager import ServerConfigManager
+from scripts.battle_watcher_manager import BattleWatcherManager
+from scripts.action_executor import ActionExecutor
 
 class AutoBotConfigManager:
     def __init__(self, config_path: str):
@@ -71,6 +71,9 @@ class HofAutoBot:
     def __init__(self):
         """构造函数"""
         self.current_state = None
+        self.server_config_manager = None
+        self.auto_bot_config_manager = None
+        self.action_executor = None
         pass
 
     # 定义游戏状态
@@ -358,7 +361,38 @@ class HofAutoBot:
         # self._process_boss_battle()
         self._set_state(self.GAME_STATE_BOSS)
 
-    def _initialize(self):
+    def cleanup(self):
+        """释放 Bot 持有的资源"""
+        if self.driver:
+            try:
+                self.driver.quit()
+            except Exception as e:
+                print(f"释放 Bot 的浏览器实例时出错: {e}")
+            finally:
+                self.driver = None
+    def initialize_with_driver(self, server_id, driver):
+        """初始化自动战斗"""
+        self.driver = driver
+        self.server_config_manager = ServerConfigManager()
+        self.server_config_manager.set_current_server_id(server_id)
+        current_server_data = self.server_config_manager.current_server_data
+
+        # 初始化配置和管理器
+        auto_bot_config_path = f"{current_server_data.get('config_path')}/{current_server_data.get('auto_bot_loop_config_path')}"
+        print(f'auto_bot_config_path: {auto_bot_config_path}')
+
+        self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
+        self.battle_watcher_manager = BattleWatcherManager()
+        self.action_executor = ActionExecutor()
+
+        if not self.driver:
+             # 初始化浏览器
+            self.driver = webdriver.Chrome()
+
+        self.driver.get(current_server_data["url"])
+
+
+    def _initialize_from_command_line(self):
         """等待登录"""
         # 初始化服务器配置管理器
         self.server_config_manager = ServerConfigManager()
@@ -427,5 +461,5 @@ class HofAutoBot:
 
 if __name__ == '__main__':
     bot = HofAutoBot()
-    if bot._initialize():
+    if bot._initialize_from_command_line():
         bot.run()

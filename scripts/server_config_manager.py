@@ -10,6 +10,7 @@ class ServerConfigManager:
         self.all_action_group_config_by_server = None
         self.all_action_config_by_server = None
         self.auto_bot_config = None
+        self.server_config_manager = None
         # 加载服务器配置
         self._load_all_server_info_config()
 
