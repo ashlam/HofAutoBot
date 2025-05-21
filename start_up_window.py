@@ -4,7 +4,7 @@
 import os
 import sys
 import json
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from selenium import webdriver
 import atexit
@@ -100,6 +100,8 @@ class LoginWindow(QMainWindow):
             self.bot_thread = None
             self.start_btn.setEnabled(True)
             self.stop_btn.setEnabled(False)
+        if self.hof_auto_bot:
+            self.hof_auto_bot.cleanup()
     
     def on_bot_finished(self):
         self.start_btn.setEnabled(True)
@@ -162,38 +164,71 @@ class LoginWindow(QMainWindow):
             QMessageBox.critical(self, '错误', f'加载服务器配置失败：{str(e)}')
 
     def open_browser(self):
-        try:
-            # 获取选中的服务器配置
-            self.current_server = self.server_combo.currentData()
-            if not self.current_server:
-                QMessageBox.warning(self, '警告', '请先选择服务器')
-                return
+        # try:
+        # 获取选中的服务器配置
+        self.current_server = self.server_combo.currentData()
+        if not self.current_server:
+            QMessageBox.warning(self, '警告', '请先选择服务器')
+            return
 
-            # 启动浏览器
-            self.driver = webdriver.Chrome()
-            self.driver.get(self.current_server['url'])
+        # 启动浏览器
+        self.driver = webdriver.Chrome()
+        self.driver.get(self.current_server['url'])
+        
+        # 等待页面加载完成
+        self.driver.implicitly_wait(8)
+        
+        from scripts.account_config_reader import get_account_config
 
-            # 显示登录确认对话框
-            reply = QMessageBox.question(self, '确认', '请在浏览器中完成登录。\n登录完成后点击"确认"继续，点击"取消"重置。',
-                                       QMessageBox.Yes | QMessageBox.No)
+        default_user_name, default_password = get_account_config(self.current_server["config_path"])
+        
+        from selenium.webdriver.common.by import By
 
-            if reply == QMessageBox.Yes:
+        # 定位用户名输入框并填写内容
+        username_input = self.driver.find_element(By.NAME, "id")
+        username_input.clear()
+        username_input.send_keys(default_user_name)
+
+        # 定位密码输入框并填写内容
+        password_input = self.driver.find_element(By.NAME, "pass")
+        password_input.clear()
+        password_input.send_keys(default_password)
+
+
+        # 弹出验证码输入框
+        captcha, ok = QInputDialog.getText(self, '请输入验证码', '验证码:', text='8888')
+
+        if ok and captcha.strip():
+            try:
+                # 定位验证码输入框并填写内容
+                captcha_input = self.driver.find_element(By.NAME, "captcha")
+                captcha_input.clear()
+                captcha_input.send_keys(captcha.strip())
+                print("账号、密码和验证码已成功填写！")
+
+                login_button = self.driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
+                login_button.click()
+                print("登录按钮已点击！")
+
                 # 启用更新角色和启动按钮
                 self.update_btn.setEnabled(True)
                 self.start_btn.setEnabled(True)
-            else:
-                # 关闭浏览器并重置状态
+
+            except Exception as e:
+                QMessageBox.critical(self, '错误', f'填写验证码失败：{str(e)}')
                 if self.driver:
                     self.driver.quit()
                     self.driver = None
                 self.update_btn.setEnabled(False)
                 self.start_btn.setEnabled(False)
-
-        except Exception as e:
-            QMessageBox.critical(self, '错误', f'打开浏览器失败：{str(e)}')
+        else:
+            # 用户点击取消或未输入内容
+            QMessageBox.information(self, '提示', '您未输入验证码或点击了取消。')
             if self.driver:
                 self.driver.quit()
                 self.driver = None
+            self.update_btn.setEnabled(False)
+            self.start_btn.setEnabled(False)
 
     def update_character(self):
         try:

@@ -74,6 +74,7 @@ class HofAutoBot:
         self.server_config_manager = None
         self.auto_bot_config_manager = None
         self.action_executor = None
+        self.is_finished = False
         pass
 
     # 定义游戏状态
@@ -92,6 +93,8 @@ class HofAutoBot:
         self.current_state = self.GAME_STATE_BOSS
         
         while True:
+            if self.is_finished:
+                return
             # 根据当前状态执行相应的操作
             if self.current_state == self.GAME_STATE_BOSS:
                 self._process_boss_battle()
@@ -125,7 +128,7 @@ class HofAutoBot:
         self._update_info_from_hunt_page()
         challenge_next_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
         player_stamina = self.battle_watcher_manager.get_player_stamina()
-        all_alived_boss_ids = self.battle_watcher_manager.get_all_alive_boss()
+        # all_alived_boss_ids = self.battle_watcher_manager.get_all_alive_boss()
         
         # 如果体力不足
         if player_stamina < self.auto_bot_config_manager.boss_cost_stamina:
@@ -158,7 +161,7 @@ class HofAutoBot:
         if self.auto_bot_config_manager.is_challenge_vip_boss and self.auto_bot_config_manager.vip_boss_need_watch:
             for vip_boss in self.auto_bot_config_manager.vip_boss_need_watch:
                 # 处理Vip boss，如果返回True，则表示打过了Boss或已设定等待打该Boss。否则继续处理下一个VIP boss
-                if self._handle_vip_boss(vip_boss):
+                if self._handle_vip_boss(vip_boss, challenge_next_cooldown):
                     # 如果成功处理了VIP boss战斗，则进入后续状态
                     self.__on_challenge_vip_boss_finished(vip_boss)
                     return
@@ -169,7 +172,7 @@ class HofAutoBot:
         # 如果没有VIP boss或不需要打VIP boss，则处理普通boss
         self._process_normal_boss()
 
-    def _handle_vip_boss(self, vip_boss: Dict) -> bool:
+    def _handle_vip_boss(self, vip_boss: Dict, challenge_next_cooldown) -> bool:
         """处理VIP boss战斗
         Returns:
             bool: 是否成功处理了VIP boss战斗，
@@ -186,8 +189,14 @@ class HofAutoBot:
         # 检查VIP boss是否出现
         if union_id in self.battle_watcher_manager.get_all_alive_boss():
             print(f'VIP boss {union_id} 已出现，尝试处理')
-            # 执行boss战斗动作
-            self.action_executor.execute_actions(self.driver, action)
+            if challenge_next_cooldown <= 0:
+                self.action_executor.execute_actions(self.driver, action)
+                return True
+            elif challenge_next_cooldown < self.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
+                print(f'vip boss已经出现，等待{challenge_next_cooldown}秒后重试')
+                time.sleep(challenge_next_cooldown - self.IDLE_SECONDS_FOR_REFRESH)
+                return True
+            
             return True
         # 否则说明当前没有该boss存在，即已被打败
         else:
@@ -362,6 +371,7 @@ class HofAutoBot:
         self._set_state(self.GAME_STATE_BOSS)
 
     def cleanup(self):
+        self.is_finished = True
         """释放 Bot 持有的资源"""
         if self.driver:
             try:
