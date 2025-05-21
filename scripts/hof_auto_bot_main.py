@@ -157,7 +157,7 @@ class HofAutoBot:
                 # 处理Vip boss，如果返回True，则表示打过了Boss或已设定等待打该Boss。否则继续处理下一个VIP boss
                 if self._handle_vip_boss(vip_boss):
                     # 如果成功处理了VIP boss战斗，则进入后续状态
-                    self._on_challenge_boss_finished()
+                    self.__on_challenge_vip_boss_finished(vip_boss)
                     return
                 else:
                     continue
@@ -216,7 +216,30 @@ class HofAutoBot:
             else:
                 print(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。时间还早，去处理其他Boss。')
                 return False
-    
+
+    def __on_challenge_vip_boss_finished(self, vip_boss):
+        """处理完VIP boss战斗后的逻辑"""
+        # 刷新一下数据，检查一下自己是否进入冷却，并更新boss存活列表
+        self._update_info_from_hunt_page()
+        challenge_next_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
+        all_alived_boss_ids = self.battle_watcher_manager.get_all_alive_boss()
+        vip_boss_id = vip_boss['union_id']
+        plan_action_id = vip_boss['plan_action_id']
+        action = self.server_config_manager.all_action_config_by_server.get(f"{plan_action_id}")
+        # 进了冷却，说明打了vip boss，boss挑战完成
+        if challenge_next_cooldown > 0:
+            self._on_challenge_boss_finished()
+        # 没进入冷却，但刷新后vip boss没在存活列表里，说明被抢了
+        elif (vip_boss_id not in all_alived_boss_ids):
+                # vip boss被抢了，进入普通boss流程
+                print(f'vip boss被抢了，进入普通boss流程')
+                self._process_normal_boss()
+        # 没进入冷却，且刷新后vip boss还在，再打一遍。
+        else:
+            print(f'刚才打vip boss失败')
+            self.action_executor.execute_actions(self.driver, action)
+            self._on_challenge_boss_finished()
+             
 
     def _process_normal_boss(self):
         """处理普通boss战斗
