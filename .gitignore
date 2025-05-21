@@ -20,6 +20,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# User Account Info
+/configs/server_*/account_config.json
+
 # Virtual Environment
 venv/
 env/
