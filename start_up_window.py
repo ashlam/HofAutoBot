@@ -20,6 +20,7 @@ from scripts.hof_auto_bot_main import HofAutoBot
 class BotThread(QThread):
     finished = pyqtSignal()
     error = pyqtSignal(str)
+    status_update = pyqtSignal(dict)
     
     def __init__(self, server_id, driver):
         super().__init__()
@@ -32,6 +33,7 @@ class BotThread(QThread):
         try:
             self.is_running = True
             self.bot = HofAutoBot()
+            self.bot.status_update_signal = self.status_update
             self.bot.initialize_with_driver(self.server_id, self.driver)
             self.bot.run()
         except Exception as e:
@@ -87,11 +89,25 @@ class LoginWindow(QMainWindow):
         self.bot_thread = BotThread(self.current_server["id"], self.driver)
         self.bot_thread.finished.connect(self.on_bot_finished)
         self.bot_thread.error.connect(self.on_bot_error)
+        self.bot_thread.status_update.connect(self.on_status_update)
         self.bot_thread.start()
         
         # 更新按钮状态
         self.start_btn.setEnabled(False)
         self.stop_btn.setEnabled(True)
+
+    def on_status_update(self, status_info):
+        """更新状态显示"""
+        state_map = {
+            'boss': '挑战Boss',
+            'pvp': 'PVP竞技场',
+            'world_pvp': '世界PVP',
+            'normal_stage': '普通关卡'
+        }
+        state_text = state_map.get(status_info['state'], '未知状态')
+        self.state_label.setText(f'当前状态：{state_text}')
+        self.stamina_label.setText(f'体力值：{status_info["stamina"]}')
+        self.cooldown_label.setText(f'冷却时间：{status_info["cooldown"]}秒')
     
     def stop_run(self):
         if self.bot_thread and self.bot_thread.isRunning():
@@ -115,7 +131,7 @@ class LoginWindow(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle('HofAutoBot登录器')
-        self.setFixedSize(300, 200)
+        self.setFixedSize(300, 300)
 
         # 创建中央部件和布局
         central_widget = QWidget()
@@ -144,6 +160,15 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.update_btn)
         layout.addWidget(self.start_btn)
         layout.addWidget(self.stop_btn)
+
+        # 创建状态显示标签
+        from PyQt5.QtWidgets import QLabel
+        self.state_label = QLabel('当前状态：未运行')
+        self.stamina_label = QLabel('体力值：--')
+        self.cooldown_label = QLabel('冷却时间：--')
+        layout.addWidget(self.state_label)
+        layout.addWidget(self.stamina_label)
+        layout.addWidget(self.cooldown_label)
 
         # 绑定按钮事件
         self.browser_btn.clicked.connect(self.open_browser)

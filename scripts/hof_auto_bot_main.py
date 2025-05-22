@@ -75,6 +75,7 @@ class HofAutoBot:
         self.auto_bot_config_manager = None
         self.action_executor = None
         self.is_finished = False
+        self.status_update_signal = None
         pass
 
     # 定义游戏状态
@@ -116,6 +117,17 @@ class HofAutoBot:
         time.sleep(2)
         driver.get(hunt_url)
         self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
+        
+        # 发送状态更新信号
+        if self.status_update_signal:
+            player_stamina = self.battle_watcher_manager.get_player_stamina()
+            challenge_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
+            status_info = {
+                'state': self.current_state,
+                'stamina': player_stamina,
+                'cooldown': challenge_cooldown
+            }
+            self.status_update_signal.emit(status_info)
 
 
     def _process_boss_battle(self):
