@@ -98,13 +98,14 @@ class LoginWindow(QMainWindow):
 
     def on_status_update(self, status_info):
         """更新状态显示"""
-        state_map = {
-            'boss': '挑战Boss',
-            'pvp': 'PVP竞技场',
-            'world_pvp': '世界PVP',
-            'normal_stage': '普通关卡'
-        }
-        state_text = state_map.get(status_info['state'], '未知状态')
+        # state_map = {
+        #     'boss': '挑战Boss',
+        #     'pvp': 'PVP竞技场',
+        #     'world_pvp': '世界PVP',
+        #     'normal_stage': '普通关卡'
+        # }
+        # state_text = state_map.get(status_info['state'], '未知状态')
+        state_text = status_info['state']
         self.state_label.setText(f'当前状态：{state_text}')
         self.stamina_label.setText(f'体力值：{status_info["stamina"]}')
         self.cooldown_label.setText(f'冷却时间：{status_info["cooldown"]}秒')
