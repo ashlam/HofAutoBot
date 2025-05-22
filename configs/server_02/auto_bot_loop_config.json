@@ -23,10 +23,6 @@
             "plan_action_id": 800200
         },
         {
-            "union_id": 1,
-            "plan_action_id": 800010
-        },
-        {
             "union_id": 25,
             "plan_action_id": 800250
         },
@@ -37,6 +33,10 @@
         {
             "union_id": 3,
             "plan_action_id": 800030
+        },
+        {
+            "union_id": 1,
+            "plan_action_id": 800010
         }
     ],
     "vip_stage_need_watch" : [
