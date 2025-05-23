@@ -254,7 +254,7 @@ class HofAutoBot:
                     seconds = int(time_until_spawn)
                     minutes, seconds = divmod(seconds, 60)
                     self.logger.info(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒")
-                    wait_time = max(0, time_until_spawn - self.COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS)
+                    wait_time = min(self.COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS, max(0, time_until_spawn))
                     self.logger.info(f"{ '将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip")
 
                     # 如果很快就会刷新，等一等直接打
