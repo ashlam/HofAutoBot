@@ -23,6 +23,8 @@ wheels/
 # User Account Info
 /configs/server_*/account_config.json
 /logs/
+/source_codes/source_code_character_*
+/configs/server_*/character_config.json
 
 # Virtual Environment
 venv/
