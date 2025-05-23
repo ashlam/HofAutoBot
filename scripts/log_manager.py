@@ -34,10 +34,26 @@ class LogManager:
         return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     def _write_to_file(self, message: str) -> None:
-        """将消息写入日志文件，这里的message已经带了时间戳了"""
-        if self._log_path:
-            with open(self._log_path, 'a', encoding='utf-8') as f:
-                f.write(f"{message}\n")
+        """将消息写入日志文件，按时间倒序写入，最新的消息在最上面"""
+        if not self._log_path:
+            return
+        
+        try:
+            # 如果文件不存在，直接写入
+            if not os.path.exists(self._log_path):
+                with open(self._log_path, 'w', encoding='utf-8') as f:
+                    f.write(f"{message}\n")
+                return
+            
+            # 如果文件存在，读取现有内容
+            with open(self._log_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # 在文件开头写入新消息
+            with open(self._log_path, 'w', encoding='utf-8') as f:
+                f.write(f"{message}\n{content}")
+        except Exception as e:
+            print(f"\033[91m[ERROR] Failed to write log to file: {str(e)}\033[0m")
 
     def debug(self, message: str, is_write_in_file: bool = False) -> None:
         """输出调试信息"""
