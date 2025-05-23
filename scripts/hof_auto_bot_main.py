@@ -258,7 +258,7 @@ class HofAutoBot:
                     self.logger.info(f"{ '将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip", True)
 
                     # 如果很快就会刷新，等一等直接打
-                    if time_until_spawn < wait_time:
+                    if time_until_spawn <= wait_time:
                         self.logger.info(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，去干别的。', True)
                         self._set_wait_vip_boss_time(time_until_spawn)
                         self._set_state(self.GAME_STATE_WAIT_VIP_BOSS)
