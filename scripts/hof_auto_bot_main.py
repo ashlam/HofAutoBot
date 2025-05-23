@@ -95,7 +95,7 @@ class HofAutoBot:
     GAME_STATE_NORMAL_STAGE = 'normal_stage'
     GAME_STATE_IDLE_FOR_BOSS = 'idle_for_boss'
 
-    IDLE_SECONDS_FOR_REFRESH = 4
+    IDLE_SECONDS_FOR_REFRESH = 1
     IDLE_SECONDS_FOR_RECOVER_STAMINA = 7
     IDLE_SECONDS_FOR_CHALLENGE_BOSS = 30
     COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS = 1200
@@ -312,6 +312,8 @@ class HofAutoBot:
             time.sleep(idle_time)
         self.challenge_next_cooldown -= idle_time
         self.challenge_next_cooldown = max(0, self.challenge_next_cooldown)
+        self.waiting_vip_boss_time -= idle_time
+        self.waiting_vip_boss_time = max(0, self.waiting_vip_boss_time)
         self.logger.info(f"发呆结束，剩余冷却时间: {self.challenge_next_cooldown} 秒", True)            
 
     def _process_normal_boss(self):
@@ -432,8 +434,7 @@ class HofAutoBot:
         """处理在挑战Boss前的空闲状态"""
         idle_time = min(self.waiting_vip_boss_time, self.IDLE_SECONDS_FOR_CHALLENGE_BOSS) if self.waiting_vip_boss_time > 0 else self.IDLE_SECONDS_FOR_CHALLENGE_BOSS 
         self.logger.info(f'进入空闲状态，等待{idle_time}秒后开始挑战Boss')
-        
-        time.sleep(idle_time)
+        self._idle_and_update_cooldown(idle_time)
         self._set_state(self.GAME_STATE_BOSS)
 
     def cleanup(self):
