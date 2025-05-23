@@ -7,19 +7,19 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?hunt')\">冒險</a>",
         "container_info": "",
-        "wait_time": 2000
+        "wait_time": 500
       },
       {
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?common=ocean1')\">偉大的航路</a>",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" name=\"monster_battle\" value=\"戰鬥!\">",
         "container_info": "<form action=\"index2.php?common=ocean1\" method=\"post\" id=\"Form_Hu_Monster\" name=\"Form_Hu_Monster\">",
-        "wait_time": 2000
+        "wait_time": 1300
       }
     ]
   },
@@ -101,54 +101,54 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=8')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1346468867379495\" value=\"1\">",
         "container_info": "",
         "_memo": "小高高 L60 退魔戰將",
-        "wait_time": 200
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481342275669751\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.25 L27 狂戰士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481165931220661\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.27 L44 元素使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1746782571260312\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.9 L25 主教",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1745208655009927\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.13 L25 狂戰士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   },
@@ -164,40 +164,40 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=15')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 200
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1341059924615928\" value=\"1\">",
         "container_info": "",
         "_memo": "小月月 L60 元素使",
-        "wait_time": 200
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1397183741187678\" value=\"1\">",
         "container_info": "",
         "_memo": "小狐狐 L60 星界法師",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1536814929876636\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.19 L60 森林長者",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       }
     ]
   },
@@ -213,54 +213,54 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=17')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1395921567796858\" value=\"1\">",
         "container_info": "",
         "_memo": "小七七 L60 護聖使",
-        "wait_time": 200
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1402535372623586\" value=\"1\">",
         "container_info": "",
         "_memo": "小静静 L60 武僧",
-        "wait_time": 200
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481007653429355\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.30 L60 變形者",
-        "wait_time": 200
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1354455047868092\" value=\"1\">",
         "container_info": "",
         "_memo": "小兔兔 L60 殺戮者",
-        "wait_time": 200
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1341490339532287\" value=\"1\">",
         "container_info": "",
         "_memo": "小点点 L60 變形者",
-        "wait_time": 700
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   },
@@ -276,47 +276,47 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=3')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1341490339532287\" value=\"1\">",
         "container_info": "",
         "_memo": "小点点 L60 變形者",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1358816667107676\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人自爆队 L60 狂戰士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1395921567796858\" value=\"1\">",
         "container_info": "",
         "_memo": "小七七 L60 護聖使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1402535372623586\" value=\"1\">",
         "container_info": "",
         "_memo": "小静静 L60 武僧",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   },
@@ -332,54 +332,54 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=0')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1354455047868092\" value=\"1\">",
         "container_info": "",
         "_memo": "小兔兔 L60 殺戮者",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1359460858742662\" value=\"1\">",
         "container_info": "",
         "_memo": "小明明 L60 護聖使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1393944828815043\" value=\"1\">",
         "container_info": "",
         "_memo": "小神神 L60 武僧",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1450841161467649\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人No.1 L60 星界法師",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481007653429355\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.30 L60 變形者",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   },
@@ -395,54 +395,54 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=25')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1352373797914489\" value=\"1\">",
         "container_info": "",
         "_memo": "小ＡＳ L60 護聖使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1358060408626078\" value=\"1\">",
         "container_info": "",
         "_memo": "小莱莱 L60 元素使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1404181747086695\" value=\"1\">",
         "container_info": "",
         "_memo": "小兔兔 L60 絡印勇士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1405864085968419\" value=\"1\">",
         "container_info": "",
         "_memo": "小君君 L60 機關師",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481077275840089\" value=\"1\">",
         "container_info": "",
         "_memo": "小噗噗 L60 森林長者",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   },
@@ -458,54 +458,54 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=8')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1346468867379495\" value=\"1\">",
         "container_info": "",
         "_memo": "小高高 L60 退魔戰將",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481078031559590\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.28 L28 狂戰士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481165931220661\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.27 L45 元素使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1481342275669751\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.25 L27 狂戰士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1746782571260312\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.9 L25 主教",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   },
@@ -521,54 +521,54 @@
         "trigger_type": "跳转",
         "element_info": "<a href=\"#\" onclick=\"RA_UseBack('index2.php?union=20')\">",
         "container_info": "<div id=\"Jq_Conten\">",
-        "wait_time": 2000
+        "wait_time": 300
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"button\" class=\"btn\" onclick=\"checkDelAll()\" value=\"清除\">",
         "container_info": "",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1358816667107676\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人自爆队 L60 狂戰士",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1395921567796858\" value=\"1\">",
         "container_info": "",
         "_memo": "小七七 L60 護聖使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1402535372623586\" value=\"1\">",
         "container_info": "",
         "_memo": "小静静 L60 武僧",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1423637654521611\" value=\"1\">",
         "container_info": "",
         "_memo": "小团团 L60 護聖使",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "复选框",
         "element_info": "name=\"char_1593743352976581\" value=\"1\">",
         "container_info": "",
         "_memo": "狗头人候补No.17 L60 變形者",
-        "wait_time": 500
+        "wait_time": 100
       },
       {
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 1000
+        "wait_time": 100
       }
     ]
   }
