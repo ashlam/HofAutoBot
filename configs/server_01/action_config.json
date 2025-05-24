@@ -260,7 +260,7 @@
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 100
+        "wait_time": 200
       }
     ]
   },
@@ -475,9 +475,10 @@
       },
       {
         "trigger_type": "复选框",
-        "element_info": "name=\"char_1481078031559590\" value=\"1\">",
+            "udid": "1745208655009927",
+        "element_info": "name=\"char_1745208655009927\" value=\"1\">",
         "container_info": "",
-        "_memo": "狗头人候补No.28 L28 狂戰士",
+        "_memo": "狗头人候补No.13 L26 狂戰士",
         "wait_time": 100
       },
       {
@@ -568,7 +569,7 @@
         "trigger_type": "按钮",
         "element_info": "<input type=\"submit\" class=\"btn\" value=\"戰鬥!\" name=\"union_battle\">",
         "container_info": "",
-        "wait_time": 100
+        "wait_time": 200
       }
     ]
   }

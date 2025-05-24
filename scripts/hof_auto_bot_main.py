@@ -84,6 +84,8 @@ class HofAutoBot:
         self.player_stamina = 0
         self.waiting_vip_boss_time = 0
         self.logger = LogManager.get_instance()
+        self.directly_challenge_boss_id = None
+        self.directly_challenge_boss_action = None
 
     # 定义游戏状态
     GAME_STATE_BOSS = 'boss'
@@ -94,6 +96,7 @@ class HofAutoBot:
     GAME_STATE_WORLD_PVP = 'world_pvp'
     GAME_STATE_NORMAL_STAGE = 'normal_stage'
     GAME_STATE_IDLE_FOR_BOSS = 'idle_for_boss'
+    GAME_STATE_DIRECTLY_CHALLENGE_BOSS = 'directly_challenge_boss'
 
     IDLE_SECONDS_FOR_REFRESH = 1
     IDLE_SECONDS_FOR_RECOVER_STAMINA = 7
@@ -125,6 +128,8 @@ class HofAutoBot:
                 self._execute_normal_stage()
             elif self.current_state == self.GAME_STATE_IDLE_FOR_BOSS:
                 self._process_idle_for_challenge_boss()
+            elif self.current_state == self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS:
+                self._process_directly_challenge_boss()
             else:
                 self._set_state(self.GAME_STATE_BOSS)
 
@@ -261,6 +266,7 @@ class HofAutoBot:
                     if time_until_spawn <= wait_time:
                         self.logger.info(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，去干别的。', True)
                         self._set_wait_vip_boss_time(time_until_spawn)
+                        self._set_directly_challgenge_boss(union_id, action)
                         self._set_state(self.GAME_STATE_WAIT_VIP_BOSS)
                         return
                     else:
@@ -269,6 +275,47 @@ class HofAutoBot:
             continue
         # 走到这里说明所有vip boss都处理过了
         self._on_challenge_vip_boss_finished(False)
+
+    def _set_directly_challgenge_boss(self, union_id, action):
+        """设置直接挑战boss的信息"""
+        self.directly_challenge_boss_id = union_id
+        self.directly_challenge_boss_action = action
+
+    def _clear_directly_challgenge_boss(self):
+        """清除直接挑战boss的信息"""
+        self.directly_challenge_boss_id = None
+        self.directly_challenge_boss_action = None
+    
+    def _process_directly_challenge_boss(self):
+        """直接挑战boss，不考虑冷却时间"""
+        union_id = self.directly_challenge_boss_id
+        action = self.directly_challenge_boss_action
+        is_vip_boss = self.directly_challenge_boss_id in self.auto_bot_config_manager.vip_boss_need_watch
+        self.logger.info(f"直接挑战boss {union_id}")
+        if not action:
+            self.logger.error(f'未找到动作配置，id: {action} ，没有办法处理boss({union_id})，中止处理。')
+            self._on_directly_challenge_boss_finished(is_vip_boss, False)
+            return
+        # 刷一下
+        url = f"{self.server_config_manager.current_server_data['url']}index.php?union={union_id}#"
+        self.driver.get(url)
+        self.action_executor.execute_actions(self.driver, action)
+        # 打完了，更新一下信息，看打成功没有（有可能被人抢了）
+        self._on_directly_challenge_boss_finished(is_vip_boss, True)
+
+
+    def _on_directly_challenge_boss_finished(self, is_vip_boss, is_success = True):
+        """直接挑战boss完成后的处理"""
+        self.logger.info(f"直接挑战boss {self.directly_challenge_boss_id} 完成")
+        self._clear_directly_challgenge_boss()
+        """直接挑战boss完成后的处理"""
+        
+        self.logger.info(f"锤完了，更新一下信息，看打成功没有（有可能被人抢了）")
+        self._update_info_from_hunt_page()
+        if (self.challenge_next_cooldown > 0 or not is_success):
+            self._clear_directly_challgenge_boss()
+        self._on_challenge_vip_boss_finished(is_success and self.challenge_next_cooldown > 0) if is_vip_boss else self._on_challenge_normal_boss_finished()
+    
 
     def _set_wait_vip_boss_time(self, wait_time):
         """设置等待VIP boss的时间"""
@@ -279,7 +326,8 @@ class HofAutoBot:
         """处理等待VIP boss的逻辑"""
         if self.waiting_vip_boss_time <= 0:
             self.logger.info("等待vip finished，可以尝试打vip boss", True)
-            self._set_state(self.GAME_STATE_VIP_BOSS)
+            # self._set_state(self.GAME_STATE_VIP_BOSS)
+            self._set_state(self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS)
             return
         elif self.waiting_vip_boss_time > self.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
             next_active_time = datetime.now() + timedelta(seconds=self.IDLE_SECONDS_FOR_CHALLENGE_BOSS)
@@ -295,7 +343,8 @@ class HofAutoBot:
                 idle_time = max(idle_time, 0)
                 if idle_time > 0:
                     self._idle_and_update_cooldown(idle_time)
-            self._set_state(self.GAME_STATE_VIP_BOSS)
+            # self._set_state(self.GAME_STATE_VIP_BOSS)
+            self._set_state(self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS)
 
     def _on_challenge_vip_boss_finished(self, is_challenged_vip_boss = False):
         """处理完VIP boss战斗后的逻辑"""
@@ -346,10 +395,14 @@ class HofAutoBot:
                 self.logger.info(f'普通boss {boss["union_id"]} 已出现，尝试处理')
                 # 执行boss战斗动作
                 action = self.server_config_manager.all_action_config_by_server.get(f"{boss['plan_action_id']}")
-                self.action_executor.execute_actions(self.driver, action)
-                time.sleep(5)
-                self._on_challenge_normal_boss_finished()
+
+                self._set_directly_challgenge_boss(boss['union_id'], action)
+                self._set_state(self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS)
                 return
+                # self.action_executor.execute_actions(self.driver, action)
+                # time.sleep(5)
+                # self._on_challenge_normal_boss_finished()
+                # return
         
         # 如果没有可以打的boss，进入PVP状态
         self.logger.info(f'没有普通boss需要处理, 普通boss清单：{self.auto_bot_config_manager.normal_boss_loop_order}')
