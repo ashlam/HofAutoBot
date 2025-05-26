@@ -22,13 +22,13 @@
             "union_id": 20,
             "plan_action_id": 800200
         },
-        {
-            "union_id": 25,
-            "plan_action_id": 800250
-        },
-        {
+	{
             "union_id": 15,
             "plan_action_id": 800150
+        },
+	{
+            "union_id": 25,
+            "plan_action_id": 800250
         },
         {
             "union_id": 3,
