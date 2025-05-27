@@ -28,20 +28,20 @@ class BattleWatcherManager:
     def process_timestamp(self, timestamp_str, seconds_to_add):
         """处理16位时间戳，转换为标准时间格式并计算未来时间"""
         try:
-            # 取前10位转换为整数
-            unix_timestamp = int(timestamp_str[:10])
+            # 将16位时间戳转换为浮点数（保留毫秒精度）
+            unix_timestamp = int(timestamp_str) / 1000000
             
             # 转换为datetime对象
             original_time = datetime.fromtimestamp(unix_timestamp)
             # 计算未来时间
             future_time = original_time + timedelta(seconds=seconds_to_add)
             
-            # 格式化输出
+            # 格式化输出（时间戳保持16位精度）
             return {
-                'original': original_time.strftime('%Y-%m-%d %H:%M:%S'),
-                'future': future_time.strftime('%Y-%m-%d %H:%M:%S'),
-                'original_unixtime': unix_timestamp,
-                'future_unixtime': int(future_time.timestamp())
+                'original': original_time.strftime('%Y-%m-%d %H:%M:%S.%f'),
+                'future': future_time.strftime('%Y-%m-%d %H:%M:%S.%f'),
+                'original_unixtime': int(unix_timestamp * 1000000),
+                'future_unixtime': int(future_time.timestamp() * 1000000)
             }
         except Exception as e:
             print(f'处理时间戳失败: {str(e)}')

@@ -190,7 +190,7 @@ class HofAutoBot:
         if self.challenge_next_cooldown > 0:
             if self.challenge_next_cooldown >= self.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
                 # 如果在冷却中，且体力大于一定值，去干点别的
-                next_challange_real_time = time.time() + self.challenge_next_cooldown
+                next_challange_real_time = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f')
                 self.logger.info(f'BOSS冷却还早，当前体力：{self.player_stamina}，下次boss挑战时间：{next_challange_real_time}，于是去干别的')
                 self._set_state(self.GAME_STATE_PVP)
                 return
@@ -254,7 +254,7 @@ class HofAutoBot:
                     continue
                 else:
                     # 计算下次刷新时间
-                    next_spawn_time = datetime.fromtimestamp(next_battle_info['future_unixtime'])
+                    next_spawn_time = datetime.fromtimestamp(next_battle_info['future_unixtime'] / 1000000)
                     time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
                     seconds = int(time_until_spawn)
                     minutes, seconds = divmod(seconds, 60)
@@ -339,8 +339,9 @@ class HofAutoBot:
             return
         else:
             if self.waiting_vip_boss_time > 0:
-                idle_time = min(self.waiting_vip_boss_time - self.IDLE_SECONDS_FOR_REFRESH, self.IDLE_SECONDS_FOR_REFRESH)
+                idle_time = min(self.waiting_vip_boss_time, self.IDLE_SECONDS_FOR_CHALLENGE_BOSS)
                 idle_time = max(idle_time, 0)
+                idle_time = self.waiting_vip_boss_time
                 if idle_time > 0:
                     self._idle_and_update_cooldown(idle_time)
             # self._set_state(self.GAME_STATE_VIP_BOSS)

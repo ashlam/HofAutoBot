@@ -10,6 +10,8 @@ class ClickActionExecutor(ActionExecutor):
     def execute(self, driver, element, action):
         try:
             element.click()
+            print(f'当前时间：{time.strftime("%Y-%m-%d %H:%M:%S.%f")}')
+            print(f'Unix时间戳：{int(time.time() * 1000000)}')
             time.sleep(action['wait_time'] / 1000)
             return True
         except Exception as e:

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 import time
+from datetime import datetime, timedelta
 import re
 from scripts.element_finders import HtmlElementFinder, TextAndUrlElementFinder, SimpleTextElementFinder
 from scripts.actions.factory import ActionExecutorFactory
@@ -57,7 +58,7 @@ class ActionExecutor:
         print(f"说明: {action_config['note']}")
         
         for i, action in enumerate(action_config['actions']):
-            print(f"\n执行第{i+1}个动作: {action['trigger_type']}")
+            print(f"\n[{datetime.now}]执行第{i+1}个动作: {action['trigger_type']}")
             
             # 对于第一个跳转动作，优先使用简化的查找方法
             if i == 0 and action['trigger_type'] == '跳转':

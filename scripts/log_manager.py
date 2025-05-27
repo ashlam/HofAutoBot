@@ -30,8 +30,8 @@ class LogManager:
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
 
     def _get_timestamp(self) -> str:
-        """获取当前时间戳"""
-        return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        """获取当前时间戳，精确到微秒"""
+        return datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
 
     def _write_to_file(self, message: str) -> None:
         """将消息写入日志文件，按时间倒序写入，最新的消息在最上面"""
