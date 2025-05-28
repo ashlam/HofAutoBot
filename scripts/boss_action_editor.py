@@ -225,10 +225,10 @@ class BossActionEditor(QMainWindow):
                 'note': note,
                 'tag': ['boss', 'need_character'],
                 'actions': [
-                    {
-                        "trigger_type": "click_sub_menu_boss",
-                        "value": f"union={boss_union_id}"
-                    },
+                    # {
+                    #     "trigger_type": "click_sub_menu_boss",
+                    #     "value": f"union={boss_union_id}"
+                    # },
                     {
                         "trigger_type": "click_button_clear_team",
                         "value": "checkDelAll()"

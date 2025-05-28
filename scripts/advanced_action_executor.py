@@ -4,6 +4,20 @@ import time
 from datetime import datetime
 from scripts.advanced_element_finder import AdvancedElementFinderFactory
 from scripts.log_manager import LogManager
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import logging
+
+options = Options()
+options.add_argument('--headless')  # 无头模式
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-extensions')
+options.add_argument('--disable-images')  # 可用插件或自定义profile关闭图片加载
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument('--window-size=1920,1080')
+
+driver = webdriver.Chrome(options=options)
 
 class AdvancedActionExecutor(ABC):
     def __init__(self):
@@ -62,36 +76,68 @@ class SubMenuBossActionExecutor(AdvancedActionExecutor):
 
 class CharacterSelectActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
+        start = time.time()
         self._wait(idle_before)
+        t1 = time.time()
         finder = AdvancedElementFinderFactory.get_finder('check_box_select_character')
         elements = finder.find_elements(driver, value)
+        t2 = time.time()
         if not elements:
             raise ValueError(f'未找到角色复选框元素: {value}')
         if not elements[0].is_selected():
             elements[0].click()
+        t3 = time.time()
         self._wait(idle_after)
+        t4 = time.time()
+        logging.info(f"[性能日志] 角色选择动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
+        return True
+
+    @staticmethod
+    def batch_select(driver, char_ids):
+        start = time.time()
+        driver.execute_script('''
+            var ids = arguments[0];
+            ids.forEach(function(id){
+                var el = document.getElementsByName(id)[0];
+                if(el && !el.checked) el.click();
+            });
+        ''', char_ids)
+        t1 = time.time()
+        logging.info(f"[性能日志] 批量选择角色: {char_ids}, 总计: {t1-start:.3f}s")
         return True
 
 class ClearTeamActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
+        start = time.time()
         self._wait(idle_before)
+        t1 = time.time()
         finder = AdvancedElementFinderFactory.get_finder('click_button_clear_team')
         elements = finder.find_elements(driver, value)
+        t2 = time.time()
         if not elements:
             raise ValueError('未找到清除队伍按钮')
         elements[0].click()
+        t3 = time.time()
         self._wait(idle_after)
+        t4 = time.time()
+        logging.info(f"[性能日志] 清除队伍动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
         return True
 
 class StartBattleActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
+        start = time.time()
         self._wait(idle_before)
+        t1 = time.time()
         finder = AdvancedElementFinderFactory.get_finder('click_button_start_battle')
         elements = finder.find_elements(driver, value)
+        t2 = time.time()
         if not elements:
             raise ValueError(f'未找到战斗按钮: {value}')
         elements[0].click()
+        t3 = time.time()
         self._wait(idle_after)
+        t4 = time.time()
+        logging.info(f"[性能日志] 开始战斗动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
         return True
 
 class AdvancedActionExecutorFactory:
@@ -127,16 +173,74 @@ class AdvancedActionManager:
             idle_after=action.get('idle_after_operation', 100)
         )
 
+    def batch_boss_actions(self, driver, actions):
+        """
+        批量处理boss战：清队+批量选人+开始战斗
+        """
+        char_ids = [a['value'] for a in actions[1:-1]]
+        start_battle_value = actions[-1]['value']
+        js = '''
+        // 清除队伍
+        var clearBtn = document.querySelector("input[onclick='checkDelAll()']");
+        if(clearBtn) clearBtn.click();
+        // 勾选角色
+        var ids = arguments[0];
+        ids.forEach(function(id){
+            var el = document.getElementsByName(id)[0];
+            if(el && !el.checked) el.click();
+        });
+        // 点击开始战斗
+        var battleBtn = document.getElementsByName(arguments[1])[0];
+        if(battleBtn) battleBtn.click();
+        '''
+        import time
+        t0 = time.time()
+        driver.execute_script(js, char_ids, start_battle_value)
+        t1 = time.time()
+        import logging
+        logging.info(f"[性能日志] boss战批量处理: 清队+{len(char_ids)}角色+战斗, 总计: {t1-t0:.3f}s, 角色: {char_ids}")
+        print(f"[批量boss战] 清队+{len(char_ids)}角色+战斗, 总计: {t1-t0:.3f}s, 角色: {char_ids}")
+        return True
+
     def execute_advanced_action(self, driver, action_group):
-        """执行动作组"""
         print(f"执行动作组: {action_group['name']}")
         print(f"说明: {action_group.get('note', '')}")
 
-        for i, action in enumerate(action_group['actions']):
+        actions = action_group['actions']
+        # 检查是否为boss战批量场景：清队+N个角色选择+开始战斗
+        if (len(actions) >= 3 and
+            actions[0]['trigger_type'] == 'click_button_clear_team' and
+            all(a['trigger_type'] == 'check_box_select_character' for a in actions[1:-1]) and
+            actions[-1]['trigger_type'] == 'click_button_start_battle'):
+            return self.batch_boss_actions(driver, actions)
+
+        i = 0
+        while i < len(actions):
+            action = actions[i]
+            # 检查是否为连续的角色选择动作，批量处理
+            if action['trigger_type'] == 'check_box_select_character':
+                batch_ids = []
+                j = i
+                while j < len(actions) and actions[j]['trigger_type'] == 'check_box_select_character':
+                    batch_ids.append(actions[j]['value'])
+                    j += 1
+                if len(batch_ids) > 1:
+                    print(f"\n[{datetime.now()}] 批量执行第{i+1}~{j}个动作: check_box_select_character")
+                    CharacterSelectActionExecutor.batch_select(driver, batch_ids)
+                    i = j
+                    continue
+                else:
+                    print(f"\n[{datetime.now()}] 执行第{i+1}个动作: {action['trigger_type']}")
+                    if not self.execute_action(driver, action):
+                        print(f"动作组执行失败，停止执行后续动作")
+                        print(f"失败的动作组: {action_group['name']}")
+                        return False
+                    i += 1
+                    continue
             print(f"\n[{datetime.now()}] 执行第{i+1}个动作: {action['trigger_type']}")
             if not self.execute_action(driver, action):
                 print(f"动作组执行失败，停止执行后续动作")
                 print(f"失败的动作组: {action_group['name']}")
                 return False
-
+            i += 1
         return True
