@@ -4,7 +4,7 @@
 import os
 import sys
 import json
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog, QDialog, QLineEdit, QHBoxLayout, QLabel
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from selenium import webdriver
 import atexit
@@ -52,6 +52,52 @@ class BotThread(QThread):
             self.is_running = False
             self.bot.cleanup()
             self.bot = None
+
+class CaptchaDialog(QDialog):
+    def __init__(self, driver, parent=None):
+        super().__init__(parent)
+        self.driver = driver
+        self.setWindowTitle('请输入验证码')
+        self.setModal(True)
+        self.captcha = ''
+        self.init_ui()
+        self.result = None
+
+    def init_ui(self):
+        layout = QVBoxLayout()
+        label = QLabel('验证码:')
+        self.input = QLineEdit()
+        self.input.setPlaceholderText('请输入验证码')
+        layout.addWidget(label)
+        layout.addWidget(self.input)
+        btn_layout = QHBoxLayout()
+        self.btn_refresh = QPushButton('换个验证码')
+        self.btn_login = QPushButton('登录')
+        self.btn_close = QPushButton('关闭')
+        btn_layout.addWidget(self.btn_refresh)
+        btn_layout.addWidget(self.btn_login)
+        btn_layout.addWidget(self.btn_close)
+        layout.addLayout(btn_layout)
+        self.setLayout(layout)
+        self.btn_refresh.clicked.connect(self.refresh_captcha)
+        self.btn_login.clicked.connect(self.login)
+        self.btn_close.clicked.connect(self.reject)
+
+    def refresh_captcha(self):
+        try:
+            # 查找并点击 getCaptcha() 的span
+            from selenium.webdriver.common.by import By
+            span = self.driver.find_element(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+            span.click()
+        except Exception as e:
+            QMessageBox.warning(self, '警告', f'刷新验证码失败: {e}')
+
+    def login(self):
+        self.captcha = self.input.text().strip()
+        if not self.captcha:
+            QMessageBox.warning(self, '警告', '请输入验证码')
+            return
+        self.accept()
 
 class LoginWindow(QMainWindow):
     def __init__(self):
@@ -168,7 +214,6 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.stop_btn)
 
         # 创建状态显示标签
-        from PyQt5.QtWidgets import QLabel
         self.state_label = QLabel('当前状态：未运行')
         self.stamina_label = QLabel('体力值：--')
         self.cooldown_label = QLabel('冷却时间：--')
@@ -225,16 +270,15 @@ class LoginWindow(QMainWindow):
         password_input.clear()
         password_input.send_keys(default_password)
 
-
-        # 弹出验证码输入框
-        captcha, ok = QInputDialog.getText(self, '请输入验证码', '验证码:', text='8888')
-
-        if ok and captcha.strip():
+        # 弹出自定义验证码输入框
+        dlg = CaptchaDialog(self.driver, self)
+        if dlg.exec_() == QDialog.Accepted and dlg.captcha:
+            captcha = dlg.captcha
             try:
                 # 定位验证码输入框并填写内容
                 captcha_input = self.driver.find_element(By.NAME, "captcha")
                 captcha_input.clear()
-                captcha_input.send_keys(captcha.strip())
+                captcha_input.send_keys(captcha)
                 print("账号、密码和验证码已成功填写！")
 
                 login_button = self.driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
@@ -253,8 +297,8 @@ class LoginWindow(QMainWindow):
                 self.update_btn.setEnabled(False)
                 self.start_btn.setEnabled(False)
         else:
-            # 用户点击取消或未输入内容
-            QMessageBox.information(self, '提示', '您未输入验证码或点击了取消。')
+            # 用户点击关闭或未输入内容
+            QMessageBox.information(self, '提示', '您未输入验证码或点击了关闭。')
             if self.driver:
                 self.driver.quit()
                 self.driver = None
