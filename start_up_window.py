@@ -30,17 +30,22 @@ class BotThread(QThread):
         self.is_running = False
     
     def run(self):
-        try:
-            self.is_running = True
-            self.bot = HofAutoBot()
-            self.bot.status_update_signal = self.status_update
-            self.bot.initialize_with_driver(self.server_id, self.driver)
-            self.bot.run()
-        except Exception as e:
-            self.error.emit(str(e))
-        finally:
-            self.is_running = False
-            self.finished.emit()
+        self.is_running = True
+        self.bot = HofAutoBot()
+        self.bot.status_update_signal = self.status_update
+        self.bot.initialize_with_driver(self.server_id, self.driver)
+        self.bot.run()
+        # try:
+            # self.is_running = True
+            # self.bot = HofAutoBot()
+            # self.bot.status_update_signal = self.status_update
+            # self.bot.initialize_with_driver(self.server_id, self.driver)
+            # self.bot.run()
+        # except Exception as e:
+        #     self.error.emit(str(e))
+        # finally:
+        #     self.is_running = False
+        #     self.finished.emit()
     
     def stop(self):
         if self.bot and self.is_running:

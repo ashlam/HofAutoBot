@@ -28,7 +28,7 @@ class ServerConfigManager:
     def _load_server_action_config(self, server_data):
         """加载当前Server的动作配置"""
         try:
-            with open(f'{server_data.get("config_path")}/action_config.json', 'r', encoding='utf-8') as f:
+            with open(f'{server_data.get("config_path")}/action_config_advanced.json', 'r', encoding='utf-8') as f:
                 action_config = json.load(f)
                 return action_config
         except Exception as e:

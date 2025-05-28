@@ -3,11 +3,12 @@ from typing import List, Dict, Optional
 from datetime import datetime, timedelta
 import time
 import json
+from scripts.actions.factory import ActionExecutorFactory
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from scripts.advanced_action_executor import AdvancedActionExecutor, AdvancedActionManager
 from scripts.server_config_manager import ServerConfigManager
 from scripts.battle_watcher_manager import BattleWatcherManager
-from scripts.action_executor import ActionExecutor
 from scripts.log_manager import LogManager
 import os
 
@@ -69,6 +70,7 @@ class AutoBotConfigManager:
     @property
     def world_pvp_plan_action_id(self) -> int:
         return self.config.get('world_pvp_plan_action_id', 0)
+        
 
 class HofAutoBot:
     def __init__(self):
@@ -76,7 +78,7 @@ class HofAutoBot:
         self.current_state = None
         self.server_config_manager = None
         self.auto_bot_config_manager = None
-        self.action_executor = None
+        self.action_manager = None
         self.is_finished = False
         self.status_update_signal = None
 
@@ -159,7 +161,7 @@ class HofAutoBot:
             }
             self.status_update_signal.emit(status_info)
 
-        self.logger.info('更新boss信息完毕', True)
+        self.logger.info('更新boss信息完毕')
 
     def _get_recover_stamina_time(self, current_stamina, need_stamnia):
         """获取恢复体力的时间"""
@@ -226,17 +228,17 @@ class HofAutoBot:
         for vip_boss in self.auto_bot_config_manager.vip_boss_need_watch:
             union_id = vip_boss['union_id']
             plan_action_id = vip_boss['plan_action_id']
-            action = self.server_config_manager.all_action_config_by_server.get(f"{plan_action_id}")
-            if not action:
+            advanced_action_config = self.server_config_manager.all_action_config_by_server.get(f"{plan_action_id}")
+            if not advanced_action_config:
                 self.logger.error(f'未找到动作配置，id: {plan_action_id} ，没有办法处理boss({union_id})，中止处理。')
                 continue
             # 检查VIP boss是否出现
             if union_id in self.all_alived_boss_ids:
                 # 活着，试着干它
                 self.logger.info(f'VIP boss {union_id} 已出现，BEAT IT！！！')
-                self.action_executor.execute_actions(self.driver, action)
+                self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
                 # 打完了，更新一下信息，看打成功没有（有可能被人抢了）
-                self.logger.info(f"锤完了，更新一下信息，看打成功没有（有可能被人抢了）", True)
+                self.logger.info(f"锤完了，更新一下信息，看打成功没有（有可能被人抢了）")
                 self._update_info_from_hunt_page()
                 # 如果自己进冷却，说明打成功了，跳出循环并结束
                 if self.challenge_next_cooldown > 0:
@@ -258,15 +260,15 @@ class HofAutoBot:
                     time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
                     seconds = int(time_until_spawn)
                     minutes, seconds = divmod(seconds, 60)
-                    self.logger.info(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒", True)
+                    self.logger.info(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒")
                     wait_time = min(self.COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS, max(0, time_until_spawn))
-                    self.logger.info(f"{ '将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip", True)
+                    self.logger.info(f"{ '将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip")
 
                     # 如果很快就会刷新，等一等直接打
                     if time_until_spawn <= wait_time:
-                        self.logger.info(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，去干别的。', True)
+                        self.logger.info(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，去干别的。')
                         self._set_wait_vip_boss_time(time_until_spawn)
-                        self._set_directly_challgenge_boss(union_id, action)
+                        self._set_directly_challgenge_boss(union_id, advanced_action_config)
                         self._set_state(self.GAME_STATE_WAIT_VIP_BOSS)
                         return
                     else:
@@ -289,17 +291,17 @@ class HofAutoBot:
     def _process_directly_challenge_boss(self):
         """直接挑战boss，不考虑冷却时间"""
         union_id = self.directly_challenge_boss_id
-        action = self.directly_challenge_boss_action
+        advanced_action_config = self.directly_challenge_boss_action
         is_vip_boss = self.directly_challenge_boss_id in self.auto_bot_config_manager.vip_boss_need_watch
         self.logger.info(f"直接挑战boss {union_id}")
-        if not action:
-            self.logger.error(f'未找到动作配置，id: {action} ，没有办法处理boss({union_id})，中止处理。')
+        if not advanced_action_config:
+            self.logger.error(f'未找到动作配置，id: {advanced_action_config} ，没有办法处理boss({union_id})，中止处理。')
             self._on_directly_challenge_boss_finished(is_vip_boss, False)
             return
         # 刷一下
         url = f"{self.server_config_manager.current_server_data['url']}index.php?union={union_id}#"
         self.driver.get(url)
-        self.action_executor.execute_actions(self.driver, action)
+        self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
         # 打完了，更新一下信息，看打成功没有（有可能被人抢了）
         self._on_directly_challenge_boss_finished(is_vip_boss, True)
 
@@ -319,13 +321,13 @@ class HofAutoBot:
 
     def _set_wait_vip_boss_time(self, wait_time):
         """设置等待VIP boss的时间"""
-        self.logger.info(f"设置等待VIP boss的时间为 {wait_time} 秒", True)
+        self.logger.info(f"设置等待VIP boss的时间为 {wait_time} 秒")
         self.waiting_vip_boss_time = wait_time
 
     def _process_wait_vip_boss(self):
         """处理等待VIP boss的逻辑"""
         if self.waiting_vip_boss_time <= 0:
-            self.logger.info("等待vip finished，可以尝试打vip boss", True)
+            self.logger.info("等待vip finished，可以尝试打vip boss")
             # self._set_state(self.GAME_STATE_VIP_BOSS)
             self._set_state(self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS)
             return
@@ -349,7 +351,7 @@ class HofAutoBot:
 
     def _on_challenge_vip_boss_finished(self, is_challenged_vip_boss = False):
         """处理完VIP boss战斗后的逻辑"""
-        self.logger.info(f"已处理完VIP boss战斗，{ '已挑战' if is_challenged_vip_boss else '未挑战' }vip boss", True)
+        self.logger.info(f"已处理完VIP boss战斗，{ '已挑战' if is_challenged_vip_boss else '未挑战' }vip boss")
         if is_challenged_vip_boss:
             self._set_state(self.GAME_STATE_PVP)
         else:
@@ -357,14 +359,14 @@ class HofAutoBot:
 
     def _idle_and_update_cooldown(self, idle_time):
         """发呆并更新冷却时间"""
-        self.logger.info(f"发呆{idle_time}秒", True)
+        self.logger.info(f"发呆{idle_time}秒")
         if idle_time > 0:
             time.sleep(idle_time)
         self.challenge_next_cooldown -= idle_time
         self.challenge_next_cooldown = max(0, self.challenge_next_cooldown)
         self.waiting_vip_boss_time -= idle_time
         self.waiting_vip_boss_time = max(0, self.waiting_vip_boss_time)
-        self.logger.info(f"发呆结束，剩余冷却时间: {self.challenge_next_cooldown} 秒", True)            
+        self.logger.info(f"发呆结束，剩余冷却时间: {self.challenge_next_cooldown} 秒")            
 
     def _process_normal_boss(self):
         """处理普通boss战斗
@@ -400,12 +402,7 @@ class HofAutoBot:
                 self._set_directly_challgenge_boss(boss['union_id'], action)
                 self._set_state(self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS)
                 return
-                # self.action_executor.execute_actions(self.driver, action)
-                # time.sleep(5)
-                # self._on_challenge_normal_boss_finished()
-                # return
-        
-        # 如果没有可以打的boss，进入PVP状态
+        # 如果没有可以打的boss，进入PVP状态 
         self.logger.info(f'没有普通boss需要处理, 普通boss清单：{self.auto_bot_config_manager.normal_boss_loop_order}')
         self._on_challenge_normal_boss_finished()
 
@@ -430,10 +427,10 @@ class HofAutoBot:
         """执行PVP战斗动作"""
         if (self.auto_bot_config_manager.is_challenge_pvp and self.auto_bot_config_manager.pvp_plan_action_id > 0):
             pvp_plan_action_id = self.auto_bot_config_manager.pvp_plan_action_id
-            action = self.server_config_manager.all_action_config_by_server.get(f"{pvp_plan_action_id}")
-            if action:
+            advanced_action_config = self.server_config_manager.all_action_config_by_server.get(f"{pvp_plan_action_id}")
+            if advanced_action_config:
                 self.logger.info(f'进行PVP竞技场挑战：{pvp_plan_action_id}')
-                self.action_executor.execute_actions(self.driver, action)
+                self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
         self._challenge_pvp_finished()
 
     def _challenge_pvp_finished(self):
@@ -445,10 +442,10 @@ class HofAutoBot:
         """执行世界PVP战斗动作"""
         if (self.auto_bot_config_manager.is_challenge_world_pvp and self.auto_bot_config_manager.world_pvp_plan_action_id > 0):
             world_pvp_plan_action_id = self.auto_bot_config_manager.world_pvp_plan_action_id
-            action = self.server_config_manager.all_action_config_by_server.get(f"{world_pvp_plan_action_id}")
-            if action:
+            advanced_action_config = self.server_config_manager.all_action_config_by_server.get(f"{world_pvp_plan_action_id}")
+            if advanced_action_config:
                 self.logger.info(f'进行世界PVP竞技场挑战：{world_pvp_plan_action_id}')
-                self.action_executor.execute_actions(self.driver, action)
+                self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
         self._on_challenge_world_pvp_finished()
 
     def _on_challenge_world_pvp_finished(self):
@@ -470,10 +467,10 @@ class HofAutoBot:
                 self.logger.warning(f'体力不足打小怪...')
                 self._set_state(self.GAME_STATE_IDLE_FOR_BOSS)
                 return
-            action = self.server_config_manager.all_action_config_by_server.get(f"{stage['plan_action_id']}")
-            if action:
+            advanced_action_config = self.server_config_manager.all_action_config_by_server.get(f"{stage['plan_action_id']}")
+            if advanced_action_config:
                 self.logger.info(f'进行普通小怪挑战：{stage["plan_action_id"]}')
-                self.action_executor.execute_actions(self.driver, action)
+                self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
                 time.sleep(5)
 
         # 完成所有小怪战斗后，返回boss状态
@@ -514,7 +511,7 @@ class HofAutoBot:
 
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
-        self.action_executor = ActionExecutor()
+        self.action_manager = AdvancedActionManager()
         log_path = os.path.join(os.path.dirname(__file__), '..', 'logs', f'log_server_{current_server_data.get("id")}.txt')
         print(log_path)
         self.logger.set_log_path(log_path)
@@ -590,7 +587,7 @@ class HofAutoBot:
 
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
-        self.action_executor = ActionExecutor()
+        self.action_manager = AdvancedActionManager()
         return True
 
 if __name__ == '__main__':

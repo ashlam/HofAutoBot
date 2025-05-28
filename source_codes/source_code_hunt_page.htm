@@ -1,0 +1,789 @@
+
+    <!doctype html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="title" content="飛朵啦聖堂" />
+    <meta name="keywords" content="榮譽聖堂,榮譽聖殿,飛朵啦,fedola,hall of fame" />
+    <meta name="copyright" content="本網頁著作權飛朵啦學習手札" />
+    <link rel="shortcut icon" href="./image/favicon.ico" />
+    <link rel="icon" type="image/gif" href="./image/animated_favicon1.gif" />
+    <link rel="stylesheet" href="./css/basis.css" type="text/css" />
+    <link rel="stylesheet" href="./css/task.css" type="text/css" />
+    <link rel="stylesheet" href="./css/SpryAssets/SpryTabbedPanels.css"  type="text/css" />
+    <link rel="stylesheet" href="./css/map.css" type="text/css" />
+    <link rel="stylesheet" href="./css/style_800px.css" type="text/css"  />
+    <link rel="stylesheet" href="./css/colorbox.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="./css/jquery.qtip.min.css" type="text/css" />
+    <link rel="stylesheet" href="./css/style_1024px.css" type="text/css" media="only screen and (min-width:1024px)" /><script type="text/javascript" src="./function/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="./function/jquery.blockUI.js"></script>
+<script type="text/javascript" src="./function/jquery.cookie.js"></script>
+<script type="text/javascript" src="./function/jquery.form.js"></script>
+<script type="text/javascript" src="./function/jscroll.js"></script>
+<script type="text/javascript" src="./function/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="./function/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="./function/jquery.progressbar.js"></script>
+<script type="text/javascript" src="./function/jquery.quicksand.js"></script>
+<script type="text/javascript" src="./function/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="./function/jquery.tablednd_0_7.js"></script>
+<script type="text/javascript" src="./function/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="./function/jquery.noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" language="javascript">
+var g_time_id = {};
+var g_online_list = {};
+var g_msg_type = 0;//聊天類別 whispe bbs_cou
+var gt_TownBBS = 10000;
+var g_tmp = {};
+
+$(function() {
+	colorbox_show("a.group");
+	sweetTitles();
+	$("#myTable").tablesorter({widgets: ['zebra']});
+    //已登入
+    if(!document.getElementById('online_num')){
+        return false;
+    }
+    if(ck_null(g_time_id['online_num']) == '-')
+        g_time_id['online_routine'] = setTimeout(fn_online_routine, 4000);
+    fn_online_tip_list();
+});
+//顯示線上人數清單
+function fn_online_tip_list(){
+    $('#online_num_img, #online_num').qtip({
+        content: {
+            'title' : '線上人數',
+            'text' : function(event, api){
+                $.get('ajax_return.php?menu=ajax&item=online_list',{},
+                        function(response){
+                            var _html = '<table>'
+                            $.each(response,function(k,v){
+                                _img = '';
+                                if(v.country_id != 0)
+                                    _img = '<img class="img1 show_title"  alt="'+v.country_name+'" src="./image/country/'+v.country_id+'/b_img.png">';
+                                _html += '<tr><td>' +_img ;
+                                _html += '    <td>' + v.name;
+                            })
+                            _html += '</table>';
+                            api.set('content.text', _html);
+                        }, 'json'
+                      );
+                return '讀取中....';
+            }
+        },
+        show: {
+            event:'click',
+            solo:true,
+            effect: function() {
+                $(this).fadeTo(300, 1);
+            }
+        },
+        hide: 'click',
+        position: { 
+            my: 'top center',  
+            at: 'bottom center'
+        },
+        style: {
+            classes: 'qtip-tipped'
+        }
+    });
+}
+//線上定時排成(人數, 時間更新)
+function fn_online_routine(){
+    $.get("ajax_return.php?menu=ajax&item=online_routine",{},function(res){
+        $('#online_num').html(res['onu']);
+        $('#mtime').html(res['ot']);
+        g_time_id['online_routine'] = setTimeout(fn_online_routine, 4000);
+    },'json')
+}
+//BBS 聊天自動更新
+function fn_TownBBS(){
+    if(g_msg_type == 0){
+        clearTimeout(g_time_id['TownBBS']);
+        delete g_time_id['TownBBS'] ;
+        return false;
+    }
+    $.get("ajax_return.php?menu=ajax&item=TownBBS",{'type':g_msg_type},function(res){
+        $('#TownBBS').html(res);
+        g_time_id['TownBBS'] = setTimeout(fn_TownBBS, gt_TownBBS);
+    })
+}
+//自訂ajax表單
+function fn_ajaxfrom(id, cb){
+    var post = $('#'+id).serialize();
+    var url = $('#'+id).attr('action');
+    if(typeof(cb) != 'function')
+        cb = function(res){alert(res)};
+    $.post(url,post,cb(res));
+}
+function RA_Charback(d){
+	Hu_bef();
+	$("#mybody").load("index2.php?char="+d);
+
+}
+function RA_UseBack(c){
+	Hu_bef();
+    $('.qtip').hide();
+    c2 = c.replace('index2','index');
+    save_url(c2);
+	$("#mybody").load(c);
+}
+function RA_NoHu(c){
+    $('.qtip').hide();
+    c2 = c.replace('index2','index');
+    save_url(c2);
+	$("#mybody").load(c);
+}
+function Load_ajax(ajax_url, id){
+	$.ajax({
+		url: ajax_url,
+		type: 'GET',
+		error: function(xhr) {alert('Ajax request 發生錯誤');},
+		success: function(response) {
+		  $('#'+id).html(response);
+		}
+    });
+}
+function toggleCheckBox(no){
+	if($("#box"+no).attr('checked'))
+		$("#text"+no).removeClass("unselect");
+	else	
+		$("#text"+no).addClass("unselect");		
+	if($("#now_team").length>0) Show_now_team();
+}
+function toggleOnBox(no){
+	if($("#box"+no).attr('checked')){
+		$("#text"+no).addClass("unselect");
+		$("#box"+no).attr("checked", false);
+	}else{
+		$("#text"+no).removeClass("unselect");
+	 	$("#box"+no).attr("checked", true);
+	}
+	if($("#now_team").length>0) Show_now_team();
+}
+//顯示遮罩
+function colorbox_show(id){
+	$(id).colorbox({close:"close",width:'600px',height:'420px'});
+}
+//顯示成就
+function effort_show(val){
+	if(val != ''){
+		for(var key in val){
+			$.colorbox({href:"./ajax_return.php?menu=EffortShow&ef_id="+key});
+		}
+		$('#Jq_Conten').append("<audio> <source src='./music/effort.wav'></audio>");
+		var audio = document.getElementsByTagName('audio')[0];
+		audio.play();
+	}
+}
+function Show_now_team(){
+	var a = $(".carpet_frame");
+	var num = 0;
+	var add_html = '<table cellspacing="0" style="width:100%"><tbody><tr>';
+	for (var i=0; i<a.length; i++){
+		var tmp = i + 1 ; 
+		if($("#box" + tmp).attr("checked")){
+			if( num%5==0 && num != 0 ) add_html += '</tr><tr>';
+			var flag = num%2;
+			add_html += '<td  style="width:20%" valign="bottom">';
+			add_html += '<div id="char_1" class="carpet_frame" onclick="toggleOnBox(' + tmp +')">';
+			add_html += '<div class="carpet' + flag + '">';
+			add_html += $("#chimg_" + tmp).html();
+			add_html += '</div><div>';
+			add_html += $("#text" + tmp).html();
+			add_html += '</div>';
+			num += 1;
+			$("#text"+tmp).removeClass("unselect");
+		}else{
+			$("#text"+tmp).addClass("unselect");		
+		}
+	}	
+	add_html += '<table>';
+	$("#now_team").html(add_html);
+}
+function Hu_bef() {$('#Jq_Conten').block({ message:null});return true;}
+function Hu_Unblock(){$('#Jq_Conten').unblock();}
+function Hu_Success(){$.scrollTo($('#top'), 0, {queue:false}); $('#Jq_Conten').unblock();}
+function Hu_SuccessAlertCk(){$.scrollTo($('#top'), 0, {queue:false}); $('#Jq_Conten').unblock();
+        var msg = $.cookie('cb_msg');
+        var type = $.cookie('cb_type');
+        if(ck_null(type) == '-') type = 'information';
+        if(ck_null(msg) != '-'){
+            show_noty(msg, type);
+            $.cookie('cb_msg', null);
+            $.cookie('cb_type', null);
+        }
+    }
+function Hu_CbAlert(){$('#Jq_Conten').unblock();
+        var _json = $.parseJSON($('#msg').html());
+        var msg = _json.msg;
+        var type = 'information';
+        if(ck_null(_json.type) != '-') type = _json.type;
+        g_tmp = _json; 
+        show_noty(msg, type);
+    }
+function show_noty(msg, type){
+    var n = noty({'timeout':2000,'killer':true, 'layout':'topCenter','type':'information', 'text':msg, 'type':type});
+}
+function Union_Result(){ $('.NoShow').show(); }
+function Battle_Result(){
+	if($.cookie('CK_NoBattle_Result')){
+		$.cookie('CK_NoBattle_Result', '', { expires: -1 });
+		$('.battle').show();
+		$('.battle_result').hide();
+	}else{
+		$.cookie('CK_NoBattle_Result', 1 );	
+		$('.battle').hide();
+		$('.battle_result').show();
+	}
+}
+function Battle_Result_Load(){
+	if($.cookie('CK_NoBattle_Result')){
+		$('.battle').hide();	
+		$('.battle_result').show();
+	}else{
+		$('.battle').show();
+		$('.battle_result').hide();
+	}
+}
+//清除所有勾選
+function checkDelAll(){
+	var a = document.getElementsByTagName("input");
+	for (var i=0; i<a.length; i++){
+		if (a[i].type == "checkbox"){
+			a[i].checked = false;
+			$("#text"+a[i].value).addClass("unselect");
+		}
+	}
+	Show_now_team();
+}
+//地圖戰鬥控制
+function Map_Battle_Result(){
+	if($('#MAP_BATTLE_RESULT').html() == ''){
+		var tmp_battle_process = $('#MAP_BATTLE_PROCESS').html();
+		$('#MAP_BATTLE_RESULT').html(tmp_battle_process);
+		$('#MAP_BATTLE_RESULT').show();
+	}else{
+		if($('#MAP_BATTLE_RESULT').css("display") == 'none'){
+			$('#MAP_BATTLE_RESULT').css("display",'block');
+		}else{
+			$('#MAP_BATTLE_RESULT').css("display",'none');
+		}
+	}
+	//$('#MAP_BATTLE_PROCESS').show();	
+}
+//清除所有時間計數器
+function clear_time(){
+	//if(BBS_timer) window.clearTimeout(BBS_timer) 
+}
+//顯示提示框
+function sweetTitles(){
+	$('#tooltip').remove();
+	var tmp_title = '';
+	$('.show_title').mouseover(function(e){
+		tmp_title = this.title;
+		this.title = '';
+		var tooltip = "<div id='tooltip'><p>"+tmp_title+"</p></div>";
+		$('body').append(tooltip);
+		$('#tooltip')
+			.css({
+				"opacity":"0.8",
+				"top":(e.pageY+20)+"px",
+				"left":(e.pageX+10)+"px"
+			}).show('fast');
+	}).mouseout(function(){
+		this.title = tmp_title;
+		$('#tooltip').remove();
+	}).mousemove(function(e){
+		$('#tooltip')
+		.css({
+			"top":(e.pageY+20)+"px",
+			"left":(e.pageX+10)+"px"
+		});
+	});	
+} 
+//-----排序相關-----
+//排序法
+(function($) {
+  $.fn.sortedASC = function(customOptions) {
+	var options = {
+	  reversed: false,
+	  by: function(a) { return a.text(); }
+	};
+	$.extend(options, customOptions);
+	$data = $(this);
+	arr = $data.get();
+	arr.sort(function(a, b) {
+	  var valA = options.by($(a));
+	  var valB = options.by($(b));
+	  if (options.reversed) {
+		return (valA < valB) ? 1 : (valA > valB) ? -1 : 0;				
+	  } else {		
+		return (valA < valB) ? -1 : (valA > valB) ? 1 : 0;	
+	  }
+	});
+	return $(arr);
+  };
+  $.fn.sortedDESC = function(customOptions) {
+	var options = {
+	  reversed: false,
+	  by: function(a) { return a.text(); }
+	};
+	$.extend(options, customOptions);
+	$data = $(this);
+	arr = $data.get();
+	arr.sort(function(a, b) {
+	  var valA = options.by($(a));
+	  var valB = options.by($(b));
+	  if (options.reversed) {
+		return (valA > valB) ? 1 : (valA < valB) ? -1 : 0;				
+	  } else {		
+		return (valA > valB) ? -1 : (valA < valB) ? 1 : 0;	
+	  }
+	});
+	return $(arr);
+  };
+})(jQuery);
+//排序啟動事件
+function sort_date2(type){
+	//事件的觸發
+	var $filterType = $('.type1');
+	var $filterType2 = $('.type2');//分類2
+	var $filterSort = $('.sort');//排序
+	var $filterSortType = $('.sort_type');//排序類別
+	// get the first collection
+	var $applications = $('#applications');
+	// clone applications to get a second collection
+	var $data = $applications.clone();
+	$filterType.add($filterType2).add($filterSort).add($filterSortType).bind('click', function(e) {
+		//按鈕取值
+		var $button = $(this);
+		var $button_type = $(this).attr('id').substring(3);		
+		var $B_type = $(this).attr('id').substring(0,3);	
+		
+		//類別一的處理 (職業)
+		var $now_type = $('#TYPE').val();
+		if($B_type=='t1_'){
+			$filterType.removeClass('btn2_sel');
+			if($now_type != $button_type){
+				$('#TYPE').val($button_type);
+				$now_type = $button_type;
+				$.cookie("filterType", $now_type); 
+				$(this).addClass('btn2_sel');
+			}else{
+				$('#TYPE').val('');
+				$now_type = '';
+				$.cookie("filterType", null);
+			}
+		}
+		//類別二的處理 (軍團)
+		var $now_type2 = $('#TYPE2').val();
+		if($B_type=='t2_'){
+			$filterType2.removeClass('btn2_sel');
+			if($now_type2 != $button_type){
+				$('#TYPE2').val($button_type);
+				$now_type2 = $button_type;
+				$.cookie("filterType2", $now_type2); 
+				$(this).addClass('btn2_sel');
+				//alert($now_type2);
+			}else{
+				$('#TYPE2').val('');
+				$now_type2 = '';
+				$.cookie("filterType2", null); 
+			}
+		}
+		//篩選
+		if ($now_type=='') {
+			var $filteredData = $data.find('li');
+			//2次過濾
+		  	if ($now_type2 != '') {
+				$filteredData = $data.find('li[data-type2=' + $now_type2 + ']');
+			}
+		} else {
+			//2次過濾
+		  	if ($now_type2 == '') {
+				var $filteredData = $data.find('li[data-type=' + $now_type + ']');
+			}else{
+				var $filteredData = $data.find('li[data-type=' + $now_type + '][data-type2=' + $now_type2 + ']');
+			}
+		}
+		//排序選擇
+		var $now_sort = $('#SORT').val();
+		if($B_type=='s1_'){
+			$filterSort.removeClass('btn2_sel');
+			if($now_sort != $button_type){
+				$('#SORT').val($button_type);
+				$now_sort = $button_type;
+				$.cookie("filterSort", $now_sort); 
+                $(this).addClass('btn2_sel');
+			}else{
+				$('#SORT').val('base');
+				$now_sort = 'base';
+				$.cookie("filterSort", null); 
+			}
+		}		
+		var $now_sort_type = $('#SORT_TYPE').val();
+		if($B_type=='st_'){
+			if($now_sort_type != $button_type){
+				$('#SORT_TYPE').val($button_type);
+				$now_sort_type = $button_type;
+				$.cookie("filterSortType", $now_sort_type); 
+			}else{
+				$('#SORT_TYPE').val('DESC');
+				$now_sort_type = 'DESC';
+				$.cookie("filterSortType", null); 
+			}
+			$filterSortType.removeClass('btn2_sel');
+			$(this).addClass('btn2_sel');
+		}			
+
+		if($now_sort == "name"){
+			 // if sorted by 名稱
+			if($now_sort_type == "ASC"){
+				var $sortedData = $filteredData.sortedASC({by: function(v) { return $(v).find('strong').text().toLowerCase();}});						
+			}else{
+				var $sortedData = $filteredData.sortedDESC({by: function(v) { return $(v).find('strong').text().toLowerCase();}});
+			}
+		}else{
+			 // if sorted by 數值
+			if($now_sort_type == "ASC"){
+				var $sortedData = $filteredData.sortedASC({by: function(v) {return parseFloat($(v).find('span[data-type='+$now_sort+']').text());} });
+			}else{
+				var $sortedData = $filteredData.sortedDESC({by: function(v) {return parseFloat($(v).find('span[data-type='+$now_sort+']').text());} });
+			}
+		}  
+		// finally, call quicksand
+		$applications.quicksand($sortedData, {
+		  duration: 800,
+		  easing: 'easeInOutQuad'
+		});
+		sweetTitles();
+	});	
+	
+		//類別一的處理 (職業)
+		var $now_type = $.cookie("filterType");
+		//類別二的處理 (軍團)
+		var $now_type2 = $.cookie("filterType2");
+		//篩選
+		if ($now_type== null ) {
+			var $filteredData = $data.find('li');
+			//2次過濾
+		  	if ($now_type2 != null) {
+				$filteredData = $data.find('li[data-type2=' + $now_type2 + ']');
+			}
+		} else {
+			//2次過濾
+		  	if ($now_type2 == null) {
+				var $filteredData = $data.find('li[data-type=' + $now_type + ']');
+			}else{
+				var $filteredData = $data.find('li[data-type=' + $now_type + '][data-type2=' + $now_type2 + ']');
+			}
+		}
+		//排序選擇
+		var $now_sort = $.cookie("filterSort");
+		var $now_sort_type = $.cookie("filterSortType");
+		if($now_sort == "name"){
+			 // if sorted by 名稱
+			if($now_sort_type == "ASC"){
+				var $sortedData = $filteredData.sortedASC({by: function(v) { return $(v).find('strong').text().toLowerCase();}});						
+			}else{
+				var $sortedData = $filteredData.sortedDESC({by: function(v) { return $(v).find('strong').text().toLowerCase();}});
+			}
+		}else{
+			 // if sorted by 數值
+			if($now_sort_type == "ASC"){
+				var $sortedData = $filteredData.sortedASC({by: function(v) {return parseFloat($(v).find('span[data-type='+$now_sort+']').text());} });
+			}else{
+				var $sortedData = $filteredData.sortedDESC({by: function(v) {return parseFloat($(v).find('span[data-type='+$now_sort+']').text());} });
+			}
+		}  
+		// finally, call quicksand
+		$applications.quicksand($sortedData, {
+		  duration: 0,
+		  easing: 'easeInOutQuad'
+		});
+		sweetTitles();
+}
+//空值取代
+function ck_null(val){
+	if(val == 'null' || val == null || val.length <= 0){
+		val = '-';
+	}else if(val == 'undefined' || val == undefined || typeof(val) == 'undefined' ){
+		val = '-';	
+	}else if(val == ''){
+		val = '-';			
+	}
+	return val;
+}
+//無刷新改變頁面 不支援IE9以下
+function save_url(href, title, data){
+    if (typeof(history.pushState) == 'function') {
+        if(ck_null(title) == '-') title = document.title;
+        if(ck_null(data) == '-') data = {};
+        history.pushState($.param(data), title, href);
+    }
+}
+</script>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-RBM8NWV0W8"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-RBM8NWV0W8');
+	</script>
+    <title>榮譽聖殿 （Hall of Fame）飛朵啦 一服 「蚊子大戰」 </title>
+    </head>
+    <body>
+    	  <div id="fb-root"></div>
+	  <script>
+		window.fbAsyncInit = function() {
+		  FB.init({
+			appId      : '163204064071',
+			status     : true, 
+			cookie     : true,
+			xfbml      : true,
+			oauth      : true,
+		  });
+		};
+		(function(d){
+		   var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+		   js = d.createElement('script'); js.id = id; js.async = true;
+		   js.src = "//connect.facebook.net/zh_TW/all.js";
+		   d.getElementsByTagName('head')[0].appendChild(js);
+		 }(document));
+	  </script>
+	  
+    <a name="top" id="top" ></a>
+    <div id="main_frame">
+        <div id="title">　</div>
+        <div id="contents">
+    <div id="mybody">			<div id="menu">
+			<table width='100%'><tr>
+			  <td>
+				<a href="#" onclick="RA_UseBack('index2.php?team')">軍團資訊</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php')">角色</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?item')">道具</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?town')">城鎮</a><span class="divide"></span>				<a href="#" onclick="RA_UseBack('index2.php?setting')">設置</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?eslog')">記錄</a><span class="divide" ></span >
+				<a href="/bb3" rel="external">遊戲論壇</a><span class="divide"></span>
+			  <td align='right' width='10%'>
+                 <div id='online_num_div'><img src='./image/icon/online-icon.png' title='線上人數' alt='線上人數'  class="top_icon" id='online_num_img'><b id='online_num'>5</b></div>
+			  <td align='right' width='5%'>
+				<a href="#" onclick="RA_UseBack('index2.php?menu=mail')">
+<img alt="信箱" title="信箱" class="top_icon" src="./image/system/icon_mail_3.gif">				</a>
+			</table>
+			</div>
+			<div id="menu2">
+			<div style="width:100%">
+			<div style="width:30%;float:left">陸斯坎軍團老兵</div>
+			<div style="width:60%;float:right">
+			<div style="width:40%;float:left"><span class="bold">資金</span> : $&nbsp;432,508,442</div>
+			<div style="width:40%;float:right"><span class="bold">時間</span> : <span id='mtime'>2942</span>/4000</div>
+			</div>
+			<div class="c-both"></div>
+			</div>
+			<div style="width:100%">
+			<div style="width:30%;float:left"><span class="bold">國家:
+<a href='javascript:void(0)' onclick="RA_UseBack('index2.php?menu=country&country_id=11')">Hall of Luskan</a>			</span> </div>
+			<div style="width:60%;float:right">
+			<div style="width:40%;float:left"><span class="bold">榮譽</span> : $&nbsp;154</div>
+						</div>
+			<div class="c-both"></div>
+			</div>
+</div><div id="Jq_Conten">﻿<div style="margin:15px"><h4>普通怪物</h4><div style="margin:0 20px"><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=gb0')" >哥布林(最弱)</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=gb1')" >強一點的哥布林</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=gb2')" >哥布林戰士</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ac0')" >古之洞穴</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ac1')" >古之洞穴(B2)</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ac2')" >古之洞穴(B3)</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ac3')" >古之洞穴(B4)</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ac4')" >古之洞穴(B5)</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=snow0')" >滴凍入口</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=snow1')" >滴凍中腹</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=snow2')" >滴凍頂上</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=sea0')" >藏寶海岸</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ocean0')" >無盡之海</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=ocean1')" >偉大的航路</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=sand0')" >傑斯卡柏</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=volc0')" >黑石黑淵</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=volc1')" >火融之核</a></p><p style='display:inline;margin-right:32px;'><a href="#" onClick="RA_UseBack('index2.php?common=Asianata')" >幻界領域</a></p></div>
+<h4>BOSS</h4><div style="margin:0 20px">離下次戰鬥還需要 : <span class="bold">1:15</span></div></div><table cellspacing="0" style="width:100%" class="li_no_type"><tbody><tr>	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=0')" ><img src="./image/char/mon_013r.gif" /></a></div>
+	<div class="bold dmg">黑龍軍團</div>限制級別:400級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=1')" ><img src="./image/char/mon_014.gif" /></a></div>
+	<div class="bold dmg">金牛衝鋒隊</div>限制級別:250級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=4')" ><img src="./image/char/mon_054rz.gif" /></a></div>
+	<div class="bold dmg">早餐時間</div>限制級別:100級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=5')" ><img src="./image/char/mon_054ry.gif" /></a></div>
+	<div class="bold dmg">午餐時間</div>限制級別:100級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass01.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=6')" ><img src="./image/char/mon_054r.gif" /></a></div>
+	<div class="bold dmg">晚餐時間</div>限制級別:100級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=7')" ><img src="./image/char/mon_008r.gif" /></a></div>
+	<div class="bold dmg">猿猴的憤怒</div>限制級別:150級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_nest.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=8')" ><img src="./image/char/mon_208rz.gif" /></a></div>
+	<div class="bold dmg">鳥巢</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=9')" ><img src="./image/char/mon_238.gif" /></a></div>
+	<div class="bold dmg">冥界鬥士</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=10')" ><img src="./image/char/mon_117k.gif" /></a></div>
+	<div class="bold dmg">藍色哨兵</div>限制級別:200級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=11')" ><img src="./image/char/mon_168.gif" /></a></div>
+	<div class="bold dmg">食人魔軍團</div>限制級別:200級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=12')" ><img src="./image/char/mon_eve001.gif" /></a></div>
+	<div class="bold dmg">上古之神</div>限制級別:450級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=13')" ><img src="./image/char/mon_106.gif" /></a></div>
+	<div class="bold dmg">靈魂法師</div>限制級別:180級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=14')" ><img src="./image/char/mon_264r.png" /></a></div>
+	<div class="bold dmg">遠古封印</div>限制級別:250級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=15')" ><img src="./image/char/mon_016.gif" /></a></div>
+	<div class="bold dmg">深海幼幼</div>限制級別:180級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=16')" ><img src="./image/char/mon_091.gif" /></a></div>
+	<div class="bold dmg">鋼鍊之地</div>限制級別:320級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_Nintendo.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=18')" ><img src="./image/char/Nintendob-001.gif" /></a></div>
+	<div class="bold dmg">功夫皇帝</div>限制級別:280級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=19')" ><img src="./image/char/mon_nu019_5.gif" /></a></div>
+	<div class="bold dmg">咒拳鄉逆襲</div>限制級別:430級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=21')" ><img src="./image/char/mon_002.gif" /></a></div>
+	<div class="bold dmg">史萊姆第二個家</div>限制級別:150級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_lava.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=22')" ><img src="./image/char/mon_2022.gif" /></a></div>
+	<div class="bold dmg">光明神廟(前院)</div>限制級別:220級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=23')" ><img src="./image/char/mon_150r.gif" /></a></div>
+	<div class="bold dmg">過往英雄</div>限制級別:300級
+	</div></td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=25')" ><img src="./image/char/mon_158.gif" /></a></div>
+	<div class="bold dmg">過往與未來</div>限制級別:300級
+	</div></td>
+	<td valign="bottom" style="width:20%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+	<a href="#" onClick="RA_UseBack('index2.php?union=26')" ><img src="./image/char/mon_260r.png" /></a></div>
+	<div class="bold dmg">終焉之刻</div>限制級別:480級
+	</div></td>
+</tr></tbody></table><div style="margin:0 15px">
+<h4>BOSS戰記錄 <a href="?ulog">全表示</a></h4>
+<div style="margin:0 20px">
+[ <a href="?ulog=1748346133701628
+" onClick="RA_History()">05/27 PM 07:42:13</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> Jeremy(77: 60) vs 鋼鍊之地
+(5: 72)<br />[ <a href="?ulog=1748346101429914
+" onClick="RA_History()">05/27 PM 07:41:41</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> K-極也(4: 49) vs 鳥巢
+(15: 45.3)<br />[ <a href="?ulog=1748345952716857
+" onClick="RA_History()">05/27 PM 07:39:12</a> ]&nbsp;
+<span class="bold">112</span>回&nbsp;
+<span class="recover"><span class="support">[訊息隱藏]</span> 天邊小星星</span>(56: 60) vs <span class="dmg">土匪群
+</span>(9: 44)<br />[ <a href="?ulog=1748345680194144
+" onClick="RA_History()">05/27 PM 07:34:40</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(8: 45.3)<br />[ <a href="?ulog=1748345554268727
+" onClick="RA_History()">05/27 PM 07:32:34</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 2023(88: 60) vs 土匪群
+(9: 44)<br />[ <a href="?ulog=1748344765162392
+" onClick="RA_History()">05/27 PM 07:19:25</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> Jeremy(79: 60) vs 鋼鍊之地
+(6: 72)<br />[ <a href="?ulog=1748344441521977
+" onClick="RA_History()">05/27 PM 07:14:01</a> ]&nbsp;
+<span class="bold">84</span>回&nbsp;
+<span class="dmg"><span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵</span>(5: 39.8) vs <span class="recover">鳥巢
+</span>(20: 45.3)<br />[ <a href="?ulog=1748344413535865
+" onClick="RA_History()">05/27 PM 07:13:33</a> ]&nbsp;
+<span class="bold">31</span>回&nbsp;
+<span class="dmg"><span class="support">[訊息隱藏]</span> 天邊小星星</span>(4: 55.5) vs <span class="recover">深海幼幼
+</span>(5: 28)<br />[ <a href="?ulog=1748343934607704
+" onClick="RA_History()">05/27 PM 07:05:34</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> K-極也(4: 49) vs 鳥巢
+(17: 45.3)<br />[ <a href="?ulog=1748343541019224
+" onClick="RA_History()">05/27 PM 06:59:01</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> Jeremy(76: 60) vs 鋼鍊之地
+(5: 72)<br />[ <a href="?ulog=1748343230017754
+" onClick="RA_History()">05/27 PM 06:53:50</a> ]&nbsp;
+<span class="bold">76</span>回&nbsp;
+<span class="dmg"><span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵</span>(5: 39.8) vs <span class="recover">鳥巢
+</span>(14: 45.3)<br />[ <a href="?ulog=1748342324392543
+" onClick="RA_History()">05/27 PM 06:38:44</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> Jeremy(76: 60) vs 鋼鍊之地
+(5: 72)<br />[ <a href="?ulog=1748342134135987
+" onClick="RA_History()">05/27 PM 06:35:34</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> K-極也(4: 49) vs 鳥巢
+(10: 45.3)<br />[ <a href="?ulog=1748342028061777
+" onClick="RA_History()">05/27 PM 06:33:48</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 天邊小星星(7: 55.5) vs 深海幼幼
+(5: 28)<br />[ <a href="?ulog=1748341993874425
+" onClick="RA_History()">05/27 PM 06:33:13</a> ]&nbsp;
+<span class="bold">150</span>回&nbsp;
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(5: 39.8) vs 鳥巢
+(8: 45.3)<br /></div></div>
+</div></div> 
+<div style="clear: both;"></div>
+<div id='msg' style='display:none'></div>
+<div id="foot">
+  <!--<p><a href="?update">UpDate</a> - -->
+  <a href="/bb3" target="_blank">遊戲論壇</a> - 
+	<a href="?manual">手冊</a> - 
+	<a href="?tutorial">教學</a> - 
+	<a href="?gamedata=job">遊戲數據</a> - 
+	<a href="#top">Top</a><br /><br />
+    Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.　後續製作<a href="/">飛朵啦學習手札</a> 2008-2011.<br />
+</p>
+</div>
+</div>
+</html>

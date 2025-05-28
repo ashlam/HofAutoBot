@@ -47,7 +47,7 @@ class BossActionEditor(QMainWindow):
             self.character_config = json.load(f)
         
         # 加载action配置
-        self.action_config_path = os.path.join(self.configs_path, 'action_config.json')
+        self.action_config_path = os.path.join(self.configs_path, 'action_config_advanced.json')
         try:
             with open(self.action_config_path, 'r', encoding='utf-8') as f:
                 self.action_config = json.load(f)
@@ -226,16 +226,12 @@ class BossActionEditor(QMainWindow):
                 'tag': ['boss', 'need_character'],
                 'actions': [
                     {
-                        'trigger_type': '跳转',
-                        'element_info': f'<a href="#" onclick="RA_UseBack(\'index2.php?union={boss_union_id}\')">', 
-                        'container_info': '<div id="Jq_Conten">',
-                        'wait_time': 2000
+                        "trigger_type": "click_sub_menu_boss",
+                        "value": f"union={boss_union_id}"
                     },
                     {
-                        'trigger_type': '按钮',
-                        'element_info': '<input type="button" class="btn" onclick="checkDelAll()" value="清除">',
-                        'container_info': '',
-                        'wait_time': 500
+                        "trigger_type": "click_button_clear_team",
+                        "value": "checkDelAll()"
                     }
                 ]
             }
@@ -244,19 +240,15 @@ class BossActionEditor(QMainWindow):
         # 添加角色选择动作
         for char in selected_chars:
             action_config[action_id]['actions'].append({
-                'trigger_type': '复选框',
-                'element_info': f'name="char_{char["udid"]}" value="1">',
-                'container_info': '',
-                '_memo': f"{char['name']} L{char['level']} {char['job_name']}",
-                'wait_time': 500
+                "trigger_type": "check_box_select_character",
+                "value": f"char_{char['udid']}",
+                '_memo': f"{char['name']} L{char['level']} {char['job_name']}"
             })
         
         # 添加战斗按钮动作
         action_config[action_id]['actions'].append({
-            'trigger_type': '按钮',
-            'element_info': '<input type="submit" class="btn" value="戰鬥!" name="union_battle">',
-            'container_info': '',
-            'wait_time': 1000
+            "trigger_type": "click_button_start_battle",
+            "value": "union_battle"
         })
         
         # 更新预览
@@ -325,7 +317,7 @@ class BossActionEditor(QMainWindow):
             with open(os.path.join(self.configs_path, 'character_config.json'), 'r', encoding='utf-8') as f:
                 self.character_config = json.load(f)
             
-            self.action_config_path = os.path.join(self.configs_path, 'action_config.json')
+            self.action_config_path = os.path.join(self.configs_path, 'action_config_advanced.json')
             try:
                 with open(self.action_config_path, 'r', encoding='utf-8') as f:
                     self.action_config = json.load(f)
