@@ -17,241 +17,28 @@
       }
     ]
   },
-  "3": {
-    "name": "城镇->竞技场->战斗",
-    "note": "从城镇界面进入竞技场并战斗一次",
+  "2": {
+    "name": "重复伟大航路",
+    "note": "打过一次伟大航路后，继续战斗一次",
+    "actions": [
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "monster_battle"
+      }
+    ]
+  },
+  "80000": {
+    "name": "点冒险，准备打boss",
+    "note": "点一下冒险，准备打boss",
     "actions": [
       {
         "trigger_type": "click_main_menu",
-        "value": "town"
-      },
-      {
-        "trigger_type": "click_sub_menu_stage",
-        "value": "menu=rank"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "ChallengeRank"
+        "value": "hunt"
       }
     ]
   },
-  "600170": {
-    "name": "一服旋风",
-    "note": "双护圣单变形",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1341490339532287",
-        "_memo": "小点点 L60 變形者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1358816667107676",
-        "_memo": "狗头人自爆队 L60 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1395921567796858",
-        "_memo": "小七七 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1402535372623586",
-        "_memo": "小静静 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1423637654521611",
-        "_memo": "小团团 L60 護聖使"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600171": {
-    "name": "一服旋风迅捷",
-    "note": "双护圣单变形迅捷版",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1341490339532287",
-        "_memo": "小点点 L60 變形者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1358816667107676",
-        "_memo": "狗头人自爆队 L60 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1395921567796858",
-        "_memo": "小七七 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1402535372623586",
-        "_memo": "小静静 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1423637654521611",
-        "_memo": "小团团 L60 護聖使"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600200": {
-    "name": "一服梦幻",
-    "note": "双护圣单变形",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1341490339532287",
-        "_memo": "小点点 L60 變形者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1358816667107676",
-        "_memo": "狗头人自爆队 L60 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1395921567796858",
-        "_memo": "小七七 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1402535372623586",
-        "_memo": "小静静 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1423637654521611",
-        "_memo": "小团团 L60 護聖使"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600080": {
-    "name": "一服鸟毛",
-    "note": "退魔鸟毛",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1346468867379495",
-        "_memo": "小高高 L60 退魔戰將"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1481165931220661",
-        "_memo": "狗头人候补No.27 L47 元素使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1745205143332516",
-        "_memo": "狗头人候补No.14 L25 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1745208655009927",
-        "_memo": "狗头人候补No.13 L26 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1746782571260312",
-        "_memo": "狗头人候补No.9 L38 主教"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600000": {
-    "name": "一服黑龙",
-    "note": "护圣星界",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1354455047868092",
-        "_memo": "小兔兔 L60 殺戮者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1359460858742662",
-        "_memo": "小明明 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1393944828815043",
-        "_memo": "小神神 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1450841161467649",
-        "_memo": "狗头人No.1 L60 星界法師"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1481007653429355",
-        "_memo": "狗头人候补No.30 L60 變形者"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600150": {
-    "name": "一服项链",
+  "800170": {
+    "name": "二服炫风",
     "note": "",
     "tag": [
       "boss",
@@ -264,18 +51,28 @@
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1346468867379495",
-        "_memo": "小高高 L60 退魔戰將"
+        "value": "char_1349400276521230",
+        "_memo": "憤怒的雷鳥 L60 武僧"
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1397183741187678",
-        "_memo": "小狐狐 L60 星界法師"
+        "value": "char_1352810957852085",
+        "_memo": "爲你而戰我的女士 L60 護聖使"
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1536814929876636",
-        "_memo": "狗头人候补No.19 L60 森林長者"
+        "value": "char_1355649675137239",
+        "_memo": "無形 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1366296154839035",
+        "_memo": "治癒兔 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1397984500849674",
+        "_memo": "炮灰菜鳥 L60 狂戰士"
       },
       {
         "trigger_type": "click_button_start_battle",
@@ -283,9 +80,9 @@
       }
     ]
   },
-  "600250": {
-    "name": "一服过往",
-    "note": "粽子团",
+  "800200": {
+    "name": "二服梦幻",
+    "note": "",
     "tag": [
       "boss",
       "need_character"
@@ -297,28 +94,223 @@
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1352373797914489",
-        "_memo": "小ＡＳ L60 護聖使"
+        "value": "char_1349400276521230",
+        "_memo": "憤怒的雷鳥 L60 武僧"
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1358060408626078",
-        "_memo": "小莱莱 L60 元素使"
+        "value": "char_1352810957852085",
+        "_memo": "爲你而戰我的女士 L60 護聖使"
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1404181747086695",
-        "_memo": "小兔兔 L60 絡印勇士"
+        "value": "char_1355649675137239",
+        "_memo": "無形 L60 變形者"
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1405864085968419",
-        "_memo": "小君君 L60 機關師"
+        "value": "char_1366296154839035",
+        "_memo": "治癒兔 L60 護聖使"
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1481077275840089",
-        "_memo": "小噗噗 L60 森林長者"
+        "value": "char_1397984500849674",
+        "_memo": "炮灰菜鳥 L60 狂戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800150": {
+    "name": "二服UU",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344748774310334",
+        "_memo": "黑森林的魔女 L60 森林長者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1353597083168802",
+        "_memo": "打擾兩下 L60 退魔戰將"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1375465923651668",
+        "_memo": "霜 L60 亡靈守衛"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800250": {
+    "name": "二服过往",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344603372049168",
+        "_memo": "會走路的核子爐 L60 絡印勇士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344603436700433",
+        "_memo": "水 L60 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1345634157743062",
+        "_memo": "復活吧 我的勇士 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1410315486937469",
+        "_memo": "G. L60 森林長者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1481016300908423",
+        "_memo": "H. L60 機關師"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800030": {
+    "name": "二服土匪",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1349400276521230",
+        "_memo": "憤怒的雷鳥 L60 武僧"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1352810957852085",
+        "_memo": "爲你而戰我的女士 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1355649675137239",
+        "_memo": "無形 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1397984500849674",
+        "_memo": "炮灰菜鳥 L60 狂戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800010": {
+    "name": "二服金牛",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344748774310334",
+        "_memo": "黑森林的魔女 L60 森林長者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1349520472612907",
+        "_memo": "崩 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1358089973704493",
+        "_memo": "岩 L60 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1396776857118499",
+        "_memo": "罚 L60 星界法師"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800000": {
+    "name": "二服黑龙",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1346165592965808",
+        "_memo": "憤怒的猿猴 L60 武僧"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1348929337177116",
+        "_memo": "文學少女 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1349520494597007",
+        "_memo": "炮灰小子 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1396776857118499",
+        "_memo": "罰 L60 星界法師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1400662064251555",
+        "_memo": "樹 L60 變形者"
       },
       {
         "trigger_type": "click_button_start_battle",
