@@ -236,7 +236,10 @@ class HofAutoBot:
             if union_id in self.all_alived_boss_ids:
                 # 活着，试着干它
                 self.logger.info(f'VIP boss {union_id} 已出现，BEAT IT！！！')
-                self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
+                # self.action_manager.execute_advanced_action(self.driver, advanced_action_config)
+                self._set_directly_challgenge_boss(union_id, advanced_action_config)
+                self._set_state(self.GAME_STATE_DIRECTLY_CHALLENGE_BOSS)
+                return
                 # 打完了，更新一下信息，看打成功没有（有可能被人抢了）
                 self.logger.info(f"锤完了，更新一下信息，看打成功没有（有可能被人抢了）")
                 self._update_info_from_hunt_page()
