@@ -71,17 +71,17 @@ class CaptchaDialog(QDialog):
         layout.addWidget(label)
         layout.addWidget(self.input)
         btn_layout = QHBoxLayout()
-        self.btn_refresh = QPushButton('换个验证码')
         self.btn_login = QPushButton('登录')
+        self.btn_refresh = QPushButton('换个验证码')
         self.btn_close = QPushButton('关闭')
-        btn_layout.addWidget(self.btn_refresh)
         btn_layout.addWidget(self.btn_login)
+        btn_layout.addWidget(self.btn_refresh)
         btn_layout.addWidget(self.btn_close)
         layout.addLayout(btn_layout)
         self.setLayout(layout)
-        self.btn_refresh.clicked.connect(self.refresh_captcha)
         self.btn_login.clicked.connect(self.login)
-        self.btn_close.clicked.connect(self.reject)
+        self.btn_refresh.clicked.connect(self.refresh_captcha)
+        self.btn_close.clicked.connect(self.close)
 
     def refresh_captcha(self):
         try:
@@ -98,6 +98,9 @@ class CaptchaDialog(QDialog):
             QMessageBox.warning(self, '警告', '请输入验证码')
             return
         self.accept()
+
+    def close(self):
+        self.reject()
 
 class LoginWindow(QMainWindow):
     def __init__(self):
@@ -297,13 +300,11 @@ class LoginWindow(QMainWindow):
                 self.update_btn.setEnabled(False)
                 self.start_btn.setEnabled(False)
         else:
-            # 用户点击关闭或未输入内容
+            # 用户点击关闭，视为已手动登录成功
             QMessageBox.information(self, '提示', '您未输入验证码或点击了关闭。')
-            if self.driver:
-                self.driver.quit()
-                self.driver = None
-            self.update_btn.setEnabled(False)
-            self.start_btn.setEnabled(False)
+            # 启用更新角色和启动按钮
+            self.update_btn.setEnabled(True)
+            self.start_btn.setEnabled(True)
 
     def update_character(self):
         try:
