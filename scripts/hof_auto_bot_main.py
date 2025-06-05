@@ -362,14 +362,15 @@ class HofAutoBot:
 
     def _idle_and_update_cooldown(self, idle_time):
         """发呆并更新冷却时间"""
-        self.logger.info(f"发呆{idle_time}秒")
+        self.logger.info(f"发呆{idle_time}秒（剩余冷却时间: {self.challenge_next_cooldown} 秒， vip等待时间: {self.waiting_vip_boss_time} 秒）")
         if idle_time > 0:
+            idle_time = max(idle_time, 1)
             time.sleep(idle_time)
         self.challenge_next_cooldown -= idle_time
         self.challenge_next_cooldown = max(0, self.challenge_next_cooldown)
         self.waiting_vip_boss_time -= idle_time
         self.waiting_vip_boss_time = max(0, self.waiting_vip_boss_time)
-        self.logger.info(f"发呆结束，剩余冷却时间: {self.challenge_next_cooldown} 秒")            
+        self.logger.info(f"发呆结束，剩余冷却时间: {self.challenge_next_cooldown} 秒, vip等待时间: {self.waiting_vip_boss_time} 秒")            
 
     def _process_normal_boss(self):
         """处理普通boss战斗
