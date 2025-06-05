@@ -1,1547 +1,181 @@
-<div id="Jq_Conten"> <script language="javascript" type="text/javascript">
-			// DOMContentLoaded
-			$(function(){
-				sort_date2();
-			});
-		</script>
-<div id="file_sort" style="">
-<span id="filter">
-<table width="100%">
-<tbody><tr><td>職業:
-					<span class="btn2 type1" id="t1_warrior"><img alt="戰士系" src="./image/system/icon/ch_warrior.png"/></span>
-<span class="btn2 type1" id="t1_wizard"><img alt="巫師系" src="./image/system/icon/ch_wizard.png"/></span>
-<span class="btn2 type1" id="t1_pastor"><img alt="牧師系" src="./image/system/icon/ch_pastor.png"/></span>
-<span class="btn2 type1" id="t1_hunter"><img alt="獵人系" src="./image/system/icon/ch_hunter.png"/></span>
-<input id="TYPE" name="type" type="hidden" value=""/>
-</td><td>
-					軍團:
-<span class="btn2 type2" id="t2_type_1">一軍</span> <span class="btn2 type2" id="t2_type_2">二軍</span> <span class="btn2 type2" id="t2_type_3">三軍</span> <input id="TYPE2" name="type2" type="hidden" value=""/>
-</td><td>類別
-					<span class="btn2 sort btn2_sel" id="s1_base">手動</span>
-<span class="btn2 sort" id="s1_job">職業</span>
-<span class="btn2 sort" id="s1_name">名稱</span>
-<span class="btn2 sort" id="s1_level">等級</span>
-<input id="SORT" name="sort" type="hidden" value=""/>
-</td></tr><tr style="padding:5px 0 ">
-<td colspan="2">管理:
-<span class="btn3" onclick="sweetTitles();" type="button">顯示裝備</span>
-<span class="btn3" onclick="RA_UseBack('index2.php?action=manage')" type="button">隊伍管理</span>
-</td><td>類型
-					<span class="btn2 sort_type btn2_sel" id="st_ASC">順排</span>
-<span class="btn2 sort_type" id="st_DESC">逆排</span>
-<input id="SORT_TYPE" name="sort_type" type="hidden" value=""/>
-</td></tr></tbody></table>
-</span></div>
-<ul class="image-grid" id="applications"> <li data-id="id-1" data-type="warrior" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1340513102982626)" style="height:128px" title="武器:+4 命運幻象長戟&lt;br&gt;副手:&lt;br&gt;　甲:+6 遺留的機械凱&lt;br&gt;道具:+5 地球之戒(心)&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_235m.gif"/></a>
+<div id="Jq_Conten">﻿<div style="margin:15px"><h4>普通怪物</h4><div style="margin:0 20px"><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=gb0')">哥布林(最弱)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=gb1')">強一點的哥布林</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=gb2')">哥布林戰士</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac0')">古之洞穴</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac1')">古之洞穴(B2)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac2')">古之洞穴(B3)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac3')">古之洞穴(B4)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ac4')">古之洞穴(B5)</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=snow0')">滴凍入口</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=snow1')">滴凍中腹</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=snow2')">滴凍頂上</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=sea0')">藏寶海岸</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ocean0')">無盡之海</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=ocean1')">偉大的航路</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=sand0')">傑斯卡柏</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=volc0')">黑石黑淵</a></p><p style="display:inline;margin-right:32px;"><a href="#" onclick="RA_UseBack('index2.php?common=volc1')">火融之核</a></p></div>
+<h4>任務特區</h4><div style="margin:15px"><table cellspacing="0" class="li_no_type" style="width:100%"><tbody><tr> <td style="width:100%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?uniontask=task915')"><img src="./image/char/mon_180_a.gif"/></a></div>
+<div class="bold dmg">妖孽驅散</div>建議級別:250級
+	</div></td>
+</tr></tbody></table></div>
+<h4>BOSS</h4></div><table cellspacing="0" class="li_no_type" style="width:100%"><tbody><tr> <td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=1')"><img src="./image/char/mon_014.gif"/></a></div>
+<div class="bold dmg">金牛衝鋒隊</div>限制級別:250級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_pavement01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=2')"><img src="./image/char/hero.gif"/></a></div>
+<div class="bold dmg">假英雄</div>限制級別:300級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_sand.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=3')"><img src="./image/char/mon_216.gif"/></a></div>
+<div class="bold dmg">土匪群</div>限制級別:250級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=4')"><img src="./image/char/mon_054rz.gif"/></a></div>
+<div class="bold dmg">早餐時間</div>限制級別:100級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=5')"><img src="./image/char/mon_054ry.gif"/></a></div>
+<div class="bold dmg">午餐時間</div>限制級別:100級
+	</div></td>
+</tr><tr>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_grass01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=6')"><img src="./image/char/mon_054r.gif"/></a></div>
+<div class="bold dmg">晚餐時間</div>限制級別:100級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_nest.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=8')"><img src="./image/char/mon_208rz.gif"/></a></div>
+<div class="bold dmg">鳥巢</div>限制級別:200級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=9')"><img src="./image/char/mon_238.gif"/></a></div>
+<div class="bold dmg">冥界鬥士</div>限制級別:200級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_ocean.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=10')"><img src="./image/char/mon_117k.gif"/></a></div>
+<div class="bold dmg">藍色哨兵</div>限制級別:200級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_mount.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=11')"><img src="./image/char/mon_168.gif"/></a></div>
+<div class="bold dmg">食人魔軍團</div>限制級別:200級
+	</div></td>
+</tr><tr>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=12')"><img src="./image/char/mon_eve001.gif"/></a></div>
+<div class="bold dmg">上古之神</div>限制級別:450級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=13')"><img src="./image/char/mon_106.gif"/></a></div>
+<div class="bold dmg">靈魂法師</div>限制級別:180級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=14')"><img src="./image/char/mon_264r.png"/></a></div>
+<div class="bold dmg">遠古封印</div>限制級別:250級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=16')"><img src="./image/char/mon_091.gif"/></a></div>
+<div class="bold dmg">鋼鍊之地</div>限制級別:320級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_Nintendo.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=18')"><img src="./image/char/Nintendob-001.gif"/></a></div>
+<div class="bold dmg">功夫皇帝</div>限制級別:280級
+	</div></td>
+</tr><tr>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_grass.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=19')"><img src="./image/char/mon_nu019_5.gif"/></a></div>
+<div class="bold dmg">咒拳鄉逆襲</div>限制級別:430級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=21')"><img src="./image/char/mon_002.gif"/></a></div>
+<div class="bold dmg">史萊姆第二個家</div>限制級別:150級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_lava.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=22')"><img src="./image/char/mon_2022.gif"/></a></div>
+<div class="bold dmg">光明神廟(前院)</div>限制級別:220級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=23')"><img src="./image/char/mon_150r.gif"/></a></div>
+<div class="bold dmg">過往英雄</div>限制級別:300級
+	</div></td>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_build01.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=25')"><img src="./image/char/mon_158.gif"/></a></div>
+<div class="bold dmg">過往與未來</div>限制級別:300級
+	</div></td>
+</tr><tr>
+<td style="width:20%" valign="bottom"> <div class="carpet_frame">
+<div class="land" style="background-image : url(./image/other/land_swamp.gif);">
+<a href="#" onclick="RA_UseBack('index2.php?union=26')"><img src="./image/char/mon_260r.png"/></a></div>
+<div class="bold dmg">終焉之刻</div>限制級別:480級
+	</div></td>
+</tr></tbody></table><div style="margin:0 15px">
+<h4>BOSS戰記錄 <a href="?ulog">全表示</a></h4>
+<div style="margin:0 20px">
+[ <a href="?ulog=1749117897130605
+" onclick="RA_History()">06/05 PM 06:04:57</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> K-極也(4: 50) vs 鳥巢
+(15: 45.3)<br/>[ <a href="?ulog=1749116652645693
+" onclick="RA_History()">06/05 PM 05:44:12</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> K-極也(4: 50) vs 鳥巢
+(10: 45.3)<br/>[ <a href="?ulog=1749116620018953
+" onclick="RA_History()">06/05 PM 05:43:40</a> ] 
+<span class="bold">131</span>回 
+<span class="recover"><span class="support">[訊息隱藏]</span> 天邊小星星</span>(3: 49) vs <span class="dmg">猿猴的憤怒
+</span>(5: 30.8)<br/>[ <a href="?ulog=1749115960379472
+" onclick="RA_History()">06/05 PM 05:32:40</a> ] 
+<span class="bold">150</span>回 
+Lindera(54: 59.8) vs 假英雄
+(38: 63.2)<br/>[ <a href="?ulog=1749115306612410
+" onclick="RA_History()">06/05 PM 05:21:46</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> K-極也(4: 50) vs 鳥巢
+(10: 45.3)<br/>[ <a href="?ulog=1749114987794679
+" onclick="RA_History()">06/05 PM 05:16:27</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> 天邊小星星(3: 49) vs 猿猴的憤怒
+(6: 30.8)<br/>[ <a href="?ulog=1749114972343166
+" onclick="RA_History()">06/05 PM 05:16:12</a> ] 
+<span class="bold">37</span>回 
+<span class="dmg"><span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵</span>(4: 49.5) vs <span class="recover">藍色哨兵
+</span>(5: 46.6)<br/>[ <a href="?ulog=1749114681012312
+" onclick="RA_History()">06/05 PM 05:11:21</a> ] 
+<span class="bold">122</span>回 
+<span class="recover"><span class="support">[訊息隱藏]</span> 2023</span>(83: 60) vs <span class="dmg">夢幻莊園
+</span>(41: 62.4)<br/>[ <a href="?ulog=1749114028097720
+" onclick="RA_History()">06/05 PM 05:00:28</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> K-極也(4: 50) vs 鳥巢
+(6: 45.3)<br/>[ <a href="?ulog=1749113545747468
+" onclick="RA_History()">06/05 PM 04:52:25</a> ] 
+<span class="bold">84</span>回 
+<span class="dmg"><span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵</span>(5: 60) vs <span class="recover">夢幻莊園
+</span>(5: 62.4)<br/>[ <a href="?ulog=1749113176509015
+" onclick="RA_History()">06/05 PM 04:46:16</a> ] 
+<span class="bold">150</span>回 
+Lindera(70: 60) vs 夢幻莊園
+(37: 62.4)<br/>[ <a href="?ulog=1749112343148431
+" onclick="RA_History()">06/05 PM 04:32:23</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(59: 60) vs 夢幻莊園
+(41: 62.4)<br/>[ <a href="?ulog=1749112301911213
+" onclick="RA_History()">06/05 PM 04:31:41</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> K-極也(4: 50) vs 鳥巢
+(11: 45.3)<br/>[ <a href="?ulog=1749111427060607
+" onclick="RA_History()">06/05 PM 04:17:07</a> ] 
+<span class="bold">6</span>回 
+<span class="recover"><span class="support">[訊息隱藏]</span> 魔法篇章</span>(3: 60) vs <span class="dmg">深海幼幼
+</span>(5: 28)<br/>[ <a href="?ulog=1749111139727188
+" onclick="RA_History()">06/05 PM 04:12:19</a> ] 
+<span class="bold">150</span>回 
+<span class="support">[訊息隱藏]</span> 陸斯坎軍團老兵(70: 60) vs 夢幻莊園
+(45: 62.4)<br/></div></div>
 </div>
-</div>
-</div>
-				小熊熊<br/>Lv.60 亡靈守衛				<div style="display:none">
-<span data-type="base">0</span>
-<span data-type="job">110</span>
-<span data-type="name">小熊熊</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-2" data-type="warrior" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1340513135031688)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 史林特外袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012m_a.gif"/></a>
-</div>
-</div>
-</div>
-				小单单<br/>Lv.60 絡印勇士				<div style="display:none">
-<span data-type="base">4</span>
-<span data-type="job">112</span>
-<span data-type="name">小单单</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-3" data-type="warrior" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1340513144405650)" style="height:128px" title="武器:+4 混沌黑暗之鋒&lt;br&gt;副手:&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
-</div>
-</div>
-</div>
-				小豆豆<span class="bold charge">*</span><br/>Lv.60 絡印勇士				<div style="display:none">
-<span data-type="base">3</span>
-<span data-type="job">112</span>
-<span data-type="name">小豆豆</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-4" data-type="warrior" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1340513153015543)" style="height:128px" title="武器:+4 命運幻象長戟&lt;br&gt;副手:&lt;br&gt;　甲:+4 遺留的機械凱&lt;br&gt;道具:+5 地球之戒(風)&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:哥布林(騎士)卡&lt;br&gt;"> <img src="./image/char/mon_053.gif"/></a>
-</div>
-</div>
-</div>
-				小菊菊<br/>Lv.60 亡靈守衛				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">110</span>
-<span data-type="name">小菊菊</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-5" data-type="pastor" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1340513162741689)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:&lt;br&gt;　甲:+4 Iriss外衣&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:哥布林(黑杖)卡&lt;br&gt;"> <img src="./image/char/mon_053.gif"/></a>
-</div>
-</div>
-</div>
-				小娉娉<span class="bold charge">*</span><br/>Lv.60 武僧				<div style="display:none">
-<span data-type="base">2</span>
-<span data-type="job">314</span>
-<span data-type="name">小娉娉</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-6" data-type="pastor" data-type2="type_2">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341059592531624)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213m.gif"/></a>
-</div>
-</div>
-</div>
-				小逃逃<br/>Lv.60 護聖使				<div style="display:none">
-<span data-type="base">36</span>
-<span data-type="job">311</span>
-<span data-type="name">小逃逃</span>
-<span data-type="level">60</span>
-<span data-type="type_2"></span>
-</div>
-</div>
-</li>
-<li data-id="id-7" data-type="wizard" data-type2="type_2">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341059924615928)" style="height:128px" title="武器:+4 萊姆棍&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:+5 心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216m.png"/></a>
-</div>
-</div>
-</div>
-				小月月<br/>Lv.60 元素使				<div style="display:none">
-<span data-type="base">26</span>
-<span data-type="job">216</span>
-<span data-type="name">小月月</span>
-<span data-type="level">60</span>
-<span data-type="type_2"></span>
-</div>
-</div>
-</li>
-<li data-id="id-8" data-type="wizard" data-type2="type_2">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341059931760690)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:強化魔法指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_268.gif"/></a>
-</div>
-</div>
-</div>
-				小次次<span class="bold charge">*</span><br/>Lv.60 星魔使徒				<div style="display:none">
-<span data-type="base">32</span>
-<span data-type="job">212</span>
-<span data-type="name">小次次</span>
-<span data-type="level">60</span>
-<span data-type="type_2"></span>
-</div>
-</div>
-</li>
-<li data-id="id-9" data-type="wizard" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341059943975117)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_246m.gif"/></a>
-</div>
-</div>
-</div>
-				小醉醉<br/>Lv.60 魔導士				<div style="display:none">
-<span data-type="base">25</span>
-<span data-type="job">211</span>
-<span data-type="name">小醉醉</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-10" data-type="warrior" data-type2="type_1">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341223283401458)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012m_a.gif"/></a>
-</div>
-</div>
-</div>
-				小虱虱<br/>Lv.60 絡印勇士				<div style="display:none">
-<span data-type="base">5</span>
-<span data-type="job">112</span>
-<span data-type="name">小虱虱</span>
-<span data-type="level">60</span>
-<span data-type="type_1"></span>
-</div>
-</div>
-</li>
-<li data-id="id-11" data-type="wizard" data-type2="type_2">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341228573079997)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:&lt;br&gt;卡片:魔導士男造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_246mA_01.gif"/></a>
-</div>
-</div>
-</div>
-				小术术<br/>Lv.60 魔導士				<div style="display:none">
-<span data-type="base">29</span>
-<span data-type="job">211</span>
-<span data-type="name">小术术</span>
-<span data-type="level">60</span>
-<span data-type="type_2"></span>
-</div>
-</div>
-</li>
-<li data-id="id-12" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341490339532287)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:強化魔法指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_315m.gif"/></a>
-</div>
-</div>
-</div>
-				小点点<span class="bold charge">*</span><br/>Lv.60 變形者				<div style="display:none">
-<span data-type="base">11</span>
-<span data-type="job">315</span>
-<span data-type="name">小点点</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-13" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630067887846)" style="height:128px" title="武器:+1 權天使&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 遺留的機械凱&lt;br&gt;道具:+5 生命指環&lt;br&gt;徽記:遠古之粽&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_237.gif"/></a>
-</div>
-</div>
-</div>
-				小顶顶<span class="bold charge">*</span><br/>Lv.60 聖堂武士				<div style="display:none">
-<span data-type="base">27</span>
-<span data-type="job">111</span>
-<span data-type="name">小顶顶</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-14" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630210237732)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 英魂甲冑&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:魔劍使男造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n115mb_01.gif"/></a>
-</div>
-</div>
-</div>
-				小控控<br/>Lv.60 魔劍使				<div style="display:none">
-<span data-type="base">39</span>
-<span data-type="job">115</span>
-<span data-type="name">小控控</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-15" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630218346977)" style="height:128px" title="武器:+4 真-卡拉伊之刃&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n115w.gif"/></a>
-</div>
-</div>
-</div>
-				小佳佳<br/>Lv.60 魔劍使				<div style="display:none">
-<span data-type="base">40</span>
-<span data-type="job">115</span>
-<span data-type="name">小佳佳</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-16" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630231339355)" style="height:128px" title="武器:+4 真-雙重十手&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+6 龍甲&lt;br&gt;道具:&lt;br&gt;徽記:聖誕號角(小)&lt;br&gt;卡片:魔劍使女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n115wa_01.gif"/></a>
-</div>
-</div>
-</div>
-				小雅雅<br/>Lv.60 魔劍使				<div style="display:none">
-<span data-type="base">16</span>
-<span data-type="job">115</span>
-<span data-type="name">小雅雅</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-17" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630242361461)" style="height:128px" title="武器:短劍&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214w.gif"/></a>
-</div>
-</div>
-</div>
-				小勺勺<br/>Lv.60 死靈導士				<div style="display:none">
-<span data-type="base">18</span>
-<span data-type="job">214</span>
-<span data-type="name">小勺勺</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-18" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1342235057431728)" style="height:128px" title="武器:+5 心靈之爪&lt;br&gt;副手:+4 木盾&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n114w.gif"/></a>
-</div>
-</div>
-</div>
-				小宁宁<br/>Lv.60 殺戮者				<div style="display:none">
-<span data-type="base">41</span>
-<span data-type="job">114</span>
-<span data-type="name">小宁宁</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-19" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1344166358961278)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213x.gif"/></a>
-</div>
-</div>
-</div>
-				小丝丝<br/>Lv.60 審判者				<div style="display:none">
-<span data-type="base">33</span>
-<span data-type="job">313</span>
-<span data-type="name">小丝丝</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-20" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1344174097065666)" style="height:128px" title="武器:+4 萊姆棍&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:強化魔法指環&lt;br&gt;徽記:&lt;br&gt;卡片:森林長者女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n214rz_1.gif"/></a>
-</div>
-</div>
-</div>
-				小ＫＫ<span class="bold charge">*</span><br/>Lv.60 森林長者				<div style="display:none">
-<span data-type="base">12</span>
-<span data-type="job">312</span>
-<span data-type="name">小ＫＫ</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-21" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1346468867379495)" style="height:128px" title="武器:+7 戮龍劍&lt;br&gt;副手:+4 精靈盾&lt;br&gt;　甲:+4 英魂甲冑&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:黑萊姆(正)卡&lt;br&gt;"> <img src="./image/char/NoImage.gif"/></a>
-</div>
-</div>
-</div>
-				小高高<br/>Lv.60 退魔戰將				<div style="display:none">
-<span data-type="base">13</span>
-<span data-type="job">113</span>
-<span data-type="name">小高高</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-22" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1351681320738537)" style="height:128px" title="武器:+7 心靈之爪&lt;br&gt;副手:+4 木盾&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:先祖硬幣(猴羊蛇馬)&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n114m.gif"/></a>
-</div>
-</div>
-</div>
-				小狂狂<br/>Lv.60 殺戮者				<div style="display:none">
-<span data-type="base">22</span>
-<span data-type="job">114</span>
-<span data-type="name">小狂狂</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-23" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1351686540649201)" style="height:128px" title="武器:+4 真-戊&lt;br&gt;副手:&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216m.png"/></a>
-</div>
-</div>
-</div>
-				小演演<br/>Lv.60 元素使				<div style="display:none">
-<span data-type="base">24</span>
-<span data-type="job">216</span>
-<span data-type="name">小演演</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-24" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1352373596528753)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_246m.gif"/></a>
-</div>
-</div>
-</div>
-				小阴阴<br/>Lv.60 魔導士				<div style="display:none">
-<span data-type="base">15</span>
-<span data-type="job">211</span>
-<span data-type="name">小阴阴</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-25" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1352373790243592)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n268w.gif"/></a>
-</div>
-</div>
-</div>
-				小蛇蛇<span class="bold charge">*</span><br/>Lv.60 星界法師				<div style="display:none">
-<span data-type="base">28</span>
-<span data-type="job">215</span>
-<span data-type="name">小蛇蛇</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-26" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1352373797914489)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:遠粽卡&lt;br&gt;"> <img src="./image/char/special_day_Dumplings2.gif"/></a>
-</div>
-</div>
-</div>
-				小ＡＳ<br/>Lv.60 護聖使				<div style="display:none">
-<span data-type="base">38</span>
-<span data-type="job">311</span>
-<span data-type="name">小ＡＳ</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-27" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1354455047868092)" style="height:128px" title="武器:+4 真-比巴斧&lt;br&gt;副手:+4 精靈盾&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
-</div>
-</div>
-</div>
-				小兔兔<br/>Lv.60 殺戮者				<div style="display:none">
-<span data-type="base">35</span>
-<span data-type="job">114</span>
-<span data-type="name">小兔兔</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-28" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1355228702660428)" style="height:128px" title="武器:+6 心靈之爪&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:獸拳師男造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n415m_1.gif"/></a>
-</div>
-</div>
-</div>
-				小拳拳<span class="bold charge">*</span><br/>Lv.60 獸拳師				<div style="display:none">
-<span data-type="base">19</span>
-<span data-type="job">415</span>
-<span data-type="name">小拳拳</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-29" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1355917854628872)" style="height:128px" title="武器:&lt;br&gt;副手:+4 席飛斯的生活手冊&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:獸拳師女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n415w_1.gif"/></a>
-</div>
-</div>
-</div>
-				小口口<span class="bold charge">*</span><br/>Lv.60 獸拳師				<div style="display:none">
-<span data-type="base">20</span>
-<span data-type="job">415</span>
-<span data-type="name">小口口</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-30" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1356802744242831)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n268m.gif"/></a>
-</div>
-</div>
-</div>
-				小未未<br/>Lv.60 星界法師				<div style="display:none">
-<span data-type="base">30</span>
-<span data-type="job">215</span>
-<span data-type="name">小未未</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-31" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1357482608907481)" style="height:128px" title="武器:蕉匕首&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+7 王者外套&lt;br&gt;道具:速度指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214m.gif"/></a>
-</div>
-</div>
-</div>
-				小ＮＳ<br/>Lv.60 死靈導士				<div style="display:none">
-<span data-type="base">17</span>
-<span data-type="job">214</span>
-<span data-type="name">小ＮＳ</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-32" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1358060408626078)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:遠粽卡&lt;br&gt;"> <img src="./image/char/special_day_Dumplings2.gif"/></a>
-</div>
-</div>
-</div>
-				小莱莱<br/>Lv.60 元素使				<div style="display:none">
-<span data-type="base">34</span>
-<span data-type="job">216</span>
-<span data-type="name">小莱莱</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-33" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1358741286894169)" style="height:128px" title="武器:蕉匕首&lt;br&gt;副手:+4 小刀&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n090.gif"/></a>
-</div>
-</div>
-</div>
-				小黑黑<br/>Lv.60 忍者				<div style="display:none">
-<span data-type="base">37</span>
-<span data-type="job">413</span>
-<span data-type="name">小黑黑</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-34" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1358816667107676)" style="height:128px" title="武器:真-比巴斧&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:+5 強化魔法指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_012.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人自爆队<br/>Lv.60 狂戰士				<div style="display:none">
-<span data-type="base">23</span>
-<span data-type="job">102</span>
-<span data-type="name">狗头人自爆队</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-35" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1359116864971428)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_246w.gif"/></a>
-</div>
-</div>
-</div>
-				小沼沼<span class="bold charge">*</span><br/>Lv.60 魔導士				<div style="display:none">
-<span data-type="base">42</span>
-<span data-type="job">211</span>
-<span data-type="name">小沼沼</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-36" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1359206934249861)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n268m.gif"/></a>
-</div>
-</div>
-</div>
-				小爵爵<span class="bold charge">*</span><br/>Lv.60 星界法師				<div style="display:none">
-<span data-type="base">21</span>
-<span data-type="job">215</span>
-<span data-type="name">小爵爵</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-37" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1359460858742662)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+6 咒語日記&lt;br&gt;　甲:+5 神聖長袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
-</div>
-</div>
-</div>
-				小明明<br/>Lv.60 護聖使				<div style="display:none">
-<span data-type="base">31</span>
-<span data-type="job">311</span>
-<span data-type="name">小明明</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-38" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1361687509621646)" style="height:128px" title="武器:+7 心靈之爪&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n315m.gif"/></a>
-</div>
-</div>
-</div>
-				小邪邪<br/>Lv.60 降魔者				<div style="display:none">
-<span data-type="base">14</span>
-<span data-type="job">316</span>
-<span data-type="name">小邪邪</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-39" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1368539057496878)" style="height:128px" title="武器:短劍&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214w.gif"/></a>
-</div>
-</div>
-</div>
-				小赛赛<br/>Lv.60 死靈導士				<div style="display:none">
-<span data-type="base">6</span>
-<span data-type="job">214</span>
-<span data-type="name">小赛赛</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-40" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1375330697023672)" style="height:128px" title="武器:+4 無面者之鬚&lt;br&gt;副手:&lt;br&gt;　甲:+4 棉長袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_412m.gif"/></a>
-</div>
-</div>
-</div>
-				小ＨＨ<br/>Lv.60 神獸師				<div style="display:none">
-<span data-type="base">7</span>
-<span data-type="job">412</span>
-<span data-type="name">小ＨＨ</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-41" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1375330774613094)" style="height:128px" title="武器:+5 銀尾鞭&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_412w.gif"/></a>
-</div>
-</div>
-</div>
-				小帕帕<br/>Lv.60 神獸師				<div style="display:none">
-<span data-type="base">8</span>
-<span data-type="job">412</span>
-<span data-type="name">小帕帕</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-42" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1377693084376417)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:未爆的大華輪&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n414m.gif"/></a>
-</div>
-</div>
-</div>
-				小ＰＰ<span class="bold charge">*</span><br/>Lv.60 機關師				<div style="display:none">
-<span data-type="base">9</span>
-<span data-type="job">414</span>
-<span data-type="name">小ＰＰ</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-43" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1377693166888369)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_218r.gif"/></a>
-</div>
-</div>
-</div>
-				小咖咖<br/>Lv.60 浪人劍客				<div style="display:none">
-<span data-type="base">10</span>
-<span data-type="job">416</span>
-<span data-type="name">小咖咖</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-44" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1392131481634666)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_411w.gif"/></a>
-</div>
-</div>
-</div>
-				小冰冰<span class="bold charge">*</span><br/>Lv.60 神射手				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">411</span>
-<span data-type="name">小冰冰</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-45" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1392956807695985)" style="height:128px" title="武器:+4 真-卡拉伊之刃&lt;br&gt;副手:+4 世界百科全書&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:聖誕號角(小)&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_109.gif"/></a>
-</div>
-</div>
-</div>
-				小杰杰<span class="bold charge">*</span><br/>Lv.60 邪靈法師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">213</span>
-<span data-type="name">小杰杰</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-46" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1393944828815043)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:&lt;br&gt;　甲:+7 Iriss外衣&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
-</div>
-</div>
-</div>
-				小神神<span class="bold charge">*</span><br/>Lv.60 武僧				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">314</span>
-<span data-type="name">小神神</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-47" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1394934551338900)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_220_w.gif"/></a>
-</div>
-</div>
-</div>
-				小雨雨<br/>Lv.60 轉魂者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">220</span>
-<span data-type="name">小雨雨</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-48" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1395921567796858)" style="height:128px" title="武器:+6 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
-</div>
-</div>
-</div>
-				小七七<span class="bold charge">*</span><br/>Lv.60 護聖使				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">311</span>
-<span data-type="name">小七七</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-49" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1397183741187678)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:強化魔法指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n268m.gif"/></a>
-</div>
-</div>
-</div>
-				小狐狐<span class="bold charge">*</span><br/>Lv.60 星界法師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">215</span>
-<span data-type="name">小狐狐</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-50" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1398349218541528)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:退魔戰將女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_245_01.gif"/></a>
-</div>
-</div>
-</div>
-				小云云<span class="bold charge">*</span><br/>Lv.60 退魔戰將				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">113</span>
-<span data-type="name">小云云</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-51" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1399737790562390)" style="height:128px" title="武器:+4 真-洛克杖&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_246w.gif"/></a>
-</div>
-</div>
-</div>
-				小目目<span class="bold charge">*</span><br/>Lv.60 魔導士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">211</span>
-<span data-type="name">小目目</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-52" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1400893922948584)" style="height:128px" title="武器:+6 阿母牛姿，兄弟會之劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:哥布林(雙劍)卡&lt;br&gt;"> <img src="./image/char/mon_053.gif"/></a>
-</div>
-</div>
-</div>
-				小烧烧<br/>Lv.60 浪人劍客				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">416</span>
-<span data-type="name">小烧烧</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-53" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1402535372623586)" style="height:128px" title="武器:棒&lt;br&gt;副手:&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214w.gif"/></a>
-</div>
-</div>
-</div>
-				小静静<span class="bold charge">*</span><br/>Lv.60 武僧				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">314</span>
-<span data-type="name">小静静</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-54" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1404181747086695)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:木盾&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:遠粽卡&lt;br&gt;"> <img src="./image/char/special_day_Dumplings2.gif"/></a>
-</div>
-</div>
-</div>
-				小兔兔<br/>Lv.60 絡印勇士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">112</span>
-<span data-type="name">小兔兔</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-55" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1405864085968419)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:遠粽卡&lt;br&gt;"> <img src="./image/char/special_day_Dumplings2.gif"/></a>
-</div>
-</div>
-</div>
-				小君君<br/>Lv.60 機關師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">414</span>
-<span data-type="name">小君君</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-56" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1408120035704301)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216m.png"/></a>
-</div>
-</div>
-</div>
-				狗头人No.5<br/>Lv.60 元素使				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">216</span>
-<span data-type="name">狗头人No.5</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-57" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1410404674206512)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+5 忍術密傳&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:黑萊姆圓)卡&lt;br&gt;"> <img src="./image/char/NoImage.gif"/></a>
-</div>
-</div>
-</div>
-				小GS<br/>Lv.60 審判者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">313</span>
-<span data-type="name">小GS</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-58" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1423637654521611)" style="height:128px" title="武器:+7 無面者眼垂&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213m.gif"/></a>
-</div>
-</div>
-</div>
-				小团团<br/>Lv.60 護聖使				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">311</span>
-<span data-type="name">小团团</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-59" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1449724926506198)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:哥布林(拳頭)卡&lt;br&gt;"> <img src="./image/char/mon_053.gif"/></a>
-</div>
-</div>
-</div>
-				小莫莫<br/>Lv.60 元素使				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">216</span>
-<span data-type="name">小莫莫</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-60" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1450841161467649)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+5 靈感外袍&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人No.1<br/>Lv.60 星界法師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">215</span>
-<span data-type="name">狗头人No.1</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-61" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481007653429355)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:強化魔法指環&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:黑萊姆卡&lt;br&gt;"> <img src="./image/char/mon_005r.png"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.30<br/>Lv.60 變形者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">315</span>
-<span data-type="name">狗头人候补No.30</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-62" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481077275840089)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:遠粽卡&lt;br&gt;"> <img src="./image/char/special_day_Dumplings2.gif"/></a>
-</div>
-</div>
-</div>
-				小噗噗<span class="bold charge">*</span><br/>Lv.60 森林長者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">312</span>
-<span data-type="name">小噗噗</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-63" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481078031559590)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_012.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.28<br/>Lv.30 狂戰士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">102</span>
-<span data-type="name">狗头人候补No.28</span>
-<span data-type="level">30</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-64" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481165931220661)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 世界百科全書&lt;br&gt;　甲:+7 靈感外袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216w.png"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.27<br/>Lv.46 元素使				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">216</span>
-<span data-type="name">狗头人候补No.27</span>
-<span data-type="level">46</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-65" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481168729427801)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213m.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.26<span class="bold charge">*</span><br/>Lv.43 護聖使				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">311</span>
-<span data-type="name">狗头人候补No.26</span>
-<span data-type="level">43</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-66" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481342275669751)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_012.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.25<br/>Lv.29 狂戰士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">102</span>
-<span data-type="name">狗头人候补No.25</span>
-<span data-type="level">29</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-67" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1481791448894124)" style="height:128px" title="武器:+4 心靈之爪&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:降魔者女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n315w_01.gif"/></a>
-</div>
-</div>
-</div>
-				小菌菌<span class="bold charge">*</span><br/>Lv.60 降魔者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">316</span>
-<span data-type="name">小菌菌</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-68" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1495965961091349)" style="height:128px" title="武器:+5 戮龍劍&lt;br&gt;副手:+4 精靈盾&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:退魔戰將女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_245_01.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.23<span class="bold charge">*</span><br/>Lv.60 退魔戰將				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">113</span>
-<span data-type="name">狗头人候补No.23</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-69" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1499391555634691)" style="height:128px" title="武器:+4 真-卡拉伊之刃&lt;br&gt;副手:+4 小刀&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n090.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.22<br/>Lv.60 忍者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">413</span>
-<span data-type="name">狗头人候补No.22</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-70" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1517478959596851)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:未爆的大華輪&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n414w.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.21<br/>Lv.60 機關師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">414</span>
-<span data-type="name">狗头人候补No.21</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-71" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1536550132715856)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 仙女長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_246z.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.20<span class="bold charge">*</span><br/>Lv.26 召喚師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">202</span>
-<span data-type="name">狗头人候补No.20</span>
-<span data-type="level">26</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-72" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1536814929876636)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214rz.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.19<span class="bold charge">*</span><br/>Lv.60 森林長者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">312</span>
-<span data-type="name">狗头人候补No.19</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-73" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1536891966204852)" style="height:128px" title="武器:+5 戮龍劍&lt;br&gt;副手:+4 精靈盾&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_178.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.18<span class="bold charge">*</span><br/>Lv.60 退魔戰將				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">113</span>
-<span data-type="name">狗头人候补No.18</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-74" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1593743352976581)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 世界百科全書&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_315w.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.17<br/>Lv.60 變形者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">315</span>
-<span data-type="name">狗头人候补No.17</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-75" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1744953065749241)" style="height:128px" title="武器:棒&lt;br&gt;副手:&lt;br&gt;　甲:+6 靈感外袍&lt;br&gt;道具:強化魔法指環&lt;br&gt;徽記:&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.16<span class="bold charge">*</span><br/>Lv.45 武僧				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">314</span>
-<span data-type="name">狗头人候补No.16</span>
-<span data-type="level">45</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-76" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1744953075595047)" style="height:128px" title="武器:+4 銀尾鞭&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.15<br/>Lv.43 獸拳師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">415</span>
-<span data-type="name">狗头人候补No.15</span>
-<span data-type="level">43</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-77" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1745205143332516)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:木盾&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_079.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.14<span class="bold charge">*</span><br/>Lv.17 戰士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">100</span>
-<span data-type="name">狗头人候补No.14</span>
-<span data-type="level">17</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-78" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1745208655009927)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:木盾&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_012.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.13<span class="bold charge">*</span><br/>Lv.26 狂戰士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">102</span>
-<span data-type="name">狗头人候补No.13</span>
-<span data-type="level">26</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-79" data-type="hunter" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1745302790133767)" style="height:128px" title="武器:+4 蕉匕首&lt;br&gt;副手:+4 野獸之牙&lt;br&gt;　甲:+5 神聖長袍&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_090ra.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.12<span class="bold charge">*</span><br/>Lv.60 忍者				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">413</span>
-<span data-type="name">狗头人候补No.12</span>
-<span data-type="level">60</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-80" data-type="wizard" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1746604184246157)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_018.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.11<span class="bold charge">*</span><br/>Lv.24 巫師				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">200</span>
-<span data-type="name">狗头人候补No.11</span>
-<span data-type="level">24</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-81" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1746604215101074)" style="height:128px" title="武器:萊姆棍&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.10<span class="bold charge">*</span><br/>Lv.54 女祭司				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">300</span>
-<span data-type="name">狗头人候补No.10</span>
-<span data-type="level">54</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-82" data-type="pastor" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1746782571260312)" style="height:128px" title="武器:棒&lt;br&gt;副手:+5 世界百科全書&lt;br&gt;　甲:+5 神聖長袍&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.9<span class="bold charge">*</span><br/>Lv.35 主教				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">301</span>
-<span data-type="name">狗头人候补No.9</span>
-<span data-type="level">35</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-83" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet1">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1747048153214226)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:+4 鐵盾&lt;br&gt;　甲:板甲&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.8<span class="bold charge">*</span><br/>Lv.59 戰士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">100</span>
-<span data-type="name">狗头人候补No.8</span>
-<span data-type="level">59</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-<li data-id="id-84" data-type="warrior" data-type2="type_0">
-<div class="carpet_frame">
-<div class="carpet0">
-<div class="chartable">
-<div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1747048159403757)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 重盾&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
-</div>
-</div>
-</div>
-				狗头人候补No.7<span class="bold charge">*</span><br/>Lv.18 戰士				<div style="display:none">
-<span data-type="base">1</span>
-<span data-type="job">100</span>
-<span data-type="name">狗头人候补No.7</span>
-<span data-type="level">18</span>
-<span data-type="type_0"></span>
-</div>
-</div>
-</li>
-</ul></div>
