@@ -340,7 +340,11 @@ class HofAutoBot:
             self.logger.info(f"...但也不能刷太快发个呆。{next_active_time}后继续行动")
             # 加一点发呆时间，既避免长时间不动被踢掉，也避免刷新太快被ban掉
             self._idle_and_update_cooldown(self.IDLE_SECONDS_FOR_CHALLENGE_BOSS)
-            self._set_state(self.GAME_STATE_PVP)
+            if self.waiting_vip_boss_time > self.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
+                self._set_state(self.GAME_STATE_PVP)
+            else:
+                # 如果发呆完发现可以打vip了，递归一次，走到下面的else去
+                self._process_wait_vip_boss()
             return
         else:
             if self.waiting_vip_boss_time > 0:
