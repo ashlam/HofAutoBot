@@ -136,7 +136,7 @@ class HofAutoBot:
                 self._set_state(self.GAME_STATE_BOSS)
 
     def _update_info_from_hunt_page(self):
-        self.logger.info('开始更新boss信息')
+        self.logger.info(f'{self.server_config_manager.current_server_data["name"]} 开始更新boss信息')
         current_server_data = self.server_config_manager.current_server_data
         hunt_url = f'{current_server_data["url"]}{current_server_data["hunt_page"]}'
         #<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a>
@@ -161,7 +161,7 @@ class HofAutoBot:
             }
             self.status_update_signal.emit(status_info)
 
-        self.logger.info('更新boss信息完毕')
+        self.logger.info(f'{self.server_config_manager.current_server_data["name"]} 更新boss信息完毕')
 
     def _get_recover_stamina_time(self, current_stamina, need_stamnia):
         """获取恢复体力的时间"""
