@@ -199,6 +199,11 @@ class LoginWindow(QMainWindow):
         self.server_combo = QComboBox()
         layout.addWidget(self.server_combo)
 
+        # 重新读取配置按钮
+        self.reload_config_btn = QPushButton('重新读取配置')
+        self.reload_config_btn.clicked.connect(self.reload_config)
+        layout.addWidget(self.reload_config_btn)
+
         # 创建按钮
         self.browser_btn = QPushButton('打开浏览器')
         self.update_btn = QPushButton('更新角色')
@@ -328,13 +333,17 @@ class LoginWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, '错误', f'更新角色数据时出错：{str(e)}')
 
-
-
-    def closeEvent(self, event):
-        # 关闭窗口时清理资源
-        if self.driver:
-            self.driver.quit()
-        event.accept()
+    def reload_config(self):
+        try:
+            if not self.current_server or not self.driver:
+                QMessageBox.warning(self, '警告', '请先打开浏览器并登录')
+                return
+            if not self.hof_auto_bot:
+                self.hof_auto_bot = HofAutoBot()
+            self.hof_auto_bot.initialize_with_driver(self.current_server['id'], self.driver)
+            QMessageBox.information(self, '成功', '配置已重新读取！')
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'重新读取配置失败: {e}')
 
 def main():
     app = QApplication(sys.argv)
