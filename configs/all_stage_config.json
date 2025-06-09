@@ -1,0 +1,72 @@
+{
+    "all_stage_info": [
+      {
+        "stage_name": "gb0",
+        "name": "哥布林(最弱)"
+      },
+      {
+        "stage_name": "gb1",
+        "name": "強一點的哥布林"
+      },
+      {
+        "stage_name": "gb2",
+        "name": "哥布林戰士"
+      },
+      {
+        "stage_name": "ac0",
+        "name": "古之洞穴"
+      },
+      {
+        "stage_name": "ac1",
+        "name": "古之洞穴(B2)"
+      },
+      {
+        "stage_name": "ac2",
+        "name": "古之洞穴(B3)"
+      },
+      {
+        "stage_name": "ac3",
+        "name": "古之洞穴(B4)"
+      },
+      {
+        "stage_name": "ac4",
+        "name": "古之洞穴(B5)"
+      },
+      {
+        "stage_name": "snow0",
+        "name": "滴凍入口"
+      },
+      {
+        "stage_name": "snow1",
+        "name": "滴凍中腹"
+      },
+      {
+        "stage_name": "snow2",
+        "name": "滴凍頂上"
+      },
+      {
+        "stage_name": "sea0",
+        "name": "藏寶海岸"
+      },
+      {
+        "stage_name": "ocean0",
+        "name": "無盡之海"
+      },
+      {
+        "stage_name": "ocean1",
+        "name": "偉大的航路"
+      },
+      {
+        "stage_name": "volc0",
+        "name": "黑石黑淵"
+      },
+      {
+        "stage_name": "volc1",
+        "name": "火融之核"
+      },
+      {
+        "stage_name": "Asianata",
+        "name": "幻界領域"
+      }
+    ]
+  }
