@@ -20,16 +20,16 @@
     ],
     "normal_boss_loop_order": [
         {
+            "union_id": 17,
+            "plan_action_id": 600170
+        },
+        {
             "union_id": 20,
             "plan_action_id": 600200
         },
         {
             "union_id": 8,
             "plan_action_id": 600080
-        },
-        {
-            "union_id": 25,
-            "plan_action_id": 600250
         },
         {
             "union_id": 15,

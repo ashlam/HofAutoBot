@@ -19,14 +19,23 @@
     ],
     "normal_boss_loop_order": [
         {
+            "union_id": 17,
+            "plan_action_id": 800170,
+            "kill_cooldown_seconds": 14400
+        },
+        {
             "union_id": 20,
             "plan_action_id": 800200
         },
-	{
+        {
+            "union_id": 1,
+            "plan_action_id": 800010
+        },
+        {
             "union_id": 15,
             "plan_action_id": 800150
         },
-	{
+        {
             "union_id": 25,
             "plan_action_id": 800250
         },
@@ -35,8 +44,8 @@
             "plan_action_id": 800030
         },
         {
-            "union_id": 1,
-            "plan_action_id": 800010
+            "union_id": 0,
+            "plan_action_id": 800000
         }
     ],
     "vip_stage_need_watch" : [
@@ -48,7 +57,7 @@
     ],
     "normal_stage_loop_order": [
         {
-            "stage_name": "ocean1",
+            "stage_name": "ac4",
             "plan_action_id": 1
         }
     ],
