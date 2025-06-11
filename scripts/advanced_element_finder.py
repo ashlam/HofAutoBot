@@ -33,6 +33,8 @@ class StartBattleElementFinder(AdvancedElementFinder):
             return driver.find_elements('name', 'monster_battle')
         elif value == 'union_battle':
             return driver.find_elements('name', 'union_battle')
+        elif value == 'ChallengeRank':
+            return driver.find_elements('name', 'ChallengeRank')
         else:
             return driver.find_elements('xpath', "//input[@type='submit'][@value='戰鬥!']")
 

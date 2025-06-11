@@ -27,6 +27,24 @@
       }
     ]
   },
+  "5": {
+    "name": "城镇->世界竞技场->战斗",
+    "note": "从城镇界面进入世界竞技场并战斗一次",
+    "actions": [
+      {
+        "trigger_type": "click_main_menu",
+        "value": "town"
+      },
+      {
+        "trigger_type": "click_sub_menu_stage",
+        "value": "menu=WorldRank"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "ChallengeRank"
+      }
+    ]
+  },
   "80000": {
     "name": "点冒险，准备打boss",
     "note": "点一下冒险，准备打boss",

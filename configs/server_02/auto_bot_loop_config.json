@@ -8,7 +8,7 @@
     "is_challenge_vip_stage": false,
     "is_challenge_vip_boss": true,
     "is_challenge_pvp": false,
-    "is_challenge_world_pvp": false,
+    "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
     "vip_boss_need_watch" : [
         {
@@ -61,6 +61,6 @@
             "plan_action_id": 1
         }
     ],
-    "pvp_plan_action_id": 3,
-    "world_pvp_plan_action_id": 3
+    "pvp_plan_action_id": 5,
+    "world_pvp_plan_action_id": 5
 }
