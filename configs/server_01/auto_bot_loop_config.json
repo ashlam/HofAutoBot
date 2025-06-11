@@ -46,14 +46,14 @@
     ],
     "vip_stage_need_watch" : [
         {
-            "stage_name": "ocean1",
+            "stage_name": "ac4",
             "plan_action_id": 1,
             "apperance_time": "10:00"
         }
     ],
     "normal_stage_loop_order": [
         {
-            "stage_name": "ocean1",
+            "stage_name": "ac4",
             "plan_action_id": 1
         }
     ],
