@@ -4,7 +4,7 @@
             "type":  "click_main_menu",
             "name":   "跳转主菜单",
             "idle_before_operation": 0,
-            "idle_after_operation": 100,
+            "idle_after_operation": 500,
             "memo": "跳转主菜单"
         },
         {
