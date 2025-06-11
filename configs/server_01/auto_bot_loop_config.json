@@ -28,12 +28,12 @@
             "plan_action_id": 600200
         },
         {
-            "union_id": 8,
-            "plan_action_id": 600080
-        },
-        {
             "union_id": 15,
             "plan_action_id": 600150
+        },
+        {
+            "union_id": 8,
+            "plan_action_id": 600080
         },
         {
             "union_id": 3,
