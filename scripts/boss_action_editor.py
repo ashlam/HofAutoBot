@@ -185,11 +185,119 @@ class BossActionEditor(QMainWindow):
         edit_tab = QWidget()
         edit_layout = QVBoxLayout(edit_tab)
         
+        # 编辑标签页的服务器选择区域
+        edit_select_layout = QHBoxLayout()
+        edit_server_label = QLabel('选择服务器：')
+        self.edit_server_combo = QComboBox()
+        for server in self.server_config['server_address']:
+            self.edit_server_combo.addItem(f"{server['name']}", server)
+        self.edit_server_combo.currentIndexChanged.connect(self.on_edit_server_changed)
+        edit_select_layout.addWidget(edit_server_label)
+        edit_select_layout.addWidget(self.edit_server_combo)
+        edit_select_layout.addStretch()
+        edit_layout.addLayout(edit_select_layout)
+        
+        # ID选择区域
+        id_select_layout = QHBoxLayout()
+        id_select_label = QLabel('选择id：')
+        self.id_select_combo = QComboBox()
+        self.id_select_combo.currentIndexChanged.connect(self.on_id_selected)
+        id_select_layout.addWidget(id_select_label)
+        id_select_layout.addWidget(self.id_select_combo)
+        id_select_layout.addStretch()
+        edit_layout.addLayout(id_select_layout)
+        
+        # 角色列表（使用滚动区域）
+        edit_char_scroll = QScrollArea()
+        edit_char_scroll.setWidgetResizable(True)
+        edit_char_widget = QWidget()
+        self.edit_char_layout = QVBoxLayout(edit_char_widget)
+
+        # 添加角色复选框
+        self.edit_char_checkboxes = []
+        for char in self.character_config['characters']:
+            # 为每个角色创建一个水平布局的容器
+            hbox = QHBoxLayout()
+            
+            checkbox = QCheckBox()
+            char_text = f"{char['name']} | L{char['level']} {char['job_name']}({char['udid']}) | <font color='gray'>{char['equipment'].replace('<br>', ' || ')}</font>"
+            checkbox.setProperty('udid', char['udid'])
+            checkbox.setProperty('name', char['name'])
+            checkbox.setProperty('level', char['level'])
+            checkbox.setProperty('job_name', char['job_name'])
+
+            label = QLabel()
+            label.setText(char_text)
+            label.setTextFormat(Qt.TextFormat.RichText)
+
+            self.edit_char_checkboxes.append(checkbox)
+            
+            # 将复选框和标签添加到水平布局
+            hbox.addWidget(checkbox)
+            hbox.addWidget(label)
+            hbox.addStretch()  # 让内容靠左
+            
+            # 将水平布局添加到外层垂直布局
+            self.edit_char_layout.addLayout(hbox)
+        
+        edit_char_scroll.setWidget(edit_char_widget)
+        edit_layout.addWidget(edit_char_scroll)
+        
+        # 编辑信息输入区域
+        edit_config_layout = QHBoxLayout()
+        
+        # ID输入
+        edit_id_layout = QHBoxLayout()
+        edit_id_label = QLabel('ID：')
+        self.edit_id_input = QLineEdit()
+        edit_id_layout.addWidget(edit_id_label)
+        edit_id_layout.addWidget(self.edit_id_input)
+        edit_config_layout.addLayout(edit_id_layout)
+        
+        # 名称输入
+        edit_name_layout = QHBoxLayout()
+        edit_name_label = QLabel('名称：')
+        self.edit_name_input = QLineEdit()
+        edit_name_layout.addWidget(edit_name_label)
+        edit_name_layout.addWidget(self.edit_name_input)
+        edit_config_layout.addLayout(edit_name_layout)
+        
+        # 备注输入
+        edit_note_layout = QHBoxLayout()
+        edit_note_label = QLabel('备注：')
+        self.edit_note_input = QLineEdit()
+        edit_note_layout.addWidget(edit_note_label)
+        edit_note_layout.addWidget(self.edit_note_input)
+        edit_config_layout.addLayout(edit_note_layout)
+        
+        edit_layout.addLayout(edit_config_layout)
+        
+        # 编辑按钮区域
+        edit_button_layout = QHBoxLayout()
+        save_button = QPushButton('保存')
+        save_button.clicked.connect(self.save_action_config)
+        write_button = QPushButton('写入')
+        write_button.clicked.connect(self.write_edit_config)
+        reset_button = QPushButton('重置')
+        reset_button.clicked.connect(self.reset_edit_form)
+        edit_button_layout.addWidget(save_button)
+        edit_button_layout.addWidget(write_button)
+        edit_button_layout.addWidget(reset_button)
+        edit_layout.addLayout(edit_button_layout)
+        
+        # 编辑预览区域
+        self.edit_preview_text = QTextEdit()
+        self.edit_preview_text.setReadOnly(True)
+        edit_layout.addWidget(self.edit_preview_text)
+        
         # 添加标签页到主标签页组件
         tab_widget.addTab(create_tab, '创建数据')
         tab_widget.addTab(edit_tab, '编辑数据')
         
         main_layout.addWidget(tab_widget)
+        
+        # 初始化编辑标签页的数据
+        self.update_id_combo()
     
     def create_action_config(self):
         # 获取输入数据
@@ -297,6 +405,9 @@ class BossActionEditor(QMainWindow):
             with open(self.action_config_path, 'w', encoding='utf-8') as f:
                 json.dump(self.action_config, f, indent=2, ensure_ascii=False)
             
+            # 更新编辑标签页的ID下拉框
+            self.update_id_combo()
+            
             QMessageBox.information(self, '成功', '配置已成功写入文件！')
             
         except Exception as e:
@@ -368,11 +479,203 @@ class BossActionEditor(QMainWindow):
                 
                 self.char_layout.addLayout(hbox)
             
+            # 同步更新编辑标签页的服务器选择
+            self.edit_server_combo.setCurrentIndex(self.server_combo.currentIndex())
+            
             QMessageBox.information(self, '成功', f'已切换到{self.current_server["name"]}！')
             
         except Exception as e:
             QMessageBox.critical(self, '错误', f'切换服务器时发生错误：{str(e)}')
+    
+    def on_edit_server_changed(self, index):
+        # 同步更新创建标签页的服务器选择
+        self.server_combo.setCurrentIndex(index)
+    
+    def update_id_combo(self):
+        # 清空当前列表
+        self.id_select_combo.clear()
+        
+        # 获取所有带有boss和need_character标签的配置
+        boss_configs = {}
+        for action_id, config in self.action_config.items():
+            if 'tag' in config and 'boss' in config['tag'] and 'need_character' in config['tag']:
+                boss_configs[action_id] = config
+        
+        # 添加到下拉框
+        for action_id in sorted(boss_configs.keys()):
+            config = boss_configs[action_id]
+            self.id_select_combo.addItem(f"{action_id} - {config.get('name', '')}", action_id)
+    
+    def on_id_selected(self, index):
+        if index < 0:
+            return
+        
+        # 获取选中的配置ID
+        action_id = self.id_select_combo.currentData()
+        if not action_id or action_id not in self.action_config:
+            return
+        
+        # 获取配置
+        config = self.action_config[action_id]
+        
+        # 更新输入框
+        self.edit_id_input.setText(action_id)
+        self.edit_name_input.setText(config.get('name', ''))
+        self.edit_note_input.setText(config.get('note', ''))
+        
+        # 取消所有角色选择
+        for checkbox in self.edit_char_checkboxes:
+            checkbox.setChecked(False)
+        
+        # 根据配置选中对应的角色
+        selected_udids = set()
+        for action in config['actions']:
+            if action['trigger_type'] == 'check_box_select_character':
+                udid = action['value'].replace('char_', '')
+                selected_udids.add(udid)
+        
+        for checkbox in self.edit_char_checkboxes:
+            if checkbox.property('udid') in selected_udids:
+                checkbox.setChecked(True)
+    
+    def save_action_config(self):
+        # 获取当前选中的配置ID
+        old_action_id = self.id_select_combo.currentData()
+        if not old_action_id or old_action_id not in self.action_config:
+            QMessageBox.warning(self, '警告', '请选择要编辑的配置！')
+            return
+        
+        # 获取输入数据
+        action_id = self.edit_id_input.text().strip()
+        name = self.edit_name_input.text().strip()
+        note = self.edit_note_input.text().strip()
+        
+        # 验证输入
+        if not all([action_id, name]):
+            QMessageBox.warning(self, '警告', '请填写ID和名称！')
+            return
+        
+        # 获取选中的角色
+        selected_chars = []
+        for checkbox in self.edit_char_checkboxes:
+            if checkbox.isChecked():
+                selected_chars.append({
+                    'udid': checkbox.property('udid'),
+                    'name': checkbox.property('name'),
+                    'level': checkbox.property('level'),
+                    'job_name': checkbox.property('job_name')
+                })
+        
+        if not selected_chars:
+            QMessageBox.warning(self, '警告', '请选择至少一个角色！')
+            return
+        
+        try:
+            # 获取原配置
+            config = self.action_config[old_action_id].copy()
+            
+            # 保留非角色选择的动作
+            actions = [action for action in config['actions'] 
+                      if action['trigger_type'] != 'check_box_select_character']
+            
+            # 添加新的角色选择动作
+            for char in selected_chars:
+                actions.append({
+                    "trigger_type": "check_box_select_character",
+                    "value": f"char_{char['udid']}",
+                    '_memo': f"{char['name']} L{char['level']} {char['job_name']}"
+                })
+            
+            # 创建新配置
+            new_config = {
+                action_id: {
+                    'name': name,
+                    'note': note,
+                    'tag': config['tag'],
+                    'actions': actions
+                }
+            }
+            
+            # 更新预览
+            self.edit_preview_text.setText(json.dumps(new_config, indent=4, ensure_ascii=False))
+            
+            # 复制到剪贴板
+            clipboard = QApplication.clipboard()
+            clipboard.setText(json.dumps(new_config, indent=4, ensure_ascii=False))
+            
+            QMessageBox.information(self, '提示', '配置已创建并复制到剪贴板！')
+            
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'保存配置时发生错误：{str(e)}')
 
+    def write_edit_config(self):
+        try:
+            # 获取预览文本
+            config_text = self.edit_preview_text.toPlainText()
+            if not config_text:
+                QMessageBox.warning(self, '警告', '请先保存配置！')
+                return
+            
+            # 解析JSON
+            new_config = json.loads(config_text)
+            
+            # 获取当前选中的配置ID
+            old_action_id = self.id_select_combo.currentData()
+            if old_action_id and old_action_id in self.action_config:
+                # 删除旧配置
+                del self.action_config[old_action_id]
+            
+            # 获取所有配置项并按ID排序
+            all_configs = {**self.action_config, **new_config}
+            sorted_configs = dict(sorted(all_configs.items()))
+            
+            # 写入文件
+            with open(self.action_config_path, 'w', encoding='utf-8') as f:
+                json.dump(sorted_configs, f, indent=2, ensure_ascii=False)
+            
+            # 更新配置和下拉框
+            self.action_config = sorted_configs
+            self.update_id_combo()
+            
+            QMessageBox.information(self, '成功', '配置已成功写入文件！')
+            
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'写入配置文件时发生错误：{str(e)}')
+    
+    def reset_edit_form(self):
+        # 恢复到选中ID的初始状态
+        self.on_id_selected(self.id_select_combo.currentIndex())
+        # 清空预览
+        self.edit_preview_text.clear()
+    
+    def write_action_config(self):
+        try:
+            # 获取预览文本
+            config_text = self.preview_text.toPlainText()
+            if not config_text:
+                QMessageBox.warning(self, '警告', '请先创建配置！')
+                return
+            
+            # 解析JSON
+            new_config = json.loads(config_text)
+            
+            # 获取所有配置项并按ID排序
+            all_configs = {**self.action_config, **new_config}
+            sorted_configs = dict(sorted(all_configs.items()))
+            
+            # 写入文件
+            with open(self.action_config_path, 'w', encoding='utf-8') as f:
+                json.dump(sorted_configs, f, indent=2, ensure_ascii=False)
+            
+            # 更新配置和下拉框
+            self.action_config = sorted_configs
+            self.update_id_combo()
+            
+            QMessageBox.information(self, '成功', '配置已成功写入文件！')
+            
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'写入配置文件时发生错误：{str(e)}')
+    
 def main():
     app = QApplication(sys.argv)
     editor = BossActionEditor()
