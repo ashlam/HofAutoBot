@@ -4,14 +4,14 @@
             "type":  "click_main_menu",
             "name":   "跳转主菜单",
             "idle_before_operation": 0,
-            "idle_after_operation": 500,
+            "idle_after_operation": 800,
             "memo": "跳转主菜单"
         },
         {
             "type":  "click_sub_menu_stage",
             "name":   "点击小怪关卡",
             "idle_before_operation": 1000,
-            "idle_after_operation": 300,
+            "idle_after_operation": 800,
             "memo": "点击小怪关卡"
         },
         {
