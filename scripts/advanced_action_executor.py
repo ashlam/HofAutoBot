@@ -32,7 +32,7 @@ class AdvancedActionExecutor(ABC):
             time.sleep(seconds / 1000)
 
 class MainMenuActionExecutor(AdvancedActionExecutor):
-    def execute(self, driver, value=None, idle_before=500, idle_after=100):
+    def execute(self, driver, value=None, idle_before=0, idle_after=100):
         self._wait(idle_before)
         finder = AdvancedElementFinderFactory.get_finder('click_main_menu')
         elements = finder.find_elements(driver, value)
@@ -48,7 +48,7 @@ class MainMenuActionExecutor(AdvancedActionExecutor):
         return True
 
 class SubMenuStageActionExecutor(AdvancedActionExecutor):
-    def execute(self, driver, value=None, idle_before=500, idle_after=100):
+    def execute(self, driver, value=None, idle_before=0, idle_after=100):
         self._wait(idle_before)
         finder = AdvancedElementFinderFactory.get_finder('click_sub_menu_stage')
         elements = finder.find_elements(driver, value)
@@ -161,16 +161,43 @@ class AdvancedActionExecutorFactory:
 class AdvancedActionManager:
     def __init__(self):
         self.factory = AdvancedActionExecutorFactory()
+        self.action_type_config = self._load_action_type_config()
+
+    def _load_action_type_config(self):
+        """加载动作类型配置"""
+        try:
+            import os
+            config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'configs', 'server_01', 'action_type_config.json')
+            with open(config_path, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+                # 将配置转换为以type为key的字典，方便查找
+                return {item['type']: item for item in config['action_type_config']}
+        except Exception as e:
+            print(f"加载动作类型配置出错: {str(e)}")
+            return {}
+
+    def get_action_type_config(self, action_type):
+        """获取动作类型的配置"""
+        return self.action_type_config.get(action_type, {})
 
     def execute_action(self, driver, action):
         """执行单个动作"""
         print("action = " + str(action))
-        executor = self.factory.get_executor(action['trigger_type'])
+        action_type = action['trigger_type']
+        executor = self.factory.get_executor(action_type)
+        
+        # 获取动作类型的配置
+        type_config = self.get_action_type_config(action_type)
+        
+        # 使用动作类型配置中的等待时间
+        idle_before = type_config.get('idle_before_operation', 0)
+        idle_after = type_config.get('idle_after_operation', 100)
+        
         return executor.execute(
             driver=driver,
             value=action.get('value'),
-            idle_before=action.get('idle_before_operation', 0),
-            idle_after=action.get('idle_after_operation', 100)
+            idle_before=idle_before,
+            idle_after=idle_after
         )
 
     def batch_boss_actions(self, driver, actions):
