@@ -53,6 +53,125 @@
       }
     ]
   },
+  "600000": {
+    "name": "一服黑龙",
+    "note": "护圣星界",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1354455047868092",
+        "_memo": "小兔兔 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1359460858742662",
+        "_memo": "小明明 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1393944828815043",
+        "_memo": "小神神 L60 武僧"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1450841161467649",
+        "_memo": "狗头人No.1 L60 星界法師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1481007653429355",
+        "_memo": "狗头人候补No.30 L60 變形者"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "600080": {
+    "name": "一服鸟毛",
+    "note": "退魔鸟毛",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1346468867379495",
+        "_memo": "小高高 L60 退魔戰將"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1746604184246157",
+        "_memo": "狗头人候补No.27 L43 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1745205143332516",
+        "_memo": "狗头人候补No.14 L25 狂戰士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1745208655009927",
+        "_memo": "狗头人候补No.13 L26 狂戰士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1746782571260312",
+        "_memo": "狗头人候补No.9 L38 主教"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "600150": {
+    "name": "一服项链",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1346468867379495",
+        "_memo": "小高高 L60 退魔戰將"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1352373596528753",
+        "_memo": "小阴阴 L60 魔導士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1397183741187678",
+        "_memo": "小狐狐 L60 星界法師"
+      }
+    ]
+  },
   "600170": {
     "name": "一服旋风",
     "note": "双护圣单变形",
@@ -175,125 +294,6 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1423637654521611",
         "_memo": "小团团 L60 護聖使"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600080": {
-    "name": "一服鸟毛",
-    "note": "退魔鸟毛",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1346468867379495",
-        "_memo": "小高高 L60 退魔戰將"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1746604184246157",
-        "_memo": "狗头人候补No.27 L43 元素使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1745205143332516",
-        "_memo": "狗头人候补No.14 L25 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1745208655009927",
-        "_memo": "狗头人候补No.13 L26 狂戰士"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1746782571260312",
-        "_memo": "狗头人候补No.9 L38 主教"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600000": {
-    "name": "一服黑龙",
-    "note": "护圣星界",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1354455047868092",
-        "_memo": "小兔兔 L60 殺戮者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1359460858742662",
-        "_memo": "小明明 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1393944828815043",
-        "_memo": "小神神 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1450841161467649",
-        "_memo": "狗头人No.1 L60 星界法師"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1481007653429355",
-        "_memo": "狗头人候补No.30 L60 變形者"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "600150": {
-    "name": "一服项链",
-    "note": "",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1346468867379495",
-        "_memo": "小高高 L60 退魔戰將"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1397183741187678",
-        "_memo": "小狐狐 L60 星界法師"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1352373596528753",
-        "_memo": "小阴阴 L60 魔導士"
       },
       {
         "trigger_type": "click_button_start_battle",
