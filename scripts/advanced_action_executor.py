@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import json
 from selenium.webdriver.common.by import By
 import time
 from datetime import datetime
@@ -6,6 +7,7 @@ from scripts.advanced_element_finder import AdvancedElementFinderFactory
 from scripts.log_manager import LogManager
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import json
 import logging
 
 options = Options()

@@ -7,7 +7,6 @@ class ServerConfigManager:
         # 初始化属性
         self.current_server_id = None
         self.current_server_data = None
-        self.all_action_group_config_by_server = None
         self.all_action_config_by_server = None
         self.auto_bot_config = None
         self.server_config_manager = None
@@ -19,11 +18,6 @@ class ServerConfigManager:
         if not hasattr(self, 'all_action_config_by_server') or self.all_action_config_by_server is None:
             return None
         return self.all_action_config_by_server.get(str(action_id))
-
-    def _load_action_group_by_group_id(self, group_id):
-        if not hasattr(self, 'all_action_group_config_by_server') or self.all_action_group_config_by_server is None:
-            return None
-        return self.all_action_group_config_by_server.get(str(group_id))
 
     def _load_server_action_config(self, server_data):
         """加载当前Server的动作配置"""
@@ -85,7 +79,6 @@ class ServerConfigManager:
         """设置当前服务器ID"""
         self.current_server_id = server_id
         self.current_server_data = self._get_server_info_config_by_server_id(server_id)
-        self.all_action_group_config_by_server = self._load_action_group_config(self.current_server_data)
         self.all_action_config_by_server = self._load_server_action_config(self.current_server_data)
         self.auto_bot_config = self._load_auto_bot_config(self.current_server_data)
 
