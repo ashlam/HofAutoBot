@@ -152,10 +152,6 @@
         "value": "checkDelAll()"
       },
       {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      },
-      {
         "trigger_type": "check_box_select_character",
         "value": "char_1346468867379495",
         "_memo": "小高高 L60 退魔戰將"
@@ -169,6 +165,10 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1397183741187678",
         "_memo": "小狐狐 L60 星界法師"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
       }
     ]
   },

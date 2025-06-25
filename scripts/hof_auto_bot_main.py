@@ -12,6 +12,8 @@ from scripts.battle_watcher_manager import BattleWatcherManager
 from scripts.log_manager import LogManager
 from scripts.auto_bot_config_manager import AutoBotConfigManager
 
+from scripts.states.state_factory import StateFactory
+
 # from scripts.states.base_state import BaseState
 # from scripts.states.prepare_boss_state import PrepareBossState
 # from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
@@ -77,16 +79,22 @@ class HofAutoBot:
         self.next_vip_boss_id = -1
         self.is_waiting_for_vip_boss = False
 
+    def switch_to_next_state(self, state):
+        self.current_state = state
+        self.current_state_str = state.__class__.__name__
+
     def run(self):
-        from scripts.states.prepare_boss_state import PrepareBossState
-        from scripts.states.state_factory import StateFactory
-        self.current_state = StateFactory.create_prepare_boss_state(self)
         while True:
             if self.is_finished:
                 return
             if self.current_state is not None:
-                print(self.current_state.__class__.__name__)
+                print("HofAutoBot.run -> current_state: " + self.current_state.__class__.__name__)
                 self.current_state.process()
+                # next_state = self.current_state.get_next_state()
+
+                # print(f"HofAutoBut.run, current_state: {self.current_state.__class__.__name__}, next_state: {next_state.__class__.__name__}")
+                # if next_state:
+                #     self.current_state = next_state
 
     def _update_info_from_hunt_page(self):
         self.logger.info(f'{self.server_config_manager.current_server_data["name"]} 开始更新boss信息')
@@ -124,42 +132,9 @@ class HofAutoBot:
         return recover_time
 
    
-
-    def _set_directly_challgenge_boss(self, union_id, action):
-        """设置直接挑战boss的信息"""
-        self.directly_challenge_boss_id = union_id
-        self.directly_challenge_boss_action = action
-
-    def _clear_directly_challgenge_boss(self):
-        """清除直接挑战boss的信息"""
-        self.directly_challenge_boss_id = None
-        self.directly_challenge_boss_action = None
-    
-    
-    def _set_wait_vip_boss_time(self, wait_time):
-        """设置等待VIP boss的时间"""
-        self.logger.info(f"设置等待VIP boss的时间为 {wait_time} 秒")
-        self.waiting_vip_boss_time = wait_time
-
-    
-
-    def _idle_and_update_cooldown(self, idle_time):
-        """发呆并更新冷却时间"""
-        self.logger.info(f"发呆{idle_time}秒（剩余冷却时间: {self.challenge_next_cooldown} 秒， vip等待时间: {self.waiting_vip_boss_time} 秒）")
-        if idle_time > 0:
-            idle_time = max(idle_time, 1)
-            time.sleep(idle_time)
-        self.challenge_next_cooldown -= idle_time
-        self.challenge_next_cooldown = max(0, self.challenge_next_cooldown)
-        self.waiting_vip_boss_time -= idle_time
-        self.waiting_vip_boss_time = max(0, self.waiting_vip_boss_time)
-        self.logger.info(f"发呆结束，剩余冷却时间: {self.challenge_next_cooldown} 秒, vip等待时间: {self.waiting_vip_boss_time} 秒")            
-
-    
-
     def _set_state(self, state):
         """设置当前状态"""
-        self.logger.info(f'状态切换：{self.current_state_str} -> {state}')
+        self.logger.info(f'状态切换：{self.current_state} -> {state}')
          # 发送状态更新信号
         if self.status_update_signal:
             status_info = {
@@ -205,6 +180,7 @@ class HofAutoBot:
             self.driver = webdriver.Chrome()
 
         self.driver.get(current_server_data["url"])
+        self.current_state = StateFactory.create_prepare_boss_state(self)
 
 
     def _initialize_from_command_line(self):
@@ -272,6 +248,7 @@ class HofAutoBot:
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
         self.action_manager = AdvancedActionManager()
+        self.current_state = StateFactory.create_prepare_boss_state(self)
         return True
 
 if __name__ == '__main__':

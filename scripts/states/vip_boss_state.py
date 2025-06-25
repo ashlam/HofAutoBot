@@ -4,10 +4,12 @@ from .base_state import BaseState
 from datetime import datetime
 from .state_factory import StateFactory
 from scripts.hof_auto_bot_main import HofAutoBot
+from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
 
 class VipBossState(BaseState):
 
     def __init__(self, bot: HofAutoBot):
+        super().__init__(bot)
         self.bot = bot
 
     def process(self):
@@ -56,7 +58,7 @@ class VipBossState(BaseState):
                         self.bot.set_next_vip_boss_spawn_unixtime(union_id, next_spawn_time)
                         wait_vip_boss_state = StateFactory.create_wait_vip_boss_state(self.bot)
                         directly_challenge_boss_state = self._create_dicrect_challenge_boss_state(union_id, advanced_action_config)
-                        wait_vip_boss_state.on_challenge_time_up = partial(self.set_state, directly_challenge_boss_state)
+                        wait_vip_boss_state.on_challenge_time_up = partial(wait_vip_boss_state.set_state, directly_challenge_boss_state)
                         self.set_state(wait_vip_boss_state)
                         return
                     else:
@@ -64,30 +66,33 @@ class VipBossState(BaseState):
                         continue
 
         # 走到这里说明所有vip boss都处理过了，接下来不属于vip管辖范围了
-        self.next_state = StateFactory.create_normal_boss_state(self.bot)
-        self.set_state(self.next_state)
+        self.set_state(StateFactory.create_normal_boss_state(self.bot))
+        # self.set_state(self.next_state)
         self.on_finish()
 
     def on_finish(self):
         self.log(f"已处理完VIP boss战斗，清空vip监视状态")
         self.bot.reset_waiting_vip_boss_spawn_info()
-        self.set_state(self.next_state)
+        # self.set_state(self.next_state)
 
     def _on_challenge_success(self):
-        self.next_state = StateFactory.create_world_pvp_state(self.bot)
+        self.set_state(StateFactory.create_world_pvp_state(self.bot))
         self.on_finish()
 
     def _on_challange_failed(self):
-        self.next_state = StateFactory.create_normal_boss_state(self.bot)
+        self.set_state(StateFactory.create_normal_boss_state(self.bot))
         self.on_finish()
 
     def _create_dicrect_challenge_boss_state(self, union_id, advanced_action_config) -> 'BaseState':
         directly_challenge_boss_state = StateFactory.create_directly_challenge_boss_state(self.bot)
-        directly_challenge_boss_state.union_id = union_id
-        directly_challenge_boss_state.advanced_action_config = advanced_action_config
-        directly_challenge_boss_state.on_challage_success = self._on_challenge_success
-        directly_challenge_boss_state.on_challage_failed = self._on_challage_failed
-        return directly_challenge_boss_state
+        if isinstance(directly_challenge_boss_state, DirectlyChallengeBossState):
+            directly_challenge_boss_state.union_id = union_id
+            directly_challenge_boss_state.advanced_action_config = advanced_action_config
+            directly_challenge_boss_state.on_challage_success = self._on_challenge_success
+            directly_challenge_boss_state.on_challenge_failed = self._on_challange_failed
+            return directly_challenge_boss_state
+        else:
+            raise None
 
     def _get_next_vip_boss(self, vip_boss_dict: Dict, union_id):
         boss_log_url = f"{self.bot.server_config_manager.current_server_data['url']}?ulog"

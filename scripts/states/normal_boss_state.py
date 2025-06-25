@@ -1,4 +1,6 @@
 from functools import partial
+
+from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
 from .base_state import BaseState
 from .state_factory import StateFactory
 import time
@@ -36,17 +38,18 @@ class NormalBossState(BaseState):
                     # 执行boss战斗动作
                     action = self.bot.server_config_manager.all_action_config_by_server.get(f"{boss['plan_action_id']}")
                     directly_challenge_boss_state = StateFactory.create_directly_challenge_boss_state(self.bot)
-                    directly_challenge_boss_state.union_id = boss['union_id']
-                    directly_challenge_boss_state.advanced_action_config = action
-                    directly_challenge_boss_state.on_challenge_success = self._on_challenge_normal_boss_success
-                    directly_challenge_boss_state.on_challenge_failed = self._on_challenge_normal_boss_failed
-                    self.set_state(directly_challenge_boss_state)
-                    is_challenged = True
-                    break
+                    if isinstance(directly_challenge_boss_state, DirectlyChallengeBossState):
+                        directly_challenge_boss_state.union_id = boss['union_id']
+                        directly_challenge_boss_state.advanced_action_config = action
+                        directly_challenge_boss_state.on_challenge_success = self._on_challenge_normal_boss_success
+                        directly_challenge_boss_state.on_challenge_failed = self._on_challenge_normal_boss_failed
+                        self.next_state = directly_challenge_boss_state
+                        is_challenged = True
+                        break
             # 如果没有可以打的boss，进入PVP状态 
             if not is_challenged:
                 self.log(f'没有普通boss需要处理, 普通boss清单：{self.bot.auto_bot_config_manager.normal_boss_loop_order}')
-                self.next_state = WorldPvpState(self.bot)
+                self.next_state = StateFactory.create_world_pvp_state(self.bot)
             
         self.on_finish()
 
@@ -56,10 +59,10 @@ class NormalBossState(BaseState):
     
     def _on_challenge_normal_boss_success(self):
         self.log('普通boss挑战成功')
-        self.next_state = WorldPvpState(self.bot)
+        self.next_state = StateFactory.create_world_pvp_state(self.bot)
         self.on_finish()
     
     def _on_challenge_normal_boss_failed(self):
         self.log('普通boss挑战失败，重新准备一次')
-        self.next_state = PrepareBossState(self.bot)
+        self.next_state = StateFactory.create_prepare_boss_state(self.bot)
         self.on_finish()

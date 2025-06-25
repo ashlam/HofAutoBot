@@ -8,6 +8,7 @@ class IdleState(BaseState):
         super().__init__(bot)
         self._idle_time = 0
         self._callback = None
+        # self.next_state = None
     def process(self):
         self.log("process: 正在发呆...")
         if self._idle_time > 0:
@@ -16,14 +17,16 @@ class IdleState(BaseState):
         self.on_finish()
 
     def on_finish(self):
-        if self._callback:
+        if self._callback is not None:
+            self.log(f"on_finish -> call_back = {self._callback}")
             self._callback()
         else:
             # 随便给一个状态，用于循环
+            self.log("on_finish: 状态切换为: idle_state")
             self.set_state(StateFactory.create_world_pvp_state(self.bot))
 
-    def set_idle_time(self, idle_time, callback):
+    def set_idle_time(self, idle_time, callback = None):
         self._idle_time = idle_time
         self._callback = callback
 
-        self.log(f"设置发呆时间： {self._idle_time}秒")
+        self.log(f"设置发呆时间： {self._idle_time}秒, callback = {self._callback}")

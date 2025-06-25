@@ -8,8 +8,7 @@ import time
 class WaitVipBossState(BaseState):
 
     def __init__(self, bot: HofAutoBot):
-        self.next_state = None
-        self.bot = bot
+        super().__init__(bot)
         self.on_challenge_time_up = None
     def process(self):
         """
@@ -45,7 +44,9 @@ class WaitVipBossState(BaseState):
                 self.next_state = idle_state
             else:
                 # 时间快到了（30秒内）
-                idle_state.set_idle_time(diff_time.total_seconds(), partial(self._invoke_challenge_time_up))
+                swtich_to_myself = partial(self.set_state, state = StateFactory.create_wait_vip_boss_state(self.bot))
+                swtich_and_invoke_callback = partial(swtich_to_myself, then_do = lambda: self._invoke_challenge_time_up())
+                idle_state.set_idle_time(diff_time.total_seconds(), swtich_and_invoke_callback)
                 self.next_state = idle_state
         self.on_finish()
 
@@ -53,10 +54,12 @@ class WaitVipBossState(BaseState):
         self.set_state(self.next_state)
 
     def _invoke_challenge_time_up(self):
+        print("_invoke_challenge_time_up, self = " + self.__class__.__name__)
         if self.on_challenge_time_up is not None and callable(self.on_challenge_time_up):
+            print("调用on_challenge_time_up")
             self.on_challenge_time_up()
         else:
             # 刷一下，然后转到vip
-            self.set_state(VipBossState(self.bot))
+            self.set_state(StateFactory.create_vip_boss_state(self.bot))
 
 

@@ -4,12 +4,14 @@ from scripts.hof_auto_bot_main import HofAutoBot
 class DirectlyChallengeBossState(BaseState):
 
     def __init__(self, bot: HofAutoBot):
-        self.bot = bot
+        super().__init__(bot)
+        # self.bot = bot
         self.union_id = None
         self.advanced_action_config = None
         self.on_challenge_success = None
         self.on_challenge_failed = None
         self.is_challeged_success = False
+        # self.next_state = None
     def process(self):
         union_id = self.union_id
         self.log(f"直接挑战boss {union_id}")
@@ -27,8 +29,10 @@ class DirectlyChallengeBossState(BaseState):
     def on_finish(self):
         self.log(f"直接挑战 boss 结束, is_success: {self.is_challaged_success}")
         if self.is_challaged_success:
-            if not self.on_challenge_success:
+            if self.on_challenge_success is not None and callable(self.on_challenge_success):
+                print(f'self.on_challenge_success = {self.on_challenge_success.__name__}')
                 self.on_challenge_success()
         else:
-            if not self.on_challenge_failed:
+            if self.on_challenge_failed is not None and callable(self.on_challenge_failed):
+                print(f'self.on_challenge_failed = {self.on_challenge_failed.__name__}')
                 self.on_challenge_failed()
