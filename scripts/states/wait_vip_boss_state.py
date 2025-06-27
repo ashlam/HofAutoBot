@@ -25,12 +25,12 @@ class WaitVipBossState(BaseState):
         if not self.bot.is_waiting_for_vip_boss:
             # self.set_state(BossState(self.bot))
             self.next_state = StateFactory.create_prepare_boss_state(self.bot)
-        elif self.bot.next_vip_boss_spawn_unixtime <= datetime.now():
+        elif self.bot.next_vip_boss_spawn_timestamp <= datetime.now().timestamp() * 1000000:
             # 记录的vip boss时间已过期
             self.bot.reset_waiting_vip_boss_spawn_info()
             self.next_state = StateFactory.create_vip_boss_state(self.bot)
         else:
-            diff_time = datetime.fromtimestamp(self.bot.next_vip_boss_spawn_unixtime) - datetime.now()
+            diff_time = datetime.fromtimestamp(self.bot.next_vip_boss_spawn_timestamp / 1000000) - datetime.now()
             idle_state = StateFactory.create_idle_state(self.bot)
             if diff_time.total_seconds() > self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
                 # 时间还早（大于30秒）
@@ -44,9 +44,11 @@ class WaitVipBossState(BaseState):
                 self.next_state = idle_state
             else:
                 # 时间快到了（30秒内）
-                swtich_to_myself = partial(self.set_state, state = StateFactory.create_wait_vip_boss_state(self.bot))
-                swtich_and_invoke_callback = partial(swtich_to_myself, then_do = lambda: self._invoke_challenge_time_up())
-                idle_state.set_idle_time(diff_time.total_seconds(), swtich_and_invoke_callback)
+                after_idle_callback = lambda: {
+                    self.set_state(StateFactory.create_wait_vip_boss_state(self.bot)),
+                    self._invoke_challenge_time_up()
+                }
+                idle_state.set_idle_time(diff_time.total_seconds(), after_idle_callback)
                 self.next_state = idle_state
         self.on_finish()
 

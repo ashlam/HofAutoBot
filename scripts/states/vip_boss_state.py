@@ -41,8 +41,8 @@ class VipBossState(BaseState):
                     self.log(f'未找到上次vip boss被击败的时间，id: {union_id} ，没有办法处理boss({union_id})，去处理下一个vip boss。')
                     continue
                 else:
-                    next_spawn_time = datetime.fromtimestamp(next_battle_info['future_unixtime'] / 1000000)
-                    # self.bot.set_next_vip_boss_spawn_unixtime(union_id, next_spawn_time)
+                    next_spawn_timestamp = next_battle_info['future_unixtime']
+                    next_spawn_time = datetime.fromtimestamp(next_spawn_timestamp / 1000000)
                     time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
                     seconds = int(time_until_spawn)
                     minutes, seconds = divmod(seconds, 60)
@@ -55,7 +55,7 @@ class VipBossState(BaseState):
                         """
                         # 想办法将PrepareBossState设定为等vip模式，一旦到时间就Dicrect或者转到VipBoss，没到时间就去做除打boss以外的事 
                         """
-                        self.bot.set_next_vip_boss_spawn_unixtime(union_id, next_spawn_time)
+                        self.bot.set_next_vip_boss_spawn_timestamp(union_id, next_spawn_timestamp)
                         wait_vip_boss_state = StateFactory.create_wait_vip_boss_state(self.bot)
                         directly_challenge_boss_state = self._create_dicrect_challenge_boss_state(union_id, advanced_action_config)
                         wait_vip_boss_state.on_challenge_time_up = partial(wait_vip_boss_state.set_state, directly_challenge_boss_state)

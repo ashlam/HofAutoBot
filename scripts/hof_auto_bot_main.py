@@ -41,7 +41,7 @@ class HofAutoBot:
         self.player_stamina = 0
         self.waiting_vip_boss_time = 0
 
-        self.next_vip_boss_spawn_unixtime = 0
+        self.next_vip_boss_spawn_timestamp = 0
         self.next_vip_boss_id = 0
         self.is_waiting_for_vip_boss = False
         
@@ -69,13 +69,14 @@ class HofAutoBot:
     IDLE_SECONDS_FOR_CHALLENGE_BOSS = 30
     COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS = 1200
 
-    def set_next_vip_boss_spawn_unixtime(self, vip_boss_id, unixtime):
-        self.next_vip_boss_spawn_unixtime = unixtime
+    def set_next_vip_boss_spawn_timestamp(self, vip_boss_id, timestamp):
+        self.next_vip_boss_spawn_timestamp = timestamp
+        print(f"fffffff {self.next_vip_boss_spawn_timestamp}")
         self.next_vip_boss_id = vip_boss_id
         self.is_waiting_for_vip_boss = True
 
     def reset_waiting_vip_boss_spawn_info(self):
-        self.next_vip_boss_spawn_unixtime = -1
+        self.next_vip_boss_spawn_timestamp = -1
         self.next_vip_boss_id = -1
         self.is_waiting_for_vip_boss = False
 

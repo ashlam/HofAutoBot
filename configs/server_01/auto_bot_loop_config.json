@@ -7,8 +7,8 @@
     "challege_boss_cooldown_seconds": 1200,
     "is_challenge_vip_stage": false,
     "is_challenge_vip_boss": true,
-    "is_challenge_pvp": false,
-    "is_challenge_world_pvp": false,
+    "is_challenge_pvp": true,
+    "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
     "vip_boss_need_watch" : [
         {
@@ -26,6 +26,10 @@
         {
             "union_id": 20,
             "plan_action_id": 600200
+        },
+        {
+            "union_id": 25,
+            "plan_action_id": 600250
         },
         {
             "union_id": 15,
@@ -58,5 +62,5 @@
         }
     ],
     "pvp_plan_action_id": 3,
-    "world_pvp_plan_action_id": 3
+    "world_pvp_plan_action_id": 5
 }

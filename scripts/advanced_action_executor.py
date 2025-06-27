@@ -34,9 +34,13 @@ class AdvancedActionExecutor(ABC):
             time.sleep(seconds / 1000)
 
 class MainMenuActionExecutor(AdvancedActionExecutor):
+    def __init__(self, meun_key_name):
+        super().__init__()
+        self.menu_key_name = meun_key_name
+
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
         self._wait(idle_before)
-        finder = AdvancedElementFinderFactory.get_finder('click_main_menu')
+        finder = AdvancedElementFinderFactory.get_finder(self.menu_key_name)
         elements = finder.find_elements(driver, value)
         if not elements:
             LogManager.get_instance().error(f'未找到主菜单元素: {value}')
@@ -144,7 +148,8 @@ class StartBattleActionExecutor(AdvancedActionExecutor):
 
 class AdvancedActionExecutorFactory:
     _executors = {
-        'click_main_menu': MainMenuActionExecutor(),
+        'click_main_menu': MainMenuActionExecutor('click_main_menu'),
+        'click_main_menu_for_town': MainMenuActionExecutor('click_main_menu_for_town'),
         'click_sub_menu_stage': SubMenuStageActionExecutor(),
         'click_sub_menu_boss': SubMenuBossActionExecutor(),
         'check_box_select_character': CharacterSelectActionExecutor(),

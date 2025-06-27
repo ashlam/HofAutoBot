@@ -41,6 +41,7 @@ class StartBattleElementFinder(AdvancedElementFinder):
 class AdvancedElementFinderFactory:
     _finders = {
         'click_main_menu': MainMenuElementFinder(),
+        'click_main_menu_for_town': MainMenuElementFinder(),
         'click_sub_menu_stage': SubMenuStageElementFinder(),
         'click_sub_menu_boss': SubMenuBossElementFinder(),
         'check_box_select_character': CharacterSelectElementFinder(),
