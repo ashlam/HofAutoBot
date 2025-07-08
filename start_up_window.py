@@ -16,6 +16,8 @@ if project_root not in sys.path:
 from scripts.update_character_source import update_character_source
 from scripts.parse_characters import CharacterParser
 from scripts.hof_auto_bot_main import HofAutoBot
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 class BotThread(QThread):
     finished = pyqtSignal()
@@ -248,15 +250,15 @@ class LoginWindow(QMainWindow):
             QMessageBox.critical(self, '错误', f'加载服务器配置失败：{str(e)}')
 
     def open_browser(self):
-        # try:
         # 获取选中的服务器配置
         self.current_server = self.server_combo.currentData()
         if not self.current_server:
             QMessageBox.warning(self, '警告', '请先选择服务器')
             return
-
+    
         # 启动浏览器
-        self.driver = webdriver.Chrome()
+        service = Service(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service)
         self.driver.get(self.current_server['url'])
         
         # 等待页面加载完成

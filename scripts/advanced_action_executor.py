@@ -9,6 +9,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import json
 import logging
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 options = Options()
 options.add_argument('--headless')  # 无头模式
@@ -19,7 +21,8 @@ options.add_argument('--disable-images')  # 可用插件或自定义profile关�
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--window-size=1920,1080')
 
-driver = webdriver.Chrome(options=options)
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=options)
 
 class AdvancedActionExecutor(ABC):
     def __init__(self):

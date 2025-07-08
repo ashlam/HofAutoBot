@@ -2,3 +2,4 @@ requests>=2.31.0
 Pillow==9.5.0
 PyQt5>=5.15.0
 selenium>=4.15.0
+webdriver-manager>=4.0.1
