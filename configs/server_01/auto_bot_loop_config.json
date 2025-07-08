@@ -7,7 +7,7 @@
     "challege_boss_cooldown_seconds": 1200,
     "is_challenge_vip_stage": false,
     "is_challenge_vip_boss": true,
-    "is_challenge_pvp": true,
+    "is_challenge_pvp": false,
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
     "vip_boss_need_watch" : [
@@ -20,12 +20,17 @@
     ],
     "normal_boss_loop_order": [
         {
+
             "union_id": 17,
             "plan_action_id": 600170
         },
         {
             "union_id": 20,
             "plan_action_id": 600200
+        },
+        {
+            "union_id": 1,
+            "plan_action_id": 600010
         },
         {
             "union_id": 25,
@@ -50,14 +55,14 @@
     ],
     "vip_stage_need_watch" : [
         {
-            "stage_name": "ac4",
+            "stage_name": "ocean1",
             "plan_action_id": 1,
             "apperance_time": "10:00"
         }
     ],
     "normal_stage_loop_order": [
         {
-            "stage_name": "ac4",
+            "stage_name": "ocean1",
             "plan_action_id": 1
         }
     ],

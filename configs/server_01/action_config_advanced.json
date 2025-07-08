@@ -9,7 +9,7 @@
       },
       {
         "trigger_type": "click_sub_menu_stage",
-        "value": "common=ac4"
+        "value": "common=ocean1"
       },
       {
         "trigger_type": "click_button_start_battle",
@@ -22,7 +22,7 @@
     "note": "从城镇界面进入竞技场并战斗一次",
     "actions": [
       {
-        "trigger_type": "click_main_menu_for_town",
+        "trigger_type": "click_main_menu",
         "value": "town"
       },
       {
@@ -40,7 +40,7 @@
     "note": "从城镇界面进入世界竞技场并战斗一次",
     "actions": [
       {
-        "trigger_type": "click_main_menu_for_town",
+        "trigger_type": "click_main_menu",
         "value": "town"
       },
       {
@@ -89,6 +89,44 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1481007653429355",
         "_memo": "狗头人候补No.30 L60 變形者"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "600010": {
+    "name": "一服金牛",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1341059924615928",
+        "_memo": "小月月 L60 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1351681320738537",
+        "_memo": "小狂狂 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1397183741187678",
+        "_memo": "小狐狐 L60 星界法師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1536814929876636",
+        "_memo": "狗头人候补No.19 L60 森林長者"
       },
       {
         "trigger_type": "click_button_start_battle",
