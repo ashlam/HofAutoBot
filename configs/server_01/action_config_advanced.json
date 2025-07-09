@@ -17,6 +17,25 @@
       }
     ]
   },
+  "2": {
+    "name": "限时普通战斗",
+    "note": "幻界、圣诞等在每小时最后10分钟开放的限时关卡",
+    "note_1": "Asianata = 幻界",
+    "actions": [
+      {
+        "trigger_type": "click_main_menu",
+        "value": "hunt"
+      },
+      {
+        "trigger_type": "click_sub_menu_stage",
+        "value": "common=Asianata"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "monster_battle"
+      }
+    ]
+  },
   "3": {
     "name": "城镇->竞技场->战斗",
     "note": "从城镇界面进入竞技场并战斗一次",
