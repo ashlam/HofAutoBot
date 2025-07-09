@@ -18,7 +18,7 @@ class NormalStageState(BaseState):
                 self.log(f'进行普通小怪挑战：{stage["plan_action_id"]}')
                 self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
                 # time.sleep(5)
-        self.next_state = StateFactory.create_prepare_boss_state(self.bot)
+        self.next_state = StateFactory.create_prepare_stage_state(self.bot)
         self.on_finish()
 
     def on_finish(self):

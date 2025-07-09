@@ -13,4 +13,4 @@ class PvpState(BaseState):
         self.on_finish()
 
     def on_finish(self):
-        self.set_state(StateFactory.create_normal_stage_state(self.bot))
+        self.set_state(StateFactory.create_prepare_stage_state(self.bot))

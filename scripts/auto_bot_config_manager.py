@@ -43,6 +43,14 @@ class AutoBotConfigManager:
     @property
     def vip_boss_need_watch(self) -> List[Dict]:
         return self.config.get('vip_boss_need_watch', [])
+        
+    @property
+    def time_limited_stage_need_watch(self) -> List[Dict]:
+        return self.config.get('time_limited_stage_need_watch', [])
+
+    @property
+    def is_challenge_time_limited_stage(self) -> bool:
+        return self.config.get('is_challenge_time_limited_stage', False)
 
     @property
     def normal_boss_loop_order(self) -> List[Dict]:

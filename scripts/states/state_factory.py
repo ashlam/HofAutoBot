@@ -58,3 +58,13 @@ class StateFactory:
     def create_normal_boss_state(bot: 'HofAutoBot') -> 'BaseState':
         from .normal_boss_state import NormalBossState
         return NormalBossState(bot)
+        
+    @staticmethod
+    def create_time_limited_stage_state(bot: 'HofAutoBot') -> 'BaseState':
+        from .time_limited_stage_state import TimeLimitedStageState
+        return TimeLimitedStageState(bot)
+
+    @staticmethod
+    def create_prepare_stage_state(bot: 'HofAutoBot') -> 'BaseState':
+        from .prepare_stage_state import PrepareStageState
+        return PrepareStageState(bot)
