@@ -37,6 +37,10 @@ class AutoBotConfigManager:
         return self.config.get('is_challenge_pvp', False)
 
     @property
+    def is_keep_pvp_win_rate(self) -> bool:
+        return self.config.get('is_keep_pvp_win_rate', False)
+
+    @property
     def is_challenge_world_pvp(self) -> bool:
         return self.config.get('is_challenge_world_pvp', False)
 

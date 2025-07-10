@@ -1,0 +1,1042 @@
+<div id="mybody">	
+    			<div id="menu">
+			<table width="100%"><tbody><tr>
+			  <td>
+				<a href="#" onclick="RA_UseBack('index2.php?team')">軍團資訊</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php')">角色</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?item')">道具</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?town')">城鎮</a><span class="divide"></span>				<a href="#" onclick="RA_UseBack('index2.php?setting')">設置</a><span class="divide"></span>
+				<a href="#" onclick="RA_UseBack('index2.php?eslog')">記錄</a><span class="divide"></span>
+				<a href="/bb3" rel="external">遊戲論壇</a><span class="divide"></span>
+			  </td><td align="right" width="10%">
+                 <div id="online_num_div"><img src="./image/icon/online-icon.png" alt="線上人數" class="top_icon" id="online_num_img" data-hasqtip="6" oldtitle="線上人數" title=""><b id="online_num" data-hasqtip="7">3</b></div>
+			  </td><td align="right" width="5%">
+				<a href="#" onclick="RA_UseBack('index2.php?menu=mail')">
+<img alt="信箱" title="信箱" class="top_icon" src="./image/system/icon_mail_1.png">				</a>
+			</td></tr></tbody></table>
+			</div>
+			<div id="menu2">
+			<div style="width:100%">
+			<div style="width:30%;float:left">紅茶之館</div>
+			<div style="width:60%;float:right">
+			<div style="width:40%;float:left"><span class="bold">資金</span> : $&nbsp;387,603,827</div>
+			<div style="width:40%;float:right"><span class="bold">時間</span> : <span id="mtime">2910</span>/4000</div>
+			</div>
+			<div class="c-both"></div>
+			</div>
+			<div style="width:100%">
+			<div style="width:30%;float:left"><span class="bold">國家:
+無			</span> </div>
+			<div style="width:60%;float:right">
+			<div style="width:40%;float:left"><span class="bold">榮譽</span> : $&nbsp;1,166</div>
+						</div>
+			<div class="c-both"></div>
+			</div>
+</div><div id="Jq_Conten">  
+	<div style="margin:15px">
+		<form action="index2.php?menu=rank" method="post" id="Form_RA_Rank" name="Form_RA_Rank">
+	<h4>排行榜(Ranking) - <a href="#" onclick="RA_UseBack('index2.php?rank')">查看排名</a> <a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
+	<div style="width:100%;padding-left:30px">
+<div style="float:left;width:50%">
+<div class="u">TOP 5</div>
+<table cellspacing="0" style="padding-left:20px">
+<tbody><tr><td class="td6" style="text-align:center">排位</td><td class="td6" style="text-align:center">隊伍</td></tr>
+<tr><td class="td7" valign="middle" style="text-align:center">
+<img src="./image/icon/crown01.png" class="vcent" alt=""></td><td class="td8">
+遺忘迴廊 (281戰 248勝27敗 6引 72防 勝率88%)<br>
+</td></tr>
+<tr><td class="td7" valign="middle" style="text-align:center">
+<img src="./image/icon/crown02.png" class="vcent" alt=""></td><td class="td8">
+嘻:)是雪衣 (4375戰 2884勝1421敗 70引 12防 勝率66%)<br>
+半龍★月 (2880戰 1065勝1791敗 24引 9防 勝率37%)<br>
+</td></tr>
+<tr><td class="td7" valign="middle" style="text-align:center">
+<img src="./image/icon/crown03.png" class="vcent" alt=""></td><td class="td8">
+南客越鳥 (778戰 252勝522敗 4引 7防 勝率32%)<br>
+小弱雞傭兵團 (7280戰 4345勝2917敗 18引 3888防 勝率60%)<br>
+災厄 (4274戰 3198勝1044敗 32引 283防 勝率75%)<br>
+</td></tr>
+<tr><td class="td7" valign="middle" style="text-align:center">
+4位</td><td class="td8">
+BT麵麵 (13101戰 5893勝6538敗 670引 309防 勝率45%)<br>
+紳士浪人 (7129戰 589勝6526敗 14引 122防 勝率8%)<br>
+遜咖騎士團 (18966戰 6579勝11266敗 1121引 973防 勝率35%)<br>
+</td></tr>
+<tr><td class="td7" valign="middle" style="text-align:center">
+5位</td><td class="td8">
+真リア充抹殺神 (9725戰 6883勝2616敗 226引 350防 勝率71%)<br>
+被蘋果砸死的牛頓 (5259戰 2081勝3120敗 58引 112防 勝率40%)<br>
+WeIkEo (4740戰 1590勝3095敗 55引 27防 勝率34%)<br>
+</td></tr>
+</tbody></table>
+</div>
+<div style="float:right;width:50%">
+<div class="u">NEAR 5</div>
+排名未知</div>
+<div style="clear:both"></div>
+</div>
+	<input type="submit" class="btn" value="挑戰！" name="ChallengeRank" style="width:160px">
+	</form>
+	<form action="index2.php?menu=rank" method="post" id="Form_RA_SetRankTeam" name="Form_RA_SetRankTeam">
+	<h4>隊伍設置(Team Setting)</h4>
+	<p>排名戰隊伍設定。<br>
+	這裡設置排名戰隊伍。</p>
+<table cellspacing="0" style="width:100%" class="li_no_type"><tbody><tr>	<td valign="bottom" style="width:20%">		<div id="char_1" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1343276829436410')"><span id="chimg_1"><img src="./image/char/mon_237.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('1')" id="text1" class="unselect">
+		開荒戰士01		<br>
+		Lv.60 聖堂武士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('1')" id="box1" name="char_1343276829436410" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_2" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1343304098190103')"><span id="chimg_2"><img src="./image/char/mon_237.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('2')" id="text2" class="unselect">
+		開荒戰士02		<span class="bold charge">*</span><br>
+		Lv.60 聖堂武士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('2')" id="box2" name="char_1343304098190103" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_3" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1343304176305105')"><span id="chimg_3"><img src="./image/char/mon_n115w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('3')" id="text3" class="unselect">
+		打擾一下		<br>
+		Lv.60 魔劍使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('3')" id="box3" name="char_1343304176305105" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_4" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1343304227328679')"><span id="chimg_4"><img src="./image/char/mon_n114w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('4')" id="text4" class="unselect">
+		默		<br>
+		Lv.60 殺戮者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('4')" id="box4" name="char_1343304227328679" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_5" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1343304428194126')"><span id="chimg_5"><img src="./image/char/mon_214_01.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('5')" id="text5" class="unselect">
+		願世界和平		<span class="bold charge">*</span><br>
+		Lv.60 審判者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('5')" id="box5" name="char_1343304428194126" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_6" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1343364375055607')"><span id="chimg_6"><img src="./image/char/mon_n268w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('6')" id="text6" class="unselect">
+		星		<span class="bold charge">*</span><br>
+		Lv.60 星界法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('6')" id="box6" name="char_1343364375055607" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_7" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1343532448765990')"><span id="chimg_7"><img src="./image/char/mon_109a_01.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('7')" id="text7" class="unselect">
+		人家才不是女孩子		<span class="bold charge">*</span><br>
+		Lv.60 邪靈法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('7')" id="box7" name="char_1343532448765990" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_8" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1343532466690673')"><span id="chimg_8"><img src="./image/char/job_203_2.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('8')" id="text8" class="unselect">
+		紅發的夜禮服		<span class="bold charge">*</span><br>
+		Lv.60 邪靈法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('8')" id="box8" name="char_1343532466690673" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_9" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1343532598434170')"><span id="chimg_9"><img src="./image/char/mon_214m.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('9')" id="text9" class="unselect">
+		蒼白的正義		<br>
+		Lv.60 死靈導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('9')" id="box9" name="char_1343532598434170" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_10" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1343532616551614')"><span id="chimg_10"><img src="./image/char/mon_214w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('10')" id="text10" class="unselect">
+		蒼白的微笑		<br>
+		Lv.60 死靈導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('10')" id="box10" name="char_1343532616551614" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_11" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1344603329766528')"><span id="chimg_11"><img src="./image/char/mon_n012w_a.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('11')" id="text11" class="unselect">
+		Ｇ爆彈		<br>
+		Lv.60 絡印勇士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('11')" id="box11" name="char_1344603329766528" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_12" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1344603372049168')"><span id="chimg_12"><img src="./image/char/mon_055.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('12')" id="text12" class="unselect">
+		會走路的核子爐		<br>
+		Lv.60 絡印勇士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('12')" id="box12" name="char_1344603372049168" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_13" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1344603429583000')"><span id="chimg_13"><img src="./image/char/job_216w.png"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('13')" id="text13" class="unselect">
+		地		<br>
+		Lv.60 元素使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('13')" id="box13" name="char_1344603429583000" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_14" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1344603436700433')"><span id="chimg_14"><img src="./image/char/job_216w.png"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('14')" id="text14" class="unselect">
+		水		<br>
+		Lv.60 元素使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('14')" id="box14" name="char_1344603436700433" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_15" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1344603442976910')"><span id="chimg_15"><img src="./image/char/job_216w.png"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('15')" id="text15" class="unselect">
+		火		<span class="bold charge">*</span><br>
+		Lv.60 元素使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('15')" id="box15" name="char_1344603442976910" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_16" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1344603453504077')"><span id="chimg_16"><img src="./image/char/mon_246w_1.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('16')" id="text16" class="unselect">
+		雷		<span class="bold charge">*</span><br>
+		Lv.60 魔導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('16')" id="box16" name="char_1344603453504077" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_17" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1344748774310334')"><span id="chimg_17"><img src="./image/char/mon_005r.png"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('17')" id="text17" class="unselect">
+		黑森林的魔女		<br>
+		Lv.60 森林長者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('17')" id="box17" name="char_1344748774310334" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_18" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1345634140147037')"><span id="chimg_18"><img src="./image/char/mon_n090.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('18')" id="text18" class="unselect">
+		隱		<br>
+		Lv.60 忍者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('18')" id="box18" name="char_1345634140147037" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_19" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1345634157743062')"><span id="chimg_19"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('19')" id="text19" class="unselect">
+		復活吧 我的勇士		<br>
+		Lv.60 護聖使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('19')" id="box19" name="char_1345634157743062" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_20" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1346165592965808')"><span id="chimg_20"><img src="./image/char/mon_n214m.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('20')" id="text20" class="unselect">
+		憤怒的猿猴		<span class="bold charge">*</span><br>
+		Lv.60 武僧
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('20')" id="box20" name="char_1346165592965808" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_21" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1348280576400513')"><span id="chimg_21"><img src="./image/char/mon_268r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('21')" id="text21" class="unselect">
+		專CALL金屬王		<br>
+		Lv.60 星魔使徒
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('21')" id="box21" name="char_1348280576400513" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_22" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1348929337177116')"><span id="chimg_22"><img src="./image/char/mon_n213w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('22')" id="text22" class="unselect">
+		文學少女		<br>
+		Lv.60 護聖使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('22')" id="box22" name="char_1348929337177116" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_23" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1349400276521230')"><span id="chimg_23"><img src="./image/char/mon_n214w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('23')" id="text23" class="unselect">
+		憤怒的雷鳥		<span class="bold charge">*</span><br>
+		Lv.60 武僧
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('23')" id="box23" name="char_1349400276521230" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_24" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1349520472612907')"><span id="chimg_24"><img src="./image/char/mon_n114m.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('24')" id="text24" class="unselect">
+		崩		<span class="bold charge">*</span><br>
+		Lv.60 殺戮者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('24')" id="box24" name="char_1349520472612907" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_25" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1349520494597007')"><span id="chimg_25"><img src="./image/char/mon_n114m.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('25')" id="text25" class="unselect">
+		炮灰小子		<span class="bold charge">*</span><br>
+		Lv.60 殺戮者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('25')" id="box25" name="char_1349520494597007" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_26" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1351396729181759')"><span id="chimg_26"><img src="./image/char/mon_n012w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('26')" id="text26" class="unselect">
+		炮灰姑娘		<br>
+		Lv.60 絡印勇士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('26')" id="box26" name="char_1351396729181759" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_27" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1351940558565236')"><span id="chimg_27"><img src="./image/char/mon_n268w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('27')" id="text27" class="unselect">
+		星魔學徒		<br>
+		Lv.60 星界法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('27')" id="box27" name="char_1351940558565236" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_28" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1352810957852085')"><span id="chimg_28"><img src="./image/char/mon_n213w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('28')" id="text28" class="unselect">
+		爲你而戰我的女士		<br>
+		Lv.60 護聖使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('28')" id="box28" name="char_1352810957852085" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_29" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1353597083168802')"><span id="chimg_29"><img src="./image/char/mon_245_01.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('29')" id="text29" class="unselect">
+		打擾兩下		<br>
+		Lv.60 退魔戰將
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('29')" id="box29" name="char_1353597083168802" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_30" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1353677732222584')"><span id="chimg_30"><img src="./image/char/mon_246w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('30')" id="text30" class="unselect">
+		獄		<span class="bold charge">*</span><br>
+		Lv.60 魔導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('30')" id="box30" name="char_1353677732222584" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_31" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1353764300960144')"><span id="chimg_31"><img src="./image/char/mon_n414w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('31')" id="text31" class="unselect">
+		坑		<span class="bold charge">*</span><br>
+		Lv.60 機關師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('31')" id="box31" name="char_1353764300960144" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_32" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1354808013995545')"><span id="chimg_32"><img src="./image/char/job_203_1.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('32')" id="text32" class="unselect">
+		Zato-1		<br>
+		Lv.60 邪靈法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('32')" id="box32" name="char_1354808013995545" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_33" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1355498211157460')"><span id="chimg_33"><img src="./image/char/mon_111r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('33')" id="text33" class="unselect">
+		魅		<br>
+		Lv.60 降魔者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('33')" id="box33" name="char_1355498211157460" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_34" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1355649675137239')"><span id="chimg_34"><img src="./image/char/job_315w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('34')" id="text34" class="unselect">
+		無形		<span class="bold charge">*</span><br>
+		Lv.60 變形者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('34')" id="box34" name="char_1355649675137239" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_35" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1357103327369766')"><span id="chimg_35"><img src="./image/char/mon_n115wa_01.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('35')" id="text35" class="unselect">
+		打擾三下		<span class="bold charge">*</span><br>
+		Lv.60 魔劍使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('35')" id="box35" name="char_1357103327369766" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_36" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1357651680437111')"><span id="chimg_36"><img src="./image/char/mon_218.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('36')" id="text36" class="unselect">
+		tempTest		<br>
+		Lv.60 浪人劍客
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('36')" id="box36" name="char_1357651680437111" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_37" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1358089973704493')"><span id="chimg_37"><img src="./image/char/job_216m.png"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('37')" id="text37" class="unselect">
+		岩		<br>
+		Lv.60 元素使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('37')" id="box37" name="char_1358089973704493" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_38" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1358177006879804')"><span id="chimg_38"><img src="./image/char/mon_n415m.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('38')" id="text38" class="unselect">
+		一擊男		<span class="bold charge">*</span><br>
+		Lv.60 獸拳師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('38')" id="box38" name="char_1358177006879804" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_39" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1358661821909078')"><span id="chimg_39"><img src="./image/char/mon_n268w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('39')" id="text39" class="unselect">
+		厄運		<span class="bold charge">*</span><br>
+		Lv.60 星界法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('39')" id="box39" name="char_1358661821909078" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_40" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1359128484768627')"><span id="chimg_40"><img src="./image/char/job_220.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('40')" id="text40" class="unselect">
+		雫		<span class="bold charge">*</span><br>
+		Lv.60 轉魂者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('40')" id="box40" name="char_1359128484768627" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_41" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1360165871867811')"><span id="chimg_41"><img src="./image/char/mon_214m.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('41')" id="text41" class="unselect">
+		蒼白的遺言		<br>
+		Lv.60 死靈導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('41')" id="box41" name="char_1360165871867811" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_42" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1360346423868938')"><span id="chimg_42"><img src="./image/char/mon_246w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('42')" id="text42" class="unselect">
+		風		<span class="bold charge">*</span><br>
+		Lv.60 魔導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('42')" id="box42" name="char_1360346423868938" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_43" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1362576193438198')"><span id="chimg_43"><img src="./image/char/mon_n012m_a.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('43')" id="text43" class="unselect">
+		爆炸蘑菇		<br>
+		Lv.60 絡印勇士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('43')" id="box43" name="char_1362576193438198" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_44" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1362660426623898')"><span id="chimg_44"><img src="./image/char/mon_n213w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('44')" id="text44" class="unselect">
+		自殺少女		<span class="bold charge">*</span><br>
+		Lv.60 護聖使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('44')" id="box44" name="char_1362660426623898" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_45" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1365422514327707')"><span id="chimg_45"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('45')" id="text45" class="unselect">
+		寒		<br>
+		Lv.60 元素使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('45')" id="box45" name="char_1365422514327707" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_46" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1366296154839035')"><span id="chimg_46"><img src="./image/char/mon_n213w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('46')" id="text46" class="unselect">
+		治癒兔		<br>
+		Lv.60 護聖使
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('46')" id="box46" name="char_1366296154839035" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_47" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1366810179421476')"><span id="chimg_47"><img src="./image/char/NoImage.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('47')" id="text47" class="unselect">
+		淨		<span class="bold charge">*</span><br>
+		Lv.60 審判者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('47')" id="box47" name="char_1366810179421476" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_48" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1375465923651668')"><span id="chimg_48"><img src="./image/char/mon_053.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('48')" id="text48" class="unselect">
+		炎之高興		<span class="bold charge">*</span><br>
+		Lv.60 亡靈守衛
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('48')" id="box48" name="char_1375465923651668" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_49" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1392511148211667')"><span id="chimg_49"><img src="./image/char/mon_111r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('49')" id="text49" class="unselect">
+		狐		<br>
+		Lv.60 神獸師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('49')" id="box49" name="char_1392511148211667" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_50" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1392527167078914')"><span id="chimg_50"><img src="./image/char/mon_411w_1.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('50')" id="text50" class="unselect">
+		即興起舞		<br>
+		Lv.60 神射手
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('50')" id="box50" name="char_1392527167078914" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_51" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1395649566822168')"><span id="chimg_51"><img src="./image/char/mon_246w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('51')" id="text51" class="unselect">
+		隕		<br>
+		Lv.60 魔導士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('51')" id="box51" name="char_1395649566822168" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_52" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1396776857118499')"><span id="chimg_52"><img src="./image/char/mon_n268w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('52')" id="text52" class="unselect">
+		遣		<br>
+		Lv.60 星界法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('52')" id="box52" name="char_1396776857118499" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_53" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1397984500849674')"><span id="chimg_53"><img src="./image/char/mon_n012m_a.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('53')" id="text53" class="unselect">
+		炮灰菜鳥		<span class="bold charge">*</span><br>
+		Lv.60 絡印勇士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('53')" id="box53" name="char_1397984500849674" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_54" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1399205471703141')"><span id="chimg_54"><img src="./image/char/mon_n268w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('54')" id="text54" class="unselect">
+		幻		<br>
+		Lv.60 星界法師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('54')" id="box54" name="char_1399205471703141" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_55" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1400662064251555')"><span id="chimg_55"><img src="./image/char/job_315w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('55')" id="text55" class="unselect">
+		樹		<span class="bold charge">*</span><br>
+		Lv.60 變形者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('55')" id="box55" name="char_1400662064251555" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_56" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1401972035614372')"><span id="chimg_56"><img src="./image/char/mon_053.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('56')" id="text56" class="unselect">
+		圣		<br>
+		Lv.60 武僧
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('56')" id="box56" name="char_1401972035614372" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_57" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1403570663144154')"><span id="chimg_57"><img src="./image/char/mon_n012w_c.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('57')" id="text57" class="unselect">
+		绯		<br>
+		Lv.60 絡印勇士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('57')" id="box57" name="char_1403570663144154" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_58" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1405252999442085')"><span id="chimg_58"><img src="./image/char/mon_090ra.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('58')" id="text58" class="unselect">
+		E		<span class="bold charge">*</span><br>
+		Lv.60 忍者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('58')" id="box58" name="char_1405252999442085" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_59" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1407077156418127')"><span id="chimg_59"><img src="./image/char/mon_219rr.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('59')" id="text59" class="unselect">
+		F		<span class="bold charge">*</span><br>
+		Lv.60 獵人
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('59')" id="box59" name="char_1407077156418127" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_60" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1410315486937469')"><span id="chimg_60"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('60')" id="text60" class="unselect">
+		G.		<span class="bold charge">*</span><br>
+		Lv.60 森林長者
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('60')" id="box60" name="char_1410315486937469" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_61" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1481016300908423')"><span id="chimg_61"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('61')" id="text61" class="unselect">
+		H.		<span class="bold charge">*</span><br>
+		Lv.60 機關師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('61')" id="box61" name="char_1481016300908423" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_62" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1481020475662807')"><span id="chimg_62"><img src="./image/char/mon_018.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('62')" id="text62" class="unselect">
+		I.		<span class="bold charge">*</span><br>
+		Lv.60 巫師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('62')" id="box62" name="char_1481020475662807" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_63" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1484015934146415')"><span id="chimg_63"><img src="./image/char/mon_235w.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('63')" id="text63" class="unselect">
+		霜之哀傷		<br>
+		Lv.60 亡靈守衛
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('63')" id="box63" name="char_1484015934146415" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_64" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1495676514669320')"><span id="chimg_64"><img src="./image/char/mon_214.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('64')" id="text64" class="unselect">
+		K.		<span class="bold charge">*</span><br>
+		Lv.60 女祭司
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('64')" id="box64" name="char_1495676514669320" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_65" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1495761941886153')"><span id="chimg_65"><img src="./image/char/mon_219r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('65')" id="text65" class="unselect">
+		L.		<span class="bold charge">*</span><br>
+		Lv.60 獵人
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('65')" id="box65" name="char_1495761941886153" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_66" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1596006888607033')"><span id="chimg_66"><img src="./image/char/mon_053.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('66')" id="text66" class="unselect">
+		罪		<span class="bold charge">*</span><br>
+		Lv.60 亡靈守衛
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('66')" id="box66" name="char_1596006888607033" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_67" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1747625201700430')"><span id="chimg_67"><img src="./image/char/mon_080r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('67')" id="text67" class="unselect">
+		N.		<span class="bold charge">*</span><br>
+		Lv.60 戰士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('67')" id="box67" name="char_1747625201700430" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_68" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1747625233364827')"><span id="chimg_68"><img src="./image/char/mon_053.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('68')" id="text68" class="unselect">
+		罰		<br>
+		Lv.60 亡靈守衛
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('68')" id="box68" name="char_1747625233364827" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_69" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1749450469071893')"><span id="chimg_69"><img src="./image/char/mon_080r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('69')" id="text69" class="unselect">
+		P.		<span class="bold charge">*</span><br>
+		Lv.52 戰士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('69')" id="box69" name="char_1749450469071893" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_70" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1749487549552105')"><span id="chimg_70"><img src="./image/char/mon_080r.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('70')" id="text70" class="unselect">
+		Q.		<span class="bold charge">*</span><br>
+		Lv.52 戰士
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('70')" id="box70" name="char_1749487549552105" value="1">
+
+		</div>
+		</td>
+	</tr><tr>
+	<td valign="bottom" style="width:20%">		<div id="char_71" class="carpet_frame">
+		<div class="carpet1">
+		<a href="#" onclick="RA_Charback('1749784005451919')"><span id="chimg_71"><img src="./image/char/mon_213.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('71')" id="text71" class="unselect">
+		R.		<span class="bold charge">*</span><br>
+		Lv.52 牧師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('71')" id="box71" name="char_1749784005451919" value="1">
+
+		</div>
+		</td>
+	<td valign="bottom" style="width:20%">		<div id="char_72" class="carpet_frame">
+		<div class="carpet0">
+		<a href="#" onclick="RA_Charback('1749784012350013')"><span id="chimg_72"><img src="./image/char/mon_106.gif"></span></a>
+		</div>
+
+		<div onclick="toggleOnBox('72')" id="text72" class="unselect">
+		S		<span class="bold charge">*</span><br>
+		Lv.52 巫師
+		</div>
+		<input type="checkbox" onclick="toggleCheckBox('72')" id="box72" name="char_1749784012350013" value="1">
+
+		</div>
+		</td>
+</tr></tbody></table>
+	<div style="margin:15px">
+		<input type="submit" class="btn" style="width:160px" value="設定隊伍">
+	<input type="hidden" name="SetRankTeam" value="1">
+	<p>設定後2小時後才能再設置。<br>Team setting disabled after 2hours once set.</p>
+	
+	</div></form>
+</div></div></div>

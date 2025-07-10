@@ -10,6 +10,7 @@
     "is_challenge_pvp": true,
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
+    "is_keep_pvp_win_rate": true,
     "vip_boss_need_watch" : [
         {
             "union_id": 17,

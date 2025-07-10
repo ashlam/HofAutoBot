@@ -91,11 +91,10 @@ class HofAutoBot:
             if self.current_state is not None:
                 print("HofAutoBot.run -> current_state: " + self.current_state.__class__.__name__)
                 self.current_state.process()
-                # next_state = self.current_state.get_next_state()
 
-                # print(f"HofAutoBut.run, current_state: {self.current_state.__class__.__name__}, next_state: {next_state.__class__.__name__}")
-                # if next_state:
-                #     self.current_state = next_state
+    def _check_is_user_pvp_first_rank(self):
+        """检查当前用户是否为PVP第一名"""
+        return self.battle_watcher_manager.is_user_pvp_first_place(self.driver.page_source)
 
     def _update_info_from_hunt_page(self):
         self.logger.info(f'{self.server_config_manager.current_server_data["name"]} 开始更新boss信息')

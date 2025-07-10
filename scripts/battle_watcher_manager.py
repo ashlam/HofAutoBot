@@ -171,3 +171,32 @@ class BattleWatcherManager:
         self._update_all_alive_boss(content_text)
         self._update_player_stamina(content_text)
         self._update_player_challenge_boss_cooldown(content_text)
+
+    def is_user_pvp_first_place(self, content_text):
+        """判断当前用户是否为PVP第一名
+        Args:
+            content_text: PVP准备页面的HTML内容
+        Returns:
+            bool: 如果当前用户是第一名返回True，否则返回False
+        """
+        try:
+            # 从页面中提取当前用户名（在menu2区域内，通过資金和時間标记定位）
+            user_pattern = r'<div id="menu2">\s*<div style="width:100%">\s*<div style="width:30%;float:left">(.*?)</div>\s*<div style="width:60%;float:right">\s*<div style="width:40%;float:left"><span class="bold">資金</span>.*?<span class="bold">時間</span>'
+            user_match = re.search(user_pattern, content_text, re.DOTALL)
+            if not user_match:
+                return False
+            current_user = user_match.group(1)
+            print("current_user: %s", current_user)
+            
+            # 查找第一名用户（在排名表格的第一行，确保在正确的表格结构中）
+            first_place_pattern = r'<tbody><tr><td class="td6"[^>]*>排位</td><td class="td6"[^>]*>隊伍</td></tr>\s*<tr><td class="td7"[^>]*>\s*<img src="\./image/icon/crown01\.png"[^>]*></td><td class="td8">\s*(.*?)\s*\('
+            first_place_match = re.search(first_place_pattern, content_text, re.DOTALL)
+            if not first_place_match:
+                return False
+            first_place_user = first_place_match.group(1).strip()
+            
+            # 比较当前用户是否为第一名
+            return current_user == first_place_user
+        except Exception as e:
+            print(f'判断PVP第一名失败: {str(e)}')
+            return False
