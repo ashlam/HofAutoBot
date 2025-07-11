@@ -69,5 +69,9 @@ class AutoBotConfigManager:
         return self.config.get('pvp_plan_action_id', 0)
 
     @property
+    def pvp_prepare_plan_action_id(self) -> int:
+        return self.config.get('pvp_prepare_plan_action_id', 0)
+
+    @property
     def world_pvp_plan_action_id(self) -> int:
         return self.config.get('world_pvp_plan_action_id', 0)

@@ -37,17 +37,23 @@
     ]
   },
   "3": {
-    "name": "城镇->竞技场->战斗",
+    "name": "城镇->竞技场",
     "note": "从城镇界面进入竞技场并战斗一次",
     "actions": [
       {
-        "trigger_type": "click_main_menu",
+        "trigger_type": "click_main_menu_for_town",
         "value": "town"
       },
       {
         "trigger_type": "click_sub_menu_stage",
         "value": "menu=rank"
-      },
+      }
+    ]
+  },
+  "4": {
+    "name": "竞技场->战斗",
+    "note": "点战斗",
+    "actions": [
       {
         "trigger_type": "click_button_start_battle",
         "value": "ChallengeRank"
@@ -59,7 +65,7 @@
     "note": "从城镇界面进入世界竞技场并战斗一次",
     "actions": [
       {
-        "trigger_type": "click_main_menu",
+        "trigger_type": "click_main_menu_for_town",
         "value": "town"
       },
       {

@@ -181,22 +181,75 @@ class BattleWatcherManager:
         """
         try:
             # 从页面中提取当前用户名（在menu2区域内，通过資金和時間标记定位）
+            """
+            <div id="menu2">
+			<div style="width:100%">
+			<div style="width:30%;float:left">陸斯坎軍團老兵</div>
+            """
             user_pattern = r'<div id="menu2">\s*<div style="width:100%">\s*<div style="width:30%;float:left">(.*?)</div>\s*<div style="width:60%;float:right">\s*<div style="width:40%;float:left"><span class="bold">資金</span>.*?<span class="bold">時間</span>'
             user_match = re.search(user_pattern, content_text, re.DOTALL)
             if not user_match:
-                return False
-            current_user = user_match.group(1)
-            print("current_user: %s", current_user)
+                print("未能匹配到当前用户名")
+                # 尝试使用更宽松的匹配模式
+                backup_user_pattern = r'<div id="menu2">\s*<div[^>]*>\s*<div[^>]*>(.*?)</div>'
+                backup_user_match = re.search(backup_user_pattern, content_text, re.DOTALL)
+                if backup_user_match:
+                    current_user = backup_user_match.group(1).strip()
+                    print(f"使用备用模式匹配到当前用户名: {current_user}")
+                else:
+                    print("备用模式也未能匹配到当前用户名")
+                    return False
+            else:
+                current_user = user_match.group(1)
+            print(f"current_user: {current_user}")
             
+            """
+            <tbody><tr><td class="td6" style="text-align:center">排位</td><td class="td6" style="text-align:center">隊伍</td></tr>
+            <tr><td class="td7" valign="middle" style="text-align:center">
+            <img src="./image/icon/crown01.png" class="vcent" alt=""></td><td class="td8">
+            陸斯坎軍團老兵 (3157戰 2283勝807敗 67引 37防 勝率72%)<br>
+            </td></tr>
+            """
+
             # 查找第一名用户（在排名表格的第一行，确保在正确的表格结构中）
-            first_place_pattern = r'<tbody><tr><td class="td6"[^>]*>排位</td><td class="td6"[^>]*>隊伍</td></tr>\s*<tr><td class="td7"[^>]*>\s*<img src="\./image/icon/crown01\.png"[^>]*></td><td class="td8">\s*(.*?)\s*\('
+            # 注意：根据HTML内容，第一名用户名后面紧跟着战绩信息
+            # 使用TOP 5作为匹配特征，提高匹配准确性
+            first_place_pattern = r'<div class="u">TOP 5</div>[\s\S]*?<td class="td7"[^>]*>\s*<img src="\./image/icon/crown01\.png"[^>]*></td><td class="td8">\s*([^(]+?)\s*\('
             first_place_match = re.search(first_place_pattern, content_text, re.DOTALL)
             if not first_place_match:
-                return False
-            first_place_user = first_place_match.group(1).strip()
+                print("未能匹配到第一名用户(TOP 5特征)")
+                # 尝试使用更宽松的匹配模式
+                backup_pattern = r'<img src="\./image/icon/crown01\.png"[^>]*>[^<]*</td><td class="td8">\s*([^(]+?)\s*\('
+                backup_match = re.search(backup_pattern, content_text, re.DOTALL)
+                if backup_match:
+                    first_place_user = backup_match.group(1).strip()
+                    print(f"使用备用模式匹配到第一名用户: {first_place_user}")
+                else:
+                    # 尝试最宽松的匹配模式
+                    last_resort_pattern = r'crown01\.png[^<]*</td><td[^>]*>\s*([^<(]+?)\s*\('
+                    last_resort_match = re.search(last_resort_pattern, content_text, re.DOTALL)
+                    if last_resort_match:
+                        first_place_user = last_resort_match.group(1).strip()
+                        print(f"使用最后备用模式匹配到第一名用户: {first_place_user}")
+                    else:
+                        print("所有备用模式都未能匹配到第一名用户")
+                        # 打印HTML中是否包含关键特征
+                        if 'crown01.png' in content_text:
+                            print("HTML中包含crown01.png图标")
+                        if 'TOP 5' in content_text:
+                            print("HTML中包含TOP 5文本")
+                        if 'td8' in content_text:
+                            print("HTML中包含td8类")
+                        return False
+            else:
+                first_place_user = first_place_match.group(1).strip()
+            # 打印第一名用户
+            print(f"first_place_user: {first_place_user}")
             
             # 比较当前用户是否为第一名
-            return current_user == first_place_user
+            is_first = current_user == first_place_user
+            print(f"用户是否为第一名: {is_first} (当前用户: '{current_user}', 第一名: '{first_place_user}')")
+            return is_first
         except Exception as e:
             print(f'判断PVP第一名失败: {str(e)}')
             return False

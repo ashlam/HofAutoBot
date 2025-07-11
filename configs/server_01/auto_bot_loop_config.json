@@ -67,6 +67,7 @@
             "plan_action_id": 1
         }
     ],
-    "pvp_plan_action_id": 3,
+    "pvp_prepare_plan_action_id": 3,
+    "pvp_plan_action_id": 4,
     "world_pvp_plan_action_id": 5
 }
