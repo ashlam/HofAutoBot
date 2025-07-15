@@ -1,5 +1,6 @@
 from .base_state import BaseState
 from scripts.hof_auto_bot_main import HofAutoBot
+from .state_factory import StateFactory
 
 class DirectlyChallengeBossState(BaseState):
 
@@ -32,7 +33,13 @@ class DirectlyChallengeBossState(BaseState):
             if self.on_challenge_success is not None and callable(self.on_challenge_success):
                 print(f'self.on_challenge_success = {self.on_challenge_success.__name__}')
                 self.on_challenge_success()
+            else:
+                self.log(f"直接挑战 boss 成功，没有设置on_challenge_success，默认跳到world pvp好了。")
+                self.set_state(StateFactory.create_world_pvp_state(self.bot))
         else:
             if self.on_challenge_failed is not None and callable(self.on_challenge_failed):
                 print(f'self.on_challenge_failed = {self.on_challenge_failed.__name__}')
                 self.on_challenge_failed()
+            else:
+                self.set_state(StateFactory.create_world_pvp_state(self.bot))
+

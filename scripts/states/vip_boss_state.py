@@ -86,7 +86,9 @@ class VipBossState(BaseState):
         self.on_finish()
 
     def _on_challange_failed(self):
-        self.set_state(StateFactory.create_normal_boss_state(self.bot))
+        # 注意，这里如果直接转向普通boss，可能会触发连击，在服务器没反应过来之前重复打多次boss
+        # self.set_state(StateFactory.create_normal_boss_state(self.bot))
+        self.set_state(StateFactory.create_prepare_boss_state(self.bot))
         self.on_finish()
 
     def _create_dicrect_challenge_boss_state(self, union_id, advanced_action_config) -> 'BaseState':
