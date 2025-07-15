@@ -30,6 +30,10 @@
             "plan_action_id": 600200
         },
         {
+            "union_id": 7,
+            "plan_action_id": 600070
+        },
+        {
             "union_id": 1,
             "plan_action_id": 600010
         },

@@ -159,6 +159,39 @@
       }
     ]
   },
+  "600070": {
+    "name": "一服猴王",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1341223283401458",
+        "_memo": "小虱虱 L60 絡印勇士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1342235057431728",
+        "_memo": "小宁宁 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1481078031559590",
+        "_memo": "狗头人候补No.28 L30 狂戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
   "600080": {
     "name": "一服鸟毛",
     "note": "退魔鸟毛",
