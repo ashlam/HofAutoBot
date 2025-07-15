@@ -6,6 +6,7 @@ import sys
 import json
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog, QDialog, QLineEdit, QHBoxLayout, QLabel
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtGui import QIcon
 from selenium import webdriver
 import atexit
 
@@ -189,6 +190,11 @@ class LoginWindow(QMainWindow):
     def init_ui(self):
         self.setWindowTitle('HofAutoBot登录器')
         self.setFixedSize(300, 300)
+        
+        # 设置应用图标
+        icon_path = os.path.join(os.path.dirname(__file__), 'images', 'main_icon', 'app_icon.svg')
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
 
         # 创建中央部件和布局
         central_widget = QWidget()
@@ -349,6 +355,12 @@ class LoginWindow(QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
+    
+    # 设置应用图标
+    icon_path = os.path.join(os.path.dirname(__file__), 'images', 'main_icon', 'app_icon.svg')
+    if os.path.exists(icon_path):
+        app.setWindowIcon(QIcon(icon_path))
+    
     window = LoginWindow()
     window.show()
     sys.exit(app.exec_())
