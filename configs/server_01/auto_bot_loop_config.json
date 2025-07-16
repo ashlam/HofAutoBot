@@ -5,12 +5,16 @@
     "max_stamnia_limit": 4000,
     "recover_stamina_per_hour": 1000,
     "challege_boss_cooldown_seconds": 1200,
+    "idle_seconds_for_challenge_boss": 30,
+    "idle_seconds_for_challenge_vip_boss": 40,
     "is_challenge_time_limited_stage": false,
     "is_challenge_vip_boss": true,
     "is_challenge_pvp": true,
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
     "is_keep_pvp_win_rate": true,
+    "challenge_boss_delay_rate": 70,
+    "challenge_boss_delay_seconds_limit": 330,
     "vip_boss_need_watch" : [
         {
             "union_id": 17,

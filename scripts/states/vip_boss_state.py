@@ -48,7 +48,7 @@ class VipBossState(BaseState):
                     minutes, seconds = divmod(seconds, 60)
                     self.log(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒")
                     # TODO: 这里有过期的风险，会一直等
-                    wait_time = min(self.bot.COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS, max(0, time_until_spawn))
+                    wait_time = min(self.bot.auto_bot_config_manager.challenge_boss_cooldown_seconds, max(0, time_until_spawn))
                     self.log(f"{'将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip")
                     if time_until_spawn <= 0:
                         # 说明可能过期了，死马当活马医，试着直接打一下

@@ -1,9 +1,11 @@
 from functools import partial
+import time
 
 from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
 from .base_state import BaseState
 from .state_factory import StateFactory
 from scripts.boss_battle_manager import BossBattleManager
+import random
 
 class NormalBossState(BaseState):
     def process(self):
@@ -14,20 +16,34 @@ class NormalBossState(BaseState):
         # 先刷新页面获取最新状态
         self.bot._update_info_from_hunt_page()
 
+        standard_idle_seconds = self.bot.auto_bot_config_manager.idle_seconds_for_challenge_boss
         # 检查冷却时间
-        if self.bot.challenge_next_cooldown > self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
+        if self.bot.challenge_next_cooldown > standard_idle_seconds:
             # 冷却时间还长，去干别的
             idle_state = StateFactory.create_idle_state(self.bot)
-            idle_state.set_idle_time(self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS, partial(self.set_state, StateFactory.create_world_pvp_state(self.bot)))
+            idle_state.set_idle_time(standard_idle_seconds, partial(self.set_state, StateFactory.create_world_pvp_state(self.bot)))
             self.next_state = idle_state
         elif self.bot.challenge_next_cooldown > 0:
             # 冷却时间比较短，等一等然后转到prepare boss
             self.log(f'Boss挑战冷却中，还剩{self.bot.challenge_next_cooldown}秒，等待冷却结束')
             idle_state = StateFactory.create_idle_state(self.bot)
-            idle_state.set_idle_time(self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS, partial(self.set_state, StateFactory.create_prepare_boss_state(self.bot)))
+            idle_state.set_idle_time(standard_idle_seconds, partial(self.set_state, StateFactory.create_prepare_boss_state(self.bot)))
             self.next_state = idle_state
         else:
             self.log('没有冷却，开刷普通boss')
+            # 由于刚发现游戏版规有禁止按键精灵之类的辅助规则，需要加一些随机延迟来避免太过规律
+            # 先丢个随机数看本轮是否要故意delay
+            roll_result = random.randint(0, 100)
+            if roll_result > self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
+                # 再决定要delay多少秒
+                delay_seconds = random.randint(1, self.bot.auto_bot_config_manager.challenge_boss_delay_seconds_limit)
+                self.log(f'\033[91m({roll_result})本轮有delay {delay_seconds} 秒\033[37m')
+                time.sleep(delay_seconds)
+                # delay完后再刷下boss信息
+                self.bot._update_info_from_hunt_page()
+            else:
+                self.log(f'\033[91m({roll_result})本轮没有delay\033[37m')
+
             is_challenged = False
             for boss in self.bot.auto_bot_config_manager.normal_boss_loop_order:
                 if boss['union_id'] not in self.bot.battle_watcher_manager.get_all_alive_boss():

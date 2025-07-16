@@ -8,7 +8,7 @@
         "value": "hunt"
       },
       {
-        "trigger_type": "click_main_menu",
+        "trigger_type": "click_main_menu_for_town",
         "value": "hunt"
       },
       {

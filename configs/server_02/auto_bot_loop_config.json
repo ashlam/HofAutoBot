@@ -10,6 +10,9 @@
     "is_challenge_pvp": false,
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
+    "is_keep_pvp_win_rate": true,
+    "challenge_boss_delay_rate": 50,
+    "challenge_boss_delay_seconds_limit": 240,
     "vip_boss_need_watch" : [
         {
             "union_id": 17,
@@ -57,7 +60,7 @@
     ],
     "normal_stage_loop_order": [
         {
-            "stage_name": "ac4",
+            "stage_name": "ocean1",
             "plan_action_id": 1
         }
     ],

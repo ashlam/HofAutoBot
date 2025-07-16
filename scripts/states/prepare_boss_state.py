@@ -27,13 +27,14 @@ class PrepareBossState(BaseState):
         # 处理冷却时间
         if self.bot.challenge_next_cooldown > 0:
             idle_state = StateFactory.create_idle_state(self.bot)
+            standard_idle_seconds = self.bot.auto_bot_config_manager.idle_seconds_for_challenge_boss
             # 冷却时间还久的很
-            if self.bot.challenge_next_cooldown >= self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
+            if self.bot.challenge_next_cooldown >= standard_idle_seconds:
                 # 如果在冷却中，去干点别的
                 next_challange_real_time = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f')
                 self.log(f'BOSS冷却还早，当前体力：{self.bot.player_stamina}，下次boss挑战时间：{next_challange_real_time}，于是去干别的')
                 # self._set_state(self.GAME_STATE_PVP)
-                idle_state.set_idle_time(self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS, partial(self.set_state, state = StateFactory.create_world_pvp_state(self.bot)))
+                idle_state.set_idle_time(standard_idle_seconds, partial(self.set_state, state = StateFactory.create_world_pvp_state(self.bot)))
                 self.set_state(idle_state)
                 return
                 

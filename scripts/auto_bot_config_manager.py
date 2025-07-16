@@ -75,3 +75,24 @@ class AutoBotConfigManager:
     @property
     def world_pvp_plan_action_id(self) -> int:
         return self.config.get('world_pvp_plan_action_id', 0)
+
+    @property
+    def challenge_boss_delay_rate(self) -> int:
+        return self.config.get('challenge_boss_delay_rate', 0)
+
+    @property
+    def challenge_boss_delay_seconds_limit(self) -> int:
+        return self.config.get('challenge_boss_delay_seconds_limit', 5)
+
+    @property
+    def idle_seconds_for_challenge_boss(self) -> int:
+        return self.config.get('idle_seconds_for_challenge_boss', 30)
+
+    @property
+    def idle_seconds_for_challenge_vip_boss(self) -> int:
+        return self.config.get('idle_seconds_for_challenge_vip_boss', 40)
+
+    @property
+    def challenge_boss_cooldown_seconds(self) -> int:
+        return self.config.get('challege_boss_cooldown_seconds', 1200)
+

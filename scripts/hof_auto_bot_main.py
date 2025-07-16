@@ -52,11 +52,6 @@ class HofAutoBot:
         from scripts.states.base_state import BaseState
         self.current_state = BaseState(self)
 
-
-    IDLE_SECONDS_FOR_REFRESH = 1
-    IDLE_SECONDS_FOR_RECOVER_STAMINA = 7
-    IDLE_SECONDS_FOR_CHALLENGE_BOSS = 30
-    IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS = 40
     COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS = 1200
 
     def set_next_vip_boss_spawn_timestamp(self, vip_boss_id, timestamp):

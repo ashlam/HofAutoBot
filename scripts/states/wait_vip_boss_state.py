@@ -33,13 +33,14 @@ class WaitVipBossState(BaseState):
             diff_time = datetime.fromtimestamp(self.bot.next_vip_boss_spawn_timestamp / 1000000) - datetime.now()
             idle_state = StateFactory.create_idle_state(self.bot)
             diff_seconds = diff_time.total_seconds()
-            if diff_seconds > self.bot.IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS:
+            standard_idle_seconds = self.bot.auto_bot_config_manager.idle_seconds_for_challenge_vip_boss
+            if diff_seconds > standard_idle_seconds:
                 # 时间还早（大于40秒）
-                next_active_time = datetime.now() + timedelta(seconds=self.bot.IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS)
+                next_active_time = datetime.now() + timedelta(seconds=standard_idle_seconds)
                 self.log("在等vip boss，但时间太久了，干点别的去，省的被踢掉！")
                 self.log(f"...但也不能刷太快，等（{next_active_time}）继续行动")
                 # 留10秒钟左右
-                idle_time = min(self.bot.IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS - 14, diff_time.total_seconds())
+                idle_time = min(standard_idle_seconds - 14, diff_time.total_seconds())
                 idle_time = max(idle_time, 0)
                 idle_state.set_idle_time(idle_time, partial(self.set_state, state = StateFactory.create_prepare_stage_state(self.bot)))
                 self.next_state = idle_state
