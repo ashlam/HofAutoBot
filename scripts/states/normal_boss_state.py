@@ -3,7 +3,7 @@ from functools import partial
 from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
 from .base_state import BaseState
 from .state_factory import StateFactory
-import time
+from scripts.boss_battle_manager import BossBattleManager
 
 class NormalBossState(BaseState):
     def process(self):
@@ -37,6 +37,10 @@ class NormalBossState(BaseState):
                     self.log(f'普通boss {boss["union_id"]} 已出现，尝试处理')
                     # 执行boss战斗动作
                     action = self.bot.server_config_manager.all_action_config_by_server.get(f"{boss['plan_action_id']}")
+                    # 检查等级是否溢出
+                    if self._check_is_action_level_exceed_boss_limit(boss['plan_action_id'], boss['union_id']):
+                        self.log(f'角色总等级溢出，无法处理boss({boss["union_id"]})，跳过。')
+                        continue
                     directly_challenge_boss_state = StateFactory.create_directly_challenge_boss_state(self.bot)
                     if isinstance(directly_challenge_boss_state, DirectlyChallengeBossState):
                         directly_challenge_boss_state.union_id = boss['union_id']
@@ -66,3 +70,10 @@ class NormalBossState(BaseState):
         self.log('普通boss挑战失败，重新准备一次')
         self.next_state = StateFactory.create_prepare_boss_state(self.bot)
         self.on_finish()
+
+    def _check_is_action_level_exceed_boss_limit(self, action_id, boss_id):
+        manager = BossBattleManager()
+        # action_id = "600080"  # 一服鸟毛
+        result = manager.is_action_level_exceed_boss_limit(action_id, boss_id)  # 鳥巢
+        print(f"动作(ID:{action_id})中角色等级之和是否超过Boss(ID:8)等级限制: {result}")
+        return result
