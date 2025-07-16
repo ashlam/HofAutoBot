@@ -45,7 +45,7 @@
     "note": "从城镇界面进入竞技场并战斗一次",
     "actions": [
       {
-        "trigger_type": "click_main_menu_for_town",
+        "trigger_type": "click_main_menu",
         "value": "town"
       },
       {
@@ -73,7 +73,7 @@
     "note": "从城镇界面进入世界竞技场并战斗一次",
     "actions": [
       {
-        "trigger_type": "click_main_menu_for_town",
+        "trigger_type": "click_main_menu",
         "value": "town"
       },
       {
