@@ -10,7 +10,7 @@
         {
             "type":  "click_main_menu_for_town",
             "name":   "跳转主菜单[城镇]",
-            "idle_before_operation": 2000,
+            "idle_before_operation": 0,
             "idle_after_operation": 3000,
             "memo": "跳转主菜单[城镇]"
         },

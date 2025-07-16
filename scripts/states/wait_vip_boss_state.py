@@ -32,23 +32,26 @@ class WaitVipBossState(BaseState):
         else:
             diff_time = datetime.fromtimestamp(self.bot.next_vip_boss_spawn_timestamp / 1000000) - datetime.now()
             idle_state = StateFactory.create_idle_state(self.bot)
-            if diff_time.total_seconds() > self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS:
-                # 时间还早（大于30秒）
-                next_active_time = datetime.now() + timedelta(seconds=self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS)
+            diff_seconds = diff_time.total_seconds()
+            if diff_seconds > self.bot.IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS:
+                # 时间还早（大于40秒）
+                next_active_time = datetime.now() + timedelta(seconds=self.bot.IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS)
                 self.log("在等vip boss，但时间太久了，干点别的去，省的被踢掉！")
                 self.log(f"...但也不能刷太快，等（{next_active_time}）继续行动")
                 # 留10秒钟左右
-                idle_time = min(self.bot.IDLE_SECONDS_FOR_CHALLENGE_BOSS - 10, diff_time.total_seconds())
+                idle_time = min(self.bot.IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS - 14, diff_time.total_seconds())
                 idle_time = max(idle_time, 0)
-                idle_state.set_idle_time(idle_time, partial(self.set_state, state = StateFactory.create_world_pvp_state(self.bot)))
+                idle_state.set_idle_time(idle_time, partial(self.set_state, state = StateFactory.create_prepare_stage_state(self.bot)))
                 self.next_state = idle_state
+            elif diff_seconds < 0:
+                self.next_state = StateFactory.create_prepare_boss_state(self.bot)
             else:
                 # 时间快到了（30秒内）
                 after_idle_callback = lambda: {
                     self.set_state(StateFactory.create_wait_vip_boss_state(self.bot)),
                     self._invoke_challenge_time_up()
                 }
-                idle_state.set_idle_time(diff_time.total_seconds(), after_idle_callback)
+                idle_state.set_idle_time(diff_seconds, after_idle_callback)
                 self.next_state = idle_state
         self.on_finish()
 

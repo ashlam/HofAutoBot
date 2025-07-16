@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from .directly_challenge_boss_state import DirectlyChallengeBossState
     from .idle_state import IdleState
     from .normal_boss_state import NormalBossState
+    from .update_character_state import UpdateCharacterState
 
 class StateFactory:
     @staticmethod
@@ -68,3 +69,8 @@ class StateFactory:
     def create_prepare_stage_state(bot: 'HofAutoBot') -> 'BaseState':
         from .prepare_stage_state import PrepareStageState
         return PrepareStageState(bot)
+        
+    @staticmethod
+    def create_update_character_state(bot: 'HofAutoBot') -> 'BaseState':
+        from .update_character_state import UpdateCharacterState
+        return UpdateCharacterState(bot)

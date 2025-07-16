@@ -51,22 +51,12 @@ class HofAutoBot:
 
         from scripts.states.base_state import BaseState
         self.current_state = BaseState(self)
-        
 
-    # 定义游戏状态
-    GAME_STATE_BOSS = 'boss'
-    GAME_STATE_NORMAL_BOSS = 'normal_boss'
-    GAME_STATE_VIP_BOSS = 'vip_boss'
-    GAME_STATE_WAIT_VIP_BOSS = 'wait_vip_boss'
-    GAME_STATE_PVP = 'pvp'
-    GAME_STATE_WORLD_PVP = 'world_pvp'
-    GAME_STATE_NORMAL_STAGE = 'normal_stage'
-    GAME_STATE_IDLE_FOR_BOSS = 'idle_for_boss'
-    GAME_STATE_DIRECTLY_CHALLENGE_BOSS = 'directly_challenge_boss'
 
     IDLE_SECONDS_FOR_REFRESH = 1
     IDLE_SECONDS_FOR_RECOVER_STAMINA = 7
     IDLE_SECONDS_FOR_CHALLENGE_BOSS = 30
+    IDLE_SECONDS_FOR_CHALLENGE_VIP_BOSS = 40
     COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS = 1200
 
     def set_next_vip_boss_spawn_timestamp(self, vip_boss_id, timestamp):
@@ -180,7 +170,9 @@ class HofAutoBot:
             self.driver = webdriver.Chrome()
 
         self.driver.get(current_server_data["url"])
-        self.current_state = StateFactory.create_prepare_boss_state(self)
+        # self.current_state = StateFactory.create_prepare_boss_state(self)
+        # 上来先更新一下角色数据
+        self.current_state = StateFactory.create_update_character_state(self)
 
 
     def _initialize_from_command_line(self):

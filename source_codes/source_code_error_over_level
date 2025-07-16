@@ -1,0 +1,1994 @@
+<div id="Jq_Conten">﻿ <div class="error margin15">合計級別水準(299/150)</div>
+<div style="margin:15px">
+<h4>特殊怪物</h4>
+</div><table cellspacing="0" style="width:100%" class="li_no_type"><tbody><tr>	<td valign="bottom" style="width:100%">	<div class="carpet_frame">
+	<div class="land" style="background-image : url(./image/other/land_jungle.gif);">
+	<a href="#" onclick="RA_UseBack('index2.php?union=7')"><img src="./image/char/mon_008r.gif"></a></div>
+	<div class="bold dmg">猿猴的憤怒</div>限制級別:150級
+	</div></td>
+</tr></tbody></table><form action="index2.php?union=7" method="post" id="Form_Hu_Union" name="Form_Hu_Union"><div class="align-center"><input type="submit" class="btn" value="戰鬥!"></div><div style="margin:15px"><h4>選取隊伍</h4></div><div id="now_team"><table cellspacing="0" style="width:100%"><tbody><tr><td style="width:20%" valign="bottom"><div id="char_1" class="carpet_frame" onclick="toggleOnBox(6)"><div class="carpet0"><img src="./image/char/mon_n213m.gif"></div><div>
+				小逃逃				<br>
+				Lv.60 護聖使				</div></div></td><td style="width:20%" valign="bottom"><div id="char_1" class="carpet_frame" onclick="toggleOnBox(23)"><div class="carpet1"><img src="./image/char/job_216m.png"></div><div>
+				小演演				<br>
+				Lv.60 元素使				</div></div></td><td style="width:20%" valign="bottom"><div id="char_1" class="carpet_frame" onclick="toggleOnBox(30)"><div class="carpet0"><img src="./image/char/mon_n268m.gif"></div><div>
+				小未未				<br>
+				Lv.60 星界法師				</div></div></td><td style="width:20%" valign="bottom"><div id="char_1" class="carpet_frame" onclick="toggleOnBox(36)"><div class="carpet1"><img src="./image/char/mon_n268m.gif"></div><div>
+				小爵爵				<span class="bold charge">*</span><br>
+				Lv.60 星界法師				</div></div></td><td style="width:20%" valign="bottom"><div id="char_1" class="carpet_frame" onclick="toggleOnBox(86)"><div class="carpet0"><img src="./image/char/mon_080r.gif"></div><div>
+				狗头人候补No.5				<span class="bold charge">*</span><br>
+				Lv.59 戰士				</div><table></table></div></td></tr></tbody></table></div><div style="margin:15px">
+<h4>隊伍</h4></div>		
+		<div id="file_sort" style="margin:0px 15px; width:98%">
+		<span id="filter">
+			<table width="100%">
+			<tbody><tr><td>職業:
+					<span class="btn2 type1 " id="t1_warrior"><img src="./image/system/icon/ch_warrior.png" alt="戰士系"></span>
+					<span class="btn2 type1 " id="t1_wizard"><img src="./image/system/icon/ch_wizard.png" alt="巫師系"></span>
+					<span class="btn2 type1 " id="t1_pastor"><img src="./image/system/icon/ch_pastor.png" alt="牧師系"></span>
+					<span class="btn2 type1 " id="t1_hunter"><img src="./image/system/icon/ch_hunter.png" alt="獵人系"></span>
+					<input type="hidden" id="TYPE" name="type" value="">
+				</td><td>
+					軍團:
+<span class="btn2 type2 " id="t2_type_1">一軍</span> <span class="btn2 type2 " id="t2_type_2">二軍</span> <span class="btn2 type2 " id="t2_type_3">三軍</span> 				<input type="hidden" id="TYPE2" name="type2" value="">	
+				</td><td>類別
+					<span class="btn2 sort btn2_sel" id="s1_base">手動</span>
+					<span class="btn2 sort " id="s1_job">職業</span>
+					<span class="btn2 sort " id="s1_name">名稱</span>
+					<span class="btn2 sort " id="s1_level">等級</span>
+					<input type="hidden" id="SORT" name="sort" value="">
+			</td></tr><tr style="padding:5px 0 ">
+				<td colspan="2">管理:
+<input type="submit" class="btn" value="戰鬥!" name="union_battle">
+						 <input type="button" class="btn" onclick="checkDelAll()" value="清除">			 
+				</td><td>類型
+					<span class="btn2 sort_type btn2_sel" id="st_ASC">順排</span>
+					<span class="btn2 sort_type " id="st_DESC">逆排</span>
+					<input type="hidden" id="SORT_TYPE" name="sort_type" value="">	
+			</td></tr></tbody></table>
+		</span></div>				
+		
+<ul id="applications" class="image-grid" style="height: 3705px;"><li data-id="id-1" data-type="warrior" data-type2="type_1" style="height: 227px;">
+			<div id="char_1" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1340513102982626')"><span id="chimg_1"><img src="./image/char/mon_053.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('1')" id="text1" class="unselect">
+				小熊熊				<br>
+				Lv.60 亡靈守衛				</div>
+				<input type="checkbox" onclick="toggleCheckBox('1')" id="box1" name="char_1340513102982626" value="1">
+				<div style="display:none">
+					<span data-type="base">0</span>
+					<span data-type="job">110</span>
+					<span data-type="name">小熊熊</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-2" data-type="warrior" data-type2="type_1" style="height: 227px;">
+			<div id="char_2" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1340513135031688')"><span id="chimg_2"><img src="./image/char/mon_n012m_a.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('2')" id="text2" class="unselect">
+				小单单				<br>
+				Lv.60 絡印勇士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('2')" id="box2" name="char_1340513135031688" value="1">
+				<div style="display:none">
+					<span data-type="base">4</span>
+					<span data-type="job">112</span>
+					<span data-type="name">小单单</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-3" data-type="warrior" data-type2="type_1" style="height: 227px;">
+			<div id="char_3" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1340513144405650')"><span id="chimg_3"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('3')" id="text3" class="unselect">
+				小豆豆				<span class="bold charge">*</span><br>
+				Lv.60 絡印勇士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('3')" id="box3" name="char_1340513144405650" value="1">
+				<div style="display:none">
+					<span data-type="base">3</span>
+					<span data-type="job">112</span>
+					<span data-type="name">小豆豆</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-4" data-type="warrior" data-type2="type_1" style="height: 227px;">
+			<div id="char_4" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1340513153015543')"><span id="chimg_4"><img src="./image/char/mon_053.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('4')" id="text4" class="unselect">
+				小菊菊				<br>
+				Lv.60 亡靈守衛				</div>
+				<input type="checkbox" onclick="toggleCheckBox('4')" id="box4" name="char_1340513153015543" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">110</span>
+					<span data-type="name">小菊菊</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-5" data-type="pastor" data-type2="type_1" style="height: 227px;">
+			<div id="char_5" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1340513162741689')"><span id="chimg_5"><img src="./image/char/mon_111.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('5')" id="text5" class="unselect">
+				小娉娉				<span class="bold charge">*</span><br>
+				Lv.60 武僧				</div>
+				<input type="checkbox" onclick="toggleCheckBox('5')" id="box5" name="char_1340513162741689" value="1">
+				<div style="display:none">
+					<span data-type="base">2</span>
+					<span data-type="job">314</span>
+					<span data-type="name">小娉娉</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-6" data-type="pastor" data-type2="type_2" style="height: 227px;">
+			<div id="char_6" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341059592531624')"><span id="chimg_6"><img src="./image/char/mon_n213m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('6')" id="text6">
+				小逃逃				<br>
+				Lv.60 護聖使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('6')" id="box6" name="char_1341059592531624" value="1" checked="">
+				<div style="display:none">
+					<span data-type="base">36</span>
+					<span data-type="job">311</span>
+					<span data-type="name">小逃逃</span>
+					<span data-type="level">60</span>
+					<span data-type="type_2"></span>
+				</div>
+			</div>
+		</li><li data-id="id-7" data-type="wizard" data-type2="type_2" style="height: 227px;">
+			<div id="char_7" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341059924615928')"><span id="chimg_7"><img src="./image/char/job_216m.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('7')" id="text7" class="unselect">
+				小月月				<br>
+				Lv.60 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('7')" id="box7" name="char_1341059924615928" value="1">
+				<div style="display:none">
+					<span data-type="base">26</span>
+					<span data-type="job">216</span>
+					<span data-type="name">小月月</span>
+					<span data-type="level">60</span>
+					<span data-type="type_2"></span>
+				</div>
+			</div>
+		</li><li data-id="id-8" data-type="wizard" data-type2="type_2" style="height: 227px;">
+			<div id="char_8" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341059931760690')"><span id="chimg_8"><img src="./image/char/mon_268.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('8')" id="text8" class="unselect">
+				小次次				<span class="bold charge">*</span><br>
+				Lv.60 星魔使徒				</div>
+				<input type="checkbox" onclick="toggleCheckBox('8')" id="box8" name="char_1341059931760690" value="1">
+				<div style="display:none">
+					<span data-type="base">32</span>
+					<span data-type="job">212</span>
+					<span data-type="name">小次次</span>
+					<span data-type="level">60</span>
+					<span data-type="type_2"></span>
+				</div>
+			</div>
+		</li><li data-id="id-9" data-type="wizard" data-type2="type_1" style="height: 227px;">
+			<div id="char_9" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341059943975117')"><span id="chimg_9"><img src="./image/char/mon_246m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('9')" id="text9" class="unselect">
+				小醉醉				<br>
+				Lv.60 魔導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('9')" id="box9" name="char_1341059943975117" value="1">
+				<div style="display:none">
+					<span data-type="base">25</span>
+					<span data-type="job">211</span>
+					<span data-type="name">小醉醉</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-10" data-type="warrior" data-type2="type_1" style="height: 227px;">
+			<div id="char_10" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341223283401458')"><span id="chimg_10"><img src="./image/char/mon_n012m_a.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('10')" id="text10" class="unselect">
+				小虱虱				<br>
+				Lv.60 絡印勇士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('10')" id="box10" name="char_1341223283401458" value="1">
+				<div style="display:none">
+					<span data-type="base">5</span>
+					<span data-type="job">112</span>
+					<span data-type="name">小虱虱</span>
+					<span data-type="level">60</span>
+					<span data-type="type_1"></span>
+				</div>
+			</div>
+		</li><li data-id="id-11" data-type="wizard" data-type2="type_2" style="height: 227px;">
+			<div id="char_11" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341228573079997')"><span id="chimg_11"><img src="./image/char/mon_246mA_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('11')" id="text11" class="unselect">
+				小术术				<br>
+				Lv.60 魔導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('11')" id="box11" name="char_1341228573079997" value="1">
+				<div style="display:none">
+					<span data-type="base">29</span>
+					<span data-type="job">211</span>
+					<span data-type="name">小术术</span>
+					<span data-type="level">60</span>
+					<span data-type="type_2"></span>
+				</div>
+			</div>
+		</li><li data-id="id-12" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_12" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341490339532287')"><span id="chimg_12"><img src="./image/char/job_315m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('12')" id="text12" class="unselect">
+				小点点				<br>
+				Lv.60 變形者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('12')" id="box12" name="char_1341490339532287" value="1">
+				<div style="display:none">
+					<span data-type="base">11</span>
+					<span data-type="job">315</span>
+					<span data-type="name">小点点</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-13" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_13" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341630067887846')"><span id="chimg_13"><img src="./image/char/mon_237.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('13')" id="text13" class="unselect">
+				小顶顶				<br>
+				Lv.60 聖堂武士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('13')" id="box13" name="char_1341630067887846" value="1">
+				<div style="display:none">
+					<span data-type="base">27</span>
+					<span data-type="job">111</span>
+					<span data-type="name">小顶顶</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-14" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_14" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341630210237732')"><span id="chimg_14"><img src="./image/char/mon_n115mb_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('14')" id="text14" class="unselect">
+				小控控				<br>
+				Lv.60 魔劍使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('14')" id="box14" name="char_1341630210237732" value="1">
+				<div style="display:none">
+					<span data-type="base">39</span>
+					<span data-type="job">115</span>
+					<span data-type="name">小控控</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-15" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_15" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341630218346977')"><span id="chimg_15"><img src="./image/char/mon_n115w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('15')" id="text15" class="unselect">
+				小佳佳				<br>
+				Lv.60 魔劍使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('15')" id="box15" name="char_1341630218346977" value="1">
+				<div style="display:none">
+					<span data-type="base">40</span>
+					<span data-type="job">115</span>
+					<span data-type="name">小佳佳</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-16" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_16" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341630231339355')"><span id="chimg_16"><img src="./image/char/mon_n115wa_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('16')" id="text16" class="unselect">
+				小雅雅				<br>
+				Lv.60 魔劍使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('16')" id="box16" name="char_1341630231339355" value="1">
+				<div style="display:none">
+					<span data-type="base">16</span>
+					<span data-type="job">115</span>
+					<span data-type="name">小雅雅</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-17" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_17" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1341630242361461')"><span id="chimg_17"><img src="./image/char/mon_214w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('17')" id="text17" class="unselect">
+				小勺勺				<br>
+				Lv.60 死靈導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('17')" id="box17" name="char_1341630242361461" value="1">
+				<div style="display:none">
+					<span data-type="base">18</span>
+					<span data-type="job">214</span>
+					<span data-type="name">小勺勺</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-18" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_18" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1342235057431728')"><span id="chimg_18"><img src="./image/char/mon_n114w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('18')" id="text18" class="unselect">
+				小宁宁				<br>
+				Lv.60 殺戮者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('18')" id="box18" name="char_1342235057431728" value="1">
+				<div style="display:none">
+					<span data-type="base">41</span>
+					<span data-type="job">114</span>
+					<span data-type="name">小宁宁</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-19" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_19" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1344166358961278')"><span id="chimg_19"><img src="./image/char/mon_n213x.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('19')" id="text19" class="unselect">
+				小丝丝				<br>
+				Lv.60 審判者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('19')" id="box19" name="char_1344166358961278" value="1">
+				<div style="display:none">
+					<span data-type="base">33</span>
+					<span data-type="job">313</span>
+					<span data-type="name">小丝丝</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-20" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_20" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1344174097065666')"><span id="chimg_20"><img src="./image/char/mon_n214rz_1.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('20')" id="text20" class="unselect">
+				小ＫＫ				<span class="bold charge">*</span><br>
+				Lv.60 森林長者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('20')" id="box20" name="char_1344174097065666" value="1">
+				<div style="display:none">
+					<span data-type="base">12</span>
+					<span data-type="job">312</span>
+					<span data-type="name">小ＫＫ</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-21" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_21" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1346468867379495')"><span id="chimg_21"><img src="./image/char/NoImage.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('21')" id="text21" class="unselect">
+				小高高				<br>
+				Lv.60 退魔戰將				</div>
+				<input type="checkbox" onclick="toggleCheckBox('21')" id="box21" name="char_1346468867379495" value="1">
+				<div style="display:none">
+					<span data-type="base">13</span>
+					<span data-type="job">113</span>
+					<span data-type="name">小高高</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-22" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_22" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1351681320738537')"><span id="chimg_22"><img src="./image/char/mon_n114m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('22')" id="text22" class="unselect">
+				小狂狂				<br>
+				Lv.60 殺戮者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('22')" id="box22" name="char_1351681320738537" value="1">
+				<div style="display:none">
+					<span data-type="base">22</span>
+					<span data-type="job">114</span>
+					<span data-type="name">小狂狂</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-23" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_23" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1351686540649201')"><span id="chimg_23"><img src="./image/char/job_216m.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('23')" id="text23">
+				小演演				<br>
+				Lv.60 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('23')" id="box23" name="char_1351686540649201" value="1" checked="">
+				<div style="display:none">
+					<span data-type="base">24</span>
+					<span data-type="job">216</span>
+					<span data-type="name">小演演</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-24" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_24" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1352373596528753')"><span id="chimg_24"><img src="./image/char/mon_246m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('24')" id="text24" class="unselect">
+				小阴阴				<br>
+				Lv.60 魔導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('24')" id="box24" name="char_1352373596528753" value="1">
+				<div style="display:none">
+					<span data-type="base">15</span>
+					<span data-type="job">211</span>
+					<span data-type="name">小阴阴</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-25" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_25" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1352373790243592')"><span id="chimg_25"><img src="./image/char/mon_n268w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('25')" id="text25" class="unselect">
+				小蛇蛇				<span class="bold charge">*</span><br>
+				Lv.60 星界法師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('25')" id="box25" name="char_1352373790243592" value="1">
+				<div style="display:none">
+					<span data-type="base">28</span>
+					<span data-type="job">215</span>
+					<span data-type="name">小蛇蛇</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-26" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_26" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1352373797914489')"><span id="chimg_26"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('26')" id="text26" class="unselect">
+				小ＡＳ				<br>
+				Lv.60 護聖使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('26')" id="box26" name="char_1352373797914489" value="1">
+				<div style="display:none">
+					<span data-type="base">38</span>
+					<span data-type="job">311</span>
+					<span data-type="name">小ＡＳ</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-27" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_27" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1354455047868092')"><span id="chimg_27"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('27')" id="text27" class="unselect">
+				小兔兔				<br>
+				Lv.60 殺戮者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('27')" id="box27" name="char_1354455047868092" value="1">
+				<div style="display:none">
+					<span data-type="base">35</span>
+					<span data-type="job">114</span>
+					<span data-type="name">小兔兔</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-28" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_28" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1355228702660428')"><span id="chimg_28"><img src="./image/char/mon_n415m_1.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('28')" id="text28" class="unselect">
+				小拳拳				<span class="bold charge">*</span><br>
+				Lv.60 獸拳師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('28')" id="box28" name="char_1355228702660428" value="1">
+				<div style="display:none">
+					<span data-type="base">19</span>
+					<span data-type="job">415</span>
+					<span data-type="name">小拳拳</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-29" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_29" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1355917854628872')"><span id="chimg_29"><img src="./image/char/mon_n415w_1.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('29')" id="text29" class="unselect">
+				小口口				<span class="bold charge">*</span><br>
+				Lv.60 獸拳師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('29')" id="box29" name="char_1355917854628872" value="1">
+				<div style="display:none">
+					<span data-type="base">20</span>
+					<span data-type="job">415</span>
+					<span data-type="name">小口口</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-30" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_30" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1356802744242831')"><span id="chimg_30"><img src="./image/char/mon_n268m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('30')" id="text30">
+				小未未				<br>
+				Lv.60 星界法師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('30')" id="box30" name="char_1356802744242831" value="1" checked="">
+				<div style="display:none">
+					<span data-type="base">30</span>
+					<span data-type="job">215</span>
+					<span data-type="name">小未未</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-31" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_31" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1357482608907481')"><span id="chimg_31"><img src="./image/char/mon_214m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('31')" id="text31" class="unselect">
+				小ＮＳ				<br>
+				Lv.60 死靈導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('31')" id="box31" name="char_1357482608907481" value="1">
+				<div style="display:none">
+					<span data-type="base">17</span>
+					<span data-type="job">214</span>
+					<span data-type="name">小ＮＳ</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-32" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_32" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1358060408626078')"><span id="chimg_32"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('32')" id="text32" class="unselect">
+				小莱莱				<br>
+				Lv.60 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('32')" id="box32" name="char_1358060408626078" value="1">
+				<div style="display:none">
+					<span data-type="base">34</span>
+					<span data-type="job">216</span>
+					<span data-type="name">小莱莱</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-33" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_33" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1358741286894169')"><span id="chimg_33"><img src="./image/char/mon_n090.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('33')" id="text33" class="unselect">
+				小黑黑				<br>
+				Lv.60 忍者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('33')" id="box33" name="char_1358741286894169" value="1">
+				<div style="display:none">
+					<span data-type="base">37</span>
+					<span data-type="job">413</span>
+					<span data-type="name">小黑黑</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-34" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_34" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1358816667107676')"><span id="chimg_34"><img src="./image/char/mon_n012w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('34')" id="text34" class="unselect">
+				狗头人自爆队				<br>
+				Lv.60 絡印勇士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('34')" id="box34" name="char_1358816667107676" value="1">
+				<div style="display:none">
+					<span data-type="base">23</span>
+					<span data-type="job">112</span>
+					<span data-type="name">狗头人自爆队</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-35" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_35" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1359116864971428')"><span id="chimg_35"><img src="./image/char/mon_246w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('35')" id="text35" class="unselect">
+				小沼沼				<span class="bold charge">*</span><br>
+				Lv.60 魔導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('35')" id="box35" name="char_1359116864971428" value="1">
+				<div style="display:none">
+					<span data-type="base">42</span>
+					<span data-type="job">211</span>
+					<span data-type="name">小沼沼</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-36" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_36" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1359206934249861')"><span id="chimg_36"><img src="./image/char/mon_n268m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('36')" id="text36">
+				小爵爵				<span class="bold charge">*</span><br>
+				Lv.60 星界法師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('36')" id="box36" name="char_1359206934249861" value="1" checked="">
+				<div style="display:none">
+					<span data-type="base">21</span>
+					<span data-type="job">215</span>
+					<span data-type="name">小爵爵</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-37" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_37" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1359460858742662')"><span id="chimg_37"><img src="./image/char/mon_n213w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('37')" id="text37" class="unselect">
+				小明明				<br>
+				Lv.60 護聖使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('37')" id="box37" name="char_1359460858742662" value="1">
+				<div style="display:none">
+					<span data-type="base">31</span>
+					<span data-type="job">311</span>
+					<span data-type="name">小明明</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-38" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_38" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1361687509621646')"><span id="chimg_38"><img src="./image/char/mon_n315m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('38')" id="text38" class="unselect">
+				小邪邪				<br>
+				Lv.60 降魔者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('38')" id="box38" name="char_1361687509621646" value="1">
+				<div style="display:none">
+					<span data-type="base">14</span>
+					<span data-type="job">316</span>
+					<span data-type="name">小邪邪</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-39" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_39" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1368539057496878')"><span id="chimg_39"><img src="./image/char/mon_214w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('39')" id="text39" class="unselect">
+				小赛赛				<br>
+				Lv.60 死靈導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('39')" id="box39" name="char_1368539057496878" value="1">
+				<div style="display:none">
+					<span data-type="base">6</span>
+					<span data-type="job">214</span>
+					<span data-type="name">小赛赛</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-40" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_40" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1375330697023672')"><span id="chimg_40"><img src="./image/char/mon_412m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('40')" id="text40" class="unselect">
+				小ＨＨ				<br>
+				Lv.60 神獸師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('40')" id="box40" name="char_1375330697023672" value="1">
+				<div style="display:none">
+					<span data-type="base">7</span>
+					<span data-type="job">412</span>
+					<span data-type="name">小ＨＨ</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-41" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_41" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1375330774613094')"><span id="chimg_41"><img src="./image/char/mon_412w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('41')" id="text41" class="unselect">
+				小帕帕				<br>
+				Lv.60 神獸師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('41')" id="box41" name="char_1375330774613094" value="1">
+				<div style="display:none">
+					<span data-type="base">8</span>
+					<span data-type="job">412</span>
+					<span data-type="name">小帕帕</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-42" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_42" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1377693084376417')"><span id="chimg_42"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('42')" id="text42" class="unselect">
+				小ＰＰ				<br>
+				Lv.60 機關師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('42')" id="box42" name="char_1377693084376417" value="1">
+				<div style="display:none">
+					<span data-type="base">9</span>
+					<span data-type="job">414</span>
+					<span data-type="name">小ＰＰ</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-43" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_43" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1377693166888369')"><span id="chimg_43"><img src="./image/char/mon_218r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('43')" id="text43" class="unselect">
+				小咖咖				<br>
+				Lv.60 浪人劍客				</div>
+				<input type="checkbox" onclick="toggleCheckBox('43')" id="box43" name="char_1377693166888369" value="1">
+				<div style="display:none">
+					<span data-type="base">10</span>
+					<span data-type="job">416</span>
+					<span data-type="name">小咖咖</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-44" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_44" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1392131481634666')"><span id="chimg_44"><img src="./image/char/mon_411w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('44')" id="text44" class="unselect">
+				小冰冰				<span class="bold charge">*</span><br>
+				Lv.60 神射手				</div>
+				<input type="checkbox" onclick="toggleCheckBox('44')" id="box44" name="char_1392131481634666" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">411</span>
+					<span data-type="name">小冰冰</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-45" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_45" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1392956807695985')"><span id="chimg_45"><img src="./image/char/mon_109.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('45')" id="text45" class="unselect">
+				小杰杰				<span class="bold charge">*</span><br>
+				Lv.60 邪靈法師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('45')" id="box45" name="char_1392956807695985" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">213</span>
+					<span data-type="name">小杰杰</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-46" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_46" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1393944828815043')"><span id="chimg_46"><img src="./image/char/mon_111.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('46')" id="text46" class="unselect">
+				小神神				<span class="bold charge">*</span><br>
+				Lv.60 武僧				</div>
+				<input type="checkbox" onclick="toggleCheckBox('46')" id="box46" name="char_1393944828815043" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">314</span>
+					<span data-type="name">小神神</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-47" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_47" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1394934551338900')"><span id="chimg_47"><img src="./image/char/job_220_w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('47')" id="text47" class="unselect">
+				小雨雨				<br>
+				Lv.60 轉魂者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('47')" id="box47" name="char_1394934551338900" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">220</span>
+					<span data-type="name">小雨雨</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-48" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_48" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1395921567796858')"><span id="chimg_48"><img src="./image/char/mon_111.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('48')" id="text48" class="unselect">
+				小七七				<span class="bold charge">*</span><br>
+				Lv.60 護聖使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('48')" id="box48" name="char_1395921567796858" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">311</span>
+					<span data-type="name">小七七</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-49" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_49" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1397183741187678')"><span id="chimg_49"><img src="./image/char/mon_n268m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('49')" id="text49" class="unselect">
+				小狐狐				<br>
+				Lv.60 星界法師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('49')" id="box49" name="char_1397183741187678" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">215</span>
+					<span data-type="name">小狐狐</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-50" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_50" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1398349218541528')"><span id="chimg_50"><img src="./image/char/mon_245_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('50')" id="text50" class="unselect">
+				小云云				<br>
+				Lv.60 退魔戰將				</div>
+				<input type="checkbox" onclick="toggleCheckBox('50')" id="box50" name="char_1398349218541528" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">113</span>
+					<span data-type="name">小云云</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-51" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_51" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1399737790562390')"><span id="chimg_51"><img src="./image/char/mon_246w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('51')" id="text51" class="unselect">
+				小目目				<span class="bold charge">*</span><br>
+				Lv.60 魔導士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('51')" id="box51" name="char_1399737790562390" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">211</span>
+					<span data-type="name">小目目</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-52" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_52" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1400893922948584')"><span id="chimg_52"><img src="./image/char/mon_218.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('52')" id="text52" class="unselect">
+				小烧烧				<br>
+				Lv.60 浪人劍客				</div>
+				<input type="checkbox" onclick="toggleCheckBox('52')" id="box52" name="char_1400893922948584" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">416</span>
+					<span data-type="name">小烧烧</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-53" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_53" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1402535372623586')"><span id="chimg_53"><img src="./image/char/mon_n214w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('53')" id="text53" class="unselect">
+				小静静				<span class="bold charge">*</span><br>
+				Lv.60 武僧				</div>
+				<input type="checkbox" onclick="toggleCheckBox('53')" id="box53" name="char_1402535372623586" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">314</span>
+					<span data-type="name">小静静</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-54" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_54" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1404181747086695')"><span id="chimg_54"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('54')" id="text54" class="unselect">
+				小兔兔				<br>
+				Lv.60 絡印勇士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('54')" id="box54" name="char_1404181747086695" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">112</span>
+					<span data-type="name">小兔兔</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-55" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_55" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1405864085968419')"><span id="chimg_55"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('55')" id="text55" class="unselect">
+				小君君				<br>
+				Lv.60 機關師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('55')" id="box55" name="char_1405864085968419" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">414</span>
+					<span data-type="name">小君君</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-56" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_56" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1408120035704301')"><span id="chimg_56"><img src="./image/char/job_216m.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('56')" id="text56" class="unselect">
+				狗头人No.5				<br>
+				Lv.60 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('56')" id="box56" name="char_1408120035704301" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">216</span>
+					<span data-type="name">狗头人No.5</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-57" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_57" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1410404674206512')"><span id="chimg_57"><img src="./image/char/NoImage.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('57')" id="text57" class="unselect">
+				小GS				<br>
+				Lv.60 審判者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('57')" id="box57" name="char_1410404674206512" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">313</span>
+					<span data-type="name">小GS</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-58" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_58" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1423637654521611')"><span id="chimg_58"><img src="./image/char/mon_n213m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('58')" id="text58" class="unselect">
+				小团团				<br>
+				Lv.60 護聖使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('58')" id="box58" name="char_1423637654521611" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">311</span>
+					<span data-type="name">小团团</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-59" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_59" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1449724926506198')"><span id="chimg_59"><img src="./image/char/job_216w.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('59')" id="text59" class="unselect">
+				小莫莫				<br>
+				Lv.60 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('59')" id="box59" name="char_1449724926506198" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">216</span>
+					<span data-type="name">小莫莫</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-60" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_60" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1450841161467649')"><span id="chimg_60"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('60')" id="text60" class="unselect">
+				狗头人No.1				<br>
+				Lv.60 星界法師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('60')" id="box60" name="char_1450841161467649" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">215</span>
+					<span data-type="name">狗头人No.1</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-61" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_61" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481007653429355')"><span id="chimg_61"><img src="./image/char/mon_005r.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('61')" id="text61" class="unselect">
+				狗头人候补No.30				<br>
+				Lv.60 變形者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('61')" id="box61" name="char_1481007653429355" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">315</span>
+					<span data-type="name">狗头人候补No.30</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-62" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_62" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481077275840089')"><span id="chimg_62"><img src="./image/char/special_day_Dumplings2.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('62')" id="text62" class="unselect">
+				小噗噗				<br>
+				Lv.60 森林長者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('62')" id="box62" name="char_1481077275840089" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">312</span>
+					<span data-type="name">小噗噗</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-63" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_63" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481078031559590')"><span id="chimg_63"><img src="./image/char/mon_012.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('63')" id="text63" class="unselect">
+				狗头人候补No.28				<span class="bold charge">*</span><br>
+				Lv.31 狂戰士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('63')" id="box63" name="char_1481078031559590" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">102</span>
+					<span data-type="name">狗头人候补No.28</span>
+					<span data-type="level">31</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-64" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_64" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481165931220661')"><span id="chimg_64"><img src="./image/char/job_216w.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('64')" id="text64" class="unselect">
+				狗头人候补No.27				<span class="bold charge">*</span><br>
+				Lv.53 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('64')" id="box64" name="char_1481165931220661" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">216</span>
+					<span data-type="name">狗头人候补No.27</span>
+					<span data-type="level">53</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-65" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_65" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481168729427801')"><span id="chimg_65"><img src="./image/char/mon_n213m.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('65')" id="text65" class="unselect">
+				狗头人候补No.26				<span class="bold charge">*</span><br>
+				Lv.43 護聖使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('65')" id="box65" name="char_1481168729427801" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">311</span>
+					<span data-type="name">狗头人候补No.26</span>
+					<span data-type="level">43</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-66" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_66" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481342275669751')"><span id="chimg_66"><img src="./image/char/mon_012.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('66')" id="text66" class="unselect">
+				狗头人候补No.25				<br>
+				Lv.29 狂戰士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('66')" id="box66" name="char_1481342275669751" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">102</span>
+					<span data-type="name">狗头人候补No.25</span>
+					<span data-type="level">29</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-67" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_67" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1481791448894124')"><span id="chimg_67"><img src="./image/char/mon_n315w_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('67')" id="text67" class="unselect">
+				小菌菌				<span class="bold charge">*</span><br>
+				Lv.60 降魔者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('67')" id="box67" name="char_1481791448894124" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">316</span>
+					<span data-type="name">小菌菌</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-68" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_68" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1495965961091349')"><span id="chimg_68"><img src="./image/char/mon_245_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('68')" id="text68" class="unselect">
+				狗头人候补No.23				<br>
+				Lv.60 退魔戰將				</div>
+				<input type="checkbox" onclick="toggleCheckBox('68')" id="box68" name="char_1495965961091349" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">113</span>
+					<span data-type="name">狗头人候补No.23</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-69" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_69" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1499391555634691')"><span id="chimg_69"><img src="./image/char/mon_n090.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('69')" id="text69" class="unselect">
+				狗头人候补No.22				<br>
+				Lv.60 忍者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('69')" id="box69" name="char_1499391555634691" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">413</span>
+					<span data-type="name">狗头人候补No.22</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-70" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_70" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1517478959596851')"><span id="chimg_70"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('70')" id="text70" class="unselect">
+				狗头人候补No.21				<br>
+				Lv.60 機關師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('70')" id="box70" name="char_1517478959596851" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">414</span>
+					<span data-type="name">狗头人候补No.21</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-71" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_71" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1536550132715856')"><span id="chimg_71"><img src="./image/char/mon_246z.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('71')" id="text71" class="unselect">
+				狗头人候补No.20				<span class="bold charge">*</span><br>
+				Lv.26 召喚師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('71')" id="box71" name="char_1536550132715856" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">202</span>
+					<span data-type="name">狗头人候补No.20</span>
+					<span data-type="level">26</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-72" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_72" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1536814929876636')"><span id="chimg_72"><img src="./image/char/mon_n214rz.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('72')" id="text72" class="unselect">
+				狗头人候补No.19				<span class="bold charge">*</span><br>
+				Lv.60 森林長者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('72')" id="box72" name="char_1536814929876636" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">312</span>
+					<span data-type="name">狗头人候补No.19</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-73" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_73" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1536891966204852')"><span id="chimg_73"><img src="./image/char/mon_178.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('73')" id="text73" class="unselect">
+				狗头人候补No.18				<br>
+				Lv.60 退魔戰將				</div>
+				<input type="checkbox" onclick="toggleCheckBox('73')" id="box73" name="char_1536891966204852" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">113</span>
+					<span data-type="name">狗头人候补No.18</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-74" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_74" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1593743352976581')"><span id="chimg_74"><img src="./image/char/job_315w.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('74')" id="text74" class="unselect">
+				狗头人候补No.17				<br>
+				Lv.60 變形者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('74')" id="box74" name="char_1593743352976581" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">315</span>
+					<span data-type="name">狗头人候补No.17</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-75" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_75" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1744953065749241')"><span id="chimg_75"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('75')" id="text75" class="unselect">
+				狗头人候补No.16				<span class="bold charge">*</span><br>
+				Lv.45 武僧				</div>
+				<input type="checkbox" onclick="toggleCheckBox('75')" id="box75" name="char_1744953065749241" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">314</span>
+					<span data-type="name">狗头人候补No.16</span>
+					<span data-type="level">45</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-76" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_76" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1744953075595047')"><span id="chimg_76"><img src="./image/char/mon_111r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('76')" id="text76" class="unselect">
+				狗头人候补No.15				<br>
+				Lv.43 獸拳師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('76')" id="box76" name="char_1744953075595047" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">415</span>
+					<span data-type="name">狗头人候补No.15</span>
+					<span data-type="level">43</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-77" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_77" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1745205143332516')"><span id="chimg_77"><img src="./image/char/mon_100r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('77')" id="text77" class="unselect">
+				狗头人候补No.14				<br>
+				Lv.25 狂戰士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('77')" id="box77" name="char_1745205143332516" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">102</span>
+					<span data-type="name">狗头人候补No.14</span>
+					<span data-type="level">25</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-78" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_78" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1745208655009927')"><span id="chimg_78"><img src="./image/char/mon_012.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('78')" id="text78" class="unselect">
+				狗头人候补No.13				<br>
+				Lv.26 狂戰士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('78')" id="box78" name="char_1745208655009927" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">102</span>
+					<span data-type="name">狗头人候补No.13</span>
+					<span data-type="level">26</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-79" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_79" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1745302790133767')"><span id="chimg_79"><img src="./image/char/mon_090ra.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('79')" id="text79" class="unselect">
+				狗头人候补No.12				<span class="bold charge">*</span><br>
+				Lv.60 忍者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('79')" id="box79" name="char_1745302790133767" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">413</span>
+					<span data-type="name">狗头人候补No.12</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-80" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_80" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1746604184246157')"><span id="chimg_80"><img src="./image/char/job_216w.png"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('80')" id="text80" class="unselect">
+				狗头人候补No.11				<span class="bold charge">*</span><br>
+				Lv.44 元素使				</div>
+				<input type="checkbox" onclick="toggleCheckBox('80')" id="box80" name="char_1746604184246157" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">216</span>
+					<span data-type="name">狗头人候补No.11</span>
+					<span data-type="level">44</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-81" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_81" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1746604215101074')"><span id="chimg_81"><img src="./image/char/mon_214_01.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('81')" id="text81" class="unselect">
+				狗头人候补No.10				<br>
+				Lv.60 審判者				</div>
+				<input type="checkbox" onclick="toggleCheckBox('81')" id="box81" name="char_1746604215101074" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">313</span>
+					<span data-type="name">狗头人候补No.10</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-82" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_82" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1746782571260312')"><span id="chimg_82"><img src="./image/char/mon_214r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('82')" id="text82" class="unselect">
+				狗头人候补No.9				<br>
+				Lv.42 主教				</div>
+				<input type="checkbox" onclick="toggleCheckBox('82')" id="box82" name="char_1746782571260312" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">301</span>
+					<span data-type="name">狗头人候补No.9</span>
+					<span data-type="level">42</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-83" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_83" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1747048153214226')"><span id="chimg_83"><img src="./image/char/mon_053.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('83')" id="text83" class="unselect">
+				狗头人候补No.8				<span class="bold charge">*</span><br>
+				Lv.60 亡靈守衛				</div>
+				<input type="checkbox" onclick="toggleCheckBox('83')" id="box83" name="char_1747048153214226" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">110</span>
+					<span data-type="name">狗头人候补No.8</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-84" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_84" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1747048159403757')"><span id="chimg_84"><img src="./image/char/mon_053.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('84')" id="text84" class="unselect">
+				狗头人候补No.7				<br>
+				Lv.60 亡靈守衛				</div>
+				<input type="checkbox" onclick="toggleCheckBox('84')" id="box84" name="char_1747048159403757" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">110</span>
+					<span data-type="name">狗头人候补No.7</span>
+					<span data-type="level">60</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-85" data-type="wizard" data-type2="type_0" style="height: 227px;">
+			<div id="char_85" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1749449392718468')"><span id="chimg_85"><img src="./image/char/mon_018.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('85')" id="text85" class="unselect">
+				狗头人候补No.6				<span class="bold charge">*</span><br>
+				Lv.52 巫師				</div>
+				<input type="checkbox" onclick="toggleCheckBox('85')" id="box85" name="char_1749449392718468" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">200</span>
+					<span data-type="name">狗头人候补No.6</span>
+					<span data-type="level">52</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-86" data-type="warrior" data-type2="type_0" style="height: 227px;">
+			<div id="char_86" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1749449402164756')"><span id="chimg_86"><img src="./image/char/mon_080r.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('86')" id="text86">
+				狗头人候补No.5				<span class="bold charge">*</span><br>
+				Lv.59 戰士				</div>
+				<input type="checkbox" onclick="toggleCheckBox('86')" id="box86" name="char_1749449402164756" value="1" checked="">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">100</span>
+					<span data-type="name">狗头人候补No.5</span>
+					<span data-type="level">59</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-87" data-type="hunter" data-type2="type_0" style="height: 227px;">
+			<div id="char_87" class="carpet_frame">
+				<div class="carpet1">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1749555407651519')"><span id="chimg_87"><img src="./image/char/mon_219rr.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('87')" id="text87" class="unselect">
+				狗头人候补No.4				<span class="bold charge">*</span><br>
+				Lv.51 獵人				</div>
+				<input type="checkbox" onclick="toggleCheckBox('87')" id="box87" name="char_1749555407651519" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">400</span>
+					<span data-type="name">狗头人候补No.4</span>
+					<span data-type="level">51</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li><li data-id="id-88" data-type="pastor" data-type2="type_0" style="height: 227px;">
+			<div id="char_88" class="carpet_frame">
+				<div class="carpet0">
+					<div class="chartable">
+						<div class="chartd">
+							<a href="#" onclick="RA_Charback('1752548727872458')"><span id="chimg_88"><img src="./image/char/mon_214.gif"></span></a>
+						</div>
+					</div>
+				</div>
+				<div onclick="toggleOnBox('88')" id="text88" class="unselect">
+				狗头人候补No.3				<span class="bold charge">*</span><br>
+				Lv.21 女祭司				</div>
+				<input type="checkbox" onclick="toggleCheckBox('88')" id="box88" name="char_1752548727872458" value="1">
+				<div style="display:none">
+					<span data-type="base">1</span>
+					<span data-type="job">300</span>
+					<span data-type="name">狗头人候补No.3</span>
+					<span data-type="level">21</span>
+					<span data-type="type_0"></span>
+				</div>
+			</div>
+		</li>		
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		</ul>		
+	<div style="margin:15px;text-align:center">
+	<input type="submit" class="btn" value="戰鬥!">
+	<input type="hidden" name="union_battle" value="1">
+	<input type="button" class="btn" onclick="checkDelAll()" value="清除">
+	<input type="button" class="btn" value="重置" onclick="document.forms[0].reset();Show_now_team()"><br>
+	保存此隊伍:<input type="checkbox" name="memory_party" value="1">
+	</div></form>
+	</div>

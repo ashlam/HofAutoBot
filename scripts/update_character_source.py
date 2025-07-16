@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
+import json
 from bs4 import BeautifulSoup
 
 # 配置
-CHARACTER_PAGE_URL = 'index2.php'
+CHARACTER_PAGE_URL = 'index.php#'
 # OUTPUT_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), f'source_codes/source_code_character')
 
 def update_character_source(driver, server):

@@ -32,7 +32,7 @@
 <input id="SORT_TYPE" name="sort_type" type="hidden" value=""/>
 </td></tr></tbody></table>
 </span></div>
-<ul class="image-grid" id="applications"> <li data-id="id-1" data-type="warrior" data-type2="type_1">
+<ul class="image-grid" id="applications" style="height: 3405px;"><li data-id="id-1" data-type="warrior" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -49,8 +49,7 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-2" data-type="warrior" data-type2="type_1">
+</li><li data-id="id-2" data-type="warrior" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -67,8 +66,7 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-3" data-type="warrior" data-type2="type_1">
+</li><li data-id="id-3" data-type="warrior" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -85,8 +83,7 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-4" data-type="warrior" data-type2="type_1">
+</li><li data-id="id-4" data-type="warrior" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -103,8 +100,7 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-5" data-type="pastor" data-type2="type_1">
+</li><li data-id="id-5" data-type="pastor" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -121,8 +117,7 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-6" data-type="pastor" data-type2="type_2">
+</li><li data-id="id-6" data-type="pastor" data-type2="type_2">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -139,8 +134,7 @@
 <span data-type="type_2"></span>
 </div>
 </div>
-</li>
-<li data-id="id-7" data-type="wizard" data-type2="type_2">
+</li><li data-id="id-7" data-type="wizard" data-type2="type_2">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -157,8 +151,7 @@
 <span data-type="type_2"></span>
 </div>
 </div>
-</li>
-<li data-id="id-8" data-type="wizard" data-type2="type_2">
+</li><li data-id="id-8" data-type="wizard" data-type2="type_2">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -175,8 +168,7 @@
 <span data-type="type_2"></span>
 </div>
 </div>
-</li>
-<li data-id="id-9" data-type="wizard" data-type2="type_1">
+</li><li data-id="id-9" data-type="wizard" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -193,13 +185,12 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-10" data-type="warrior" data-type2="type_1">
+</li><li data-id="id-10" data-type="warrior" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341223283401458)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012m_a.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1341223283401458)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:地球之戒(風)&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012m_a.gif"/></a>
 </div>
 </div>
 </div>
@@ -211,8 +202,7 @@
 <span data-type="type_1"></span>
 </div>
 </div>
-</li>
-<li data-id="id-11" data-type="wizard" data-type2="type_2">
+</li><li data-id="id-11" data-type="wizard" data-type2="type_2">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -229,8 +219,7 @@
 <span data-type="type_2"></span>
 </div>
 </div>
-</li>
-<li data-id="id-12" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-12" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -247,13 +236,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-13" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-13" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630067887846)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 戰鬥軍甲&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:先祖硬幣(猴羊蛇馬)&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_237.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1341630067887846)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:先祖硬幣(猴羊蛇馬)&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_237.gif"/></a>
 </div>
 </div>
 </div>
@@ -265,8 +253,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-14" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-14" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -283,13 +270,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-15" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-15" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630218346977)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n115w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1341630218346977)" style="height:128px" title="武器:+4 蕉匕首&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 戰鬥軍甲&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n115w.gif"/></a>
 </div>
 </div>
 </div>
@@ -301,8 +287,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-16" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-16" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -319,8 +304,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-17" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-17" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -337,13 +321,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-18" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-18" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1342235057431728)" style="height:128px" title="武器:+7 心靈之爪&lt;br&gt;副手:+4 木盾&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n114w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1342235057431728)" style="height:128px" title="武器:+7 心靈之爪&lt;br&gt;副手:木盾&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n114w.gif"/></a>
 </div>
 </div>
 </div>
@@ -355,8 +338,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-19" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-19" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -373,8 +355,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-20" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-20" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -391,8 +372,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-21" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-21" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -409,8 +389,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-22" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-22" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -427,8 +406,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-23" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-23" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -445,8 +423,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-24" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-24" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -463,8 +440,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-25" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-25" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -481,8 +457,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-26" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-26" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -499,8 +474,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-27" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-27" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -517,8 +491,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-28" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-28" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -535,8 +508,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-29" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-29" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -553,8 +525,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-30" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-30" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -571,8 +542,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-31" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-31" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -589,8 +559,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-32" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-32" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -607,8 +576,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-33" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-33" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -625,8 +593,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-34" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-34" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -643,8 +610,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-35" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-35" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -661,8 +627,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-36" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-36" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -679,13 +644,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-37" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-37" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1359460858742662)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+6 咒語日記&lt;br&gt;　甲:+5 神聖長袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1359460858742662)" style="height:128px" title="武器:+4 無面者眼垂&lt;br&gt;副手:+6 咒語日記&lt;br&gt;　甲:+5 神聖長袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
 </div>
 </div>
 </div>
@@ -697,8 +661,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-38" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-38" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -715,8 +678,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-39" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-39" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -733,13 +695,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-40" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-40" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1375330697023672)" style="height:128px" title="武器:長鞭&lt;br&gt;副手:&lt;br&gt;　甲:+4 棉長袍&lt;br&gt;道具:+8 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_412m.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1375330697023672)" style="height:128px" title="武器:馴獸鞭&lt;br&gt;副手:&lt;br&gt;　甲:+4 褶外套&lt;br&gt;道具:+8 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_412m.gif"/></a>
 </div>
 </div>
 </div>
@@ -751,13 +712,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-41" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-41" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1375330774613094)" style="height:128px" title="武器:+4 長鞭&lt;br&gt;副手:&lt;br&gt;　甲:+4 棉長袍&lt;br&gt;道具:+7 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_412w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1375330774613094)" style="height:128px" title="武器:馴獸鞭&lt;br&gt;副手:&lt;br&gt;　甲:+4 貴族外套&lt;br&gt;道具:+7 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_412w.gif"/></a>
 </div>
 </div>
 </div>
@@ -769,17 +729,16 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-42" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-42" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1377693084376417)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n414m.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1377693084376417)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:未爆的大華輪&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
 </div>
 </div>
 </div>
-				小ＰＰ<span class="bold charge">*</span><br/>Lv.60 機關師				<div style="display:none">
+				小ＰＰ<br/>Lv.60 機關師				<div style="display:none">
 <span data-type="base">9</span>
 <span data-type="job">414</span>
 <span data-type="name">小ＰＰ</span>
@@ -787,8 +746,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-43" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-43" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -805,8 +763,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-44" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-44" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -823,8 +780,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-45" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-45" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -841,8 +797,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-46" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-46" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -859,8 +814,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-47" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-47" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -877,17 +831,16 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-48" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-48" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1395921567796858)" style="height:128px" title="武器:+6 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:戰將號角&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1395921567796858)" style="height:128px" title="武器:+6 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
 </div>
 </div>
 </div>
-				小七七<br/>Lv.60 護聖使				<div style="display:none">
+				小七七<span class="bold charge">*</span><br/>Lv.60 護聖使				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">311</span>
 <span data-type="name">小七七</span>
@@ -895,13 +848,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-49" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-49" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1397183741187678)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:速度指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n268m.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1397183741187678)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:速度指環&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n268m.gif"/></a>
 </div>
 </div>
 </div>
@@ -913,8 +865,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-50" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-50" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -931,8 +882,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-51" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-51" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -949,8 +899,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-52" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-52" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -967,8 +916,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-53" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-53" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -985,8 +933,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-54" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-54" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1003,8 +950,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-55" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-55" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1021,8 +967,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-56" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-56" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1039,8 +984,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-57" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-57" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1057,8 +1001,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-58" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-58" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1075,13 +1018,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-59" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-59" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1449724926506198)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216w.png"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1449724926506198)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216w.png"/></a>
 </div>
 </div>
 </div>
@@ -1093,8 +1035,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-60" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-60" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1111,8 +1052,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-61" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-61" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1129,8 +1069,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-62" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-62" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1139,7 +1078,7 @@
 </div>
 </div>
 </div>
-				小噗噗<span class="bold charge">*</span><br/>Lv.60 森林長者				<div style="display:none">
+				小噗噗<br/>Lv.60 森林長者				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">312</span>
 <span data-type="name">小噗噗</span>
@@ -1147,8 +1086,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-63" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-63" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1157,16 +1095,15 @@
 </div>
 </div>
 </div>
-				狗头人候补No.28<br/>Lv.30 狂戰士				<div style="display:none">
+				狗头人候补No.28<span class="bold charge">*</span><br/>Lv.31 狂戰士				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">102</span>
 <span data-type="name">狗头人候补No.28</span>
-<span data-type="level">30</span>
+<span data-type="level">31</span>
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-64" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-64" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1183,8 +1120,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-65" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-65" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1201,8 +1137,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-66" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-66" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1219,8 +1154,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-67" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-67" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1237,8 +1171,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-68" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-68" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1255,13 +1188,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-69" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-69" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1499391555634691)" style="height:128px" title="武器:+4 蕉匕首&lt;br&gt;副手:+4 小刀&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1499391555634691)" style="height:128px" title="武器:+4 蕉匕首&lt;br&gt;副手:+4 小刀&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n090.gif"/></a>
 </div>
 </div>
 </div>
@@ -1273,13 +1205,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-70" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-70" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1517478959596851)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:未爆的大華輪&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n414w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1517478959596851)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+7 靈感外袍&lt;br&gt;道具:未爆的大華輪&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
 </div>
 </div>
 </div>
@@ -1291,8 +1222,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-71" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-71" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1309,13 +1239,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-72" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-72" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1536814929876636)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214rz.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1536814929876636)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:+1 速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214rz.gif"/></a>
 </div>
 </div>
 </div>
@@ -1327,13 +1256,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-73" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-73" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1536891966204852)" style="height:128px" title="武器:+5 戮龍劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_178.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1536891966204852)" style="height:128px" title="武器:+5 戮龍劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_178.gif"/></a>
 </div>
 </div>
 </div>
@@ -1345,13 +1273,12 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-74" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-74" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1593743352976581)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 世界百科全書&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:命運印記&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_315w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1593743352976581)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 世界百科全書&lt;br&gt;　甲:+4 Iriss外衣&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_315w.gif"/></a>
 </div>
 </div>
 </div>
@@ -1363,8 +1290,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-75" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-75" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1381,8 +1307,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-76" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-76" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1399,8 +1324,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-77" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-77" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1417,8 +1341,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-78" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-78" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1435,8 +1358,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-79" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-79" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1453,8 +1375,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-80" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-80" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1471,8 +1392,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-81" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-81" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1489,8 +1409,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-82" data-type="pastor" data-type2="type_0">
+</li><li data-id="id-82" data-type="pastor" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1507,17 +1426,16 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-83" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-83" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1747048153214226)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 戰鬥軍甲&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_235w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1747048153214226)" style="height:128px" title="武器:+4 命運幻象長戟&lt;br&gt;副手:&lt;br&gt;　甲:+4 英魂甲冑&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:哥布林(雙劍)卡&lt;br&gt;"> <img src="./image/char/mon_053.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.8<br/>Lv.60 亡靈守衛				<div style="display:none">
+				狗头人候补No.8<span class="bold charge">*</span><br/>Lv.60 亡靈守衛				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">110</span>
 <span data-type="name">狗头人候补No.8</span>
@@ -1525,8 +1443,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-84" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-84" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1543,8 +1460,7 @@
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-85" data-type="wizard" data-type2="type_0">
+</li><li data-id="id-85" data-type="wizard" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1553,16 +1469,15 @@
 </div>
 </div>
 </div>
-				狗头人候补No.6<span class="bold charge">*</span><br/>Lv.51 巫師				<div style="display:none">
+				狗头人候补No.6<span class="bold charge">*</span><br/>Lv.52 巫師				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">200</span>
 <span data-type="name">狗头人候补No.6</span>
-<span data-type="level">51</span>
+<span data-type="level">52</span>
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-86" data-type="warrior" data-type2="type_0">
+</li><li data-id="id-86" data-type="warrior" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet0">
 <div class="chartable">
@@ -1571,16 +1486,15 @@
 </div>
 </div>
 </div>
-				狗头人候补No.5<span class="bold charge">*</span><br/>Lv.53 戰士				<div style="display:none">
+				狗头人候补No.5<span class="bold charge">*</span><br/>Lv.59 戰士				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">100</span>
 <span data-type="name">狗头人候补No.5</span>
-<span data-type="level">53</span>
+<span data-type="level">59</span>
 <span data-type="type_0"></span>
 </div>
 </div>
-</li>
-<li data-id="id-87" data-type="hunter" data-type2="type_0">
+</li><li data-id="id-87" data-type="hunter" data-type2="type_0">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -1594,6 +1508,23 @@
 <span data-type="job">400</span>
 <span data-type="name">狗头人候补No.4</span>
 <span data-type="level">51</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-88" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1752548727872458)" style="height:128px" title="武器:萊姆棍&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 輕夾克&lt;br&gt;道具:強化生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.3<span class="bold charge">*</span><br/>Lv.21 女祭司				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">300</span>
+<span data-type="name">狗头人候补No.3</span>
+<span data-type="level">21</span>
 <span data-type="type_0"></span>
 </div>
 </div>

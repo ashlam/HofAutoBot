@@ -17,6 +17,7 @@ if project_root not in sys.path:
 from scripts.update_character_source import update_character_source
 from scripts.parse_characters import CharacterParser
 from scripts.hof_auto_bot_main import HofAutoBot
+from scripts.states.state_factory import StateFactory
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -325,18 +326,45 @@ class LoginWindow(QMainWindow):
                 QMessageBox.warning(self, '警告', '请先打开浏览器并登录')
                 return
 
-            # 更新角色数据
-            if not update_character_source(self.driver, self.current_server):
-                QMessageBox.warning(self, '警告', '更新角色数据失败，请检查网络连接或登录状态')
-                return
-
-            # 解析角色数据
-            source_file_name = f'source_code_character_{self.current_server["id"]}'
-            parser = CharacterParser(source_file_name, server_id=self.current_server['id'])
-            if parser.parse():
-                QMessageBox.information(self, '成功', f'角色数据更新完成！\n配置文件位置: {parser.output_json}')
-            else:
-                QMessageBox.warning(self, '警告', '解析角色数据失败')
+            # 如果没有初始化HofAutoBot，则先初始化
+            if not self.hof_auto_bot:
+                self.hof_auto_bot = HofAutoBot()
+                self.hof_auto_bot.initialize_with_driver(self.current_server['id'], self.driver)
+            
+            # 创建更新角色数据状态
+            update_character_state = StateFactory.create_update_character_state(self.hof_auto_bot)
+            
+            # 设置完成后的回调
+            def on_update_finished():
+                QMessageBox.information(self, '成功', '角色数据更新完成！')
+            
+            # 创建一个临时的线程来执行更新操作
+            class UpdateThread(QThread):
+                finished = pyqtSignal()
+                error = pyqtSignal(str)
+                
+                def __init__(self, state):
+                    super().__init__()
+                    self.state = state
+                    self.is_stopped = False
+                
+                def run(self):
+                    try:
+                        self.state.process()
+                        if not self.is_stopped:
+                            self.finished.emit()
+                    except Exception as e:
+                        if not self.is_stopped:
+                            self.error.emit(str(e))
+                
+                def stop(self):
+                    self.is_stopped = True
+            
+            # 创建并启动线程
+            self.update_thread = UpdateThread(update_character_state)
+            self.update_thread.finished.connect(on_update_finished)
+            self.update_thread.error.connect(lambda msg: QMessageBox.critical(self, '错误', f'更新角色数据时出错：{msg}'))
+            self.update_thread.start()
 
         except Exception as e:
             QMessageBox.critical(self, '错误', f'更新角色数据时出错：{str(e)}')

@@ -8,6 +8,10 @@
         "value": "hunt"
       },
       {
+        "trigger_type": "click_main_menu",
+        "value": "hunt"
+      },
+      {
         "trigger_type": "click_sub_menu_stage",
         "value": "common=ocean1"
       },
@@ -45,6 +49,10 @@
         "value": "town"
       },
       {
+        "trigger_type": "click_main_menu_for_town",
+        "value": "town"
+      },
+      {
         "trigger_type": "click_sub_menu_stage",
         "value": "menu=rank"
       }
@@ -64,6 +72,10 @@
     "name": "城镇->世界竞技场->战斗",
     "note": "从城镇界面进入世界竞技场并战斗一次",
     "actions": [
+      {
+        "trigger_type": "click_main_menu_for_town",
+        "value": "town"
+      },
       {
         "trigger_type": "click_main_menu_for_town",
         "value": "town"
@@ -183,8 +195,8 @@
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1481078031559590",
-        "_memo": "狗头人候补No.28 L30 狂戰士"
+        "value": "char_1481342275669751",
+        "_memo": "狗头人候补No.25 L29 狂戰士"
       },
       {
         "trigger_type": "click_button_start_battle",
