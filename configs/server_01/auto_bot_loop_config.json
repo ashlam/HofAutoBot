@@ -13,8 +13,8 @@
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
     "is_keep_pvp_win_rate": true,
-    "challenge_boss_delay_rate": 70,
-    "challenge_boss_delay_seconds_limit": 330,
+    "challenge_boss_delay_rate": 80,
+    "challenge_boss_delay_seconds_limit": 360,
     "vip_boss_need_watch" : [
         {
             "union_id": 17,
@@ -38,16 +38,20 @@
             "plan_action_id": 600070
         },
         {
+            "union_id": 14,
+            "plan_action_id": 600140
+        },
+        {
             "union_id": 1,
             "plan_action_id": 600010
         },
         {
-            "union_id": 25,
-            "plan_action_id": 600250
-        },
-        {
             "union_id": 15,
             "plan_action_id": 600150
+        },
+        {
+            "union_id": 25,
+            "plan_action_id": 600250
         },
         {
             "union_id": 8,

@@ -247,6 +247,49 @@
       }
     ]
   },
+  "600140": {
+    "name": "一服远古（杀戮元素）",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1340513144405650",
+        "_memo": "小豆豆 L60 絡印勇士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1341059924615928",
+        "_memo": "小月月 L60 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1351681320738537",
+        "_memo": "小狂狂 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1481078031559590",
+        "_memo": "狗头人候补No.28 L31 狂戰士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1536550132715856",
+        "_memo": "狗头人候补No.20 L26 召喚師"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
   "600150": {
     "name": "一服项链",
     "note": "",

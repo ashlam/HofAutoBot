@@ -34,7 +34,7 @@ class NormalBossState(BaseState):
             # 由于刚发现游戏版规有禁止按键精灵之类的辅助规则，需要加一些随机延迟来避免太过规律
             # 先丢个随机数看本轮是否要故意delay
             roll_result = random.randint(0, 100)
-            if roll_result > self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
+            if roll_result <= self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
                 # 再决定要delay多少秒
                 delay_seconds = random.randint(1, self.bot.auto_bot_config_manager.challenge_boss_delay_seconds_limit)
                 self.log(f'\033[91m({roll_result})本轮有delay {delay_seconds} 秒\033[37m')
