@@ -6,6 +6,7 @@ from .base_state import BaseState
 from .state_factory import StateFactory
 from scripts.boss_battle_manager import BossBattleManager
 import random
+from datetime import datetime
 
 class NormalBossState(BaseState):
     def process(self):
@@ -33,11 +34,24 @@ class NormalBossState(BaseState):
             self.log('没有冷却，开刷普通boss')
             # 由于刚发现游戏版规有禁止按键精灵之类的辅助规则，需要加一些随机延迟来避免太过规律
             # 先丢个随机数看本轮是否要故意delay
+            next_vip_spawn_seconds = 0
+            for vip_boss in self.bot.auto_bot_config_manager.vip_boss_need_watch:
+                next_vip_union_id = vip_boss['union_id']
+                next_vip_boss_battle_info = self.bot.boss_battle_manager.get_next_vip_boss(vip_boss, next_vip_union_id, self.bot.battle_watcher_manager)
+                if next_vip_boss_battle_info:
+                    self.log(f'下一个vip boss是{next_vip_union_id}')
+                    next_spawn_timestamp = next_vip_boss_battle_info['future_unixtime']
+                    next_spawn_time = datetime.fromtimestamp(next_spawn_timestamp / 1000000)
+                    time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
+                    next_vip_spawn_seconds = int(time_until_spawn)
+                    break
             roll_result = random.randint(0, 100)
             if roll_result <= self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
                 # 再决定要delay多少秒
                 delay_seconds = random.randint(1, self.bot.auto_bot_config_manager.challenge_boss_delay_seconds_limit)
                 self.log(f'\033[91m({roll_result})本轮有delay {delay_seconds} 秒\033[37m')
+                if next_vip_spawn_seconds > 0:
+                    delay_seconds = min(delay_seconds, next_vip_spawn_seconds)
                 time.sleep(delay_seconds)
                 # delay完后再刷下boss信息
                 self.bot._update_info_from_hunt_page()

@@ -42,64 +42,84 @@ class MainMenuActionExecutor(AdvancedActionExecutor):
         self.menu_key_name = meun_key_name
 
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
-        self._wait(idle_before)
-        finder = AdvancedElementFinderFactory.get_finder(self.menu_key_name)
-        elements = finder.find_elements(driver, value)
-        if not elements:
-            LogManager.get_instance().error(f'未找到主菜单元素: {value}')
-            # 等待页面稳定
-        self._wait(self._inner_idle_time_for_web_complate)
-        elements = finder.find_elements(driver, value)  # 重新获取元素
-        if not elements:
-            raise ValueError(f'页面刷新后未找到主菜单元素: {value}')
-        elements[0].click()
-        self._wait(idle_after)
-        return True
+        try:
+            self._wait(idle_before)
+            finder = AdvancedElementFinderFactory.get_finder(self.menu_key_name)
+            elements = finder.find_elements(driver, value)
+            if not elements:
+                LogManager.get_instance().error(f'未找到主菜单元素: {value}')
+                # 等待页面稳定
+                self._wait(self._inner_idle_time_for_web_complate)
+                elements = finder.find_elements(driver, value)  # 重新获取元素
+                if not elements or len(elements) == 0:
+                    LogManager.get_instance().error(f'页面刷新后未找到主菜单元素: {value}')
+                    return False
+            elements[0].click()
+            self._wait(idle_after)
+            return True
+        except Exception as e:
+            LogManager.get_instance().error(f'执行主菜单动作时发生异常: {str(e)}')
+            return False
 
 class SubMenuStageActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
-        self._wait(idle_before)
-        finder = AdvancedElementFinderFactory.get_finder('click_sub_menu_stage')
-        elements = finder.find_elements(driver, value)
-        if not elements:
-            LogManager.get_instance().error(f'未找到子菜单关卡元素: {value}')
-            # 等待页面稳定
-        self._wait(self._inner_idle_time_for_web_complate)
-        elements = finder.find_elements(driver, value)  # 重新获取元素
-        if not elements:
-            raise ValueError(f'页面刷新后未找到子菜单关卡元素: {value}')
-        elements[0].click()
-        self._wait(idle_after)
-        return True
+        try:
+            self._wait(idle_before)
+            finder = AdvancedElementFinderFactory.get_finder('click_sub_menu_stage')
+            elements = finder.find_elements(driver, value)
+            if not elements:
+                LogManager.get_instance().error(f'未找到子菜单关卡元素: {value}')
+                # 等待页面稳定
+                self._wait(self._inner_idle_time_for_web_complate)
+                elements = finder.find_elements(driver, value)  # 重新获取元素
+                if not elements or len(elements) == 0:
+                    LogManager.get_instance().error(f'页面刷新后未找到子菜单关卡元素: {value}')
+                    return False
+            elements[0].click()
+            self._wait(idle_after)
+            return True
+        except Exception as e:
+            LogManager.get_instance().error(f'执行子菜单关卡动作时发生异常: {str(e)}')
+            return False
 
 class SubMenuBossActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
-        self._wait(idle_before)
-        finder = AdvancedElementFinderFactory.get_finder('click_sub_menu_boss')
-        elements = finder.find_elements(driver, value)
-        if not elements:
-            raise ValueError(f'未找到子菜单BOSS元素: {value}')
-        elements[0].click()
-        self._wait(idle_after)
-        return True
+        try:
+            self._wait(idle_before)
+            finder = AdvancedElementFinderFactory.get_finder('click_sub_menu_boss')
+            elements = finder.find_elements(driver, value)
+            if not elements or len(elements) == 0:
+                LogManager.get_instance().error(f'未找到子菜单BOSS元素: {value}')
+                return False
+            elements[0].click()
+            self._wait(idle_after)
+            return True
+        except Exception as e:
+            LogManager.get_instance().error(f'执行子菜单BOSS动作时发生异常: {str(e)}')
+            return False
 
 class CharacterSelectActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
-        start = time.time()
-        self._wait(idle_before)
-        t1 = time.time()
-        finder = AdvancedElementFinderFactory.get_finder('check_box_select_character')
-        elements = finder.find_elements(driver, value)
-        t2 = time.time()
-        if not elements:
-            raise ValueError(f'未找到角色复选框元素: {value}')
-        if not elements[0].is_selected():
-            elements[0].click()
-        t3 = time.time()
-        self._wait(idle_after)
-        t4 = time.time()
-        logging.info(f"[性能日志] 角色选择动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
-        return True
+        try:
+            start = time.time()
+            self._wait(idle_before)
+            t1 = time.time()
+            finder = AdvancedElementFinderFactory.get_finder('check_box_select_character')
+            elements = finder.find_elements(driver, value)
+            t2 = time.time()
+            if not elements or len(elements) == 0:
+                LogManager.get_instance().error(f'未找到角色复选框元素: {value}')
+                return False
+            if not elements[0].is_selected():
+                elements[0].click()
+            t3 = time.time()
+            self._wait(idle_after)
+            t4 = time.time()
+            logging.info(f"[性能日志] 角色选择动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
+            return True
+        except Exception as e:
+            LogManager.get_instance().error(f'执行角色选择动作时发生异常: {str(e)}')
+            return False
 
     @staticmethod
     def batch_select(driver, char_ids):
@@ -117,37 +137,47 @@ class CharacterSelectActionExecutor(AdvancedActionExecutor):
 
 class ClearTeamActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
-        start = time.time()
-        self._wait(idle_before)
-        t1 = time.time()
-        finder = AdvancedElementFinderFactory.get_finder('click_button_clear_team')
-        elements = finder.find_elements(driver, value)
-        t2 = time.time()
-        if not elements:
-            raise ValueError('未找到清除队伍按钮')
-        elements[0].click()
-        t3 = time.time()
-        self._wait(idle_after)
-        t4 = time.time()
-        logging.info(f"[性能日志] 清除队伍动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
-        return True
+        try:
+            start = time.time()
+            self._wait(idle_before)
+            t1 = time.time()
+            finder = AdvancedElementFinderFactory.get_finder('click_button_clear_team')
+            elements = finder.find_elements(driver, value)
+            t2 = time.time()
+            if not elements or len(elements) == 0:
+                LogManager.get_instance().error('未找到清除队伍按钮')
+                return False
+            elements[0].click()
+            t3 = time.time()
+            self._wait(idle_after)
+            t4 = time.time()
+            logging.info(f"[性能日志] 清除队伍动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
+            return True
+        except Exception as e:
+            LogManager.get_instance().error(f'执行清除队伍动作时发生异常: {str(e)}')
+            return False
 
 class StartBattleActionExecutor(AdvancedActionExecutor):
     def execute(self, driver, value=None, idle_before=0, idle_after=100):
-        start = time.time()
-        self._wait(idle_before)
-        t1 = time.time()
-        finder = AdvancedElementFinderFactory.get_finder('click_button_start_battle')
-        elements = finder.find_elements(driver, value)
-        t2 = time.time()
-        if not elements:
-            raise ValueError(f'未找到战斗按钮: {value}')
-        elements[0].click()
-        t3 = time.time()
-        self._wait(idle_after)
-        t4 = time.time()
-        logging.info(f"[性能日志] 开始战斗动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
-        return True
+        try:
+            start = time.time()
+            self._wait(idle_before)
+            t1 = time.time()
+            finder = AdvancedElementFinderFactory.get_finder('click_button_start_battle')
+            elements = finder.find_elements(driver, value)
+            t2 = time.time()
+            if not elements or len(elements) == 0:
+                LogManager.get_instance().error(f'未找到战斗按钮: {value}')
+                return False
+            elements[0].click()
+            t3 = time.time()
+            self._wait(idle_after)
+            t4 = time.time()
+            logging.info(f"[性能日志] 开始战斗动作耗时: idle_before={t1-start:.3f}s, 查找={t2-t1:.3f}s, 点击={t3-t2:.3f}s, idle_after={t4-t3:.3f}s, 总计={t4-start:.3f}s")
+            return True
+        except Exception as e:
+            LogManager.get_instance().error(f'执行开始战斗动作时发生异常: {str(e)}')
+            return False
 
 class AdvancedActionExecutorFactory:
     _executors = {
@@ -210,7 +240,7 @@ class AdvancedActionManager:
             idle_after=idle_after
         )
 
-    def batch_boss_actions(self, driver, actions):
+    def batch_selected_characters_actions(self, driver, actions):
         """
         批量处理boss战：清队+批量选人+开始战斗
         """
@@ -249,7 +279,7 @@ class AdvancedActionManager:
             actions[0]['trigger_type'] == 'click_button_clear_team' and
             all(a['trigger_type'] == 'check_box_select_character' for a in actions[1:-1]) and
             actions[-1]['trigger_type'] == 'click_button_start_battle'):
-            return self.batch_boss_actions(driver, actions)
+            return self.batch_selected_characters_actions(driver, actions)
 
         i = 0
         while i < len(actions):

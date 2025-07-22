@@ -17,8 +17,8 @@
         {
             "type":  "click_sub_menu_stage",
             "name":   "点击小怪关卡",
-            "idle_before_operation": 0,
-            "idle_after_operation": 1200,
+            "idle_before_operation": 1000,
+            "idle_after_operation": 200,
             "memo": "点击小怪关卡"
         },
         {

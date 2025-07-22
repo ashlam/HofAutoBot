@@ -1,6 +1,7 @@
 import os
 import json
-import re
+from typing import Dict
+from scripts.battle_watcher_manager import BattleWatcherManager
 
 class BossBattleManager:
     def __init__(self):
@@ -164,3 +165,27 @@ class BossBattleManager:
         
         # 判断是否超过限制
         return total_level > boss_level_limit
+        
+    def get_next_vip_boss(self, vip_boss_dict: Dict, union_id, battle_watcher_manager: BattleWatcherManager):
+        """
+        获取下一个VIP Boss的刷新时间信息
+        
+        Args:
+            vip_boss_dict: VIP Boss的配置字典
+            union_id: Boss的union_id
+            battle_watcher_manager: BattleWatcherManager实例
+            
+        Returns:
+            dict: 包含下次战斗时间信息的字典，如果获取失败则返回None
+        """
+        # 从vip_boss_dict中获取服务器URL
+        server_url = vip_boss_dict.get('server_url')
+        if not server_url:
+            # 如果vip_boss_dict中没有server_url，则需要从外部传入
+            print(f'警告：vip_boss_dict中未包含server_url，请确保在调用时提供正确的URL')
+            return None
+            
+        boss_log_url = f"{server_url}?ulog"
+        kill_cooldown = vip_boss_dict.get('kill_cooldown_seconds', 14400)  # 默认为4小时
+        next_battle_info = battle_watcher_manager.get_boss_next_battle_real_time(union_id, kill_cooldown, boss_log_url)
+        return next_battle_info

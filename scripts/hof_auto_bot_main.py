@@ -11,6 +11,7 @@ from scripts.server_config_manager import ServerConfigManager
 from scripts.battle_watcher_manager import BattleWatcherManager
 from scripts.log_manager import LogManager
 from scripts.auto_bot_config_manager import AutoBotConfigManager
+from scripts.boss_battle_manager import BossBattleManager
 
 from scripts.states.state_factory import StateFactory
 
@@ -48,6 +49,7 @@ class HofAutoBot:
         self.logger = LogManager.get_instance()
         self.directly_challenge_boss_id = None
         self.directly_challenge_boss_action = None
+        self.boss_battle_manager = None
 
         from scripts.states.base_state import BaseState
         self.current_state = BaseState(self)
@@ -156,6 +158,8 @@ class HofAutoBot:
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
         self.action_manager = AdvancedActionManager()
+        self.boss_battle_manager = BossBattleManager()
+        self.boss_battle_manager.set_server_id(server_id)
         log_path = os.path.join(os.path.dirname(__file__), '..', 'logs', f'log_server_{current_server_data.get("id")}.txt')
         print(log_path)
         self.logger.set_log_path(log_path)
@@ -235,6 +239,8 @@ class HofAutoBot:
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
         self.action_manager = AdvancedActionManager()
+        self.boss_battle_manager = BossBattleManager()
+        self.boss_battle_manager.set_server_id(selected_server_id)
         self.current_state = StateFactory.create_prepare_boss_state(self)
         return True
 

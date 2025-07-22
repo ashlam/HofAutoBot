@@ -103,7 +103,8 @@ class VipBossState(BaseState):
             raise None
 
     def _get_next_vip_boss(self, vip_boss_dict: Dict, union_id):
-        boss_log_url = f"{self.bot.server_config_manager.current_server_data['url']}?ulog"
-        kill_cooldown = vip_boss_dict.get('kill_cooldown_seconds', 14400)
-        next_battle_info = self.bot.battle_watcher_manager.get_boss_next_battle_real_time(union_id, kill_cooldown, boss_log_url)
+        # 使用BossBattleManager的get_next_vip_boss方法
+        # 为vip_boss_dict添加server_url
+        vip_boss_dict['server_url'] = self.bot.server_config_manager.current_server_data['url']
+        next_battle_info = self.bot.boss_battle_manager.get_next_vip_boss(vip_boss_dict, union_id, self.bot.battle_watcher_manager)
         return next_battle_info
