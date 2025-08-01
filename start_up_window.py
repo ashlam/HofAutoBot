@@ -374,9 +374,32 @@ class LoginWindow(QMainWindow):
             if not self.current_server or not self.driver:
                 QMessageBox.warning(self, '警告', '请先打开浏览器并登录')
                 return
+                
+            # 如果没有初始化HofAutoBot，则先初始化
             if not self.hof_auto_bot:
                 self.hof_auto_bot = HofAutoBot()
-            self.hof_auto_bot.initialize_with_driver(self.current_server['id'], self.driver)
+                self.hof_auto_bot.initialize_with_driver(self.current_server['id'], self.driver)
+                QMessageBox.information(self, '成功', '配置已初始化！')
+                return
+                
+            # 重新加载各个配置文件
+            server_id = self.current_server['id']
+            current_server_data = self.hof_auto_bot.server_config_manager.current_server_data
+            
+            # 重新加载AutoBotConfigManager配置
+            auto_bot_config_path = f"{current_server_data.get('config_path')}/{current_server_data.get('auto_bot_loop_config_path')}"
+            self.hof_auto_bot.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
+            
+            # 重新加载BattleWatcherManager配置
+            self.hof_auto_bot.battle_watcher_manager = BattleWatcherManager()
+            
+            # 重新加载BossBattleManager配置
+            self.hof_auto_bot.boss_battle_manager = BossBattleManager()
+            self.hof_auto_bot.boss_battle_manager.set_server_id(server_id)
+            
+            # 更新hunt页面信息
+            self.hof_auto_bot._update_info_from_hunt_page()
+            
             QMessageBox.information(self, '成功', '配置已重新读取！')
         except Exception as e:
             QMessageBox.critical(self, '错误', f'重新读取配置失败: {e}')

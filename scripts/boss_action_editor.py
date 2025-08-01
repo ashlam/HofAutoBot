@@ -490,6 +490,8 @@ class BossActionEditor(QMainWindow):
     def on_edit_server_changed(self, index):
         # 同步更新创建标签页的服务器选择
         self.server_combo.setCurrentIndex(index)
+        # 调用on_server_changed方法来加载对应服务器的数据
+        self.on_server_changed(index)
     
     def update_id_combo(self):
         # 清空当前列表
