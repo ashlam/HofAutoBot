@@ -90,7 +90,6 @@ class HofAutoBot:
         #<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a>
         driver = self.driver
         try:
-            self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
             driver.get(hunt_url)
             # 等待页面加载
             wait = WebDriverWait(driver, 10)
