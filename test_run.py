@@ -84,7 +84,7 @@ if __name__ == '__main__':
     test_condition_checker_with_boss_content()
     # # 初始化浏览器
     # driver = webdriver.Chrome()
-    # driver.get('http://pim0110.com/hall/')
+    # driver.get('https://pim0110.com/hall/')
     
     # # 等待用户确认
     # while True:

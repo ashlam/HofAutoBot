@@ -71,7 +71,7 @@ def main():
         if user_input == 'y':
             # 直接访问指定URL
             
-            target_url = 'http://pim0110.com/hall/index.php?union=8#'
+            target_url = 'https://pim0110.com/hall/index.php?union=8#'
             logger.info(f'正在访问：{target_url}')
             driver.get(target_url)
             

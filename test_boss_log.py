@@ -56,7 +56,7 @@ def main():
     else:
         print('获取Boss战斗时间失败')
     
-    url = 'http://pim0110.com/hall/index.php?hunt#'
+    url = 'https://pim0110.com/hall/index.php?hunt#'
     driver = webdriver.Chrome()
     driver.get(url)
     print('正在打开浏览器...')

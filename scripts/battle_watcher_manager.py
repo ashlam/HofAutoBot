@@ -47,7 +47,7 @@ class BattleWatcherManager:
             print(f'处理时间戳失败: {str(e)}')
             return None
 
-    def get_boss_next_battle_real_time(self, union_id, seconds_to_add=240, url = 'http://pim0110.com/hall?ulog'):
+    def get_boss_next_battle_real_time(self, union_id, seconds_to_add=240, url = 'https://pim0110.com/hall?ulog'):
         """获取指定boss的下次战斗时间"""
         def get_lastest_timestamp_from_boss_battle_log(union_id, max_retries=3):
             """获取指定boss的最近一次战斗记录时间戳，带重试机制"""
