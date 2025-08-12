@@ -49,63 +49,37 @@ class BattleWatcherManager:
 
     def get_boss_next_battle_real_time(self, union_id, seconds_to_add=240, url = 'https://pim0110.com/hall?ulog'):
         """获取指定boss的下次战斗时间"""
-        def get_lastest_timestamp_from_boss_battle_log(union_id, max_retries=3):
-            """获取指定boss的最近一次战斗记录时间戳，带重试机制"""
+        def get_lastest_timestamp_from_boss_battle_log(union_id):
+            """获取指定boss的最近一次战斗记录时间戳"""
             boss_info = self.get_boss_info(union_id)
+            print(f'获取{boss_info["name"]}的最近一次战斗记录时间戳')
             if not boss_info:
-                print(f'无法获取union_id为{union_id}的boss信息')
                 return None
-                
             boss_name = boss_info["name"]
-            print(f'获取{boss_name}的最近一次战斗记录时间戳')
-            
-            retry_count = 0
-            retry_delay = 2  # 初始重试延迟（秒）
-            
-            while retry_count < max_retries:
-                try:
-                    # 设置超时时间，避免长时间等待
-                    response = requests.get(url, timeout=30)
-                    response.encoding = 'utf-8'
-                    content = response.text
-                    
-                    timestamp_pattern = r'ulog=(\d+)'
-                    first_matched_boss_text = ""
-                    
-                    for line in content.split('<br />'):
-                        if boss_name in line:
-                            first_matched_boss_text = line
-                            break
-                    
-                    match = re.search(timestamp_pattern, first_matched_boss_text, re.DOTALL)
-                    if match:
-                        matched_text = match.group(1)
-                        print(f"matched_text = {matched_text}")
-                        return matched_text
-                    else:
-                        print(f'未找到{boss_name}的最近一次战斗记录')
-                        # 只在调试模式下打印详细信息，避免日志过大
-                        # print(f'url = {url}, timestamp_pattern = {timestamp_pattern}, content = {content[:200]}...')
-                        
-                    # 即使没找到匹配，也认为请求成功，不需要重试
-                    return None
-                    
-                except Exception as e:
-                    retry_count += 1
-                    print(f'获取战斗日志失败 (尝试 {retry_count}/{max_retries}): {str(e)}')
-                    
-                    if retry_count < max_retries:
-                        # 使用指数退避策略增加重试延迟
-                        wait_time = retry_delay * (2 ** (retry_count - 1))
-                        print(f'等待 {wait_time} 秒后重试...')
-                        import time
-                        time.sleep(wait_time)
-                    else:
-                        print(f'已达到最大重试次数 ({max_retries})，放弃获取战斗日志')
-                        return None
-            
-            return None
-            
+            try:
+                response = requests.get(url)
+                response.encoding = 'utf-8'
+                content = response.text
+                
+                timestamp_pattern = r'ulog=(\d+)'
+                first_matched_boss_text = ""
+                
+                for line in content.split('<br />'):
+                    if boss_name in line:
+                        first_matched_boss_text = line
+                        break
+                
+                match = re.search(timestamp_pattern, first_matched_boss_text, re.DOTALL)
+                if match:
+                    matched_text =  match.group(1)
+                    print("matched_text = "+ matched_text)
+                    return matched_text
+                else:
+                    print(f'未找到{boss_name}的最近一次战斗记录, url = {url},\n\n timestamp_pattern = {timestamp_pattern} \n\n res.content = {content}')
+                return None
+            except Exception as e:
+                print(f'获取战斗日志失败: {str(e)}')
+                return None
         # 获取boss信息
         latest_timestamp_str = get_lastest_timestamp_from_boss_battle_log(union_id)
         if latest_timestamp_str:
@@ -113,7 +87,7 @@ class BattleWatcherManager:
             if time_info:
                 print(f'>>>下次战斗时间: {time_info}')
                 return time_info
-        print(f'获取log -> 下次战斗时间失败, latest_timestamp_str = {latest_timestamp_str}')
+        print('获取log -> 下次战斗时间失败, latest_timestamp_str = ' + latest_timestamp_str)
         return None
 
     def get_player_challenge_boss_cooldown(self):

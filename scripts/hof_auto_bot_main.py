@@ -89,50 +89,20 @@ class HofAutoBot:
         hunt_url = f'{current_server_data["url"]}{current_server_data["hunt_page"]}'
         #<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a>
         driver = self.driver
-        
-        # 添加重试机制
-        max_retries = 3
-        retry_count = 0
-        retry_delay = 2  # 初始重试延迟（秒）
-        
-        while retry_count < max_retries:
-            try:
-                # 首先尝试从当前页面获取信息
-                self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
-                
-                # 导航到hunt页面
-                driver.get(hunt_url)
-                
-                # 等待页面加载
-                wait = WebDriverWait(driver, 20)  # 增加等待时间
-                wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
-                
-                # 更新boss信息
-                self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
-                self.all_alived_boss_ids = self.battle_watcher_manager.get_all_alive_boss()
-                self.challenge_next_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
-                self.player_stamina = self.battle_watcher_manager.get_player_stamina()
-                
-                # 成功获取信息，跳出循环
-                break
-                
-            except Exception as e:
-                retry_count += 1
-                self.logger.error(f'{self.server_config_manager.current_server_data["name"]} 获取boss信息失败 (尝试 {retry_count}/{max_retries}): {e}')
-                
-                if retry_count < max_retries:
-                    # 使用指数退避策略增加重试延迟
-                    wait_time = retry_delay * (2 ** (retry_count - 1))
-                    self.logger.info(f'等待 {wait_time} 秒后重试...')
-                    time.sleep(wait_time)
-                    
-                    # 尝试刷新页面
-                    try:
-                        driver.refresh()
-                        # 等待刷新后页面加载
-                        WebDriverWait(driver, 10).until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
-                    except Exception as refresh_error:
-                        self.logger.error(f'刷新页面失败: {refresh_error}')
+        try:
+            self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
+            driver.get(hunt_url)
+            # 等待页面加载
+            wait = WebDriverWait(driver, 10)
+            wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
+            # 更新boss信息
+            self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
+            self.all_alived_boss_ids = self.battle_watcher_manager.get_all_alive_boss()
+            self.challenge_next_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
+            self.player_stamina = self.battle_watcher_manager.get_player_stamina()
+
+        except Exception as e:
+            self.logger.error(f'{self.server_config_manager.current_server_data["name"]} 获取boss信息失败: {e}')
 
         # 发送状态更新信号
         if self.status_update_signal:
