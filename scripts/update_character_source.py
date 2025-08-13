@@ -22,7 +22,12 @@ def update_character_source(driver, server):
     print(source_url)
     try:
         # 导航到角色数据页面
-        driver.get(source_url)
+        # 检查当前URL是否与目标URL相同，如果相同则刷新页面，否则导航到目标URL
+        current_url = driver.current_url
+        if current_url == source_url or CHARACTER_PAGE_URL in current_url:
+            driver.refresh()
+        else:
+            driver.get(source_url)
         
         # 使用BeautifulSoup解析页面源码
         soup = BeautifulSoup(driver.page_source, 'html.parser')

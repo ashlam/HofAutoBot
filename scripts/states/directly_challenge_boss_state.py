@@ -21,7 +21,12 @@ class DirectlyChallengeBossState(BaseState):
             self.is_challaged_success = False
         else:
             url = f"{self.bot.server_config_manager.current_server_data['url']}index.php?union={union_id}#"
-            self.bot.driver.get(url)
+            # 检查当前URL是否与目标URL相同，如果相同则刷新页面，否则导航到目标URL
+            current_url = self.bot.driver.current_url
+            if current_url == url or (f"union={union_id}" in current_url):
+                self.bot.driver.refresh()
+            else:
+                self.bot.driver.get(url)
             self.bot.action_manager.execute_advanced_action(self.bot.driver, self.advanced_action_config)
             self.log(f"锤完了，更新一下信息，看打成功没有（有可能被人抢了）")
             self.bot._update_info_from_hunt_page()

@@ -88,9 +88,15 @@ class HofAutoBot:
         current_server_data = self.server_config_manager.current_server_data
         hunt_url = f'{current_server_data["url"]}{current_server_data["hunt_page"]}'
         #<a href="#" onclick="RA_UseBack('index2.php?hunt')">冒險</a>
+        print(f"hunt_url = {hunt_url}")
         driver = self.driver
         try:
-            driver.get(hunt_url)
+            # 检查当前URL是否与目标URL相同，如果相同则刷新页面，否则导航到目标URL
+            current_url = driver.current_url
+            if current_url == hunt_url or hunt_url in current_url:
+                driver.refresh()
+            else:
+                driver.get(hunt_url)
             # 等待页面加载
             wait = WebDriverWait(driver, 10)
             wait.until(lambda driver: driver.execute_script('return document.readyState') == 'complete')
@@ -98,6 +104,7 @@ class HofAutoBot:
             self.battle_watcher_manager.update_all_from_hunt_page(driver.page_source)
             self.all_alived_boss_ids = self.battle_watcher_manager.get_all_alive_boss()
             self.challenge_next_cooldown = self.battle_watcher_manager.get_player_challenge_boss_cooldown()
+            print(f"self.challenge_next_cooldown = {self.challenge_next_cooldown}")
             self.player_stamina = self.battle_watcher_manager.get_player_stamina()
 
         except Exception as e:
@@ -171,7 +178,13 @@ class HofAutoBot:
              # 初始化浏览器
             self.driver = webdriver.Chrome()
 
-        self.driver.get(current_server_data["url"])
+        # 检查当前URL是否与目标URL相同，如果相同则刷新页面，否则导航到目标URL
+        current_url = self.driver.current_url
+        target_url = current_server_data["url"]
+        if current_url == target_url or target_url in current_url:
+            self.driver.refresh()
+        else:
+            self.driver.get(target_url)
         # self.current_state = StateFactory.create_prepare_boss_state(self)
         # 上来先更新一下角色数据
         self.current_state = StateFactory.create_update_character_state(self)
@@ -221,6 +234,7 @@ class HofAutoBot:
         
         # 初始化浏览器
         self.driver = webdriver.Chrome()
+        # 这里是初始化浏览器，直接使用get方法即可
         self.driver.get(url)
         print('正在打开浏览器...')
         
