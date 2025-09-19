@@ -31,8 +31,12 @@
             "plan_action_id": 800200
         },
         {
-            "union_id": 25,
-            "plan_action_id": 800250
+            "union_id": 8,
+            "plan_action_id": 800081
+        },
+        {
+            "union_id": 26,
+            "plan_action_id": 800260
         },
         {
             "union_id": 15,
@@ -60,7 +64,7 @@
     ],
     "normal_stage_loop_order": [
         {
-            "stage_name": "ocean1",
+            "stage_name": "volc1",
             "plan_action_id": 1
         }
     ],

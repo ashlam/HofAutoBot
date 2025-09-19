@@ -718,7 +718,7 @@
         {
             "name": "狗头人候补No.25",
             "job_name": "狂戰士",
-            "level": "34",
+            "level": "36",
             "job": "102",
             "udid": "1481342275669751",
             "base": "1",
@@ -773,11 +773,11 @@
         {
             "name": "狗头人候补No.20",
             "job_name": "召喚師",
-            "level": "37",
+            "level": "58",
             "job": "202",
             "udid": "1536550132715856",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:棒<br>副手:<br>　甲:+4 神聖長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_246z.gif",
             "local_img": ""
         },
@@ -894,7 +894,7 @@
         {
             "name": "狗头人候补No.9",
             "job_name": "武僧",
-            "level": "58",
+            "level": "59",
             "job": "314",
             "udid": "1746782571260312",
             "base": "1",
@@ -927,7 +927,7 @@
         {
             "name": "狗头人候补No.6",
             "job_name": "巫師",
-            "level": "59",
+            "level": "60",
             "job": "200",
             "udid": "1749449392718468",
             "base": "1",
@@ -982,7 +982,7 @@
         {
             "name": "狗头人候补No.2",
             "job_name": "召喚師",
-            "level": "25",
+            "level": "29",
             "job": "202",
             "udid": "1754016418509813",
             "base": "1",

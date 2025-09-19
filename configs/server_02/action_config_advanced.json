@@ -13,7 +13,7 @@
       },
       {
         "trigger_type": "click_sub_menu_stage",
-        "value": "common=ocean1"
+        "value": "common=volc1"
       },
       {
         "trigger_type": "click_button_start_battle",
@@ -38,7 +38,7 @@
       {
         "trigger_type": "click_main_menu",
         "value": "town"
-      }, 
+      },
       {
         "trigger_type": "click_main_menu_for_town",
         "value": "town"
@@ -60,6 +60,239 @@
       {
         "trigger_type": "click_main_menu",
         "value": "hunt"
+      }
+    ]
+  },
+  "800000": {
+    "name": "二服黑龙",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1346165592965808",
+        "_memo": "憤怒的猿猴 L60 武僧"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1348929337177116",
+        "_memo": "文學少女 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1349520494597007",
+        "_memo": "炮灰小子 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1396776857118499",
+        "_memo": "罰 L60 星界法師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1400662064251555",
+        "_memo": "樹 L60 變形者"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800010": {
+    "name": "二服金牛",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344748774310334",
+        "_memo": "黑森林的魔女 L60 森林長者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1349520472612907",
+        "_memo": "崩 L60 殺戮者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1358089973704493",
+        "_memo": "岩 L60 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1396776857118499",
+        "_memo": "罚 L60 星界法師"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800030": {
+    "name": "二服土匪",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1349400276521230",
+        "_memo": "憤怒的雷鳥 L60 武僧"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1352810957852085",
+        "_memo": "爲你而戰我的女士 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1355649675137239",
+        "_memo": "無形 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1397984500849674",
+        "_memo": "炮灰菜鳥 L60 狂戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800080": {
+    "name": "二服鸟巢",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344748774310334",
+        "_memo": "黑森林的魔女 L60 森林長者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1353597083168802",
+        "_memo": "打擾兩下 L60 退魔戰將"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1753328799634232",
+        "_memo": "U. L43 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1757475187065108",
+        "_memo": "W. L9 戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800081": {
+    "name": "二服护圣鸟毛",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1353597083168802",
+        "_memo": "打擾兩下 L60 退魔戰將"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1753328799634232",
+        "_memo": "U. L44 元素使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1757475187065108",
+        "_memo": "W. L25 狂戰士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1757475212229286",
+        "_memo": "X. L25 主教"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1757475367882776",
+        "_memo": "Z. L25 狂戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800150": {
+    "name": "二服UU",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344748774310334",
+        "_memo": "黑森林的魔女 L60 森林長者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1353597083168802",
+        "_memo": "打擾兩下 L60 退魔戰將"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1360346423868938",
+        "_memo": "霜 L60 魔導士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
       }
     ]
   },
@@ -149,39 +382,6 @@
       }
     ]
   },
-  "800150": {
-    "name": "二服UU",
-    "note": "",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1344748774310334",
-        "_memo": "黑森林的魔女 L60 森林長者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1353597083168802",
-        "_memo": "打擾兩下 L60 退魔戰將"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1360346423868938",
-        "_memo": "霜 L60 魔導士"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
   "800250": {
     "name": "二服过往",
     "note": "",
@@ -225,8 +425,8 @@
       }
     ]
   },
-  "800030": {
-    "name": "二服土匪",
+  "800260": {
+    "name": "2服终焉",
     "note": "",
     "tag": [
       "boss",
@@ -239,104 +439,28 @@
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1349400276521230",
-        "_memo": "憤怒的雷鳥 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1352810957852085",
-        "_memo": "爲你而戰我的女士 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1355649675137239",
-        "_memo": "無形 L60 變形者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1397984500849674",
-        "_memo": "炮灰菜鳥 L60 狂戰士"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "800010": {
-    "name": "二服金牛",
-    "note": "",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1344748774310334",
-        "_memo": "黑森林的魔女 L60 森林長者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1349520472612907",
-        "_memo": "崩 L60 殺戮者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1358089973704493",
-        "_memo": "岩 L60 元素使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1396776857118499",
-        "_memo": "罚 L60 星界法師"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "union_battle"
-      }
-    ]
-  },
-  "800000": {
-    "name": "二服黑龙",
-    "note": "",
-    "tag": [
-      "boss",
-      "need_character"
-    ],
-    "actions": [
-      {
-        "trigger_type": "click_button_clear_team",
-        "value": "checkDelAll()"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1346165592965808",
-        "_memo": "憤怒的猿猴 L60 武僧"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1348929337177116",
-        "_memo": "文學少女 L60 護聖使"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1349520494597007",
-        "_memo": "炮灰小子 L60 殺戮者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
-        "value": "char_1396776857118499",
-        "_memo": "罰 L60 星界法師"
+        "value": "char_1343304428194126",
+        "_memo": "願世界和平 L60 審判者"
       },
       {
         "trigger_type": "check_box_select_character",
         "value": "char_1400662064251555",
         "_memo": "樹 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1495676514669320",
+        "_memo": "末日之魂 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1749784005451919",
+        "_memo": "末日鎮守者 L60 武僧"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1749784012350013",
+        "_memo": "墮落的伊弗裡特 L60 星界法師"
       },
       {
         "trigger_type": "click_button_start_battle",
