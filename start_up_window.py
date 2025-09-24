@@ -38,18 +38,23 @@ class BotThread(QThread):
         self.bot = HofAutoBot()
         self.bot.status_update_signal = self.status_update
         self.bot.initialize_with_driver(self.server_id, self.driver)
-        self.bot.run()
-        # try:
-            # self.is_running = True
-            # self.bot = HofAutoBot()
-            # self.bot.status_update_signal = self.status_update
-            # self.bot.initialize_with_driver(self.server_id, self.driver)
-            # self.bot.run()
-        # except Exception as e:
-        #     self.error.emit(str(e))
-        # finally:
-        #     self.is_running = False
-        #     self.finished.emit()
+        
+        # 修改为支持暂停/恢复的循环
+        while self.is_running:
+            # 执行一次循环
+            self.bot.run_once()
+            
+            # 检查是否需要暂停
+            while not self.is_running and not self.isInterruptionRequested():
+                # 暂停状态，等待恢复
+                self.msleep(500)  # 每500毫秒检查一次是否恢复
+                
+            # 检查是否需要完全停止
+            if self.isInterruptionRequested():
+                break
+                
+        # 线程结束时发出信号
+        self.finished.emit()
     
     def stop(self):
         if self.bot and self.is_running:
@@ -177,6 +182,33 @@ class LoginWindow(QMainWindow):
             self.stop_btn.setEnabled(False)
         if self.hof_auto_bot:
             self.hof_auto_bot.cleanup()
+            
+    def toggle_pause_resume(self):
+        if not self.bot_thread or not self.bot_thread.isRunning():
+            return
+            
+        if self.bot_thread.is_running:
+            # 暂停操作
+            self.bot_thread.is_running = False
+            self.stop_btn.setText('恢复')
+            self.state_label.setText('当前状态：已暂停')
+        else:
+            # 恢复操作
+            self.bot_thread.is_running = True
+            self.stop_btn.setText('暂停')
+            self.state_label.setText('当前状态：已恢复')
+            
+    def open_boss_editor(self):
+        try:
+            # 导入Boss编辑器模块
+            from scripts.boss_action_editor import BossActionEditor
+            from PyQt5.QtWidgets import QApplication
+            
+            # 创建并显示Boss编辑器窗口
+            self.boss_editor = BossActionEditor()
+            self.boss_editor.show()
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'打开Boss编辑器失败：{str(e)}')
     
     def on_bot_finished(self):
         self.start_btn.setEnabled(True)
@@ -217,7 +249,8 @@ class LoginWindow(QMainWindow):
         self.browser_btn = QPushButton('打开浏览器')
         self.update_btn = QPushButton('更新角色')
         self.start_btn = QPushButton('启动')
-        self.stop_btn = QPushButton('停止')
+        self.stop_btn = QPushButton('暂停')
+        self.boss_editor_btn = QPushButton('打开Boss编辑器')
 
         # 设置按钮状态
         self.update_btn.setEnabled(False)
@@ -229,6 +262,7 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.update_btn)
         layout.addWidget(self.start_btn)
         layout.addWidget(self.stop_btn)
+        layout.addWidget(self.boss_editor_btn)
 
         # 创建状态显示标签
         self.state_label = QLabel('当前状态：未运行')
@@ -242,7 +276,8 @@ class LoginWindow(QMainWindow):
         self.browser_btn.clicked.connect(self.open_browser)
         self.update_btn.clicked.connect(self.update_character)
         self.start_btn.clicked.connect(self.start_run)
-        self.stop_btn.clicked.connect(self.stop_run)
+        self.stop_btn.clicked.connect(self.toggle_pause_resume)
+        self.boss_editor_btn.clicked.connect(self.open_boss_editor)
 
     def load_server_config(self):
         try:

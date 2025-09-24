@@ -75,9 +75,15 @@ class HofAutoBot:
         while True:
             if self.is_finished:
                 return
-            if self.current_state is not None:
-                print("HofAutoBot.run -> current_state: " + self.current_state.__class__.__name__)
-                self.current_state.process()
+            self.run_once()
+            
+    def run_once(self):
+        """执行一次状态处理，支持暂停/恢复功能"""
+        if self.is_finished:
+            return
+        if self.current_state is not None:
+            print("HofAutoBot.run_once -> current_state: " + self.current_state.__class__.__name__)
+            self.current_state.process()
 
     def _check_is_user_pvp_first_rank(self):
         """检查当前用户是否为PVP第一名"""
