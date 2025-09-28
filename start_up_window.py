@@ -251,6 +251,7 @@ class LoginWindow(QMainWindow):
         self.start_btn = QPushButton('启动')
         self.stop_btn = QPushButton('暂停')
         self.boss_editor_btn = QPushButton('打开Boss编辑器')
+        self.close_btn = QPushButton('关闭')
 
         # 设置按钮状态
         self.update_btn.setEnabled(False)
@@ -263,6 +264,7 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.start_btn)
         layout.addWidget(self.stop_btn)
         layout.addWidget(self.boss_editor_btn)
+        layout.addWidget(self.close_btn)
 
         # 创建状态显示标签
         self.state_label = QLabel('当前状态：未运行')
@@ -278,6 +280,7 @@ class LoginWindow(QMainWindow):
         self.start_btn.clicked.connect(self.start_run)
         self.stop_btn.clicked.connect(self.toggle_pause_resume)
         self.boss_editor_btn.clicked.connect(self.open_boss_editor)
+        self.close_btn.clicked.connect(self.close_application)
 
     def load_server_config(self):
         try:
@@ -404,6 +407,9 @@ class LoginWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, '错误', f'更新角色数据时出错：{str(e)}')
 
+    def close_application(self):
+        self.close()
+        
     def reload_config(self):
         try:
             if not self.current_server or not self.driver:
