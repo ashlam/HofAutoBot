@@ -161,7 +161,7 @@
             "job": "115",
             "udid": "1341630218346977",
             "base": "40",
-            "equipment": "武器:+4 蕉匕首<br>副手:+4 黑鐵盾<br>　甲:+4 戰鬥軍甲<br>道具:+4 心眼指環<br>徽記:上將護符<br>卡片:<br>",
+            "equipment": "武器:+4 蕉匕首<br>副手:+4 木盾<br>　甲:+4 戰鬥軍甲<br>道具:+4 心眼指環<br>徽記:聖誕號角(小)<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n115w.gif",
             "local_img": ""
         },
@@ -685,7 +685,7 @@
         {
             "name": "狗头人候补No.28",
             "job_name": "狂戰士",
-            "level": "34",
+            "level": "35",
             "job": "102",
             "udid": "1481078031559590",
             "base": "1",
@@ -707,18 +707,18 @@
         {
             "name": "狗头人候补No.26",
             "job_name": "護聖使",
-            "level": "43",
+            "level": "54",
             "job": "311",
             "udid": "1481168729427801",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:+4 神聖長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n213m.gif",
             "local_img": ""
         },
         {
             "name": "狗头人候补No.25",
             "job_name": "狂戰士",
-            "level": "36",
+            "level": "40",
             "job": "102",
             "udid": "1481342275669751",
             "base": "1",
@@ -773,7 +773,7 @@
         {
             "name": "狗头人候补No.20",
             "job_name": "召喚師",
-            "level": "58",
+            "level": "60",
             "job": "202",
             "udid": "1536550132715856",
             "base": "1",
@@ -894,7 +894,7 @@
         {
             "name": "狗头人候补No.9",
             "job_name": "武僧",
-            "level": "59",
+            "level": "60",
             "job": "314",
             "udid": "1746782571260312",
             "base": "1",
@@ -931,7 +931,7 @@
             "job": "200",
             "udid": "1749449392718468",
             "base": "1",
-            "equipment": "武器:萊姆棍<br>副手:<br>　甲:+4 白色長袍<br>道具:龍珠<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_018.gif",
             "local_img": ""
         },
@@ -942,7 +942,7 @@
             "job": "100",
             "udid": "1749449402164756",
             "base": "1",
-            "equipment": "武器:+4 香蕉劍<br>副手:+4 Baccrar<br>　甲:棉長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_080r.gif",
             "local_img": ""
         },
@@ -975,14 +975,14 @@
             "job": "300",
             "udid": "1752881161841724",
             "base": "1",
-            "equipment": "武器:棒<br>副手:<br>　甲:神聖長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_213.gif",
             "local_img": ""
         },
         {
             "name": "狗头人候补No.2",
             "job_name": "召喚師",
-            "level": "29",
+            "level": "35",
             "job": "202",
             "udid": "1754016418509813",
             "base": "1",
@@ -993,7 +993,7 @@
         {
             "name": "狗头人候补No.1",
             "job_name": "牧師",
-            "level": "20",
+            "level": "60",
             "job": "300",
             "udid": "1754016647836312",
             "base": "1",
@@ -1003,12 +1003,56 @@
         },
         {
             "name": "狗头人候补No.0",
-            "job_name": "戰士",
-            "level": "20",
-            "job": "100",
+            "job_name": "狂戰士",
+            "level": "26",
+            "job": "102",
             "udid": "1754016657559419",
             "base": "1",
-            "equipment": "武器:香蕉劍<br>副手:+4 鐵盾<br>　甲:板甲<br>道具:龍珠<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:香蕉劍<br>副手:木盾<br>　甲:+4 神聖長袍<br>道具:心眼指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_100r.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.Z",
+            "job_name": "牧師",
+            "level": "19",
+            "job": "300",
+            "udid": "1757503353177035",
+            "base": "1",
+            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_213.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.Y",
+            "job_name": "女祭司",
+            "level": "20",
+            "job": "300",
+            "udid": "1757503364281538",
+            "base": "1",
+            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_214.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.X",
+            "job_name": "牧師",
+            "level": "20",
+            "job": "300",
+            "udid": "1757503421767840",
+            "base": "1",
+            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_213.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.W",
+            "job_name": "戰士",
+            "level": "14",
+            "job": "100",
+            "udid": "1759039809112329",
+            "base": "1",
+            "equipment": "武器:+4 香蕉劍<br>副手:+4 重盾<br>　甲:棉長袍<br>道具:龍珠<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_079.gif",
             "local_img": ""
         }

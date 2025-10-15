@@ -408,6 +408,29 @@ class LoginWindow(QMainWindow):
             QMessageBox.critical(self, '错误', f'更新角色数据时出错：{str(e)}')
 
     def close_application(self):
+        """关闭应用程序前主动清理资源，避免假死"""
+        # 先停止所有正在运行的线程
+        if hasattr(self, 'bot_thread') and self.bot_thread and self.bot_thread.isRunning():
+            self.status_label.setText('正在停止机器人线程...')
+            self.bot_thread.stop()
+            self.bot_thread.wait(1000)  # 等待最多1秒
+            
+        if hasattr(self, 'update_thread') and self.update_thread and self.update_thread.isRunning():
+            self.status_label.setText('正在停止更新线程...')
+            self.update_thread.terminate()
+            self.update_thread.wait(1000)  # 等待最多1秒
+            
+        # 关闭浏览器会话
+        if self.driver:
+            self.status_label.setText('正在关闭浏览器...')
+            try:
+                self.driver.quit()
+            except Exception as e:
+                print(f"关闭浏览器时出错: {e}")
+            finally:
+                self.driver = None
+                
+        # 最后关闭窗口
         self.close()
         
     def reload_config(self):
