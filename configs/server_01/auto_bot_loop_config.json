@@ -7,11 +7,12 @@
     "challege_boss_cooldown_seconds": 1200,
     "idle_seconds_for_challenge_boss": 30,
     "idle_seconds_for_challenge_vip_boss": 40,
-    "is_challenge_time_limited_stage": false,
+    "is_challenge_time_limited_stage": true,
     "is_challenge_vip_boss": true,
     "is_challenge_pvp": true,
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
+    "keep_stamnia_for_time_limited_stage": 1000,
     "is_keep_pvp_win_rate": true,
     "challenge_boss_delay_rate": 20,
     "challenge_boss_delay_seconds_limit": 240,
@@ -30,12 +31,16 @@
             "plan_action_id": 600170
         },
         {
-            "union_id": 20,
-            "plan_action_id": 600200
+            "union_id": 26,
+            "plan_action_id": 600260
         },
         {
-            "union_id": 14,
-            "plan_action_id": 600141
+            "union_id": 3,
+            "plan_action_id": 600030
+        },
+        {
+            "union_id": 20,
+            "plan_action_id": 600200
         },
         {
             "union_id": 1,
@@ -44,10 +49,6 @@
         {
             "union_id": 15,
             "plan_action_id": 600150
-        },
-         {
-            "union_id": 3,
-            "plan_action_id": 600030
         },
         {
             "union_id": 25,
@@ -67,7 +68,7 @@
         }
     ],
     "time_limited_stage_need_watch" : {
-        "stage_name": "Asianata",
+        "stage_name": "Christmas",
         "plan_action_id": 2,
         "start_minute": 50,
         "end_minute": 59,

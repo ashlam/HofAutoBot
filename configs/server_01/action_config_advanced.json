@@ -24,7 +24,7 @@
   "2": {
     "name": "限时普通战斗",
     "note": "幻界、圣诞等在每小时最后10分钟开放的限时关卡",
-    "note_1": "Asianata = 幻界",
+    "note_1": "Asianata = 幻界, Christmas = 北极",
     "actions": [
       {
         "trigger_type": "click_main_menu",
@@ -32,7 +32,7 @@
       },
       {
         "trigger_type": "click_sub_menu_stage",
-        "value": "common=Asianata"
+        "value": "common=Christmas"
       },
       {
         "trigger_type": "click_button_start_battle",
@@ -202,6 +202,44 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1536814929876636",
         "_memo": "狗头人候补No.19 L60 森林長者"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "600030": {
+    "name": "1服土匪",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1341490339532287",
+        "_memo": "小点点 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1358816667107676",
+        "_memo": "狗头人自爆队 L60 絡印勇士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1395921567796858",
+        "_memo": "小七七 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1402535372623586",
+        "_memo": "小静静 L60 武僧"
       },
       {
         "trigger_type": "click_button_start_battle",
@@ -569,6 +607,49 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1481077275840089",
         "_memo": "小噗噗 L60 森林長者"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "600260": {
+    "name": "一服终焉",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1481168729427801",
+        "_memo": "末日狗头人BLUE L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1536550132715856",
+        "_memo": "末日狗头人RED L60 星界法師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1593743352976581",
+        "_memo": "末日狗头人GREEN L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1746604215101074",
+        "_memo": "末日狗头人YELLOW L60 審判者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1752881161841724",
+        "_memo": "末日狗头人PINK L60 武僧"
       },
       {
         "trigger_type": "click_button_start_battle",

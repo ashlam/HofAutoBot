@@ -5,11 +5,12 @@
     "max_stamnia_limit": 4000,
     "recover_stamina_per_hour": 1000,
     "challege_boss_cooldown_seconds": 1200,
-    "is_challenge_vip_stage": false,
+    "is_challenge_time_limited_stage": true,
     "is_challenge_vip_boss": true,
     "is_challenge_pvp": false,
     "is_challenge_world_pvp": true,
     "keep_stamnia_for_change_stage": 3000,
+    "keep_stamnia_for_time_limited_stage": 1000,
     "is_keep_pvp_win_rate": true,
     "challenge_boss_delay_rate": 95,
     "challenge_boss_delay_seconds_limit":220,
@@ -27,20 +28,24 @@
             "kill_cooldown_seconds": 14400
         },
         {
-            "union_id": 20,
-            "plan_action_id": 800200
-        },
-        {
-            "union_id": 8,
-            "plan_action_id": 800081
-        },
-        {
             "union_id": 26,
             "plan_action_id": 800260
         },
         {
+            "union_id": 3,
+            "plan_action_id": 800030
+        },
+        {
+            "union_id": 20,
+            "plan_action_id": 800200
+        },
+        {
             "union_id": 15,
             "plan_action_id": 800150
+        },
+        {
+            "union_id": 8,
+            "plan_action_id": 800081
         },
         {
             "union_id": 1,
@@ -57,14 +62,13 @@
     ],
     "vip_stage_need_watch" : [
         {
-            "stage_name": "ocean1",
-            "plan_action_id": 1,
-            "apperance_time": "10:00"
+            "stage_name": "Christmas",
+            "plan_action_id": 2,
         }
     ],
     "normal_stage_loop_order": [
         {
-            "stage_name": "volc1",
+            "stage_name": "ac3",
             "plan_action_id": 1
         }
     ],
