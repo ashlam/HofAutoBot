@@ -10,14 +10,14 @@ class NormalStageState(BaseState):
             player_stamina = self.bot.battle_watcher_manager.get_player_stamina()
             if (player_stamina < self.bot.auto_bot_config_manager.keep_stamnia_for_normal_stage):
                 self.log(f'体力不足打小怪...')
-                # self.next_state = PrepareBossState(self.bot)
-                # break
+                # 体力不足以打小怪的时候，设定一定等待时间，避免切换状态过快
+                time.sleep(5)
                 continue
             advanced_action_config = self.bot.server_config_manager.all_action_config_by_server.get(f"{stage['plan_action_id']}")
             if advanced_action_config:
                 self.log(f'进行普通小怪挑战：{stage["plan_action_id"]}')
                 self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
-                # time.sleep(5)
+                # time.sleep(1)
         self.next_state = StateFactory.create_prepare_stage_state(self.bot)
         self.on_finish()
 
