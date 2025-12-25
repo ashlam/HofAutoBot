@@ -64,8 +64,16 @@
         {
             "stage_name": "Christmas",
             "plan_action_id": 12,
+            "description": "VIP阶段关卡"
         }
     ],
+    "time_limited_stage_need_watch" : {
+        "stage_name": "Christmas",
+        "plan_action_id": 12,
+        "start_minute": 50,
+        "end_minute": 59,
+        "description": "每小时最后10分钟内触发"
+    },
     "normal_stage_loop_order": [
         {
             "stage_name": "ac3",

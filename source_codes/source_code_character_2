@@ -309,7 +309,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1344748774310334)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:黑萊姆卡&lt;br&gt;"> <img src="./image/char/mon_005r.png"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1344748774310334)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:黑萊姆卡&lt;br&gt;"> <img src="./image/char/mon_005r.png"/></a>
 </div>
 </div>
 </div>
@@ -462,7 +462,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1351396729181759)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1351396729181759)" style="height:128px" title="武器:+5 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012w.gif"/></a>
 </div>
 </div>
 </div>
@@ -751,7 +751,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1362576193438198)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012m_a.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1362576193438198)" style="height:128px" title="武器:+5 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 博學外袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012m_a.gif"/></a>
 </div>
 </div>
 </div>
@@ -1384,11 +1384,11 @@
 </div>
 </div>
 </div>
-				Z.002<span class="bold charge">*</span><br/>Lv.43 女祭司				<div style="display:none">
+				Z.002<span class="bold charge">*</span><br/>Lv.45 女祭司				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">300</span>
 <span data-type="name">Z.002</span>
-<span data-type="level">43</span>
+<span data-type="level">45</span>
 <span data-type="type_0"></span>
 </div>
 </div>
