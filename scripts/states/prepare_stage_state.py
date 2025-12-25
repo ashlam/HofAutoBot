@@ -12,7 +12,12 @@ class PrepareStageState(BaseState):
         # 刷一下战斗界面，看看剩余体力
         self.bot._update_info_from_hunt_page()
         player_stamina = self.bot.battle_watcher_manager.get_player_stamina()
-        if (player_stamina < self.bot.auto_bot_config_manager.keep_stamnia_for_change_stage):
+        threshold = (
+            self.bot.auto_bot_config_manager.keep_stamnia_for_time_limited_stage
+            if self.bot.auto_bot_config_manager.is_challenge_time_limited_stage
+            else self.bot.auto_bot_config_manager.keep_stamnia_for_normal_stage
+        )
+        if (player_stamina < threshold):
             self.log(f'体力不足打小怪...')
             self.next_state = StateFactory.create_prepare_boss_state(self.bot)
         elif self.bot.auto_bot_config_manager.is_challenge_time_limited_stage and self.bot.auto_bot_config_manager.time_limited_stage_need_watch:

@@ -8,7 +8,7 @@ class NormalStageState(BaseState):
         for stage in self.bot.auto_bot_config_manager.normal_stage_loop_order:
             self.bot._update_info_from_hunt_page()
             player_stamina = self.bot.battle_watcher_manager.get_player_stamina()
-            if (player_stamina < self.bot.auto_bot_config_manager.keep_stamnia_for_change_stage):
+            if (player_stamina < self.bot.auto_bot_config_manager.keep_stamnia_for_normal_stage):
                 self.log(f'体力不足打小怪...')
                 # self.next_state = PrepareBossState(self.bot)
                 # break

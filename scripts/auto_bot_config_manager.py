@@ -18,8 +18,11 @@ class AutoBotConfigManager:
     def stage_cost_stamina(self) -> int: # 小怪消耗体力
         return self.config.get('stage_cost_stamina', 100)
     @property
-    def keep_stamnia_for_change_stage(self) -> int: # 切换小怪消耗体力
-        return self.config.get('keep_stamnia_for_change_stage', 1000)
+    def keep_stamnia_for_normal_stage(self) -> int: # 切换小怪消耗体力
+        return self.config.get('keep_stamnia_for_normal_stage', 3000)
+    @property
+    def keep_stamnia_for_time_limited_stage(self) -> int:
+        return self.config.get('keep_stamnia_for_time_limited_stage', 1000)
     @property
     def quest_cost_stamina(self) -> int: # 任务消耗体力
         return self.config.get('quest_cost_stamina', 300)
@@ -95,4 +98,3 @@ class AutoBotConfigManager:
     @property
     def challenge_boss_cooldown_seconds(self) -> int:
         return self.config.get('challege_boss_cooldown_seconds', 1200)
-

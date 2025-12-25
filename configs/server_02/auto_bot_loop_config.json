@@ -9,7 +9,7 @@
     "is_challenge_vip_boss": true,
     "is_challenge_pvp": false,
     "is_challenge_world_pvp": true,
-    "keep_stamnia_for_change_stage": 3000,
+    "keep_stamnia_for_normal_stage": 3000,
     "keep_stamnia_for_time_limited_stage": 1000,
     "is_keep_pvp_win_rate": true,
     "challenge_boss_delay_rate": 95,

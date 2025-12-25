@@ -84,7 +84,7 @@ class AutoBotConfigEditor(QMainWindow):
             ('stage_cost_stamina', '小怪战斗消耗体力'),
             ('max_stamnia_limit', '体力上限'),
             ('recover_stamina_per_hour', '每小时恢复体力'),
-            ('keep_stamnia_for_change_stage', '切换小怪保留体力')
+            ('keep_stamnia_for_normal_stage', '切换小怪保留体力')
         ]
         
         for setting_key, label_text in stamina_settings:
@@ -310,7 +310,7 @@ class AutoBotConfigEditor(QMainWindow):
         try:
             # 更新基本设置
             for setting_key in ['boss_cost_stamina', 'quest_cost_stamina', 'stage_cost_stamina',
-                              'max_stamnia_limit', 'recover_stamina_per_hour', 'keep_stamnia_for_change_stage']:
+                              'max_stamnia_limit', 'recover_stamina_per_hour', 'keep_stamnia_for_normal_stage']:
                 spinbox = self.findChild(QSpinBox, setting_key)
                 if spinbox:
                     self.auto_bot_config[setting_key] = spinbox.value()
