@@ -63,7 +63,7 @@
     "vip_stage_need_watch" : [
         {
             "stage_name": "Christmas",
-            "plan_action_id": 2,
+            "plan_action_id": 12,
         }
     ],
     "normal_stage_loop_order": [

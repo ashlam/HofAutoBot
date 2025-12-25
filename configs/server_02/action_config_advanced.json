@@ -62,6 +62,54 @@
       }
     ]
   },
+  "12": {
+    "name": "限时圣诞关卡，并设定指定角色",
+    "note": "幻界、圣诞等在每小时最后10分钟开放的限时关卡",
+    "note_1": "Asianata = 幻界, Christmas = 北极",
+    "actions": [
+      {
+        "trigger_type": "click_main_menu",
+        "value": "hunt"
+      },
+      {
+        "trigger_type": "click_sub_menu_stage",
+        "value": "common=Christmas"
+      },
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1351396729181759",
+        "_memo": "炮灰姑娘 L60 絡印勇士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1362576193438198",
+        "_memo": "爆炸蘑菇 L60 絡印勇士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1596006888607033",
+        "_memo": "罪 L60 亡靈守衛"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1747625233364827",
+        "_memo": "罰 L60 亡靈守衛"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1344748774310334",
+        "_memo": "黑森林的魔女 L60 森林長者"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "monster_battle"
+      }
+    ]
+  },
   "80000": {
     "name": "点冒险，准备打boss",
     "note": "点一下冒险，准备打boss",
