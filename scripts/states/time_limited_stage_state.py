@@ -37,10 +37,22 @@ class TimeLimitedStageState(BaseState):
                     self.log(f'未找到关卡 {stage.get("stage_name")} 的高级动作配置')
                     self.next_state = StateFactory.create_normal_stage_state(self.bot)
                 else:    
-                    # 执行VIP关卡动作
-                    self.log(f'开始执行VIP关卡 {stage.get("stage_name")} 的动作')
-                    self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
-                    self.next_state = StateFactory.create_prepare_stage_state(self.bot)
+                    # state_name = advanced_action_config.get('state_name')
+                    state_name = stage.get('state_name')
+                    if state_name:
+                        value = f"common={state_name}"
+                        elements = self.bot.driver.find_elements('xpath', f"//a[contains(@onclick, '{value}')]")
+                        if not elements:
+                            self.log(f"当前页面未找到关卡入口: {value}")
+                            self.next_state = StateFactory.create_normal_stage_state(self.bot)
+                        else:
+                            self.log(f"检测到关卡入口: {value}")
+                            self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
+                            self.next_state = StateFactory.create_prepare_stage_state(self.bot)
+                    else:
+                        self.log(f'开始执行VIP关卡 {stage.get("stage_name")} 的动作')
+                        self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
+                        self.next_state = StateFactory.create_prepare_stage_state(self.bot)
         else:
             self.log(f'当前时间不在VIP关卡开放时间范围内 ({start_minute}-{end_minute}分)')
             self.next_state = StateFactory.create_normal_stage_state(self.bot)
