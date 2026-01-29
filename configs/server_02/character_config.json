@@ -463,7 +463,7 @@
             "local_img": ""
         },
         {
-            "name": "爆炸蘑菇",
+            "name": "炮灰菜鳥",
             "job_name": "絡印勇士",
             "level": "60",
             "job": "112",
@@ -573,7 +573,7 @@
             "local_img": ""
         },
         {
-            "name": "炮灰菜鳥",
+            "name": "爆炸蘑菇",
             "job_name": "絡印勇士",
             "level": "60",
             "job": "112",
@@ -777,7 +777,7 @@
             "job": "314",
             "udid": "1749784005451919",
             "base": "1",
-            "equipment": "武器:+4 真-濡摘<br>副手:<br>　甲:+7 靈感外袍<br>道具:+3 心眼指環<br>徽記:黃天聖印<br>卡片:魔化玉兔<br>",
+            "equipment": "武器:+4 真-濡摘<br>副手:<br>　甲:+7 靈感外袍<br>道具:+3 心眼指環<br>徽記:上將護符<br>卡片:魔化玉兔<br>",
             "img_url": "https://pim0110.com/hall02/image/char/mon_111r.gif",
             "local_img": ""
         },
@@ -872,12 +872,23 @@
         {
             "name": "Z.002",
             "job_name": "女祭司",
-            "level": "45",
+            "level": "51",
             "job": "300",
             "udid": "1766127678139719",
             "base": "1",
             "equipment": "武器:+4 萊姆棍<br>副手:+4 咒語字典<br>　甲:仙女長袍<br>道具:龍珠<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall02/image/char/mon_214.gif",
+            "local_img": ""
+        },
+        {
+            "name": "Z.003",
+            "job_name": "牧師",
+            "level": "21",
+            "job": "300",
+            "udid": "1767868546492032",
+            "base": "1",
+            "equipment": "武器:萊姆棍<br>副手:+4 咒語字典<br>　甲:仙女長袍<br>道具:龍珠<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall02/image/char/mon_213.gif",
             "local_img": ""
         }
     ]

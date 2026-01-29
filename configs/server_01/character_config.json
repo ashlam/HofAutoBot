@@ -975,14 +975,14 @@
             "job": "314",
             "udid": "1752881161841724",
             "base": "1",
-            "equipment": "武器:+4 真-濡摘<br>副手:<br>　甲:+7 靈感外袍<br>道具:+5 心眼指環<br>徽記:黃天聖印<br>卡片:純白玉兔<br>",
+            "equipment": "武器:+4 真-濡摘<br>副手:<br>　甲:+7 靈感外袍<br>道具:+5 心眼指環<br>徽記:上將護符<br>卡片:純白玉兔<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_111.gif",
             "local_img": ""
         },
         {
             "name": "狗头人候补No.2",
             "job_name": "召喚師",
-            "level": "59",
+            "level": "60",
             "job": "202",
             "udid": "1754016418509813",
             "base": "1",
@@ -1048,7 +1048,7 @@
         {
             "name": "狗头人候补No.W",
             "job_name": "戰士",
-            "level": "14",
+            "level": "60",
             "job": "100",
             "udid": "1759039809112329",
             "base": "1",
@@ -1059,11 +1059,11 @@
         {
             "name": "狗头人候补No.V",
             "job_name": "獵人",
-            "level": "58",
+            "level": "60",
             "job": "400",
             "udid": "1764830885522153",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:+4 白色長袍<br>道具:龍珠<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_219r.gif",
             "local_img": ""
         },
@@ -1074,8 +1074,19 @@
             "job": "200",
             "udid": "1764830893954002",
             "base": "1",
-            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_106.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.T",
+            "job_name": "戰士",
+            "level": "49",
+            "job": "100",
+            "udid": "1767669676055365",
+            "base": "1",
+            "equipment": "武器:+4 香蕉劍<br>副手:+4 鐵盾<br>　甲:板甲<br>道具:龍珠<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_080r.gif",
             "local_img": ""
         }
     ]

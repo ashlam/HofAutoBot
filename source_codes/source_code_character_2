@@ -755,10 +755,10 @@
 </div>
 </div>
 </div>
-				爆炸蘑菇<br/>Lv.60 絡印勇士				<div style="display:none">
+				炮灰菜鳥<br/>Lv.60 絡印勇士				<div style="display:none">
 <span data-type="base">36</span>
 <span data-type="job">112</span>
-<span data-type="name">爆炸蘑菇</span>
+<span data-type="name">炮灰菜鳥</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
 </div>
@@ -925,10 +925,10 @@
 </div>
 </div>
 </div>
-				炮灰菜鳥<span class="bold charge">*</span><br/>Lv.60 絡印勇士				<div style="display:none">
+				爆炸蘑菇<span class="bold charge">*</span><br/>Lv.60 絡印勇士				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">112</span>
-<span data-type="name">炮灰菜鳥</span>
+<span data-type="name">爆炸蘑菇</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
 </div>
@@ -1227,7 +1227,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1749784005451919)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:&lt;br&gt;　甲:+7 靈感外袍&lt;br&gt;道具:+3 心眼指環&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1749784005451919)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:&lt;br&gt;　甲:+7 靈感外袍&lt;br&gt;道具:+3 心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
 </div>
 </div>
 </div>
@@ -1384,11 +1384,28 @@
 </div>
 </div>
 </div>
-				Z.002<span class="bold charge">*</span><br/>Lv.45 女祭司				<div style="display:none">
+				Z.002<span class="bold charge">*</span><br/>Lv.51 女祭司				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">300</span>
 <span data-type="name">Z.002</span>
-<span data-type="level">45</span>
+<span data-type="level">51</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-81" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1767868546492032)" style="height:128px" title="武器:萊姆棍&lt;br&gt;副手:+4 咒語字典&lt;br&gt;　甲:仙女長袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_213.gif"/></a>
+</div>
+</div>
+</div>
+				Z.003<span class="bold charge">*</span><br/>Lv.21 牧師				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">300</span>
+<span data-type="name">Z.003</span>
+<span data-type="level">21</span>
 <span data-type="type_0"></span>
 </div>
 </div>

@@ -76,7 +76,7 @@
     },
     "normal_stage_loop_order": [
         {
-            "stage_name": "ac3",
+            "stage_name": "gb1",
             "plan_action_id": 1
         }
     ],
