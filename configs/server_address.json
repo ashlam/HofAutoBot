@@ -7,7 +7,9 @@
             "character_source_code_path": "source_codes/source_code_character_1",
             "config_path": "configs/server_01",
             "auto_bot_loop_config_path": "auto_bot_loop_config.json",
-            "hunt_page": "index.php?hunt#"
+            "hunt_page": "index.php?hunt#",
+            "captcha_refresh_max": 100,
+            "captcha_refresh_interval_sec": 2.0
         },
         {
             "id": 2,
@@ -16,7 +18,9 @@
             "character_source_code_path": "source_codes/source_code_character_2",
             "config_path": "configs/server_02",
             "auto_bot_loop_config_path": "auto_bot_loop_config.json",
-            "hunt_page": "index.php?hunt#"
+            "hunt_page": "index.php?hunt#",
+            "captcha_refresh_max": 100,
+            "captcha_refresh_interval_sec": 2.0
         }
     ]
 }

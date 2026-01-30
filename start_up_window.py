@@ -4,6 +4,7 @@
 import os
 import sys
 import json
+import time
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog, QDialog, QLineEdit, QHBoxLayout, QLabel
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
@@ -20,6 +21,7 @@ from scripts.hof_auto_bot_main import HofAutoBot
 from scripts.states.state_factory import StateFactory
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from scripts.captcha_recognizer import recognize_captcha
 
 class BotThread(QThread):
     finished = pyqtSignal()
@@ -247,6 +249,7 @@ class LoginWindow(QMainWindow):
 
         # 创建按钮
         self.browser_btn = QPushButton('打开浏览器')
+        self.auto_run_btn = QPushButton('自动运行')
         self.update_btn = QPushButton('更新角色')
         self.start_btn = QPushButton('启动')
         self.stop_btn = QPushButton('暂停')
@@ -260,6 +263,7 @@ class LoginWindow(QMainWindow):
 
         # 添加按钮到布局
         layout.addWidget(self.browser_btn)
+        layout.addWidget(self.auto_run_btn)
         layout.addWidget(self.update_btn)
         layout.addWidget(self.start_btn)
         layout.addWidget(self.stop_btn)
@@ -281,6 +285,7 @@ class LoginWindow(QMainWindow):
         self.stop_btn.clicked.connect(self.toggle_pause_resume)
         self.boss_editor_btn.clicked.connect(self.open_boss_editor)
         self.close_btn.clicked.connect(self.close_application)
+        self.auto_run_btn.clicked.connect(self.open_browser_and_auto_login)
 
     def load_server_config(self):
         try:
@@ -343,6 +348,10 @@ class LoginWindow(QMainWindow):
                 # 启用更新角色和启动按钮
                 self.update_btn.setEnabled(True)
                 self.start_btn.setEnabled(True)
+                elems_img = self.driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
+                elems_span = self.driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+                if not elems_img and not elems_span:
+                    self.start_run()
 
             except Exception as e:
                 QMessageBox.critical(self, '错误', f'填写验证码失败：{str(e)}')
@@ -357,6 +366,47 @@ class LoginWindow(QMainWindow):
             # 启用更新角色和启动按钮
             self.update_btn.setEnabled(True)
             self.start_btn.setEnabled(True)
+    
+    def open_browser_and_auto_login(self):
+        self.current_server = self.server_combo.currentData()
+        if not self.current_server:
+            QMessageBox.warning(self, '警告', '请先选择服务器')
+            return
+        service = Service(ChromeDriverManager().install())
+        self.driver = webdriver.Chrome(service=service)
+        self.driver.get(self.current_server['url'])
+        self.driver.implicitly_wait(8)
+        from scripts.account_config_reader import get_account_config
+        default_user_name, default_password = get_account_config(self.current_server["config_path"])
+        from selenium.webdriver.common.by import By
+        username_input = self.driver.find_element(By.NAME, "id")
+        username_input.clear()
+        username_input.send_keys(default_user_name)
+        password_input = self.driver.find_element(By.NAME, "pass")
+        password_input.clear()
+        password_input.send_keys(default_password)
+        attempts = int(self.current_server.get("captcha_refresh_max", 5))
+        interval = float(self.current_server.get("captcha_refresh_interval_sec", 1.0))
+        map_file = os.path.join(os.path.dirname(__file__), "configs", "captcha_map.json")
+        code, info = recognize_captcha(self.driver, selector="#captchaImage", attempts=attempts, interval=interval, len_min=4, len_max=5, map_file=map_file)
+        if code and code.isdigit():
+            try:
+                captcha_input = self.driver.find_element(By.NAME, "captcha")
+                captcha_input.clear()
+                captcha_input.send_keys(code)
+                login_button = self.driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
+                login_button.click()
+                self.update_btn.setEnabled(True)
+                self.start_btn.setEnabled(True)
+                time.sleep(1.0)
+                elems_img = self.driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
+                elems_span = self.driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+                if not elems_img and not elems_span:
+                    self.start_run()
+            except Exception as e:
+                QMessageBox.critical(self, '错误', f'自动填写失败: {str(e)}')
+        else:
+            QMessageBox.information(self, '提示', f'自动识别失败：{info}，请手动登录')
 
     def update_character(self):
         try:

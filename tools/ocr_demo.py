@@ -414,117 +414,6 @@ def recognize_captcha_loop(url, selector=None, xpath=None, engine="tesseract", l
             except Exception:
                 pass
 
-def _find_by_css(driver, selectors):
-    from selenium.webdriver.common.by import By
-    for s in selectors:
-        try:
-            elems = driver.find_elements(By.CSS_SELECTOR, s)
-            if elems:
-                return elems[0]
-        except Exception:
-            pass
-    return None
-
-def _resolve_account(args):
-    u = getattr(args, "username", None)
-    p = getattr(args, "password", None)
-    cfg = getattr(args, "account_config", None)
-    if (not u or not p) and cfg:
-        try:
-            with open(cfg, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                u = u or data.get("user_name")
-                p = p or data.get("password")
-        except Exception:
-            pass
-    if (not u or not p):
-        default_cfg = os.path.join("configs", "server_01", "account_config.json")
-        if os.path.exists(default_cfg):
-            try:
-                with open(default_cfg, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    u = u or data.get("user_name")
-                    p = p or data.get("password")
-            except Exception:
-                pass
-    return u, p
-
-def attempt_login(url, engine="tesseract", langs=None, digits_only=True, len_min=4, len_max=5, preprocess_mode="advanced", wait_seconds=2.0, headless=True, keep_browser=False, user_selector=None, pass_selector=None, captcha_image_selector="#captchaImage", captcha_input_selector=None, submit_selector=None, map_file=None, no_map=False, attempts=3):
-    from selenium.webdriver import Chrome
-    from selenium.webdriver.chrome.service import Service
-    from selenium.webdriver.chrome.options import Options
-    from webdriver_manager.chrome import ChromeDriverManager
-    import time
-    options = Options()
-    if headless:
-        options.add_argument("--headless=new")
-    if keep_browser:
-        options.add_experimental_option("detach", True)
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--window-size=1280,900")
-    os.environ.setdefault("WDM_LOCAL", "1")
-    driver = Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    try:
-        driver.get(url)
-        time.sleep(wait_seconds)
-        username_input = _find_by_css(driver, [user_selector] if user_selector else [
-            "input[name='account']",
-            "input[name='username']",
-            "input[name='user_name']",
-            "input[name*='user']",
-            "input[type='text']"
-        ])
-        password_input = _find_by_css(driver, [pass_selector] if pass_selector else [
-            "input[name='password']",
-            "input[name='pass']",
-            "input[name='pwd']",
-            "input[type='password']"
-        ])
-        captcha_img = _find_by_css(driver, [captcha_image_selector] if captcha_image_selector else ["#captchaImage", "img[id*='captcha']", "img[src*='captcha']"])
-        captcha_input = _find_by_css(driver, [captcha_input_selector] if captcha_input_selector else ["input[name='captcha']", "input[id*='captcha']", "input[name*='captcha']"])
-        submit_btn = _find_by_css(driver, [submit_selector] if submit_selector else ["input[type='submit']", "button[type='submit']", "button[name*='login']", "button[id*='login']"])
-        if not username_input or not password_input or not captcha_img or not captcha_input:
-            return {"ok": False, "reason": "缺少登录元素", "used_code": "", "info": "未在表中"}
-        used = ""
-        info = "未在表中"
-        last_raw = ""
-        for _ in range(max(1, attempts)):
-            rect, dpr = _get_element_rect(driver, captcha_img)
-            img, _dpr = _capture_page_screenshot(driver)
-            crop = _crop_by_rect(img, (rect["x"], rect["y"], rect["width"], rect["height"]), dpr=dpr, unit="css")
-            if engine == "tesseract":
-                out = run_tesseract(crop, preprocess_mode=preprocess_mode, digits_only=digits_only, len_min=len_min, len_max=len_max)
-            elif engine == "easyocr":
-                out = run_easyocr(crop, langs=langs, digits_only=digits_only, len_min=len_min, len_max=len_max, preprocess_mode=preprocess_mode)
-            else:
-                out = run_paddleocr(crop, lang=(langs[0] if langs else "en"))
-            last_raw = (out or "").strip()
-            used = last_raw
-            if not no_map and map_file:
-                data = _load_captcha_map(map_file)
-                corrected, info = _apply_captcha_map_info(used, data)
-                used = corrected
-            if digits_only and used.isdigit() and len(used) >= len_min and len(used) <= len_max:
-                break
-            try:
-                captcha_img.click()
-            except Exception:
-                pass
-            time.sleep(wait_seconds)
-        username_input.clear()
-        password_input.clear()
-        captcha_input.clear()
-        return {"_driver": driver, "ok": True, "reason": "", "used_code": used, "info": info, "elements": {"user": username_input, "pass": password_input, "cap": captcha_input, "submit": submit_btn}}
-    except Exception as e:
-        return {"ok": False, "reason": str(e), "used_code": "", "info": "未在表中"}
-    finally:
-        if not keep_browser:
-            try:
-                driver.quit()
-            except Exception:
-                pass
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -549,15 +438,6 @@ def main():
     parser.add_argument("--no_map", action="store_true")
     parser.add_argument("--add_correct")
     parser.add_argument("--add_mapping", nargs=2)
-    parser.add_argument("--login", action="store_true")
-    parser.add_argument("--username")
-    parser.add_argument("--password")
-    parser.add_argument("--account_config")
-    parser.add_argument("--user_selector")
-    parser.add_argument("--pass_selector")
-    parser.add_argument("--captcha_image_selector", default="#captchaImage")
-    parser.add_argument("--captcha_input_selector")
-    parser.add_argument("--submit_selector")
     args = parser.parse_args()
     source_img = None
     headless = not args.no_headless
@@ -600,60 +480,6 @@ def main():
             print(f"{corrected} [{info}]")
         else:
             print(out)
-        return
-    if args.login and args.url:
-        u, p = _resolve_account(args)
-        langs = ["ch_tra"] if args.lang.lower().startswith("chi") or args.lang.lower().startswith("zh") else ["en"]
-        res = attempt_login(
-            url=args.url,
-            engine=args.engine,
-            langs=langs,
-            digits_only=args.digits_only or True,
-            len_min=args.len_min,
-            len_max=args.len_max,
-            preprocess_mode=args.preprocess,
-            wait_seconds=2.0,
-            headless=headless,
-            keep_browser=keep_browser,
-            user_selector=args.user_selector,
-            pass_selector=args.pass_selector,
-            captcha_image_selector=args.captcha_image_selector,
-            captcha_input_selector=args.captcha_input_selector,
-            submit_selector=args.submit_selector,
-            map_file=(None if args.no_map else args.map_file),
-            no_map=args.no_map
-        )
-        if not res.get("ok"):
-            print(f"登录前准备失败 [{res.get('reason')}]")
-            return
-        drv = res.get("_driver")
-        els = res.get("elements", {})
-        try:
-            els.get("user").send_keys(u or "")
-            els.get("pass").send_keys(p or "")
-            els.get("cap").send_keys(res.get("used_code") or "")
-            btn = els.get("submit")
-            if btn:
-                btn.click()
-            else:
-                try:
-                    els.get("cap").submit()
-                except Exception:
-                    pass
-        except Exception as e:
-            print(f"提交失败 [{e}]")
-            return
-        import time
-        time.sleep(2.0)
-        from selenium.webdriver.common.by import By
-        try:
-            rem = drv.find_elements(By.CSS_SELECTOR, args.captcha_image_selector)
-            if rem:
-                print(f"登录失败 [{res.get('used_code')} [{res.get('info')}] 再试]")
-            else:
-                print(f"登录成功 [{res.get('used_code')} [{res.get('info')}] ]")
-        except Exception:
-            print(f"登录结果未知 [{res.get('used_code')} [{res.get('info')}] ]")
         return
     if args.url and args.rect:
         source_img = capture_rect_image(args.url, args.rect, rect_unit=args.rect_unit, headless=headless, keep_browser=keep_browser)
