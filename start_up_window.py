@@ -389,7 +389,8 @@ class LoginWindow(QMainWindow):
         interval = float(self.current_server.get("captcha_refresh_interval_sec", 1.0))
         map_file = os.path.join(os.path.dirname(__file__), "configs", "captcha_map.json")
         code, info = recognize_captcha(self.driver, selector="#captchaImage", attempts=attempts, interval=interval, len_min=4, len_max=5, map_file=map_file)
-        if code and code.isdigit():
+        len_min, len_max = 4, 5
+        if code and code.isdigit() and len(code) >= len_min and len(code) <= len_max:
             try:
                 captcha_input = self.driver.find_element(By.NAME, "captcha")
                 captcha_input.clear()
@@ -406,7 +407,27 @@ class LoginWindow(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, '错误', f'自动填写失败: {str(e)}')
         else:
-            QMessageBox.information(self, '提示', f'自动识别失败：{info}，请手动登录')
+            dlg = CaptchaDialog(self.driver, self)
+            if dlg.exec_() == QDialog.Accepted and dlg.captcha:
+                captcha = dlg.captcha
+                try:
+                    from selenium.webdriver.common.by import By
+                    captcha_input = self.driver.find_element(By.NAME, "captcha")
+                    captcha_input.clear()
+                    captcha_input.send_keys(captcha)
+                    login_button = self.driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
+                    login_button.click()
+                    self.update_btn.setEnabled(True)
+                    self.start_btn.setEnabled(True)
+                    time.sleep(1.0)
+                    elems_img = self.driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
+                    elems_span = self.driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+                    if not elems_img and not elems_span:
+                        self.start_run()
+                except Exception as e:
+                    QMessageBox.critical(self, '错误', f'填写验证码失败：{str(e)}')
+            else:
+                QMessageBox.information(self, '提示', '自动获取验证码失败，请手动输入验证码再登录')
 
     def update_character(self):
         try:
