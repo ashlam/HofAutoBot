@@ -3,3 +3,6 @@ Pillow==9.5.0
 PyQt5>=5.15.0
 selenium>=4.15.0
 webdriver-manager>=4.0.1
+pytesseract>=0.3.10
+numpy==1.24.4
+opencv-python-headless==4.11.0.86

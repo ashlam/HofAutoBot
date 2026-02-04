@@ -6,12 +6,15 @@ import json
 from scripts.actions.factory import ActionExecutorFactory
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 from scripts.advanced_action_executor import AdvancedActionExecutor, AdvancedActionManager
 from scripts.server_config_manager import ServerConfigManager
 from scripts.battle_watcher_manager import BattleWatcherManager
 from scripts.log_manager import LogManager
 from scripts.auto_bot_config_manager import AutoBotConfigManager
 from scripts.boss_battle_manager import BossBattleManager
+from scripts.captcha_recognizer import recognize_captcha
+from scripts.account_config_reader import get_account_config
 
 from scripts.states.state_factory import StateFactory
 
@@ -81,6 +84,8 @@ class HofAutoBot:
         """执行一次状态处理，支持暂停/恢复功能"""
         if self.is_finished:
             return
+        if self._reconnect_if_needed():
+            return
         if self.current_state is not None:
             print("HofAutoBot.run_once -> current_state: " + self.current_state.__class__.__name__)
             self.current_state.process()
@@ -149,6 +154,66 @@ class HofAutoBot:
         self.current_state_str = state
 
     
+
+    def _is_on_login_page(self):
+        try:
+            d = self.driver
+            elems_img = d.find_elements(By.CSS_SELECTOR, "#captchaImage")
+            elems_span = d.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+            login_btn = d.find_elements(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
+            return (bool(elems_img) or bool(elems_span)) and bool(login_btn)
+        except Exception:
+            return False
+
+    def _auto_login(self):
+        try:
+            current_server_data = self.server_config_manager.current_server_data
+            d = self.driver
+            d.get(current_server_data["url"])
+            d.implicitly_wait(8)
+            user_name, password = get_account_config(current_server_data["config_path"])
+            ui = d.find_element(By.NAME, "id")
+            ui.clear()
+            ui.send_keys(user_name)
+            pi = d.find_element(By.NAME, "pass")
+            pi.clear()
+            pi.send_keys(password)
+            attempts = int(current_server_data.get("captcha_refresh_max", 5))
+            interval = float(current_server_data.get("captcha_refresh_interval_sec", 1.0))
+            map_file = os.path.join(os.path.dirname(__file__), "..", "configs", "captcha_map.json")
+            code, info = recognize_captcha(d, selector="#captchaImage", attempts=attempts, interval=interval, len_min=4, len_max=5, map_file=map_file)
+            if code and code.isdigit() and len(code) >= 4 and len(code) <= 5:
+                ci = d.find_element(By.NAME, "captcha")
+                ci.clear()
+                ci.send_keys(code)
+                lb = d.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
+                lb.click()
+                time.sleep(1.0)
+                elems_img = d.find_elements(By.CSS_SELECTOR, "#captchaImage")
+                elems_span = d.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+                if not elems_img and not elems_span:
+                    self.logger.success("重新登录成功")
+                    return True
+            self.logger.error(f"重新登录失败（验证码识别）: {info}")
+            return False
+        except Exception as e:
+            self.logger.error(f"重新登录失败: {e}")
+            return False
+
+    def _reconnect_if_needed(self):
+        try:
+            if self._is_on_login_page():
+                self.logger.info("检测到登录页，暂停流程并自动登录")
+                ok = self._auto_login()
+                if ok:
+                    self.logger.success("重新登录成功，恢复挂机流程")
+                else:
+                    self.logger.error("重新登录失败，将在下一轮重试")
+                return True
+        except Exception as e:
+            self.logger.error(f"重新登录异常: {e}")
+            return True
+        return False
 
     def cleanup(self):
         self.is_finished = True
