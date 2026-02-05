@@ -407,6 +407,14 @@ class LoginWindow(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, '错误', f'自动填写失败: {str(e)}')
         else:
+            try:
+                print(f"自动验证码失败: {info}")
+                if info == "依赖缺失":
+                    QMessageBox.information(self, '提示', '自动获取验证码失败：依赖缺失。请安装 tesseract 与 pytesseract，并确保可用；必要时设置环境变量 TESSERACT_PATH。')
+                else:
+                    QMessageBox.information(self, '提示', f'自动获取验证码失败：{info}，将弹窗手动输入。')
+            except Exception:
+                pass
             dlg = CaptchaDialog(self.driver, self)
             if dlg.exec_() == QDialog.Accepted and dlg.captcha:
                 captcha = dlg.captcha
