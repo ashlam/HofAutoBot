@@ -74,3 +74,7 @@ class StateFactory:
     def create_update_character_state(bot: 'HofAutoBot') -> 'BaseState':
         from .update_character_state import UpdateCharacterState
         return UpdateCharacterState(bot)
+    @staticmethod
+    def create_reconnect_state(bot: 'HofAutoBot') -> 'BaseState':
+        from .reconnect_state import ReconnectState
+        return ReconnectState(bot)

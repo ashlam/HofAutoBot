@@ -84,7 +84,10 @@ class HofAutoBot:
         """执行一次状态处理，支持暂停/恢复功能"""
         if self.is_finished:
             return
-        if self._reconnect_if_needed():
+        if self._is_on_login_page():
+            self.logger.info("检测到登录页，进入断线重连状态")
+            self.switch_to_next_state(StateFactory.create_reconnect_state(self))
+            self.current_state.process()
             return
         if self.current_state is not None:
             print("HofAutoBot.run_once -> current_state: " + self.current_state.__class__.__name__)
@@ -158,10 +161,9 @@ class HofAutoBot:
     def _is_on_login_page(self):
         try:
             d = self.driver
-            elems_img = d.find_elements(By.CSS_SELECTOR, "#captchaImage")
-            elems_span = d.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
-            login_btn = d.find_elements(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
-            return (bool(elems_img) or bool(elems_span)) and bool(login_btn)
+            hasCaptcha = d.execute_script("return !!document.querySelector('#captchaImage') || !!document.querySelector('span[onclick*=getCaptcha]')")
+            hasLogin = d.execute_script("return !!document.querySelector('input[name=Login].btn')")
+            return bool(hasCaptcha and hasLogin)
         except Exception:
             return False
 
