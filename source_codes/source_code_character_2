@@ -632,14 +632,14 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1357651680437111)" style="height:128px" title="武器:+4 阿母牛姿，兄弟會之劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_218.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1357651680437111)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:聖誕號角(小)&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_218.gif"/></a>
 </div>
 </div>
 </div>
-				tempTest<br/>Lv.60 浪人劍客				<div style="display:none">
+				浪<br/>Lv.60 浪人劍客				<div style="display:none">
 <span data-type="base">41</span>
 <span data-type="job">416</span>
-<span data-type="name">tempTest</span>
+<span data-type="name">浪</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
 </div>
@@ -1023,14 +1023,14 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1407077156418127)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:神聖長袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_219rr.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1407077156418127)" style="height:128px" title="武器:+4 阿母牛姿，兄弟會之劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:聖誕號角(小)&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_218.gif"/></a>
 </div>
 </div>
 </div>
-				F<span class="bold charge">*</span><br/>Lv.60 獵人				<div style="display:none">
+				客<br/>Lv.60 浪人劍客				<div style="display:none">
 <span data-type="base">1</span>
-<span data-type="job">400</span>
-<span data-type="name">F</span>
+<span data-type="job">416</span>
+<span data-type="name">客</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
 </div>

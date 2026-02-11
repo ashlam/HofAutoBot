@@ -13,7 +13,7 @@
       },
       {
         "trigger_type": "click_sub_menu_stage",
-        "value": "common=gb1"
+        "value": "common=ocean1"
       },
       {
         "trigger_type": "click_button_start_battle",

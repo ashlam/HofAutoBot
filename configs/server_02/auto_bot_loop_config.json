@@ -1,85 +1,85 @@
 {
-    "boss_cost_stamina": 10,
-    "quest_cost_stamina": 300,
-    "stage_cost_stamina": 100,
-    "max_stamnia_limit": 4000,
-    "recover_stamina_per_hour": 1000,
-    "challege_boss_cooldown_seconds": 1200,
-    "is_challenge_time_limited_stage": true,
-    "is_challenge_vip_boss": true,
-    "is_challenge_pvp": false,
-    "is_challenge_world_pvp": true,
-    "keep_stamnia_for_normal_stage": 3000,
-    "keep_stamnia_for_time_limited_stage": 1000,
-    "is_keep_pvp_win_rate": true,
-    "challenge_boss_delay_rate": 95,
-    "challenge_boss_delay_seconds_limit":220,
-    "vip_boss_need_watch" : [
-        {
-            "union_id": 17,
-            "plan_action_id": 800170,
-            "kill_cooldown_seconds": 14400
-        }
-    ],
-    "normal_boss_loop_order": [
-        {
-            "union_id": 17,
-            "plan_action_id": 800170,
-            "kill_cooldown_seconds": 14400
-        },
-        {
-            "union_id": 26,
-            "plan_action_id": 800260
-        },
-        {
-            "union_id": 3,
-            "plan_action_id": 800030
-        },
-        {
-            "union_id": 20,
-            "plan_action_id": 800200
-        },
-        {
-            "union_id": 15,
-            "plan_action_id": 800150
-        },
-        {
-            "union_id": 8,
-            "plan_action_id": 800081
-        },
-        {
-            "union_id": 1,
-            "plan_action_id": 800010
-        },
-        {
-            "union_id": 3,
-            "plan_action_id": 800030
-        },
-        {
-            "union_id": 0,
-            "plan_action_id": 800000
-        }
-    ],
-    "vip_stage_need_watch" : [
-        {
-            "stage_name": "Christmas",
-            "plan_action_id": 12,
-            "description": "VIP阶段关卡"
-        }
-    ],
-    "time_limited_stage_need_watch" : {
-        "stage_name": "Christmas",
-        "plan_action_id": 12,
-        "start_minute": 50,
-        "end_minute": 59,
-        "description": "每小时最后10分钟内触发"
+  "boss_cost_stamina": 10,
+  "quest_cost_stamina": 300,
+  "stage_cost_stamina": 100,
+  "max_stamnia_limit": 4000,
+  "recover_stamina_per_hour": 1000,
+  "challege_boss_cooldown_seconds": 1200,
+  "is_challenge_time_limited_stage": true,
+  "is_challenge_vip_boss": true,
+  "is_challenge_pvp": false,
+  "is_challenge_world_pvp": true,
+  "keep_stamnia_for_normal_stage": 3000,
+  "keep_stamnia_for_time_limited_stage": 1000,
+  "is_keep_pvp_win_rate": true,
+  "challenge_boss_delay_rate": 95,
+  "challenge_boss_delay_seconds_limit": 220,
+  "vip_boss_need_watch": [
+    {
+      "union_id": 17,
+      "plan_action_id": 800170,
+      "kill_cooldown_seconds": 14400
+    }
+  ],
+  "normal_boss_loop_order": [
+    {
+      "union_id": 17,
+      "plan_action_id": 800170,
+      "kill_cooldown_seconds": 14400
     },
-    "normal_stage_loop_order": [
-        {
-            "stage_name": "gb1",
-            "plan_action_id": 1
-        }
-    ],
-    "pvp_plan_action_id": 5,
-    "world_pvp_plan_action_id": 5
+    {
+      "union_id": 26,
+      "plan_action_id": 800260
+    },
+    {
+      "union_id": 3,
+      "plan_action_id": 800030
+    },
+    {
+      "union_id": 20,
+      "plan_action_id": 800200
+    },
+    {
+      "union_id": 15,
+      "plan_action_id": 800150
+    },
+    {
+      "union_id": 8,
+      "plan_action_id": 800081
+    },
+    {
+      "union_id": 1,
+      "plan_action_id": 800010
+    },
+    {
+      "union_id": 3,
+      "plan_action_id": 800030
+    },
+    {
+      "union_id": 0,
+      "plan_action_id": 800000
+    }
+  ],
+  "vip_stage_need_watch": [
+    {
+      "stage_name": "Christmas",
+      "plan_action_id": 12,
+      "description": "VIP阶段关卡"
+    }
+  ],
+  "time_limited_stage_need_watch": {
+    "stage_name": "Christmas",
+    "plan_action_id": 12,
+    "start_minute": 50,
+    "end_minute": 59,
+    "description": "每小时最后10分钟内触发"
+  },
+  "normal_stage_loop_order": [
+    {
+      "stage_name": "ocean1",
+      "plan_action_id": 1
+    }
+  ],
+  "pvp_plan_action_id": 5,
+  "world_pvp_plan_action_id": 5
 }

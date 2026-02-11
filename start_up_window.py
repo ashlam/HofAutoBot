@@ -254,6 +254,7 @@ class LoginWindow(QMainWindow):
         self.start_btn = QPushButton('启动')
         self.stop_btn = QPushButton('暂停')
         self.boss_editor_btn = QPushButton('打开Boss编辑器')
+        self.normal_stage_editor_btn = QPushButton('编辑普通关卡')
         self.close_btn = QPushButton('关闭')
 
         # 设置按钮状态
@@ -268,6 +269,7 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.start_btn)
         layout.addWidget(self.stop_btn)
         layout.addWidget(self.boss_editor_btn)
+        layout.addWidget(self.normal_stage_editor_btn)
         layout.addWidget(self.close_btn)
 
         # 创建状态显示标签
@@ -284,6 +286,7 @@ class LoginWindow(QMainWindow):
         self.start_btn.clicked.connect(self.start_run)
         self.stop_btn.clicked.connect(self.toggle_pause_resume)
         self.boss_editor_btn.clicked.connect(self.open_boss_editor)
+        self.normal_stage_editor_btn.clicked.connect(self.edit_normal_stage)
         self.close_btn.clicked.connect(self.close_application)
         self.auto_run_btn.clicked.connect(self.open_browser_and_auto_login)
 
@@ -547,6 +550,60 @@ class LoginWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, '错误', f'重新读取配置失败: {e}')
 
+    def edit_normal_stage(self):
+        try:
+            self.current_server = self.server_combo.currentData()
+            if not self.current_server:
+                QMessageBox.warning(self, '警告', '请先选择服务器')
+                return
+            cfg_dir = os.path.join(os.path.dirname(__file__), 'configs')
+            stage_cfg_path = os.path.join(cfg_dir, 'all_stage_config.json')
+            with open(stage_cfg_path, 'r', encoding='utf-8') as f:
+                all_cfg = json.load(f)
+            items = all_cfg.get('all_stage_info', [])
+            if not items:
+                QMessageBox.warning(self, '警告', '未找到普通关卡配置')
+                return
+            stage_names = [it.get('stage_name') for it in items if it.get('stage_name')]
+            display_names = [f"{it.get('name','')} ({it.get('stage_name')})" for it in items]
+            selected, ok = QInputDialog.getItem(self, '编辑普通关卡', '选择普通关卡：', display_names, editable=False)
+            if not ok or not selected:
+                return
+            idx = display_names.index(selected)
+            stage_name = stage_names[idx]
+            server_cfg_dir = self.current_server.get('config_path')
+            server_cfg_dir = os.path.join(os.path.dirname(__file__), server_cfg_dir)
+            self._update_action_config_for_stage(server_cfg_dir, stage_name)
+            self._update_auto_bot_normal_stage(server_cfg_dir, stage_name)
+            QMessageBox.information(self, '成功', f'普通关卡已更新为：{stage_name}')
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'编辑普通关卡失败: {e}')
+
+    def _update_action_config_for_stage(self, server_cfg_dir, stage_name):
+        p = os.path.join(server_cfg_dir, 'action_config_advanced.json')
+        with open(p, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        entry = data.get('1')
+        if not entry or not isinstance(entry.get('actions'), list):
+            return
+        for act in entry['actions']:
+            if act.get('trigger_type') == 'click_sub_menu_stage':
+                act['value'] = f'common={stage_name}'
+                break
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+
+    def _update_auto_bot_normal_stage(self, server_cfg_dir, stage_name):
+        p = os.path.join(server_cfg_dir, 'auto_bot_loop_config.json')
+        with open(p, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        arr = data.get('normal_stage_loop_order')
+        if not isinstance(arr, list) or len(arr) == 0:
+            data['normal_stage_loop_order'] = [{'stage_name': stage_name, 'plan_action_id': 1}]
+        else:
+            arr[0]['stage_name'] = stage_name
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
 def main():
     app = QApplication(sys.argv)
     
