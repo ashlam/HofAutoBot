@@ -63,6 +63,10 @@ class BotThread(QThread):
             self.is_running = False
             self.bot.cleanup()
             self.bot = None
+    
+    def reload_configs(self):
+        if self.bot:
+            self.bot.reload_configs()
 
 class CaptchaDialog(QDialog):
     def __init__(self, driver, parent=None):
@@ -196,6 +200,8 @@ class LoginWindow(QMainWindow):
             self.state_label.setText('当前状态：已暂停')
         else:
             # 恢复操作
+            if self.bot_thread:
+                self.bot_thread.reload_configs()
             self.bot_thread.is_running = True
             self.stop_btn.setText('暂停')
             self.state_label.setText('当前状态：已恢复')
@@ -517,35 +523,16 @@ class LoginWindow(QMainWindow):
         
     def reload_config(self):
         try:
+            if self.bot_thread and self.bot_thread.isRunning():
+                self.bot_thread.reload_configs()
+                QMessageBox.information(self, '成功', '运行中的配置已重新读取！')
+                return
             if not self.current_server or not self.driver:
                 QMessageBox.warning(self, '警告', '请先打开浏览器并登录')
                 return
-                
-            # 如果没有初始化HofAutoBot，则先初始化
-            if not self.hof_auto_bot:
-                self.hof_auto_bot = HofAutoBot()
-                self.hof_auto_bot.initialize_with_driver(self.current_server['id'], self.driver)
-                QMessageBox.information(self, '成功', '配置已初始化！')
-                return
-                
-            # 重新加载各个配置文件
-            server_id = self.current_server['id']
-            current_server_data = self.hof_auto_bot.server_config_manager.current_server_data
-            
-            # 重新加载AutoBotConfigManager配置
-            auto_bot_config_path = f"{current_server_data.get('config_path')}/{current_server_data.get('auto_bot_loop_config_path')}"
-            self.hof_auto_bot.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
-            
-            # 重新加载BattleWatcherManager配置
-            self.hof_auto_bot.battle_watcher_manager = BattleWatcherManager()
-            
-            # 重新加载BossBattleManager配置
-            self.hof_auto_bot.boss_battle_manager = BossBattleManager()
-            self.hof_auto_bot.boss_battle_manager.set_server_id(server_id)
-            
-            # 更新hunt页面信息
-            self.hof_auto_bot._update_info_from_hunt_page()
-            
+            self.hof_auto_bot = HofAutoBot()
+            self.hof_auto_bot.initialize_with_driver(self.current_server['id'], self.driver)
+            self.hof_auto_bot.reload_configs()
             QMessageBox.information(self, '成功', '配置已重新读取！')
         except Exception as e:
             QMessageBox.critical(self, '错误', f'重新读取配置失败: {e}')
@@ -575,6 +562,8 @@ class LoginWindow(QMainWindow):
             server_cfg_dir = os.path.join(os.path.dirname(__file__), server_cfg_dir)
             self._update_action_config_for_stage(server_cfg_dir, stage_name)
             self._update_auto_bot_normal_stage(server_cfg_dir, stage_name)
+            if self.bot_thread and self.bot_thread.isRunning():
+                self.bot_thread.reload_configs()
             QMessageBox.information(self, '成功', f'普通关卡已更新为：{stage_name}')
         except Exception as e:
             QMessageBox.critical(self, '错误', f'编辑普通关卡失败: {e}')

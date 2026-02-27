@@ -263,6 +263,17 @@ class HofAutoBot:
         self.current_state = StateFactory.create_update_character_state(self)
 
 
+    def reload_configs(self):
+        if not self.server_config_manager or not self.server_config_manager.current_server_data:
+            return
+        current_server_data = self.server_config_manager.current_server_data
+        auto_bot_config_path = f"{current_server_data.get('config_path')}/{current_server_data.get('auto_bot_loop_config_path')}"
+        self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
+        self.server_config_manager.all_action_config_by_server = self.server_config_manager._load_server_action_config(current_server_data)
+        if self.boss_battle_manager and self.server_config_manager.current_server_data:
+            self.boss_battle_manager.set_server_id(self.server_config_manager.current_server_data.get("id", 1))
+        if self.battle_watcher_manager:
+            pass
     def _initialize_from_command_line(self):
         """等待登录"""
         # 初始化服务器配置管理器
