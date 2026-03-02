@@ -9,7 +9,11 @@
             "auto_bot_loop_config_path": "auto_bot_loop_config.json",
             "hunt_page": "index.php?hunt#",
             "captcha_refresh_max": 100,
-            "captcha_refresh_interval_sec": 2.0
+            "captcha_refresh_interval_sec": 2.0,
+            "network_reconnect_interval_sec": 600.0,
+            "http_timeout_sec": 5.0,
+            "http_retry_max": 3,
+            "http_retry_backoff_sec": 1.0
         },
         {
             "id": 2,
@@ -20,7 +24,11 @@
             "auto_bot_loop_config_path": "auto_bot_loop_config.json",
             "hunt_page": "index.php?hunt#",
             "captcha_refresh_max": 100,
-            "captcha_refresh_interval_sec": 2.0
+            "captcha_refresh_interval_sec": 2.0,
+            "network_reconnect_interval_sec": 600.0,
+            "http_timeout_sec": 5.0,
+            "http_retry_max": 3,
+            "http_retry_backoff_sec": 1.0
         }
     ]
 }

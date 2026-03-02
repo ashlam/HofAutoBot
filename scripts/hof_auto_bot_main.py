@@ -91,7 +91,14 @@ class HofAutoBot:
             return
         if self.current_state is not None:
             print("HofAutoBot.run_once -> current_state: " + self.current_state.__class__.__name__)
-            self.current_state.process()
+            try:
+                self.current_state.process()
+            except Exception as e:
+                self.logger.error(f"运行异常，进入网络等待并重试: {e}")
+                idle_state = StateFactory.create_idle_state(self)
+                interval = float(self.server_config_manager.current_server_data.get("network_reconnect_interval_sec", 600.0))
+                idle_state.set_idle_time(interval, lambda: self.switch_to_next_state(StateFactory.create_update_character_state(self)))
+                self.switch_to_next_state(idle_state)
 
     def _check_is_user_pvp_first_rank(self):
         """检查当前用户是否为PVP第一名"""

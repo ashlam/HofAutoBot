@@ -57,7 +57,22 @@ class BattleWatcherManager:
                 return None
             boss_name = boss_info["name"]
             try:
-                response = requests.get(url)
+                timeout_sec = 5.0
+                max_attempts = 3
+                backoff_sec = 1.0
+                last_exc = None
+                response = None
+                for attempt in range(1, max_attempts + 1):
+                    try:
+                        response = requests.get(url, timeout=timeout_sec)
+                        break
+                    except Exception as e:
+                        last_exc = e
+                        print(f'获取战斗日志失败({attempt}/{max_attempts}): {str(e)}')
+                        import time
+                        time.sleep(backoff_sec * attempt)
+                if response is None:
+                    raise last_exc if last_exc else Exception('未知错误')
                 response.encoding = 'utf-8'
                 content = response.text
                 
@@ -87,7 +102,7 @@ class BattleWatcherManager:
             if time_info:
                 print(f'>>>下次战斗时间: {time_info}')
                 return time_info
-        print('获取log -> 下次战斗时间失败, latest_timestamp_str = ' + latest_timestamp_str)
+        print(f'获取log -> 下次战斗时间失败, latest_timestamp_str = {latest_timestamp_str}')
         return None
 
     def get_player_challenge_boss_cooldown(self):
