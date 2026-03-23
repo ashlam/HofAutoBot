@@ -100,10 +100,7 @@ class CaptchaDialog(QDialog):
 
     def refresh_captcha(self):
         try:
-            # 查找并点击 getCaptcha() 的span
-            from selenium.webdriver.common.by import By
-            span = self.driver.find_element(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
-            span.click()
+            self.driver.execute_script("var s=document.querySelector(\"span[onclick*='getCaptcha']\"); if(s){try{s.click()}catch(e){}} else if(window.getCaptcha){try{getCaptcha()}catch(e){}}")
         except Exception as e:
             QMessageBox.warning(self, '警告', f'刷新验证码失败: {e}')
 

@@ -3,6 +3,7 @@ import io
 import time
 from typing import Tuple
 from PIL import Image
+import requests
 from selenium.webdriver.common.by import By
 import json
 
@@ -101,6 +102,32 @@ def _apply_captcha_map_info(code, data):
         return mapped, f"映射自: {code}"
     return code, "未在表中"
 
+def _get_captcha_src(driver, selector="#captchaImage"):
+    try:
+        elem = driver.find_element(By.CSS_SELECTOR, selector)
+        src = driver.execute_script("return arguments[0].getAttribute('src')", elem)
+        return src or ""
+    except Exception:
+        return ""
+
+def _download_image_by_cookies(driver, url):
+    try:
+        if not url:
+            return None
+        # 处理相对路径
+        if url.startswith("/"):
+            origin = driver.execute_script("return location.origin")
+            url = origin + url
+        cookies = driver.get_cookies()
+        s = requests.Session()
+        for c in cookies:
+            s.cookies.set(c.get("name"), c.get("value"), domain=c.get("domain"), path=c.get("path"))
+        r = s.get(url, timeout=5)
+        r.raise_for_status()
+        return Image.open(io.BytesIO(r.content))
+    except Exception:
+        return None
+
 def recognize_captcha(driver, selector="#captchaImage", attempts=5, interval=1.0, len_min=4, len_max=5, map_file=None):
     try:
         import pytesseract
@@ -110,10 +137,16 @@ def recognize_captcha(driver, selector="#captchaImage", attempts=5, interval=1.0
     elem = driver.find_element(By.CSS_SELECTOR, selector)
     last = ""
     for _ in range(max(1, attempts)):
-        rect, dpr = _get_element_rect(driver, elem)
-        img, _dpr = _capture_page_screenshot(driver)
-        crop = _crop_by_rect(img, (rect["x"], rect["y"], rect["width"], rect["height"]), dpr=dpr)
-        processed = _preprocess_image_advanced(crop)
+        # 优先使用网络下载，避免触发前台焦点
+        src = _get_captcha_src(driver, selector=selector)
+        net_img = _download_image_by_cookies(driver, src)
+        if net_img is not None:
+            processed = _preprocess_image_advanced(net_img)
+        else:
+            rect, dpr = _get_element_rect(driver, elem)
+            img, _dpr = _capture_page_screenshot(driver)
+            crop = _crop_by_rect(img, (rect["x"], rect["y"], rect["width"], rect["height"]), dpr=dpr)
+            processed = _preprocess_image_advanced(crop)
         config = "--psm 8 --oem 1 -c tessedit_char_whitelist=0123456789"
         text = pytesseract.image_to_string(processed, lang="eng", config=config).strip()
         digits = _normalize_digits(text, len_min=len_min, len_max=len_max)
@@ -121,11 +154,10 @@ def recognize_captcha(driver, selector="#captchaImage", attempts=5, interval=1.0
         if len(digits) >= len_min and len(digits) <= len_max and digits.isdigit():
             break
         try:
-            elem.click()
+            driver.execute_script("if(arguments[0]) { try { arguments[0].click(); } catch(e){} }", elem)
         except Exception:
             try:
-                span = driver.find_element(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
-                span.click()
+                driver.execute_script("var s=document.querySelector(\"span[onclick*='getCaptcha']\"); if(s){try{s.click()}catch(e){}} else if(window.getCaptcha){try{getCaptcha()}catch(e){}}")
             except Exception:
                 pass
         time.sleep(interval)
@@ -134,4 +166,3 @@ def recognize_captcha(driver, selector="#captchaImage", attempts=5, interval=1.0
         corrected, info = _apply_captcha_map_info(last, data)
         return corrected, info
     return last, "未在表中"
-
