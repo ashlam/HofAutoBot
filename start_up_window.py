@@ -5,7 +5,7 @@ import os
 import sys
 import json
 import time
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog, QDialog, QLineEdit, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog, QDialog, QLineEdit, QHBoxLayout, QLabel, QScrollArea
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
 from selenium import webdriver
@@ -114,6 +114,160 @@ class CaptchaDialog(QDialog):
     def close(self):
         self.reject()
 
+
+class NormalBossOrderEditorDialog(QDialog):
+    def __init__(self, server_config, parent=None):
+        super().__init__(parent)
+        self.server_config = server_config
+        self.server_config_dir = os.path.join(project_root, self.server_config['config_path'])
+        self.auto_bot_config_path = os.path.join(self.server_config_dir, 'auto_bot_loop_config.json')
+        self.boss_config_path = os.path.join(self.server_config_dir, 'boss_config.json')
+        self.auto_bot_config = {}
+        self.normal_boss_order = []
+        self.boss_name_map = {}
+        self.load_configs()
+        self.init_ui()
+
+    def load_configs(self):
+        with open(self.auto_bot_config_path, 'r', encoding='utf-8') as f:
+            self.auto_bot_config = json.load(f)
+
+        with open(self.boss_config_path, 'r', encoding='utf-8') as f:
+            boss_config = json.load(f)
+
+        self.normal_boss_order = list(self.auto_bot_config.get('normal_boss_loop_order', []))
+        self.boss_name_map = {
+            boss.get('union_id'): boss.get('name', f"Boss {boss.get('union_id')}")
+            for boss in boss_config.get('boss_list', [])
+        }
+
+    def init_ui(self):
+        server_name = self.server_config.get('name', '当前服务器')
+        self.setWindowTitle(f'Boss顺序 - {server_name}')
+        self.resize(720, 520)
+
+        layout = QVBoxLayout(self)
+
+        tip_label = QLabel('通过“上移/下移”调整当前服务器普通 Boss 的击杀顺序。保存后会写入对应服务器配置。')
+        tip_label.setWordWrap(True)
+        layout.addWidget(tip_label)
+
+        self.summary_label = QLabel()
+        layout.addWidget(self.summary_label)
+
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        layout.addWidget(scroll_area)
+
+        content_widget = QWidget()
+        self.rows_layout = QVBoxLayout(content_widget)
+        scroll_area.setWidget(content_widget)
+
+        button_layout = QHBoxLayout()
+        self.reload_button = QPushButton('重载配置')
+        self.cancel_button = QPushButton('取消')
+        self.save_button = QPushButton('保存')
+        button_layout.addWidget(self.reload_button)
+        button_layout.addStretch()
+        button_layout.addWidget(self.cancel_button)
+        button_layout.addWidget(self.save_button)
+        layout.addLayout(button_layout)
+
+        self.reload_button.clicked.connect(self.reload_order)
+        self.cancel_button.clicked.connect(self.reject)
+        self.save_button.clicked.connect(self.save_order)
+
+        self.refresh_rows()
+
+    def refresh_rows(self):
+        while self.rows_layout.count():
+            item = self.rows_layout.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.deleteLater()
+
+        if not self.normal_boss_order:
+            empty_label = QLabel('当前未配置普通 Boss 顺序。')
+            empty_label.setAlignment(Qt.AlignCenter)
+            self.rows_layout.addWidget(empty_label)
+        else:
+            for index, boss_data in enumerate(self.normal_boss_order):
+                self.rows_layout.addWidget(self.create_row_widget(index, boss_data))
+
+        self.rows_layout.addStretch()
+        self.summary_label.setText(f'当前共 {len(self.normal_boss_order)} 个普通 Boss。')
+
+    def create_row_widget(self, index, boss_data):
+        row_widget = QWidget()
+        row_layout = QHBoxLayout(row_widget)
+
+        order_label = QLabel(f'{index + 1}.')
+        order_label.setFixedWidth(32)
+        row_layout.addWidget(order_label)
+
+        union_id = boss_data.get('union_id')
+        boss_name = self.boss_name_map.get(union_id, f'未知Boss({union_id})')
+        plan_action_id = boss_data.get('plan_action_id', '')
+        boss_label = QLabel(f'{boss_name}  (union_id: {union_id}, plan_action_id: {plan_action_id})')
+        row_layout.addWidget(boss_label, 1)
+
+        up_button = QPushButton('上移')
+        down_button = QPushButton('下移')
+        remove_button = QPushButton('移除')
+
+        up_button.setEnabled(index > 0)
+        down_button.setEnabled(index < len(self.normal_boss_order) - 1)
+
+        up_button.clicked.connect(lambda _, row=index: self.move_item(row, -1))
+        down_button.clicked.connect(lambda _, row=index: self.move_item(row, 1))
+        remove_button.clicked.connect(lambda _, row=index: self.remove_item(row))
+
+        row_layout.addWidget(up_button)
+        row_layout.addWidget(down_button)
+        row_layout.addWidget(remove_button)
+
+        return row_widget
+
+    def move_item(self, index, offset):
+        target_index = index + offset
+        if target_index < 0 or target_index >= len(self.normal_boss_order):
+            return
+
+        self.normal_boss_order[index], self.normal_boss_order[target_index] = (
+            self.normal_boss_order[target_index],
+            self.normal_boss_order[index],
+        )
+        self.refresh_rows()
+
+    def remove_item(self, index):
+        if index < 0 or index >= len(self.normal_boss_order):
+            return
+
+        removed = self.normal_boss_order[index]
+        boss_name = self.boss_name_map.get(removed.get('union_id'), f'Boss {removed.get("union_id")}')
+        reply = QMessageBox.question(
+            self,
+            '确认移除',
+            f'确定要从普通 Boss 击杀顺序中移除「{boss_name}」吗？',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+        if reply != QMessageBox.Yes:
+            return
+
+        del self.normal_boss_order[index]
+        self.refresh_rows()
+
+    def reload_order(self):
+        self.load_configs()
+        self.refresh_rows()
+
+    def save_order(self):
+        self.auto_bot_config['normal_boss_loop_order'] = self.normal_boss_order
+        with open(self.auto_bot_config_path, 'w', encoding='utf-8') as f:
+            json.dump(self.auto_bot_config, f, ensure_ascii=False, indent=2)
+        self.accept()
+
 class LoginWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -207,7 +361,6 @@ class LoginWindow(QMainWindow):
         try:
             # 导入Boss编辑器模块
             from scripts.boss_action_editor import BossActionEditor
-            from PyQt5.QtWidgets import QApplication
             
             # 创建并显示Boss编辑器窗口
             self.boss_editor = BossActionEditor()
@@ -227,7 +380,7 @@ class LoginWindow(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle('HofAutoBot登录器')
-        self.setFixedSize(300, 300)
+        self.setFixedSize(340, 420)
         
         # 设置应用图标
         icon_path = os.path.join(os.path.dirname(__file__), 'images', 'main_icon', 'app_icon.svg')
@@ -257,6 +410,7 @@ class LoginWindow(QMainWindow):
         self.start_btn = QPushButton('启动')
         self.stop_btn = QPushButton('暂停')
         self.boss_editor_btn = QPushButton('打开Boss编辑器')
+        self.normal_boss_editor_btn = QPushButton('可视化编辑普通Boss')
         self.normal_stage_editor_btn = QPushButton('编辑普通关卡')
         self.close_btn = QPushButton('关闭')
 
@@ -272,6 +426,7 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.start_btn)
         layout.addWidget(self.stop_btn)
         layout.addWidget(self.boss_editor_btn)
+        layout.addWidget(self.normal_boss_editor_btn)
         layout.addWidget(self.normal_stage_editor_btn)
         layout.addWidget(self.close_btn)
 
@@ -289,6 +444,7 @@ class LoginWindow(QMainWindow):
         self.start_btn.clicked.connect(self.start_run)
         self.stop_btn.clicked.connect(self.toggle_pause_resume)
         self.boss_editor_btn.clicked.connect(self.open_boss_editor)
+        self.normal_boss_editor_btn.clicked.connect(self.open_normal_boss_order_editor)
         self.normal_stage_editor_btn.clicked.connect(self.edit_normal_stage)
         self.close_btn.clicked.connect(self.close_application)
         self.auto_run_btn.clicked.connect(self.open_browser_and_auto_login)
@@ -564,6 +720,21 @@ class LoginWindow(QMainWindow):
             QMessageBox.information(self, '成功', f'普通关卡已更新为：{stage_name}')
         except Exception as e:
             QMessageBox.critical(self, '错误', f'编辑普通关卡失败: {e}')
+
+    def open_normal_boss_order_editor(self):
+        try:
+            self.current_server = self.server_combo.currentData()
+            if not self.current_server:
+                QMessageBox.warning(self, '警告', '请先选择服务器')
+                return
+
+            dialog = NormalBossOrderEditorDialog(self.current_server, self)
+            if dialog.exec_() == QDialog.Accepted:
+                if self.bot_thread and self.bot_thread.isRunning():
+                    self.bot_thread.reload_configs()
+                QMessageBox.information(self, '成功', '普通 Boss 击杀顺序已更新')
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'打开普通 Boss 顺序编辑器失败: {e}')
 
     def _update_action_config_for_stage(self, server_cfg_dir, stage_name):
         p = os.path.join(server_cfg_dir, 'action_config_advanced.json')
