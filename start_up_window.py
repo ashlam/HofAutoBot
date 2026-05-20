@@ -100,7 +100,8 @@ class CaptchaDialog(QDialog):
 
     def refresh_captcha(self):
         try:
-            self.driver.execute_script("var s=document.querySelector(\"span[onclick*='getCaptcha']\"); if(s){try{s.click()}catch(e){}} else if(window.getCaptcha){try{getCaptcha()}catch(e){}}")
+            from scripts.captcha_recognizer import _refresh_captcha_js
+            _refresh_captcha_js(self.driver)
         except Exception as e:
             QMessageBox.warning(self, '警告', f'刷新验证码失败: {e}')
 

@@ -93,10 +93,15 @@ class HofAutoBot:
             print("HofAutoBot.run_once -> current_state: " + self.current_state.__class__.__name__)
             try:
                 self.current_state.process()
+            except KeyboardInterrupt:
+                raise
             except Exception as e:
                 self.logger.error(f"运行异常，进入网络等待并重试: {e}")
+                try:
+                    interval = float(self.server_config_manager.current_server_data.get("network_reconnect_interval_sec", 600.0))
+                except (TypeError, ValueError, AttributeError):
+                    interval = 600.0
                 idle_state = StateFactory.create_idle_state(self)
-                interval = float(self.server_config_manager.current_server_data.get("network_reconnect_interval_sec", 600.0))
                 idle_state.set_idle_time(interval, lambda: self.switch_to_next_state(StateFactory.create_update_character_state(self)))
                 self.switch_to_next_state(idle_state)
 
@@ -279,8 +284,6 @@ class HofAutoBot:
         self.server_config_manager.all_action_config_by_server = self.server_config_manager._load_server_action_config(current_server_data)
         if self.boss_battle_manager and self.server_config_manager.current_server_data:
             self.boss_battle_manager.set_server_id(self.server_config_manager.current_server_data.get("id", 1))
-        if self.battle_watcher_manager:
-            pass
     def _initialize_from_command_line(self):
         """等待登录"""
         # 初始化服务器配置管理器

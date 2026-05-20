@@ -110,10 +110,18 @@ def _get_captcha_src(driver, selector="#captchaImage"):
     except Exception:
         return ""
 
+def _refresh_captcha_js(driver):
+    """通过JS刷新验证码，避免触发前台焦点"""
+    driver.execute_script(
+        "var s=document.querySelector(\"span[onclick*='getCaptcha']\");"
+        "if(s){try{s.click()}catch(e){}}"
+        "else if(window.getCaptcha){try{getCaptcha()}catch(e){}}"
+    )
+
 def _download_image_by_cookies(driver, url):
+    if not url:
+        return None
     try:
-        if not url:
-            return None
         # 处理相对路径
         if url.startswith("/"):
             origin = driver.execute_script("return location.origin")
@@ -125,7 +133,9 @@ def _download_image_by_cookies(driver, url):
         r = s.get(url, timeout=5)
         r.raise_for_status()
         return Image.open(io.BytesIO(r.content))
-    except Exception:
+    except requests.exceptions.RequestException:
+        return None
+    except (IOError, Image.UnidentifiedImageError):
         return None
 
 def recognize_captcha(driver, selector="#captchaImage", attempts=5, interval=1.0, len_min=4, len_max=5, map_file=None):
@@ -157,7 +167,7 @@ def recognize_captcha(driver, selector="#captchaImage", attempts=5, interval=1.0
             driver.execute_script("if(arguments[0]) { try { arguments[0].click(); } catch(e){} }", elem)
         except Exception:
             try:
-                driver.execute_script("var s=document.querySelector(\"span[onclick*='getCaptcha']\"); if(s){try{s.click()}catch(e){}} else if(window.getCaptcha){try{getCaptcha()}catch(e){}}")
+                _refresh_captcha_js(driver)
             except Exception:
                 pass
         time.sleep(interval)

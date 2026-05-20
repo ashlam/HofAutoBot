@@ -2,6 +2,7 @@ import re
 import requests
 import json
 import os
+import time
 from datetime import datetime, timedelta
 
 class BattleWatcherManager:
@@ -69,7 +70,6 @@ class BattleWatcherManager:
                     except Exception as e:
                         last_exc = e
                         print(f'获取战斗日志失败({attempt}/{max_attempts}): {str(e)}')
-                        import time
                         time.sleep(backoff_sec * attempt)
                 if response is None:
                     raise last_exc if last_exc else Exception('未知错误')

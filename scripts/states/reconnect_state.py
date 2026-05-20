@@ -15,6 +15,10 @@ class ReconnectState(BaseState):
             self.set_state(StateFactory.create_update_character_state(self.bot))
             return
         idle_state = StateFactory.create_idle_state(self.bot)
-        interval = float(self.bot.server_config_manager.current_server_data.get("network_reconnect_interval_sec", 600.0))
+        try:
+            raw = self.bot.server_config_manager.current_server_data.get("network_reconnect_interval_sec", 600.0)
+            interval = float(raw)
+        except (TypeError, ValueError, AttributeError):
+            interval = 600.0
         idle_state.set_idle_time(interval, partial(self.set_state, state=StateFactory.create_reconnect_state(self.bot)))
         self.set_state(idle_state)
