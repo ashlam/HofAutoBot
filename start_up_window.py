@@ -5,6 +5,8 @@ import os
 import sys
 import json
 import time
+import subprocess
+import platform
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QComboBox, QPushButton, QMessageBox, QInputDialog, QDialog, QLineEdit, QHBoxLayout, QLabel, QScrollArea
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QIcon
@@ -413,6 +415,7 @@ class LoginWindow(QMainWindow):
         self.boss_editor_btn = QPushButton('打开Boss编辑器')
         self.normal_boss_editor_btn = QPushButton('可视化编辑普通Boss')
         self.normal_stage_editor_btn = QPushButton('编辑普通关卡')
+        self.open_config_btn = QPushButton('打开配置文件夹')
         self.close_btn = QPushButton('关闭')
 
         # 设置按钮状态
@@ -429,6 +432,7 @@ class LoginWindow(QMainWindow):
         layout.addWidget(self.boss_editor_btn)
         layout.addWidget(self.normal_boss_editor_btn)
         layout.addWidget(self.normal_stage_editor_btn)
+        layout.addWidget(self.open_config_btn)
         layout.addWidget(self.close_btn)
 
         # 创建状态显示标签
@@ -447,6 +451,7 @@ class LoginWindow(QMainWindow):
         self.boss_editor_btn.clicked.connect(self.open_boss_editor)
         self.normal_boss_editor_btn.clicked.connect(self.open_normal_boss_order_editor)
         self.normal_stage_editor_btn.clicked.connect(self.edit_normal_stage)
+        self.open_config_btn.clicked.connect(self.open_config_folder)
         self.close_btn.clicked.connect(self.close_application)
         self.auto_run_btn.clicked.connect(self.open_browser_and_auto_login)
 
@@ -721,6 +726,29 @@ class LoginWindow(QMainWindow):
             QMessageBox.information(self, '成功', f'普通关卡已更新为：{stage_name}')
         except Exception as e:
             QMessageBox.critical(self, '错误', f'编辑普通关卡失败: {e}')
+
+    def open_config_folder(self):
+        try:
+            self.current_server = self.server_combo.currentData()
+            if not self.current_server:
+                QMessageBox.warning(self, '警告', '请先选择服务器')
+                return
+            cfg_dir = self.current_server.get('config_path')
+            if not cfg_dir:
+                QMessageBox.warning(self, '警告', '当前服务器没有配置路径')
+                return
+            full_path = os.path.join(os.path.dirname(__file__), cfg_dir)
+            if not os.path.exists(full_path):
+                QMessageBox.warning(self, '警告', f'配置目录不存在: {full_path}')
+                return
+            if platform.system() == 'Darwin':
+                subprocess.run(['open', full_path], check=True)
+            elif platform.system() == 'Windows':
+                os.startfile(full_path)
+            else:
+                subprocess.run(['xdg-open', full_path], check=True)
+        except Exception as e:
+            QMessageBox.critical(self, '错误', f'打开配置文件夹失败: {e}')
 
     def open_normal_boss_order_editor(self):
         try:

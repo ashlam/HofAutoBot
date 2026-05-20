@@ -576,10 +576,17 @@ class BossActionEditor(QMainWindow):
             # 获取原配置
             config = self.action_config[old_action_id].copy()
             
-            # 保留非角色选择的动作
-            actions = [action for action in config['actions'] 
-                      if action['trigger_type'] != 'check_box_select_character']
-            
+            # 保留非角色选择且非开始战斗的动作
+            actions = [action for action in config['actions']
+                      if action['trigger_type'] not in ('check_box_select_character', 'click_button_start_battle')]
+
+            # 提取原有的 click_button_start_battle（保留其 value）
+            start_battle_action = None
+            for action in config['actions']:
+                if action['trigger_type'] == 'click_button_start_battle':
+                    start_battle_action = action
+                    break
+
             # 添加新的角色选择动作
             for char in selected_chars:
                 actions.append({
@@ -587,7 +594,11 @@ class BossActionEditor(QMainWindow):
                     "value": f"char_{char['udid']}",
                     '_memo': f"{char['name']} L{char['level']} {char['job_name']}"
                 })
-            
+
+            # 开始战斗动作始终放在最后
+            if start_battle_action:
+                actions.append(start_battle_action)
+
             # 创建新配置
             new_config = {
                 action_id: {
