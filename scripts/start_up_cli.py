@@ -7,6 +7,7 @@ import json
 import argparse
 import time
 import signal
+import threading
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -18,6 +19,7 @@ from scripts.account_config_reader import get_account_config
 
 _GLOBAL_DRIVER = None
 _GLOBAL_BOT = None
+_GLOBAL_RUNNER = None
 
 def _pid_path(p):
     if not p:
@@ -58,8 +60,75 @@ def _remove_pid_file(pid_file):
     except Exception:
         pass
 
+class CLIBotRunner:
+    """CLI 交互控制器：支持暂停/恢复/重载配置/停止"""
+
+    def __init__(self, bot):
+        self.bot = bot
+        self.paused = threading.Event()
+        self.stopped = threading.Event()
+        self.input_thread = threading.Thread(target=self._input_loop, daemon=True)
+
+    def _input_loop(self):
+        while not self.stopped.is_set():
+            try:
+                cmd = sys.stdin.readline().strip().lower()
+            except EOFError:
+                break
+            if not cmd:
+                continue
+            if cmd in ('p', 'pause'):
+                self.paused.set()
+                print('[CLI] 已暂停（当前操作完成后生效）')
+            elif cmd in ('r', 'resume'):
+                if self.paused.is_set():
+                    self.paused.clear()
+                    try:
+                        self.bot.reload_configs()
+                        print('[CLI] 已恢复，配置已重载')
+                    except Exception as e:
+                        print(f'[CLI] 恢复成功，但重载配置失败: {e}')
+                else:
+                    print('[CLI] 当前未暂停')
+            elif cmd in ('c', 'config'):
+                try:
+                    self.bot.reload_configs()
+                    print('[CLI] 配置已重载')
+                except Exception as e:
+                    print(f'[CLI] 重载配置失败: {e}')
+            elif cmd in ('s', 'status'):
+                state_name = getattr(self.bot, 'current_state_str', None) or '未知'
+                print(f'[CLI] 当前状态: {state_name}')
+            elif cmd in ('q', 'quit'):
+                print('[CLI] 正在停止...')
+                self.stop()
+            elif cmd in ('h', 'help'):
+                print('[CLI] 命令: p=暂停, r=恢复, c=重载配置, s=状态, q=退出, h=帮助')
+            else:
+                print(f'[CLI] 未知命令: {cmd}，输入 h 查看帮助')
+
+    def run(self):
+        print('[CLI] 输入命令: p=暂停, r=恢复, c=重载配置, s=状态, q=退出, h=帮助')
+        self.input_thread.start()
+        while not self.stopped.is_set() and not self.bot.is_finished:
+            if self.paused.is_set():
+                time.sleep(0.5)
+                continue
+            self.bot.run_once()
+
+    def stop(self):
+        self.stopped.set()
+        if self.bot:
+            self.bot.is_finished = True
+
+
 def _handle_signal(signum, frame):
     try:
+        if _GLOBAL_RUNNER:
+            try:
+                _GLOBAL_RUNNER.stop()
+            except Exception:
+                pass
         if _GLOBAL_BOT:
             try:
                 _GLOBAL_BOT.cleanup()
@@ -133,9 +202,12 @@ def _login_and_start(server, headless=True, refresh_max=None, refresh_interval=N
             bot = HofAutoBot()
             globals()["_GLOBAL_BOT"] = bot
             bot.initialize_with_driver(server["id"], driver)
+            runner = CLIBotRunner(bot)
+            globals()["_GLOBAL_RUNNER"] = runner
             try:
-                bot.run()
+                runner.run()
             except KeyboardInterrupt:
+                runner.stop()
                 bot.cleanup()
             return 0
         return 1
@@ -164,9 +236,12 @@ def _login_and_start(server, headless=True, refresh_max=None, refresh_interval=N
             bot = HofAutoBot()
             globals()["_GLOBAL_BOT"] = bot
             bot.initialize_with_driver(server["id"], driver)
+            runner = CLIBotRunner(bot)
+            globals()["_GLOBAL_RUNNER"] = runner
             try:
-                bot.run()
+                runner.run()
             except KeyboardInterrupt:
+                runner.stop()
                 bot.cleanup()
             return 0
         print("登录后仍检测到验证码元素，登录可能失败")
