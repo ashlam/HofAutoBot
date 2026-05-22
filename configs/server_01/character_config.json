@@ -84,7 +84,7 @@
             "job": "212",
             "udid": "1341059931760690",
             "base": "32",
-            "equipment": "武器:真-戊<br>副手:<br>　甲:+4 神聖長袍<br>道具:強化魔法指環<br>徽記:命運印記<br>卡片:<br>",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_268.gif",
             "local_img": ""
         },
@@ -150,7 +150,7 @@
             "job": "115",
             "udid": "1341630210237732",
             "base": "39",
-            "equipment": "武器:+4 香蕉劍<br>副手:+4 黑鐵盾<br>　甲:+4 英魂甲冑<br>道具:<br>徽記:<br>卡片:魔劍使男造型卡(一)<br>",
+            "equipment": "武器:+4 真-雙重十手<br>副手:小刀<br>　甲:+4 遺留的機械凱<br>道具:+3 狂暴指環<br>徽記:上將護符<br>卡片:魔劍使男造型卡(一)<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n115mb_01.gif",
             "local_img": ""
         },
@@ -161,8 +161,8 @@
             "job": "115",
             "udid": "1341630218346977",
             "base": "40",
-            "equipment": "武器:+4 蕉匕首<br>副手:+4 木盾<br>　甲:+4 戰鬥軍甲<br>道具:+4 心眼指環<br>徽記:聖誕號角(小)<br>卡片:<br>",
-            "img_url": "https://pim0110.com/hall/image/char/mon_n115w.gif",
+            "equipment": "武器:+4 蕉匕首<br>副手:+4 木盾<br>　甲:+4 戰鬥軍甲<br>道具:+4 心眼指環<br>徽記:聖誕號角(小)<br>卡片:萊姆(冰怒)卡<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_027r.gif",
             "local_img": ""
         },
         {
@@ -271,7 +271,7 @@
             "job": "215",
             "udid": "1352373790243592",
             "base": "28",
-            "equipment": "武器:真-戊<br>副手:<br>　甲:+4 王者外套<br>道具:速度指環<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:真-戊<br>副手:<br>　甲:+4 王者外套<br>道具:速度指環<br>徽記:元帥號角<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n268w.gif",
             "local_img": ""
         },
@@ -282,7 +282,7 @@
             "job": "311",
             "udid": "1352373797914489",
             "base": "38",
-            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉汗衫<br>道具:狂暴指環<br>徽記:命運印記<br>卡片:遠粽卡<br>",
+            "equipment": "武器:棒<br>副手:咒語日記<br>　甲:棉汗衫<br>道具:狂暴指環<br>徽記:命運印記<br>卡片:遠粽卡<br>",
             "img_url": "https://pim0110.com/hall/image/char/special_day_Dumplings2.gif",
             "local_img": ""
         },
@@ -458,7 +458,7 @@
             "job": "414",
             "udid": "1377693084376417",
             "base": "9",
-            "equipment": "武器:短弓<br>副手:<br>　甲:+4 靈感外袍<br>道具:+7 魔法指環<br>徽記:元帥號角<br>卡片:魔化玉兔<br>",
+            "equipment": "武器:短弓<br>副手:<br>　甲:+6 王者外套<br>道具:+7 魔法指環<br>徽記:惡魔寶珠<br>卡片:魔化玉兔<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_111r.gif",
             "local_img": ""
         },
@@ -590,7 +590,7 @@
             "job": "112",
             "udid": "1404181747086695",
             "base": "1",
-            "equipment": "武器:香蕉劍<br>副手:木盾<br>　甲:+4 靈感外袍<br>道具:心眼指環<br>徽記:上將護符<br>卡片:遠粽卡<br>",
+            "equipment": "武器:香蕉劍<br>副手:木盾<br>　甲:棉汗衫<br>道具:心眼指環<br>徽記:上將護符<br>卡片:遠粽卡<br>",
             "img_url": "https://pim0110.com/hall/image/char/special_day_Dumplings2.gif",
             "local_img": ""
         },
@@ -645,7 +645,7 @@
             "job": "216",
             "udid": "1449724926506198",
             "base": "1",
-            "equipment": "武器:棒<br>副手:+4 咒語字典<br>　甲:+4 神聖長袍<br>道具:雷王結晶<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:棒<br>副手:+4 忍術密傳<br>　甲:+4 龍袍<br>道具:心眼指環<br>徽記:上將護符<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/job_216w.png",
             "local_img": ""
         },
@@ -678,7 +678,7 @@
             "job": "312",
             "udid": "1481077275840089",
             "base": "1",
-            "equipment": "武器:棒<br>副手:+4 咒語字典<br>　甲:棉汗衫<br>道具:狂暴指環<br>徽記:<br>卡片:遠粽卡<br>",
+            "equipment": "武器:棒<br>副手:咒語日記<br>　甲:棉汗衫<br>道具:狂暴指環<br>徽記:美味蟹堡<br>卡片:遠粽卡<br>",
             "img_url": "https://pim0110.com/hall/image/char/special_day_Dumplings2.gif",
             "local_img": ""
         },
@@ -766,7 +766,7 @@
             "job": "414",
             "udid": "1517478959596851",
             "base": "1",
-            "equipment": "武器:短弓<br>副手:<br>　甲:+7 靈感外袍<br>道具:未爆的大華輪<br>徽記:惡魔寶珠<br>卡片:魔化玉兔<br>",
+            "equipment": "武器:短弓<br>副手:<br>　甲:+4 王者外套<br>道具:心眼指環<br>徽記:惡魔寶珠<br>卡片:魔化玉兔<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_111r.gif",
             "local_img": ""
         },
@@ -937,13 +937,13 @@
         },
         {
             "name": "狗头人候补No.5",
-            "job_name": "戰士",
+            "job_name": "聖堂武士",
             "level": "60",
-            "job": "100",
+            "job": "111",
             "udid": "1749449402164756",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
-            "img_url": "https://pim0110.com/hall/image/char/mon_080r.gif",
+            "equipment": "武器:短劍<br>副手:末日典籍<br>　甲:終焉重甲<br>道具:+4 心眼指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_241r.gif",
             "local_img": ""
         },
         {
@@ -992,13 +992,13 @@
         },
         {
             "name": "狗头人候补No.1",
-            "job_name": "牧師",
+            "job_name": "武僧",
             "level": "60",
-            "job": "300",
+            "job": "314",
             "udid": "1754016647836312",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
-            "img_url": "https://pim0110.com/hall/image/char/mon_213.gif",
+            "equipment": "武器:棒<br>副手:<br>　甲:+4 神聖長袍<br>道具:心眼指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_n214m.gif",
             "local_img": ""
         },
         {
@@ -1036,13 +1036,13 @@
         },
         {
             "name": "狗头人候补No.X",
-            "job_name": "牧師",
+            "job_name": "武僧",
             "level": "60",
-            "job": "300",
+            "job": "314",
             "udid": "1757503421767840",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
-            "img_url": "https://pim0110.com/hall/image/char/mon_213.gif",
+            "equipment": "武器:棒<br>副手:<br>　甲:+7 靈感外袍<br>道具:狂暴指環<br>徽記:上將護符<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_n214m.gif",
             "local_img": ""
         },
         {
@@ -1058,13 +1058,13 @@
         },
         {
             "name": "狗头人候补No.V",
-            "job_name": "獵人",
+            "job_name": "神獸師",
             "level": "60",
-            "job": "400",
+            "job": "412",
             "udid": "1764830885522153",
             "base": "1",
-            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
-            "img_url": "https://pim0110.com/hall/image/char/mon_219r.gif",
+            "equipment": "武器:馴獸鞭<br>副手:<br>　甲:棉汗衫<br>道具:幸運指環<br>徽記:<br>卡片:神獸師女造型卡(一)<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_n412w_a_d.gif",
             "local_img": ""
         },
         {
@@ -1092,7 +1092,7 @@
         {
             "name": "狗头人候补No.S",
             "job_name": "巫師",
-            "level": "20",
+            "level": "60",
             "job": "200",
             "udid": "1769074476105089",
             "base": "1",
@@ -1102,12 +1102,67 @@
         },
         {
             "name": "狗头人候补No.R",
-            "job_name": "女祭司",
+            "job_name": "德魯伊",
             "level": "20",
-            "job": "300",
+            "job": "302",
             "udid": "1769074485880581",
             "base": "1",
-            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉長袍<br>道具:生命指環<br>徽記:<br>卡片:<br>",
+            "equipment": "武器:棒<br>副手:咒語字典<br>　甲:棉汗衫<br>道具:心眼指環<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_214rz.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.Q",
+            "job_name": "戰士",
+            "level": "20",
+            "job": "100",
+            "udid": "1773829410943007",
+            "base": "1",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_080r.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.P",
+            "job_name": "獵人",
+            "level": "60",
+            "job": "400",
+            "udid": "1774333440464410",
+            "base": "1",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_219r.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.O",
+            "job_name": "獵人",
+            "level": "60",
+            "job": "400",
+            "udid": "1776065146131528",
+            "base": "1",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_219r.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.N",
+            "job_name": "戰士",
+            "level": "60",
+            "job": "100",
+            "udid": "1777012729519091",
+            "base": "1",
+            "equipment": "武器:<br>副手:<br>　甲:<br>道具:<br>徽記:<br>卡片:<br>",
+            "img_url": "https://pim0110.com/hall/image/char/mon_079.gif",
+            "local_img": ""
+        },
+        {
+            "name": "狗头人候补No.M",
+            "job_name": "女祭司",
+            "level": "57",
+            "job": "300",
+            "udid": "1778126128905260",
+            "base": "1",
+            "equipment": "武器:棒<br>副手:<br>　甲:神聖長袍<br>道具:龍珠<br>徽記:<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_214.gif",
             "local_img": ""
         }
