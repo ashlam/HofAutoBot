@@ -41,4 +41,8 @@ ENV/
 config/*.json
 !config/default_tags.json
 *.log
-.DS_Store 
+.DS_Store
+
+# Runtime artifacts
+hof_auto_bot.pid
+hof_auto_bot_server_*.pid

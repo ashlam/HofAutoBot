@@ -8,6 +8,7 @@ import argparse
 import time
 import signal
 import threading
+import glob
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -21,9 +22,10 @@ _GLOBAL_DRIVER = None
 _GLOBAL_BOT = None
 _GLOBAL_RUNNER = None
 
-def _pid_path(p):
+def _pid_path(p, server_id=None):
     if not p:
-        return os.path.join(os.path.dirname(__file__), "..", "hof_auto_bot.pid")
+        name = f"hof_auto_bot_server_{server_id}.pid" if server_id is not None else "hof_auto_bot.pid"
+        return os.path.join(os.path.dirname(__file__), "..", name)
     if os.path.isabs(p):
         return p
     return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", p))
@@ -267,9 +269,9 @@ def main():
             "  指定 Tesseract 路径:\n"
             "    python -m scripts.start_up_cli --server-id 2 --tesseract-path /usr/local/bin/tesseract\n"
             "  查看进程状态:\n"
-            "    python -m scripts.start_up_cli --status --pid-file hof_auto_bot.pid\n"
+            "    python -m scripts.start_up_cli --status --server-id 2\n"
             "  停止正在运行的进程:\n"
-            "    python -m scripts.start_up_cli --stop --pid-file hof_auto_bot.pid\n"
+            "    python -m scripts.start_up_cli --stop --server-id 2\n"
         )
     )
     p.add_argument("--server-id", type=int, help="服务器编号（如 1 或 2）；与 --server-name 二选一")
@@ -279,35 +281,82 @@ def main():
     p.add_argument("--refresh-interval", type=float, help="验证码刷新间隔秒数；未提供则从 server_address.json 读取")
     p.add_argument("--map-file", default=os.path.join(os.path.dirname(__file__), "..", "configs", "captcha_map.json"), help="验证码映射表路径")
     p.add_argument("--tesseract-path", help="Tesseract 可执行路径（如 /usr/local/bin/tesseract）")
-    p.add_argument("--pid-file", help="PID 文件路径（默认项目根目录 hof_auto_bot.pid）")
+    p.add_argument("--pid-file", help="PID 文件路径（默认按 server-id 自动命名为 hof_auto_bot_server_{id}.pid）")
     p.add_argument("--status", action="store_true", help="查看运行状态")
     p.add_argument("--stop", action="store_true", help="停止正在运行的进程")
     args = p.parse_args()
     signal.signal(signal.SIGINT, _handle_signal)
     signal.signal(signal.SIGTERM, _handle_signal)
-    pid_file = _pid_path(args.pid_file)
-    os.environ["HOF_PID_FILE"] = pid_file
-    if args.status:
-        pid = _read_pid(pid_file)
-        if pid and _process_exists(pid):
-            print(f"运行中: PID={pid}")
-        else:
-            print("未运行或PID文件不存在")
-        return
-    if args.stop:
-        pid = _read_pid(pid_file)
-        if pid and _process_exists(pid):
-            try:
-                os.kill(pid, signal.SIGTERM)
-                print(f"已发送停止信号到 PID={pid}")
-            except Exception as e:
-                print(f"停止失败: {e}")
-        else:
-            print("未找到有效运行进程")
-        return
+
+    if args.status or args.stop:
+        if args.pid_file:
+            pid_file = _pid_path(args.pid_file)
+            os.environ["HOF_PID_FILE"] = pid_file
+            if args.status:
+                pid = _read_pid(pid_file)
+                if pid and _process_exists(pid):
+                    print(f"运行中: PID={pid}")
+                else:
+                    print("未运行或PID文件不存在")
+                return
+            if args.stop:
+                pid = _read_pid(pid_file)
+                if pid and _process_exists(pid):
+                    try:
+                        os.kill(pid, signal.SIGTERM)
+                        print(f"已发送停止信号到 PID={pid}")
+                    except Exception as e:
+                        print(f"停止失败: {e}")
+                else:
+                    print("未找到有效运行进程")
+                return
+
+        if args.status and args.server_id is None and not args.server_name:
+            root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+            pattern = os.path.join(root_dir, "hof_auto_bot_server_*.pid")
+            found_any = False
+            for path in sorted(glob.glob(pattern)):
+                basename = os.path.basename(path)
+                sid = basename[len("hof_auto_bot_server_"):-len(".pid")]
+                pid = _read_pid(path)
+                if pid and _process_exists(pid):
+                    print(f"pid({pid})  server_id({sid})")
+                    found_any = True
+            if not found_any:
+                print("当前没有正在运行的进程")
+            return
+
+        server = _load_server(server_id=args.server_id, server_name=args.server_name)
+        if not server or (args.server_id is None and not args.server_name):
+            print("请通过 --server-id 或 --server-name 指定要操作的服务器，或使用 --pid-file 指定 PID 文件")
+            return
+        pid_file = _pid_path(None, server_id=server["id"])
+        os.environ["HOF_PID_FILE"] = pid_file
+        if args.status:
+            pid = _read_pid(pid_file)
+            if pid and _process_exists(pid):
+                print(f"pid({pid})  server_id({server['id']})")
+            else:
+                print("未运行或PID文件不存在")
+            return
+        if args.stop:
+            pid = _read_pid(pid_file)
+            if pid and _process_exists(pid):
+                try:
+                    os.kill(pid, signal.SIGTERM)
+                    print(f"已发送停止信号到 PID={pid}")
+                except Exception as e:
+                    print(f"停止失败: {e}")
+            else:
+                print("未找到有效运行进程")
+            return
+
     server = _load_server(server_id=args.server_id, server_name=args.server_name)
     if not server:
         print("未找到服务器配置")
+        return
+    pid_file = _pid_path(args.pid_file, server_id=server["id"])
+    os.environ["HOF_PID_FILE"] = pid_file
     headless = not args.no_headless
     _write_pid(pid_file)
     rc = _login_and_start(server, headless=headless, refresh_max=args.refresh_max, refresh_interval=args.refresh_interval, map_file=args.map_file, tesseract_path=args.tesseract_path)
