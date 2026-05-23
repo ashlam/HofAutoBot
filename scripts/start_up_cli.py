@@ -169,8 +169,15 @@ def _open_driver(headless=True):
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--window-size=1280,900")
+    chrome_bin = os.environ.get("CHROME_BIN")
+    if chrome_bin and os.path.exists(chrome_bin):
+        options.binary_location = chrome_bin
     os.environ.setdefault("WDM_LOCAL", "1")
-    service = Service(ChromeDriverManager().install())
+    driver_path = os.environ.get("CHROMEDRIVER_PATH")
+    if driver_path and os.path.exists(driver_path):
+        service = Service(driver_path)
+    else:
+        service = Service(ChromeDriverManager().install())
     return Chrome(service=service, options=options)
 
 def _login_and_start(server, headless=True, refresh_max=None, refresh_interval=None, map_file=None, tesseract_path=None):
