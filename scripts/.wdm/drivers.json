@@ -1,6 +1,6 @@
 {
-    "mac64_chromedriver_144.0.7559.109_for_144.0.7559": {
-        "timestamp": "02/02/2026",
-        "binary_path": "/Users/wenguanggu/MyProjects/Python/HofAutoBot2/scripts/.wdm/drivers/chromedriver/mac64/144.0.7559.109/chromedriver-mac-x64/chromedriver"
+    "win64_chromedriver_126.0.6478.182_for_126.0.6478": {
+        "timestamp": "23/06/2026",
+        "binary_path": "E:\\MyProjects\\Other\\Docker\\hof-cli-bot\\HofAutoBot\\scripts\\.wdm\\drivers\\chromedriver\\win64\\126.0.6478.182\\chromedriver-win64/chromedriver.exe"
     }
 }

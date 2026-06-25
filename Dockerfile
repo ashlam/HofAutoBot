@@ -1,4 +1,4 @@
-FROM python:3.9-slim-bookworm
+FROM docker.m.daocloud.io/library/python:3.9-slim-bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
@@ -9,7 +9,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         chromium \
-        chromium-driver \
         tesseract-ocr \
         tesseract-ocr-eng \
         fonts-liberation \
@@ -24,7 +23,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ENV TESSERACT_PATH=/usr/bin/tesseract \
     CHROME_BIN=/usr/bin/chromium \
-    CHROMEDRIVER_PATH=/usr/bin/chromedriver \
     WDM_LOCAL=1
 
 WORKDIR /app

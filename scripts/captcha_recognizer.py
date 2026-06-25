@@ -16,7 +16,17 @@ def _ensure_tesseract_path():
     if env_path and os.path.exists(env_path):
         pytesseract.pytesseract.tesseract_cmd = env_path
         return True
-    common = ["/opt/homebrew/bin/tesseract", "/usr/local/bin/tesseract", "/usr/bin/tesseract"]
+    common = [
+        "/opt/homebrew/bin/tesseract",
+        "/usr/local/bin/tesseract",
+        "/usr/bin/tesseract",
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+        r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+    ]
+    # 尝试从用户目录下的常见安装位置自动发现
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        common.append(os.path.join(local_app_data, "Programs", "Tesseract-OCR", "tesseract.exe"))
     for p in common:
         if os.path.exists(p):
             pytesseract.pytesseract.tesseract_cmd = p

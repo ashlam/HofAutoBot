@@ -7,7 +7,7 @@ class AutoBotConfigManager:
         self.config = self._load_config()
 
     def _load_config(self) -> Dict:
-        with open(self.config_path, 'r') as f:
+        with open(self.config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
 
     @property

@@ -1,28 +1,11 @@
 from abc import ABC, abstractmethod
 import json
+import logging
 from selenium.webdriver.common.by import By
 import time
 from datetime import datetime
 from scripts.advanced_element_finder import AdvancedElementFinderFactory
 from scripts.log_manager import LogManager
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-import json
-import logging
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-options = Options()
-options.add_argument('--headless')  # 无头模式
-options.add_argument('--disable-gpu')
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-extensions')
-options.add_argument('--disable-images')  # 可用插件或自定义profile关闭图片加载
-options.add_argument('--disable-dev-shm-usage')
-options.add_argument('--window-size=1920,1080')
-
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options)
 
 class AdvancedActionExecutor(ABC):
     def __init__(self):
