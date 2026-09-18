@@ -676,11 +676,6 @@
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1341490339532287",
-        "_memo": "小点点 L60 變形者"
-      },
-      {
-        "trigger_type": "check_box_select_character",
         "value": "char_1395921567796858",
         "_memo": "小七七 L60 護聖使"
       },
@@ -688,6 +683,11 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1423637654521611",
         "_memo": "小团团 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1593743352976581",
+        "_memo": "末日狗头人GREEN L60 變形者"
       },
       {
         "trigger_type": "check_box_select_character",
