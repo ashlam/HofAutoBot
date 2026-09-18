@@ -662,6 +662,54 @@
       }
     ]
   },
+  "600230": {
+    "name": "一服过往",
+    "note": "旋风底子改的",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1341490339532287",
+        "_memo": "小点点 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1395921567796858",
+        "_memo": "小七七 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1423637654521611",
+        "_memo": "小团团 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1593743352976581",
+        "_memo": "末日狗头人GREEN L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1757503353177035",
+        "_memo": "狗头人候补No.Z L60 牧師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1767669676055365",
+        "_memo": "狗头人候补No.T L60 絡印勇士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
   "600250": {
     "name": "一服过往",
     "note": "粽子团",
