@@ -28,6 +28,10 @@
       "kill_cooldown_seconds": 14400
     },
     {
+      "union_id": 23,
+      "plan_action_id": 800230
+    },
+    {
       "union_id": 26,
       "plan_action_id": 800260
     },

@@ -21,47 +21,6 @@
       }
     ]
   },
-  "2": {
-    "name": "限时普通战斗",
-    "note": "幻界、圣诞等在每小时最后10分钟开放的限时关卡",
-    "note_1": "Asianata = 幻界, Christmas = 北极",
-    "actions": [
-      {
-        "trigger_type": "click_main_menu",
-        "value": "hunt"
-      },
-      {
-        "trigger_type": "click_sub_menu_stage",
-        "value": "common=Christmas"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "monster_battle"
-      }
-    ]
-  },
-  "5": {
-    "name": "城镇->世界竞技场->战斗",
-    "note": "从城镇界面进入世界竞技场并战斗一次",
-    "actions": [
-      {
-        "trigger_type": "click_main_menu",
-        "value": "town"
-      },
-      {
-        "trigger_type": "click_main_menu_for_town",
-        "value": "town"
-      },
-      {
-        "trigger_type": "click_sub_menu_stage",
-        "value": "menu=WorldRank"
-      },
-      {
-        "trigger_type": "click_button_start_battle",
-        "value": "ChallengeRank"
-      }
-    ]
-  },
   "12": {
     "name": "限时圣诞关卡，并设定指定角色",
     "note": "幻界、圣诞等在每小时最后10分钟开放的限时关卡",
@@ -107,6 +66,47 @@
       {
         "trigger_type": "click_button_start_battle",
         "value": "monster_battle"
+      }
+    ]
+  },
+  "2": {
+    "name": "限时普通战斗",
+    "note": "幻界、圣诞等在每小时最后10分钟开放的限时关卡",
+    "note_1": "Asianata = 幻界, Christmas = 北极",
+    "actions": [
+      {
+        "trigger_type": "click_main_menu",
+        "value": "hunt"
+      },
+      {
+        "trigger_type": "click_sub_menu_stage",
+        "value": "common=Christmas"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "monster_battle"
+      }
+    ]
+  },
+  "5": {
+    "name": "城镇->世界竞技场->战斗",
+    "note": "从城镇界面进入世界竞技场并战斗一次",
+    "actions": [
+      {
+        "trigger_type": "click_main_menu",
+        "value": "town"
+      },
+      {
+        "trigger_type": "click_main_menu_for_town",
+        "value": "town"
+      },
+      {
+        "trigger_type": "click_sub_menu_stage",
+        "value": "menu=WorldRank"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "ChallengeRank"
       }
     ]
   },
@@ -432,6 +432,49 @@
         "trigger_type": "check_box_select_character",
         "value": "char_1397984500849674",
         "_memo": "炮灰菜鳥 L60 狂戰士"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
+  "800230": {
+    "name": "二服过往",
+    "note": "猎血",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1352810957852085",
+        "_memo": "爲你而戰我的女士 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1366296154839035",
+        "_memo": "治癒兔 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1400662064251555",
+        "_memo": "靈妖 L60 變形者"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1747625201700430",
+        "_memo": "N. L60 戰士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1753200873286742",
+        "_memo": "T. L60 牧師"
       },
       {
         "trigger_type": "click_button_start_battle",
