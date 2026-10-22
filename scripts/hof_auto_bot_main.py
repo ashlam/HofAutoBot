@@ -252,7 +252,7 @@ class HofAutoBot:
 
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
-        self.action_manager = AdvancedActionManager()
+        self.action_manager = AdvancedActionManager(server_id=server_id)
         self.boss_battle_manager = BossBattleManager()
         self.boss_battle_manager.set_server_id(server_id)
         log_path = os.path.join(os.path.dirname(__file__), '..', 'logs', f'log_server_{current_server_data.get("id")}.txt')
@@ -349,7 +349,7 @@ class HofAutoBot:
 
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.battle_watcher_manager = BattleWatcherManager()
-        self.action_manager = AdvancedActionManager()
+        self.action_manager = AdvancedActionManager(server_id=selected_server_id)
         self.boss_battle_manager = BossBattleManager()
         self.boss_battle_manager.set_server_id(selected_server_id)
         self.current_state = StateFactory.create_prepare_boss_state(self)
