@@ -4,12 +4,14 @@ import json
 import os
 import time
 from datetime import datetime, timedelta
+from scripts.log_manager import LogManager
 
 class BattleWatcherManager:
     def __init__(self):
         self.config_path = os.path.join(os.path.dirname(__file__), '..', 'configs', 'boss_config.json')
         self.cooldown_total_seconds = None
         self.alived_boss_ids = []
+        self.logger = LogManager.get_instance()
 
     def get_boss_info(self, union_id):
         """从boss_config.json中获取指定union_id的boss信息"""
@@ -22,7 +24,7 @@ class BattleWatcherManager:
                     return boss
             return None
         except Exception as e:
-            print(f'获取boss信息失败: {str(e)}')
+            self.logger.error(f'获取boss信息失败: {str(e)}')
             return None
 
 
@@ -45,7 +47,7 @@ class BattleWatcherManager:
                 'future_unixtime': int(future_time.timestamp() * 1000000)
             }
         except Exception as e:
-            print(f'处理时间戳失败: {str(e)}')
+            self.logger.error(f'处理时间戳失败: {str(e)}')
             return None
 
     def get_boss_next_battle_real_time(self, union_id, seconds_to_add=240, url = 'https://pim0110.com/hall?ulog'):
@@ -53,7 +55,7 @@ class BattleWatcherManager:
         def get_lastest_timestamp_from_boss_battle_log(union_id):
             """获取指定boss的最近一次战斗记录时间戳"""
             boss_info = self.get_boss_info(union_id)
-            print(f'获取{boss_info["name"]}的最近一次战斗记录时间戳')
+            self.logger.debug(f'获取{boss_info["name"]}的最近一次战斗记录时间戳')
             if not boss_info:
                 return None
             boss_name = boss_info["name"]
@@ -69,7 +71,7 @@ class BattleWatcherManager:
                         break
                     except Exception as e:
                         last_exc = e
-                        print(f'获取战斗日志失败({attempt}/{max_attempts}): {str(e)}')
+                        self.logger.warning(f'获取战斗日志失败({attempt}/{max_attempts}): {str(e)}')
                         time.sleep(backoff_sec * attempt)
                 if response is None:
                     raise last_exc if last_exc else Exception('未知错误')
@@ -87,22 +89,22 @@ class BattleWatcherManager:
                 match = re.search(timestamp_pattern, first_matched_boss_text, re.DOTALL)
                 if match:
                     matched_text =  match.group(1)
-                    print("matched_text = "+ matched_text)
+                    self.logger.debug(f'matched_text = {matched_text}')
                     return matched_text
                 else:
-                    print(f'未找到{boss_name}的最近一次战斗记录, url = {url},\n\n timestamp_pattern = {timestamp_pattern} \n\n res.content = {content}')
+                    self.logger.error(f'未找到{boss_name}的最近一次战斗记录, url = {url}, timestamp_pattern = {timestamp_pattern}')
                 return None
             except Exception as e:
-                print(f'获取战斗日志失败: {str(e)}')
+                self.logger.error(f'获取战斗日志失败: {str(e)}')
                 return None
         # 获取boss信息
         latest_timestamp_str = get_lastest_timestamp_from_boss_battle_log(union_id)
         if latest_timestamp_str:
             time_info = self.process_timestamp(latest_timestamp_str, seconds_to_add)
             if time_info:
-                print(f'>>>下次战斗时间: {time_info}')
+                self.logger.info(f'下次战斗时间: {time_info}')
                 return time_info
-        print(f'获取log -> 下次战斗时间失败, latest_timestamp_str = {latest_timestamp_str}')
+        self.logger.error(f'获取log -> 下次战斗时间失败, latest_timestamp_str = {latest_timestamp_str}')
         return None
 
     def get_player_challenge_boss_cooldown(self):
@@ -132,18 +134,18 @@ class BattleWatcherManager:
             boss_matches = re.findall(boss_regex_pattern, content_text)
 
             if boss_matches:
-                print('所有存活的boss:', boss_matches)
+                self.logger.info(f'所有存活的boss: {boss_matches}')
                 int_list = []
                 for x in boss_matches:
                     try:
                         int_list.append(int(x))
                     except ValueError:
-                        print(f"警告：'{x}' 无法转换为整数，已跳过。")
+                        self.logger.warning(f"警告：'{x}' 无法转换为整数，已跳过。")
                 self.alived_boss_ids = int_list  # 取消注释后可实际赋值
             else:
-                print('未找到存活的boss')
+                self.logger.warning('未找到存活的boss')
         except Exception as e:
-            print(f'获取所有存活的boss失败: {str(e)}')
+            self.logger.error(f'获取所有存活的boss失败: {str(e)}')
 
     def _update_player_challenge_boss_cooldown(self, content_text):
         """获取玩家挑战boss的冷却时间"""
@@ -157,12 +159,12 @@ class BattleWatcherManager:
                 # 将时间转换为秒数
                 minutes, seconds = map(int, cooldown.split(':'))
                 self.cooldown_total_seconds = minutes * 60 + seconds
-                print(f'剩余冷却时间:{cooldown}（剩余{self.cooldown_total_seconds}秒）')
+                self.logger.info(f'剩余冷却时间:{cooldown}（剩余{self.cooldown_total_seconds}秒）')
             else:
-                print('未找到冷却时间信息，说明可以打boss')
+                self.logger.info('未找到冷却时间信息，说明可以打boss')
                 self.cooldown_total_seconds = 0
         except Exception as e:
-            print(f'获取冷却时间失败: {str(e)}')
+            self.logger.error(f'获取冷却时间失败: {str(e)}')
 
     def _update_player_stamina(self, content_text):
         """获取玩家当前体力值"""
@@ -173,12 +175,12 @@ class BattleWatcherManager:
             stamina_match = re.search(stamina_pattern, content)
             if stamina_match:
                 self.stamina = int(stamina_match.group(1))  # 提取匹配的体力值并转换为整数
-                print(f'当前体力值: {self.stamina}/4000')
+                self.logger.info(f'当前体力值: {self.stamina}/4000')
             else:
-                print('未找到体力值信息，请检查登录状态和地址是否正确')
+                self.logger.warning('未找到体力值信息，请检查登录状态和地址是否正确')
                 return None
         except Exception as e:
-            print(f'获取体力值失败，请检查登录状态和地址是否正确: {str(e)}')
+            self.logger.error(f'获取体力值失败，请检查登录状态和地址是否正确: {str(e)}')
             return None
 
     def update_all_from_hunt_page(self, content_text):
@@ -204,19 +206,19 @@ class BattleWatcherManager:
             user_pattern = r'<div id="menu2">\s*<div style="width:100%">\s*<div style="width:30%;float:left">(.*?)</div>\s*<div style="width:60%;float:right">\s*<div style="width:40%;float:left"><span class="bold">資金</span>.*?<span class="bold">時間</span>'
             user_match = re.search(user_pattern, content_text, re.DOTALL)
             if not user_match:
-                print("未能匹配到当前用户名")
+                self.logger.warning('未能匹配到当前用户名')
                 # 尝试使用更宽松的匹配模式
                 backup_user_pattern = r'<div id="menu2">\s*<div[^>]*>\s*<div[^>]*>(.*?)</div>'
                 backup_user_match = re.search(backup_user_pattern, content_text, re.DOTALL)
                 if backup_user_match:
                     current_user = backup_user_match.group(1).strip()
-                    print(f"使用备用模式匹配到当前用户名: {current_user}")
+                    self.logger.info(f'使用备用模式匹配到当前用户名: {current_user}')
                 else:
-                    print("备用模式也未能匹配到当前用户名")
+                    self.logger.error('备用模式也未能匹配到当前用户名')
                     return False
             else:
                 current_user = user_match.group(1)
-            print(f"current_user: {current_user}")
+            self.logger.info(f'current_user: {current_user}')
             
             """
             <tbody><tr><td class="td6" style="text-align:center">排位</td><td class="td6" style="text-align:center">隊伍</td></tr>
@@ -232,39 +234,39 @@ class BattleWatcherManager:
             first_place_pattern = r'<div class="u">TOP 5</div>[\s\S]*?<td class="td7"[^>]*>\s*<img src="\./image/icon/crown01\.png"[^>]*></td><td class="td8">\s*([^(]+?)\s*\('
             first_place_match = re.search(first_place_pattern, content_text, re.DOTALL)
             if not first_place_match:
-                print("未能匹配到第一名用户(TOP 5特征)")
+                self.logger.warning('未能匹配到第一名用户(TOP 5特征)')
                 # 尝试使用更宽松的匹配模式
                 backup_pattern = r'<img src="\./image/icon/crown01\.png"[^>]*>[^<]*</td><td class="td8">\s*([^(]+?)\s*\('
                 backup_match = re.search(backup_pattern, content_text, re.DOTALL)
                 if backup_match:
                     first_place_user = backup_match.group(1).strip()
-                    print(f"使用备用模式匹配到第一名用户: {first_place_user}")
+                    self.logger.info(f'使用备用模式匹配到第一名用户: {first_place_user}')
                 else:
                     # 尝试最宽松的匹配模式
                     last_resort_pattern = r'crown01\.png[^<]*</td><td[^>]*>\s*([^<(]+?)\s*\('
                     last_resort_match = re.search(last_resort_pattern, content_text, re.DOTALL)
                     if last_resort_match:
                         first_place_user = last_resort_match.group(1).strip()
-                        print(f"使用最后备用模式匹配到第一名用户: {first_place_user}")
+                        self.logger.info(f'使用最后备用模式匹配到第一名用户: {first_place_user}')
                     else:
-                        print("所有备用模式都未能匹配到第一名用户")
+                        self.logger.error('所有备用模式都未能匹配到第一名用户')
                         # 打印HTML中是否包含关键特征
                         if 'crown01.png' in content_text:
-                            print("HTML中包含crown01.png图标")
+                            self.logger.debug('HTML中包含crown01.png图标')
                         if 'TOP 5' in content_text:
-                            print("HTML中包含TOP 5文本")
+                            self.logger.debug('HTML中包含TOP 5文本')
                         if 'td8' in content_text:
-                            print("HTML中包含td8类")
+                            self.logger.debug('HTML中包含td8类')
                         return False
             else:
                 first_place_user = first_place_match.group(1).strip()
             # 打印第一名用户
-            print(f"first_place_user: {first_place_user}")
+            self.logger.info(f'first_place_user: {first_place_user}')
             
             # 比较当前用户是否为第一名
             is_first = current_user == first_place_user
-            print(f"用户是否为第一名: {is_first} (当前用户: '{current_user}', 第一名: '{first_place_user}')")
+            self.logger.info(f"用户是否为第一名: {is_first} (当前用户: '{current_user}', 第一名: '{first_place_user}')")
             return is_first
         except Exception as e:
-            print(f'判断PVP第一名失败: {str(e)}')
+            self.logger.error(f'判断PVP第一名失败: {str(e)}')
             return False
