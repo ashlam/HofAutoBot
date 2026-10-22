@@ -4,7 +4,6 @@ import time
 from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
 from .base_state import BaseState
 from .state_factory import StateFactory
-from scripts.boss_battle_manager import BossBattleManager
 import random
 from datetime import datetime
 
@@ -102,8 +101,7 @@ class NormalBossState(BaseState):
         self.on_finish()
 
     def _check_is_action_level_exceed_boss_limit(self, action_id, boss_id):
-        manager = BossBattleManager()
-        # action_id = "600080"  # 一服鸟毛
-        result = manager.is_action_level_exceed_boss_limit(action_id, boss_id)  # 鳥巢
-        print(f"动作(ID:{action_id})中角色等级之和是否超过Boss(ID:8)等级限制: {result}")
+        # 复用 bot 上已 set_server_id 的 manager，否则角色/动作配置路径为None，检查会失效
+        result = self.bot.boss_battle_manager.is_action_level_exceed_boss_limit(action_id, boss_id)
+        self.log(f"动作(ID:{action_id})中角色等级之和是否超过Boss(ID:{boss_id})等级限制: {result}")
         return result

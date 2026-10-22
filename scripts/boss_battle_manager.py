@@ -137,18 +137,22 @@ class BossBattleManager:
             list: 角色ID列表
         """
         action_config = self.load_action_config()
-        if not action_config or action_id not in action_config:
+        if not action_config:
             return []
-            
+        # 动作组的key是字符串，而配置里plan_action_id可能是int，统一按字符串查找
+        action_group = action_config.get(str(action_id))
+        if not action_group:
+            return []
+
         character_ids = []
-        for action in action_config[action_id]['actions']:
+        for action in action_group['actions']:
             if action['trigger_type'] == 'check_box_select_character':
                 # 从value中提取角色ID，格式为"char_xxxxxxxxxx"
                 # 直接提取完整的ID，不需要正则表达式
                 if action['value'].startswith('char_'):
                     # 提取char_后面的部分作为角色ID
                     character_ids.append(action['value'][5:])
-                    
+
         return character_ids
     
     def is_action_level_exceed_boss_limit(self, action_id, boss_id):
