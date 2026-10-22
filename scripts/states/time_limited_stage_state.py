@@ -36,9 +36,10 @@ class TimeLimitedStageState(BaseState):
                 if not advanced_action_config:
                     self.log(f'未找到关卡 {stage.get("stage_name")} 的高级动作配置')
                     self.next_state = StateFactory.create_normal_stage_state(self.bot)
-                else:    
-                    # state_name = advanced_action_config.get('state_name')
-                    state_name = stage.get('state_name')
+                else:
+                    # 限时关卡只在开放期间才会出现在冒险页上，先确认入口存在再执行动作。
+                    # 配置里用的是 stage_name；若显式提供了 state_name 则优先使用它。
+                    state_name = stage.get('state_name') or stage.get('stage_name')
                     if state_name:
                         value = f"common={state_name}"
                         elements = self.bot.driver.find_elements('xpath', f"//a[contains(@onclick, '{value}')]")
