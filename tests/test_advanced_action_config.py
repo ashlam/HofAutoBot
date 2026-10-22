@@ -1,7 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch
-from selenium.webdriver.common.by import By
-from scripts.advanced_element_finder import AdvancedElementFinderFactory
+from unittest.mock import MagicMock
 from scripts.advanced_action_executor import AdvancedActionManager
 import json
 import os
@@ -10,130 +8,96 @@ class TestAdvancedActionConfig(unittest.TestCase):
     def setUp(self):
         self.driver = MagicMock()
         self.element = MagicMock()
-        self.driver.find_element.return_value = self.element
-        self.driver.find_elements = MagicMock()
-        
-        # 读取配置文件
+        self.driver.find_elements.return_value = [self.element]
+
+        # 读取1服配置文件
         config_path = os.path.join(os.path.dirname(__file__), '../configs/server_01/action_config_advanced.json')
         with open(config_path, 'r', encoding='utf-8') as f:
             self.config = json.load(f)
-            
-        self.action_manager = AdvancedActionManager()
+
+        self.action_manager = AdvancedActionManager(server_id=1)
 
     def test_adventure_action_group(self):
         """测试'点一次冒险->伟大航路'动作组"""
         action_group = self.config['1']
-        print(f"\n测试动作组: {action_group['name']}")
-        print(f"动作组说明: {action_group.get('note', '')}")
-        print("匹配源文件: source_code_hunt_page.htm")
-        print("动作执行顺序:")
-        
-        # 测试第一个动作：点击冒险菜单
-        action1 = action_group['actions'][0]
-        self.assertEqual(action1['trigger_type'], 'click_main_menu')
-        self.assertEqual(action1['value'], 'hunt')
-        # 设置find_elements返回值
-        self.driver.find_elements.return_value = [self.element]
-        self.action_manager.execute_action(self.driver, action1)
-        self.driver.find_elements.assert_called_with(
-            'xpath', "//a[contains(@onclick, 'hunt')]"
-        )
-        print(f"\n1. 主菜单点击动作:")
-        print(f"- 动作类型: {action1['trigger_type']}")
-        print(f"- 动作值: {action1['value']}")
-        print(f"- 匹配XPath: //a[contains(@onclick, 'hunt')]")
-        print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
-        
-        # 测试第二个动作：点击伟大航路
-        action2 = action_group['actions'][1]
-        self.assertEqual(action2['trigger_type'], 'click_sub_menu_stage')
-        self.assertEqual(action2['value'], 'common=ocean1')
-        self.action_manager.execute_action(self.driver, action2)
-        self.driver.find_elements.assert_called_with(
-            'xpath', "//a[contains(@onclick, 'common=ocean1')]"
-        )
-        print(f"\n2. 子菜单选择动作:")
-        print(f"- 动作类型: {action2['trigger_type']}")
-        print(f"- 动作值: {action2['value']}")
-        print(f"- 匹配XPath: //a[contains(@onclick, 'common=ocean1')]")
-        print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
-        
-        # 测试第三个动作：点击战斗按钮
-        action3 = action_group['actions'][2]
-        self.assertEqual(action3['trigger_type'], 'click_button_start_battle')
-        self.assertEqual(action3['value'], 'monster_battle')
-        self.action_manager.execute_action(self.driver, action3)
-        print(f"\n3. 战斗按钮点击动作:")
-        print(f"- 动作类型: {action3['trigger_type']}")
-        print(f"- 动作值: {action3['value']}")
-        print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
+        actions = action_group['actions']
+
+        # 动作顺序：进入冒险页 -> 城镇 -> 选择关卡 -> 开始战斗
+        self.assertEqual(actions[0]['trigger_type'], 'click_main_menu')
+        self.assertEqual(actions[0]['value'], 'hunt')
+        self.assertEqual(actions[1]['trigger_type'], 'click_main_menu_for_town')
+        self.assertEqual(actions[1]['value'], 'hunt')
+        self.assertEqual(actions[2]['trigger_type'], 'click_sub_menu_stage')
+        self.assertEqual(actions[2]['value'], 'common=ocean1')
+        self.assertEqual(actions[3]['trigger_type'], 'click_button_start_battle')
+        self.assertEqual(actions[3]['value'], 'monster_battle')
+
+        # 各动作实际使用的元素定位方式
+        self.action_manager.execute_action(self.driver, actions[0])
+        self.driver.find_elements.assert_called_with('xpath', "//a[contains(@onclick, 'hunt')]")
+
+        self.driver.reset_mock()
+        self.action_manager.execute_action(self.driver, actions[2])
+        self.driver.find_elements.assert_called_with('xpath', "//a[contains(@onclick, 'common=ocean1')]")
+
+        self.driver.reset_mock()
+        self.action_manager.execute_action(self.driver, actions[3])
+        self.driver.find_elements.assert_called_with('name', 'monster_battle')
 
     def test_boss_action_group(self):
-        """测试'二服炫风'动作组"""
-        action_group = self.config['800170']
-        print(f"\n测试动作组: {action_group['name']}")
-        print(f"动作组说明: {action_group.get('note', '')}")
-        print("匹配源文件: source_code_select_character_page.htm")
-        print("动作执行顺序:")
-        
-        # 测试第一个动作：点击BOSS菜单
-        action1 = action_group['actions'][0]
-        self.assertEqual(action1['trigger_type'], 'click_sub_menu_boss')
-        self.assertEqual(action1['value'], 'union=17')
-        # 设置find_elements返回值
-        self.driver.find_elements.return_value = [self.element]
-        self.action_manager.execute_action(self.driver, action1)
-        self.driver.find_elements.assert_called_with(
-            'xpath', "//a[contains(@onclick, 'union=17')]"
-        )
-        print(f"\n1. BOSS菜单点击动作:")
-        print(f"- 动作类型: {action1['trigger_type']}")
-        print(f"- 动作值: {action1['value']}")
-        print(f"- 匹配XPath: //a[contains(@onclick, 'union=17')]")
-        print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
-        
-        # 测试第二个动作：清除队伍
-        action2 = action_group['actions'][1]
-        self.assertEqual(action2['trigger_type'], 'click_button_clear_team')
-        self.action_manager.execute_action(self.driver, action2)
-        print(f"\n2. 清除队伍按钮点击动作:")
-        print(f"- 动作类型: {action2['trigger_type']}")
-        print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
-        
-        # 测试角色选择动作
-        character_actions = action_group['actions'][2:7]
-        for i, action in enumerate(character_actions, 3):
+        """测试'一服旋风'BOSS动作组"""
+        action_group = self.config['600170']
+        actions = action_group['actions']
+
+        # 动作顺序：清队 -> 选5个角色 -> 开始战斗
+        self.assertEqual(actions[0]['trigger_type'], 'click_button_clear_team')
+        self.assertEqual(actions[0]['value'], 'checkDelAll()')
+        character_actions = actions[1:-1]
+        self.assertEqual(len(character_actions), 5)
+        for action in character_actions:
             self.assertEqual(action['trigger_type'], 'check_box_select_character')
-            self.action_manager.execute_action(self.driver, action)
-            print(f"\n{i}. 角色选择动作:")
-            print(f"- 动作类型: {action['trigger_type']}")
-            print(f"- 动作值: {action['value']}")
-            print(f"- 角色描述: {action.get('_memo', '')}")
-            print(f"- 匹配NAME: {action['value']}")
-            print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
-        
-        # 测试最后一个动作：点击战斗按钮
-        action_last = action_group['actions'][-1]
-        self.assertEqual(action_last['trigger_type'], 'click_button_start_battle')
-        self.assertEqual(action_last['value'], 'union_battle')
-        self.action_manager.execute_action(self.driver, action_last)
-        print(f"\n7. 战斗按钮点击动作:")
-        print(f"- 动作类型: {action_last['trigger_type']}")
-        print(f"- 动作值: {action_last['value']}")
-        print(f"- 匹配到的元素数量: {len(self.driver.find_elements.return_value)}")
+        self.assertEqual(actions[-1]['trigger_type'], 'click_button_start_battle')
+        self.assertEqual(actions[-1]['value'], 'union_battle')
+
+        # 清队按钮的定位
+        self.action_manager.execute_action(self.driver, actions[0])
+        self.driver.find_elements.assert_called_with(
+            'xpath', '//input[@type="button"][@onclick="checkDelAll()"]'
+        )
+
+        # 角色复选框按 name 定位
+        self.driver.reset_mock()
+        self.action_manager.execute_action(self.driver, character_actions[0])
+        self.driver.find_elements.assert_called_with('name', character_actions[0]['value'])
+
+        # 战斗按钮按 name 定位
+        self.driver.reset_mock()
+        self.action_manager.execute_action(self.driver, actions[-1])
+        self.driver.find_elements.assert_called_with('name', 'union_battle')
 
     def test_execute_action_group(self):
         """测试完整动作组执行"""
-        # 设置find_elements返回值
         self.driver.find_elements.return_value = [self.element]
-        
-        # 测试冒险动作组
+
+        # 冒险动作组
         result = self.action_manager.execute_advanced_action(self.driver, self.config['1'])
         self.assertTrue(result)
-        
-        # 测试BOSS动作组
-        result = self.action_manager.execute_advanced_action(self.driver, self.config['800170'])
+
+        # BOSS动作组：命中「清队+N角色+开始战斗」模式，走单次JS注入
+        self.driver.reset_mock()
+        result = self.action_manager.execute_advanced_action(self.driver, self.config['600170'])
         self.assertTrue(result)
+        self.assertEqual(self.driver.execute_script.call_count, 1)
+        args = self.driver.execute_script.call_args[0]
+        self.assertEqual(len(args[1]), 5, "应把5个角色ID传给批量脚本")
+        self.assertEqual(args[2], 'union_battle')
+
+    def test_batch_path_avoids_individual_selenium_calls(self):
+        """BOSS批量战应只注入一次JS，而不是逐个点击"""
+        self.driver.find_elements.return_value = [self.element]
+        self.action_manager.execute_advanced_action(self.driver, self.config['600170'])
+        # 批量路径下不应再单独调用 find_elements
+        self.assertEqual(self.driver.find_elements.call_count, 0)
 
 if __name__ == '__main__':
     unittest.main()

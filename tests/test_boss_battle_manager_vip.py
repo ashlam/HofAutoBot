@@ -50,9 +50,8 @@ def test_get_next_vip_boss():
         assert result is not None, "get_next_vip_boss返回了None"
         assert 'future_unixtime' in result, "结果中缺少future_unixtime字段"
         assert result['future_unixtime'] == 1672578000000000, "future_unixtime值不正确"
-        
+
         print("测试通过！")
-        return True
     finally:
         # 恢复原始方法
         battle_watcher_manager.get_boss_next_battle_real_time = original_method
