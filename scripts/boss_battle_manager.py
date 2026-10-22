@@ -24,6 +24,26 @@ class BossBattleManager:
         self.action_config_path = os.path.join(self.base_path, 'configs', server_folder, 'action_config_advanced.json')
         self.boss_config_path = os.path.join(self.base_path, 'configs', 'boss_config.json')
         
+    def _get_server_url(self):
+        """
+        根据server_id从server_address.json中获取当前服务器的URL
+        
+        Returns:
+            str: 服务器URL，无法确定时返回None
+        """
+        if self.server_id is None:
+            return None
+        server_address_path = os.path.join(self.base_path, 'configs', 'server_address.json')
+        try:
+            with open(server_address_path, 'r', encoding='utf-8') as f:
+                server_config = json.load(f)
+            server = next((s for s in server_config.get('server_address', [])
+                           if int(s.get('id')) == int(self.server_id)), None)
+            return server.get('url') if server else None
+        except Exception as e:
+            print(f'获取服务器URL失败: {str(e)}')
+            return None
+
     def load_boss_config(self):
         """
         加载Boss配置信息
@@ -178,11 +198,12 @@ class BossBattleManager:
         Returns:
             dict: 包含下次战斗时间信息的字典，如果获取失败则返回None
         """
-        # 从vip_boss_dict中获取服务器URL
-        server_url = vip_boss_dict.get('server_url')
+        # 从vip_boss_dict中获取服务器URL；没有则回退到manager自己所属服务器
+        # （vip_boss_need_watch配置里没有server_url字段）
+        server_url = vip_boss_dict.get('server_url') or self._get_server_url()
         if not server_url:
-            # 如果vip_boss_dict中没有server_url，则需要从外部传入
-            print(f'警告：vip_boss_dict中未包含server_url，请确保在调用时提供正确的URL')
+            # 既没有显式指定，也无法确定当前服务器，则无法构造战报URL
+            print(f'警告：vip_boss_dict中未包含server_url，且无法确定当前服务器(id={self.server_id})，请确保在调用时提供正确的URL')
             return None
             
         boss_log_url = f"{server_url}?ulog"

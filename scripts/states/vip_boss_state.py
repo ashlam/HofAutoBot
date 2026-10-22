@@ -105,6 +105,8 @@ class VipBossState(BaseState):
     def _get_next_vip_boss(self, vip_boss_dict: Dict, union_id):
         # 使用BossBattleManager的get_next_vip_boss方法
         # 为vip_boss_dict添加server_url
+        # 注意：这里要复制一份再添加，避免就地修改 auto_bot_config_manager 里共享的配置字典
+        vip_boss_dict = dict(vip_boss_dict)
         vip_boss_dict['server_url'] = self.bot.server_config_manager.current_server_data['url']
         next_battle_info = self.bot.boss_battle_manager.get_next_vip_boss(vip_boss_dict, union_id, self.bot.battle_watcher_manager)
         return next_battle_info
