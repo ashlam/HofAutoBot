@@ -41,21 +41,54 @@ class NormalBossState(BaseState):
                     self.log(f'下一个vip boss是{next_vip_union_id}')
                     next_spawn_timestamp = next_vip_boss_battle_info['future_unixtime']
                     next_spawn_time = datetime.fromtimestamp(next_spawn_timestamp / 1000000)
-                    time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
+                    # 战报时间戳是服务器时钟，本地时钟的快慢要扣掉
+                    clock_offset = getattr(self.bot, 'server_clock_offset', 0.0) or 0.0
+                    time_until_spawn = (next_spawn_time - datetime.now()).total_seconds() - clock_offset
                     next_vip_spawn_seconds = int(time_until_spawn)
                     break
+            # 打一个普通boss要锁掉整整一个挑战冷却：如果冷却结束不了就要到 VIP 刷新了，
+            # 这一把就不该打，否则等于把刷新点正好错过去。
+            cooldown_seconds = self.bot.auto_bot_config_manager.challenge_boss_cooldown_seconds
+            safe_budget = None
+            if next_vip_spawn_seconds > 0:
+                safe_budget = max(0, next_vip_spawn_seconds - cooldown_seconds - 30)
             roll_result = random.randint(0, 100)
+            elapsed = 0.0
             if roll_result <= self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
                 # 再决定要delay多少秒
                 delay_seconds = random.randint(1, self.bot.auto_bot_config_manager.challenge_boss_delay_seconds_limit)
                 self.log(f'\033[91m({roll_result})本轮有delay {delay_seconds} 秒\033[37m')
-                if next_vip_spawn_seconds > 0:
-                    delay_seconds = min(delay_seconds, next_vip_spawn_seconds)
-                time.sleep(delay_seconds)
+                if safe_budget is not None:
+                    delay_seconds = min(delay_seconds, safe_budget)
+                if delay_seconds > 0:
+                    delay_start = time.monotonic()
+                    time.sleep(delay_seconds)
+                    elapsed = time.monotonic() - delay_start
                 # delay完后再刷下boss信息
                 self.bot._update_info_from_hunt_page()
             else:
                 self.log(f'\033[91m({roll_result})本轮没有delay\033[37m')
+
+            # 延迟、刷新页面之后重新确认一次：现在还该不该打这只普通boss
+            if next_vip_spawn_seconds > 0:
+                if self._vip_spawn_imminent():
+                    self.log('已进入vip狙击窗口，放弃打普通boss，交给vip流程')
+                    self.next_state = StateFactory.create_prepare_boss_state(self.bot)
+                    self.on_finish()
+                    return
+                remain = next_vip_spawn_seconds - elapsed
+                if remain < cooldown_seconds + 30:
+                    idle_seconds = max(30, remain - cooldown_seconds + 1)
+                    self.log(f'距vip boss刷新只剩{remain:.0f}秒，此时打普通boss会把冷却用掉、'
+                             f'错过刷新，先等{idle_seconds:.0f}秒')
+                    idle_state = StateFactory.create_idle_state(self.bot)
+                    idle_state.set_idle_time(
+                        idle_seconds,
+                        partial(self.set_state, StateFactory.create_prepare_boss_state(self.bot)),
+                    )
+                    self.next_state = idle_state
+                    self.on_finish()
+                    return
 
             is_challenged = False
             for boss in self.bot.auto_bot_config_manager.normal_boss_loop_order:

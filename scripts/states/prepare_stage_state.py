@@ -9,6 +9,12 @@ class PrepareStageState(BaseState):
             str: 下一个游戏状态
         """
         self.log('开始处理小怪战斗')
+        # 先看看 vip boss 是不是马上要刷新了，是的话立刻收手
+        if self._vip_spawn_imminent():
+            self.log('VIP boss 即将刷新，放弃刷小怪，回去守刷新时刻')
+            self.next_state = StateFactory.create_prepare_boss_state(self.bot)
+            self.on_finish()
+            return
         # 刷一下战斗界面，看看剩余体力
         self.bot._update_info_from_hunt_page()
         player_stamina = self.bot.battle_watcher_manager.get_player_stamina()

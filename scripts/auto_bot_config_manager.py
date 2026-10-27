@@ -96,5 +96,43 @@ class AutoBotConfigManager:
         return self.config.get('idle_seconds_for_challenge_vip_boss', 40)
 
     @property
+    def vip_snipe_window_seconds(self) -> int:
+        """VIP 刷新前多少秒进入"狙击窗口"：不再刷小怪/打普通 boss，只等刷新那一刻出手。"""
+        return self.config.get('vip_snipe_window_seconds', 120)
+
+    @property
+    def vip_snipe_warmup_lead_seconds(self) -> float:
+        """刷新前多少秒开始预热（加载 boss 页 + 清队 + 勾人），这段时间不产生"慢动作"。"""
+        return float(self.config.get('vip_snipe_warmup_lead_seconds', 6))
+
+    @property
+    def vip_snipe_fire_cost_seconds(self) -> float:
+        """最后一次提交预留多少秒往返预算：在 T 之前这么多秒点下去。
+
+        只留一点点就行：早发必失败（boss 还没刷），晚发一点最多被抢 0.1 秒，
+        所以宁可贴着 T 发。
+        """
+        return float(self.config.get('vip_snipe_fire_cost_seconds', 0.03))
+
+    @property
+    def vip_snipe_commit_offset_ms(self) -> float:
+        """提交时刻整体平移（毫秒）。负值=更早、正值=更晚，按实测偏差微调。"""
+        return float(self.config.get('vip_snipe_commit_offset_ms', 0))
+
+    @property
+    def vip_snipe_settle_seconds(self) -> float:
+        """点完开战后先等几秒再刷新页面确认结果，避免把正在提交的表单打断。"""
+        return float(self.config.get('vip_snipe_settle_seconds', 1.0))
+
+    @property
+    def boss_challenge_min_interval_seconds(self) -> float:
+        """同一个 boss 两次挑战请求之间的最小间隔。
+
+        服务器对同一只 boss 的两次请求都会按合法处理，两次结果都会进战报公示，
+        所以这个间隔本质上是"绝不允许对同一只 boss 连发请求"的兜底。
+        """
+        return float(self.config.get('boss_challenge_min_interval_seconds', 600))
+
+    @property
     def challenge_boss_cooldown_seconds(self) -> int:
         return self.config.get('challege_boss_cooldown_seconds', 1200)

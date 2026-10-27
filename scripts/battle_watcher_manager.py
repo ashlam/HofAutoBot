@@ -2,6 +2,8 @@ import re
 import requests
 import json
 import os
+import statistics
+import email.utils
 import time
 from datetime import datetime, timedelta
 from scripts.log_manager import LogManager
@@ -12,6 +14,10 @@ class BattleWatcherManager:
         self.cooldown_total_seconds = None
         self.alived_boss_ids = []
         self.logger = LogManager.get_instance()
+        # 服务器时钟比本地快多少秒。VIP 刷新时刻用的是服务器时间戳，
+        # 本地时钟要是差几秒，再精确的 sleep 也会整体偏掉。
+        self.server_clock_offset = 0.0
+        self._clock_offset_samples = []
 
     def get_boss_info(self, union_id):
         """从boss_config.json中获取指定union_id的boss信息"""
@@ -27,6 +33,33 @@ class BattleWatcherManager:
             self.logger.error(f'获取boss信息失败: {str(e)}')
             return None
 
+
+    def _sample_server_clock(self, response, t_before, t_after):
+        """用响应头的 Date 估一下"服务器时钟比本地快多少秒"。
+
+        VIP 刷新时刻是服务器时间戳，本地时钟差几秒就会整体偏掉，
+        再精确的 sleep 也没用。Date 只有秒级精度，所以丢掉 RTT 大的样本，
+        多次采样后取中位数。
+        """
+        try:
+            date_header = response.headers.get('Date')
+            if not date_header:
+                return
+            rtt = max(0.0, t_after - t_before)
+            if rtt > 2.0:
+                return  # 网络抖成这样的样本没参考价值
+            server_ts = email.utils.parsedate_to_datetime(date_header).timestamp()
+            offset = server_ts - (t_before + t_after) / 2.0
+            self._clock_offset_samples.append(offset)
+            self._clock_offset_samples = self._clock_offset_samples[-9:]
+            if len(self._clock_offset_samples) >= 3:
+                self.server_clock_offset = statistics.median(self._clock_offset_samples)
+                self.logger.debug(
+                    f'服务器时钟偏移估计: {self.server_clock_offset:+.2f}s '
+                    f'(样本 {[round(x, 2) for x in self._clock_offset_samples]})'
+                )
+        except Exception as e:
+            self.logger.debug(f'服务器时钟采样失败: {e}')
 
     def process_timestamp(self, timestamp_str, seconds_to_add):
         """处理16位时间戳，转换为标准时间格式并计算未来时间"""
@@ -67,7 +100,10 @@ class BattleWatcherManager:
                 response = None
                 for attempt in range(1, max_attempts + 1):
                     try:
+                        t_before = time.time()
                         response = requests.get(url, timeout=timeout_sec)
+                        t_after = time.time()
+                        self._sample_server_clock(response, t_before, t_after)
                         break
                     except Exception as e:
                         last_exc = e

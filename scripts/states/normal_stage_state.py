@@ -6,6 +6,12 @@ class NormalStageState(BaseState):
     def process(self):
         self.log('开始处理普通关卡')
         for stage in self.bot.auto_bot_config_manager.normal_stage_loop_order:
+            # 每场小怪前都确认一次：vip boss 马上要刷新就别打了，这一批打完可能就错过刷新瞬间
+            if self._vip_spawn_imminent():
+                self.log('VIP boss 即将刷新，中断本批小怪，回去守刷新时刻')
+                self.next_state = StateFactory.create_prepare_boss_state(self.bot)
+                self.on_finish()
+                return
             self.bot._update_info_from_hunt_page()
             player_stamina = self.bot.battle_watcher_manager.get_player_stamina()
             if (player_stamina < self.bot.auto_bot_config_manager.keep_stamnia_for_normal_stage):

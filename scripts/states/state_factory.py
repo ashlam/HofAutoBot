@@ -51,6 +51,13 @@ class StateFactory:
         return DirectlyChallengeBossState(bot)
 
     @staticmethod
+    def create_vip_snipe_state(bot: 'HofAutoBot', union_id=None,
+                               advanced_action_config=None,
+                               spawn_timestamp_us=None) -> 'BaseState':
+        from .vip_snipe_state import VipSnipeState
+        return VipSnipeState(bot, union_id, advanced_action_config, spawn_timestamp_us)
+
+    @staticmethod
     def create_idle_state(bot: 'HofAutoBot') -> 'BaseState':
         from .idle_state import IdleState
         return IdleState(bot)

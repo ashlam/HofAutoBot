@@ -30,6 +30,13 @@ class VipBossState(BaseState):
             # 检查VIP boss是否出现
             if union_id in self.bot.all_alived_boss_ids:
                 # 活着，试着直接干它
+                if self._already_fired():
+                    # 已经出过手还在存活列表里：说明那次请求被拒了（或者被别人抢先、
+                    # 或者服务器还没写完）。这时再打一次，服务器会当成两次合法请求
+                    # 各结算一遍，战报里就是同一个人连杀同一只 boss。
+                    self.log(f'VIP boss {union_id} 仍在存活列表里，但这一轮已经出过手，'
+                             f'不再重复请求，先去做别的')
+                    continue
                 self.log(f'VIP boss {union_id} 已出现，BEAT IT！！！')
                 directly_challenge_boss_state = self._create_dicrect_challenge_boss_state(union_id, advanced_action_config)
                 self.set_state(directly_challenge_boss_state)
@@ -38,12 +45,28 @@ class VipBossState(BaseState):
                 # 去战报里查vip boss被击败的时间
                 next_battle_info = self._get_next_vip_boss(vip_boss, union_id)
                 if not next_battle_info:
-                    self.log(f'未找到上次vip boss被击败的时间，id: {union_id} ，没有办法处理boss({union_id})，去处理下一个vip boss。')
+                    # 战报拉不到时，原实现会 continue 走到 NormalBossState，
+                    # 顺手把一个普通 boss 打掉、白白烧掉整整一个挑战冷却，
+                    # 等于这一轮 VIP 直接报废。这里改成先原地重试几次。
+                    streak = getattr(self.bot, 'vip_boss_log_fail_streak', 0) + 1
+                    self.bot.vip_boss_log_fail_streak = streak
+                    if streak < 3:
+                        self.log(f'未找到上次vip boss被击败的时间，id: {union_id}（第{streak}/3次），'
+                                 f'暂时不打普通boss，30秒后重试，避免浪费挑战冷却')
+                        idle_state = StateFactory.create_idle_state(self.bot)
+                        idle_state.set_idle_time(30, partial(self.set_state, StateFactory.create_vip_boss_state(self.bot)))
+                        self.set_state(idle_state)
+                        return
+                    self.bot.vip_boss_log_fail_streak = 0
+                    self.log(f'未找到上次vip boss被击败的时间，id: {union_id}，连续{streak}次失败，去处理下一个vip boss。')
                     continue
                 else:
+                    self.bot.vip_boss_log_fail_streak = 0
                     next_spawn_timestamp = next_battle_info['future_unixtime']
                     next_spawn_time = datetime.fromtimestamp(next_spawn_timestamp / 1000000)
-                    time_until_spawn = (next_spawn_time - datetime.now()).total_seconds()
+                    # 战报里的时间戳是服务器时钟，本地时钟快慢要扣掉，否则算出来的倒计时整体偏
+                    clock_offset = getattr(self.bot, 'server_clock_offset', 0.0) or 0.0
+                    time_until_spawn = (next_spawn_time - datetime.now()).total_seconds() - clock_offset
                     seconds = int(time_until_spawn)
                     minutes, seconds = divmod(seconds, 60)
                     self.log(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒")
@@ -51,9 +74,12 @@ class VipBossState(BaseState):
                     wait_time = min(self.bot.auto_bot_config_manager.challenge_boss_cooldown_seconds, max(0, time_until_spawn))
                     self.log(f"{'将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip")
                     if time_until_spawn <= 0:
-                        # 说明可能过期了，死马当活马医，试着直接打一下
-                        directly_challenge_boss_state = self._create_dicrect_challenge_boss_state(union_id, advanced_action_config)
-                        self.set_state(directly_challenge_boss_state)
+                        # 刷新时刻已过：如果这一轮还没出过手，补一次（且只补一次）
+                        if self._already_fired():
+                            self.log(f'VIP boss {union_id} 刷新时刻已过且本轮已出手过，不再重复请求')
+                            continue
+                        self.log(f'VIP boss {union_id} 刷新时刻已过，立刻尝试一次')
+                        self.set_state(self._create_snipe_state(union_id, advanced_action_config, next_spawn_timestamp))
                         return
                     elif time_until_spawn <= wait_time:
                         # 等待时间较少（20分钟内）
@@ -96,11 +122,21 @@ class VipBossState(BaseState):
         if isinstance(directly_challenge_boss_state, DirectlyChallengeBossState):
             directly_challenge_boss_state.union_id = union_id
             directly_challenge_boss_state.advanced_action_config = advanced_action_config
-            directly_challenge_boss_state.on_challage_success = self._on_challenge_success
+            directly_challenge_boss_state.on_challenge_success = self._on_challenge_success
             directly_challenge_boss_state.on_challenge_failed = self._on_challange_failed
             return directly_challenge_boss_state
         else:
             raise None
+
+    def _create_snipe_state(self, union_id, advanced_action_config, spawn_timestamp_us) -> 'BaseState':
+        """刷新时刻已过时的补打：同样交给狙击状态，但时间轴已经过期，它会立刻出手一次。"""
+        return StateFactory.create_vip_snipe_state(
+            self.bot, union_id, advanced_action_config, spawn_timestamp_us
+        )
+
+    def _already_fired(self) -> bool:
+        checker = getattr(self.bot, 'vip_snipe_already_fired_recently', None)
+        return bool(checker()) if callable(checker) else False
 
     def _get_next_vip_boss(self, vip_boss_dict: Dict, union_id):
         # 使用BossBattleManager的get_next_vip_boss方法

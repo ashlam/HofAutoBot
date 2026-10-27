@@ -13,6 +13,7 @@ from scripts.battle_watcher_manager import BattleWatcherManager
 from scripts.log_manager import LogManager
 from scripts.auto_bot_config_manager import AutoBotConfigManager
 from scripts.boss_battle_manager import BossBattleManager
+from scripts.boss_challenge_guard import BossChallengeGuard
 from scripts.captcha_recognizer import recognize_captcha
 from scripts.account_config_reader import get_account_config
 
@@ -48,8 +49,19 @@ class HofAutoBot:
         self.next_vip_boss_spawn_timestamp = 0
         self.next_vip_boss_id = 0
         self.is_waiting_for_vip_boss = False
+        # 拉 vip boss 战报连续失败次数：避免"一次超时就把挑战冷却浪费在普通boss上"
+        self.vip_boss_log_fail_streak = 0
+        # 上一轮 VIP 狙击实际出手的本地时刻：用来保证同一轮只打一次
+        self.vip_snipe_last_fire_ts = 0.0
         
         self.logger = LogManager.get_instance()
+        # 挑战请求闸门：同一个 boss 在短窗口内只允许发出一次挑战请求。
+        # 服务器对同一只 boss 的两次请求都会按合法处理并公示结果，
+        # 所以"多发一次"不只是浪费体力，是直接把自己暴露出去。
+        self.boss_challenge_guard = BossChallengeGuard(
+            min_interval_provider=self._boss_challenge_min_interval,
+            logger=self.logger,
+        )
         self.directly_challenge_boss_id = None
         self.directly_challenge_boss_action = None
         self.boss_battle_manager = None
@@ -58,6 +70,31 @@ class HofAutoBot:
         self.current_state = BaseState(self)
 
     COOLDOWN_SECONDS_FOR_CHALLENGE_BOSS = 1200
+
+    @property
+    def server_clock_offset(self) -> float:
+        """服务器时钟比本地快多少秒。
+
+        VIP 刷新时刻是服务器时间戳，本地时钟差几秒就会整体偏掉，
+        所以统一从这里取，避免各状态各算一套。
+        """
+        watcher = getattr(self, 'battle_watcher_manager', None)
+        if watcher is None:
+            return 0.0
+        try:
+            return float(getattr(watcher, 'server_clock_offset', 0.0) or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
+
+    def _boss_challenge_min_interval(self) -> float:
+        """同一个 boss 两次挑战请求之间的最小间隔（秒）。
+
+        配置管理器还没挂上的时候也要能用，所以全部异常都兜成默认值。
+        """
+        try:
+            return float(self.auto_bot_config_manager.boss_challenge_min_interval_seconds)
+        except (AttributeError, TypeError, ValueError):
+            return 600.0
 
     def set_next_vip_boss_spawn_timestamp(self, vip_boss_id, timestamp):
         self.next_vip_boss_spawn_timestamp = timestamp
@@ -69,6 +106,30 @@ class HofAutoBot:
         self.next_vip_boss_spawn_timestamp = -1
         self.next_vip_boss_id = -1
         self.is_waiting_for_vip_boss = False
+
+    def seconds_until_vip_boss_spawn(self):
+        """距离【已记录】的下一个 VIP boss 刷新还有多少秒。
+
+        没有等待记录（或记录无效）时返回 None；已经过期时返回负数。
+        各状态用它判断"该收手了，别在刷新窗口里干别的"。
+        """
+        if not self.is_waiting_for_vip_boss:
+            return None
+        timestamp = self.next_vip_boss_spawn_timestamp
+        if not timestamp or timestamp <= 0:
+            return None
+        return timestamp / 1000000 - self.server_clock_offset - time.time()
+
+    def vip_snipe_already_fired_recently(self, window_seconds: float = 120.0) -> bool:
+        """这一轮是不是刚刚已经出手过了。
+
+        刷新时间过期之后，上层好几个分支都会想把"再打一次"丢回来；
+        真的每次都打就成了对服务器的连续请求，这里统一挡掉。
+        """
+        last = getattr(self, 'vip_snipe_last_fire_ts', 0) or 0
+        if last <= 0:
+            return False
+        return (time.time() - last) < window_seconds
 
     def switch_to_next_state(self, state):
         self.current_state = state

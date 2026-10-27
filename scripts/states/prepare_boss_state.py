@@ -34,14 +34,16 @@ class PrepareBossState(BaseState):
                 next_challange_real_time = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S.%f')
                 self.log(f'BOSS冷却还早，当前体力：{self.bot.player_stamina}，下次boss挑战时间：{next_challange_real_time}，于是去干别的')
                 # self._set_state(self.GAME_STATE_PVP)
-                idle_state.set_idle_time(standard_idle_seconds, partial(self.set_state, state = StateFactory.create_world_pvp_state(self.bot)))
+                idle_seconds = self._cap_idle_by_vip_spawn(standard_idle_seconds)
+                idle_state.set_idle_time(idle_seconds, partial(self.set_state, state = StateFactory.create_world_pvp_state(self.bot)))
                 self.set_state(idle_state)
                 return
                 
             # 耐心等一下就能打boss了
             else:
                 self.log(f'Boss挑战冷却中，还剩{self.bot.challenge_next_cooldown}秒，等待冷却结束')
-                idle_state.set_idle_time(self.bot.challenge_next_cooldown, partial(self.set_state, state = StateFactory.create_prepare_boss_state(self.bot)))
+                idle_seconds = self._cap_idle_by_vip_spawn(self.bot.challenge_next_cooldown)
+                idle_state.set_idle_time(idle_seconds, partial(self.set_state, state = StateFactory.create_prepare_boss_state(self.bot)))
                 self.set_state(idle_state)
                 return
         
