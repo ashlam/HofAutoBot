@@ -14,6 +14,8 @@ class PrepareBossState(BaseState):
         self.log('开始处理boss战斗')
         # 检查挑战boss冷却时间
         self.bot._update_info_from_hunt_page()
+        # 刚刚读过 boss 列表，告诉看门狗"主线没被饿着"
+        self._mark_boss_checked()
         
         # 如果体力不足，但这是个小概率事件
         if self.bot.player_stamina < self.bot.auto_bot_config_manager.boss_cost_stamina:

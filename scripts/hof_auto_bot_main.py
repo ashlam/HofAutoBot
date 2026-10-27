@@ -14,6 +14,7 @@ from scripts.log_manager import LogManager
 from scripts.auto_bot_config_manager import AutoBotConfigManager
 from scripts.boss_battle_manager import BossBattleManager
 from scripts.boss_challenge_guard import BossChallengeGuard
+from scripts.boss_check_watchdog import BossCheckWatchdog
 from scripts.captcha_recognizer import recognize_captcha
 from scripts.account_config_reader import get_account_config
 
@@ -62,6 +63,11 @@ class HofAutoBot:
             min_interval_provider=self._boss_challenge_min_interval,
             logger=self.logger,
         )
+        # boss 巡检看门狗：小怪/PvP 循环万一又把"回 boss 主线"的边弄丢了，
+        # 最多空转 boss_check_max_gap_seconds 就会被强制拉回 PrepareBoss。
+        self.boss_check_watchdog = BossCheckWatchdog(
+            max_gap_provider=self._boss_check_max_gap,
+        )
         self.directly_challenge_boss_id = None
         self.directly_challenge_boss_action = None
         self.boss_battle_manager = None
@@ -95,6 +101,29 @@ class HofAutoBot:
             return float(self.auto_bot_config_manager.boss_challenge_min_interval_seconds)
         except (AttributeError, TypeError, ValueError):
             return 600.0
+
+    def _boss_check_max_gap(self) -> float:
+        """多久没检查 boss 就必须强制回主线（秒），<=0 表示关闭看门狗。"""
+        try:
+            return float(self.auto_bot_config_manager.boss_check_max_gap_seconds)
+        except (AttributeError, TypeError, ValueError):
+            return 180.0
+
+    def _boss_check_overdue(self) -> bool:
+        """看门狗：小怪/PvP 循环绕太久没回 boss 主线，就该强制拉回去。
+
+        只在状态之间（一拍的开头）判断，不会打断正在跑的动作；
+        断线重连和角色数据更新期间跳过，免得把这两个不可中断的状态踢掉。
+        """
+        watchdog = getattr(self, 'boss_check_watchdog', None)
+        if watchdog is None:
+            return False
+        if self.current_state_str in ('ReconnectState', 'UpdateCharacterState'):
+            return False
+        try:
+            return bool(watchdog.overdue())
+        except Exception:
+            return False
 
     def set_next_vip_boss_spawn_timestamp(self, vip_boss_id, timestamp):
         self.next_vip_boss_spawn_timestamp = timestamp
@@ -150,6 +179,17 @@ class HofAutoBot:
             self.switch_to_next_state(StateFactory.create_reconnect_state(self))
             self.current_state.process()
             return
+        if self._boss_check_overdue():
+            try:
+                waited = self.boss_check_watchdog.elapsed()
+            except Exception:
+                waited = self._boss_check_max_gap()
+            self.logger.info(
+                f'【看门狗】已经 {waited:.0f} 秒没检查过 boss'
+                f'（当前状态 {self.current_state_str}），强制回 boss 主线核对一次'
+            )
+            self.switch_to_next_state(StateFactory.create_prepare_boss_state(self))
+            self.boss_check_watchdog.mark_checked()
         if self.current_state is not None:
             print("HofAutoBot.run_once -> current_state: " + self.current_state.__class__.__name__)
             try:

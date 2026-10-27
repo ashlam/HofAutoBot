@@ -20,6 +20,13 @@ sys.modules["scripts.hof_auto_bot_main"] = _stub
 
 from scripts.states.vip_snipe_state import VipSnipeState
 
+# 结果确认会轮询页面（生产环境 0.8 秒一次、最多 6 次），测试里压到最小
+import scripts.states.base_state as _base_state
+
+_base_state.CONFIRM_FIRST_WAIT_SECONDS = 0.0
+_base_state.CONFIRM_INTERVAL_SECONDS = 0.01
+_base_state.CONFIRM_ATTEMPTS = 2
+
 CHAR_IDS = ['char_1', 'char_2', 'char_3', 'char_4', 'char_5']
 ACTION_CONFIG = {
     'name': '一服旋风',
@@ -172,7 +179,7 @@ def test_success_marks_fire_timestamp_and_clears_waiting_record():
 
     assert bot.vip_snipe_last_fire_ts > 0, '必须记录出手时刻，避免同一轮重复请求'
     assert bot.is_waiting_for_vip_boss is False
-    assert bot.hunt_page_updates == 1, '出手后要刷新一次页面确认结果'
+    assert bot.hunt_page_updates >= 1, '出手后必须刷新页面确认结果（可能不止一次，会轮询）'
 
 
 def test_cooldown_wins_over_script_result():

@@ -13,6 +13,7 @@
   "vip_snipe_commit_offset_ms": 0,
   "vip_snipe_settle_seconds": 1.0,
   "boss_challenge_min_interval_seconds": 600,
+  "boss_check_max_gap_seconds": 180,
   "is_challenge_time_limited_stage": true,
   "is_challenge_vip_boss": true,
   "is_challenge_pvp": true,

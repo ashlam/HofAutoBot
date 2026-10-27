@@ -392,15 +392,13 @@ class VipSnipeState(BaseState):
             time.sleep(self.settle_seconds)
 
     def _finish(self, success: bool):
+        # 脚本说"点到了"不算数，但也不能只读一次页面：刚提交完的 hunt 页
+        # 常常还是提交之前的快照（实测晚了 1 秒才更新），读一次会把打成误判成没打成。
         try:
-            self.bot._update_info_from_hunt_page()
+            success = self._confirm_challenge_result(self.union_id, first_wait=0)
         except Exception as e:
-            self.log(f'VIP狙击：更新 boss 信息失败 {type(e).__name__}: {e}')
-
-        cooldown = getattr(self.bot, 'challenge_next_cooldown', 0) or 0
-        # 脚本说"点到了"不算数：只有服务端真的给了挑战冷却才算打成
-        # （被别人抢先时点下去也是成功的点击，但不会进冷却）
-        success = cooldown > 0
+            self.log(f'VIP狙击：确认挑战结果失败 {type(e).__name__}: {e}')
+            success = False
         guard = self._guard()
         if guard is not None:
             try:

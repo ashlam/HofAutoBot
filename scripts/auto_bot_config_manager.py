@@ -20,6 +20,11 @@ class AutoBotConfigManager:
     @property
     def keep_stamnia_for_normal_stage(self) -> int: # 切换小怪消耗体力
         return self.config.get('keep_stamnia_for_normal_stage', 3000)
+
+    @property
+    def boss_check_max_gap_seconds(self) -> float: # 多久没检查boss就强制回主线，<=0 关闭
+        return self.config.get('boss_check_max_gap_seconds', 180)
+
     @property
     def keep_stamnia_for_time_limited_stage(self) -> int:
         return self.config.get('keep_stamnia_for_time_limited_stage', 1000)

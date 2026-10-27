@@ -45,8 +45,9 @@ class DirectlyChallengeBossState(BaseState):
                 self.bot.driver.get(url)
             self.bot.action_manager.execute_advanced_action(self.bot.driver, self.advanced_action_config)
             self.log(f"锤完了，更新一下信息，看打成功没有（有可能被人抢了）")
-            self.bot._update_info_from_hunt_page()
-            self.is_challaged_success = self.bot.challenge_next_cooldown > 0
+            # 不能只读一次：刚提交完的 hunt 页经常还是提交之前的快照，
+            # 只看一次会把"打成了"误判成"没打成"
+            self.is_challaged_success = self._confirm_challenge_result(union_id)
             self._record_shot_result(self.is_challaged_success)
         self.on_finish()
 

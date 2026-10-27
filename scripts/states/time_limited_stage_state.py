@@ -49,11 +49,14 @@ class TimeLimitedStageState(BaseState):
                         else:
                             self.log(f"检测到关卡入口: {value}")
                             self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
-                            self.next_state = StateFactory.create_prepare_stage_state(self.bot)
+                            # 打完就回 boss 主线：这个状态原来回 PrepareStage，而
+                            # PrepareStage 又会立刻回到这里，于是两个状态之间死循环，
+                            # boss 一次都不会被检查（体力 2400、无冷却、boss 就在场上）。
+                            self.next_state = StateFactory.create_prepare_boss_state(self.bot)
                     else:
                         self.log(f'开始执行VIP关卡 {stage.get("stage_name")} 的动作')
                         self.bot.action_manager.execute_advanced_action(self.bot.driver, advanced_action_config)
-                        self.next_state = StateFactory.create_prepare_stage_state(self.bot)
+                        self.next_state = StateFactory.create_prepare_boss_state(self.bot)
         else:
             self.log(f'当前时间不在VIP关卡开放时间范围内 ({start_minute}-{end_minute}分)')
             self.next_state = StateFactory.create_normal_stage_state(self.bot)
