@@ -265,7 +265,12 @@ class BattleWatcherManager:
             """
 
             # 查找第一名用户（在排名表格的第一行，确保在正确的表格结构中）
-            # 注意：根据HTML内容，第一名用户名后面紧跟着战绩信息
+            # 原因：menu=rank 排名表是通过 "$("#mybody").load(...)" 异步渲染进 DOM 的，
+            # 若传入的 content_text 抓取过早，crown01.png/TOP 5 可能完全不存在，
+            # 此时三个正则都会失败并误判"不是第1名"。调用方(_check_is_user_pvp_first_rank)
+            # 必须先等待 img[src*="crown01"] 出现后再抓取 page_source 传入。
+            # 注：本页面 TOP 5 与 NEAR 5 各有一张表，第一名行结构相同；
+            # 第一名用户名后面紧跟着战绩信息，故用 [^(]+?\s*\( 取用户名。
             # 使用TOP 5作为匹配特征，提高匹配准确性
             first_place_pattern = r'<div class="u">TOP 5</div>[\s\S]*?<td class="td7"[^>]*>\s*<img src="\./image/icon/crown01\.png"[^>]*></td><td class="td8">\s*([^(]+?)\s*\('
             first_place_match = re.search(first_place_pattern, content_text, re.DOTALL)
@@ -288,11 +293,17 @@ class BattleWatcherManager:
                         self.logger.error('所有备用模式都未能匹配到第一名用户')
                         # 打印HTML中是否包含关键特征
                         if 'crown01.png' in content_text:
-                            self.logger.debug('HTML中包含crown01.png图标')
+                            self.logger.warning('HTML中包含crown01.png图标，但结构不匹配')
+                        else:
+                            self.logger.warning('HTML中不包含crown01.png图标(排名表可能尚未加载)')
                         if 'TOP 5' in content_text:
-                            self.logger.debug('HTML中包含TOP 5文本')
+                            self.logger.warning('HTML中包含TOP 5文本，但结构不匹配')
+                        else:
+                            self.logger.warning('HTML中不包含TOP 5文本(排名表可能尚未加载)')
                         if 'td8' in content_text:
-                            self.logger.debug('HTML中包含td8类')
+                            self.logger.warning('HTML中包含td8类，但结构不匹配')
+                        else:
+                            self.logger.warning('HTML中不包含td8类(排名表可能尚未加载)')
                         return False
             else:
                 first_place_user = first_place_match.group(1).strip()

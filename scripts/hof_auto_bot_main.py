@@ -207,7 +207,16 @@ class HofAutoBot:
                 self.switch_to_next_state(idle_state)
 
     def _check_is_user_pvp_first_rank(self):
-        """检查当前用户是否为PVP第一名"""
+        """检查当前用户是否为PVP第一名（先等AJAX排名表渲染完成）"""
+        try:
+            # menu=rank 页面是通过 $("#mybody").load(...) 异步加载的，
+            # 必须等到排名表(crown01图标)插入DOM后再取页面源码，
+            # 否则会出现"当前用户名解析到了但第一名匹配不上"的误判
+            WebDriverWait(self.driver, 10).until(
+                lambda d: d.find_elements(By.CSS_SELECTOR, 'img[src*="crown01"]')
+            )
+        except Exception as e:
+            self.logger.warning(f'等待竞技场排名表加载超时(最多10秒): {e}')
         return self.battle_watcher_manager.is_user_pvp_first_place(self.driver.page_source)
 
     def _update_info_from_hunt_page(self):
