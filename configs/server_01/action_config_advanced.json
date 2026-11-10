@@ -790,5 +790,48 @@
         "value": "union_battle"
       }
     ]
+  },
+  "600120": {
+    "name": "一服上古",
+    "note": "圣堂",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1341630067887846",
+        "_memo": "小顶顶 L60 聖堂武士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1778126128905260",
+        "_memo": "狗头人候补No.M L60 女祭司"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1783324334342125",
+        "_memo": "狗头人候补No.L L60 戰士"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1789713163899357",
+        "_memo": "狗头人候补No.I L60 女祭司"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1791777693737882",
+        "_memo": "狗头人候补No.G L57 巫師"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
   }
 }

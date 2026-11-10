@@ -320,6 +320,49 @@
       }
     ]
   },
+  "800190": {
+    "name": "二服咒泉",
+    "note": "",
+    "tag": [
+      "boss",
+      "need_character"
+    ],
+    "actions": [
+      {
+        "trigger_type": "click_button_clear_team",
+        "value": "checkDelAll()"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1357103327369766",
+        "_memo": "打擾三下 L60 魔劍使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1495676514669320",
+        "_memo": "末日之魂 L60 護聖使"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1791778197176188",
+        "_memo": "Z.007 L58 機關師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1399205471703141",
+        "_memo": "幻 L60 召喚師"
+      },
+      {
+        "trigger_type": "check_box_select_character",
+        "value": "char_1767868546492032",
+        "_memo": "Z.003 L60 武僧"
+      },
+      {
+        "trigger_type": "click_button_start_battle",
+        "value": "union_battle"
+      }
+    ]
+  },
   "800150": {
     "name": "二服UU",
     "note": "",
@@ -463,8 +506,8 @@
       },
       {
         "trigger_type": "check_box_select_character",
-        "value": "char_1400662064251555",
-        "_memo": "靈妖 L60 變形者"
+        "value": "char_1495761941886153",
+        "_memo": "L. L60 机械师"
       },
       {
         "trigger_type": "check_box_select_character",

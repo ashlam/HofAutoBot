@@ -36,17 +36,10 @@
       "union_id": 17,
       "plan_action_id": 600170
     },
+
     {
-      "union_id": 23,
-      "plan_action_id": 600230
-    },
-    {
-      "union_id": 15,
-      "plan_action_id": 600150
-    },
-    {
-      "union_id": 1,
-      "plan_action_id": 600011
+      "union_id": 12,
+      "plan_action_id": 600120
     },
     {
       "union_id": 8,
@@ -57,8 +50,24 @@
       "plan_action_id": 600260
     },
     {
+      "union_id": 23,
+      "plan_action_id": 600230
+    },
+    {
+      "union_id": 7,
+      "plan_action_id": 600070
+    },
+    {
+      "union_id": 1,
+      "plan_action_id": 600011
+    },
+    {
       "union_id": 3,
       "plan_action_id": 600030
+    },
+    {
+      "union_id": 15,
+      "plan_action_id": 600150
     },
     {
       "union_id": 20,
@@ -71,10 +80,6 @@
     {
       "union_id": 19,
       "plan_action_id": 600190
-    },
-    {
-      "union_id": 7,
-      "plan_action_id": 600070
     },
     {
       "union_id": 0,
