@@ -10,7 +10,7 @@
   "vip_snipe_window_seconds": 120,
   "vip_snipe_warmup_lead_seconds": 6,
   "vip_snipe_fire_cost_seconds": 0.03,
-  "vip_snipe_commit_offset_ms": 0,
+  "vip_snipe_commit_offset_ms": 200,
   "vip_snipe_settle_seconds": 1.0,
   "boss_challenge_min_interval_seconds": 600,
   "boss_check_max_gap_seconds": 180,
@@ -46,7 +46,7 @@
     },
     {
       "union_id": 12,
-      "plan_action_id": 600121
+      "plan_action_id": 600122
     },
     {
       "union_id": 8,
