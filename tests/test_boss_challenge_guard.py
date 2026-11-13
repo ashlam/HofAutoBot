@@ -111,16 +111,18 @@ class _FakeDriver:
     def execute_script(self, script, *args):
         if 'document.readyState' in script:
             return 'complete'
-        if 'has_form' in script:
+        if 'form_action' in script:
             return {
-                'selected': len(args[0]),
-                'expected': len(args[0]),
-                'missing': 0,
-                'has_battle_button': True,
-                'has_form': True,
+                'ok': True,
+                'created': False,
+                'checked': len(args[0]),
+                'reused': len(args[0]),
+                'added': 0,
+                'has_native_button': True,
+                'form_action': 'index2.php?union=17',
             }
         self.fire_calls.append(time.time())
-        return 'clicked'
+        return 'submitted'
 
 
 class _FakeBot:
@@ -186,6 +188,63 @@ def test_snipe_does_not_fire_when_guard_errors():
 
     assert driver.fire_calls == [], '闸门异常时必须放弃出手'
     assert state._fire_result == 'blocked'
+
+
+def test_two_instances_sharing_state_file_cannot_both_claim():
+    """同一个号开两个实例：两个进程各持一份内存记录时，也只能有一个拿到许可。
+
+    这就是 2026-11-13 18:57 的实盘翻车场景 —— 两个实例在同一时刻各发了一次
+    挑战请求（日志相差 18ms）。进程内 RLock 拦不住，必须靠落盘时的跨进程锁 +
+    每次 claim 前重新读盘。
+    """
+    import threading
+
+    path = _tmp_path()
+    first = _guard(path=path)
+    second = _guard(path=path)   # 模拟另一个进程：内存独立，只共享同一个文件
+
+    results = []
+    barrier = threading.Barrier(2)
+
+    def shoot(guard):
+        barrier.wait()           # 让两边尽可能同时冲进 claim
+        results.append(guard.claim(17, 1794567428426116, 'vip_snipe'))
+
+    threads = [threading.Thread(target=shoot, args=(g,)) for g in (first, second)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+    assert results.count(True) == 1, f'只允许一个实例出手，实际 {results}'
+    assert results.count(False) == 1
+
+
+def test_instance_sees_other_process_record():
+    """另一个进程打完之后，本进程的只读查询也要能看到这笔记录。"""
+    path = _tmp_path()
+    first = _guard(path=path)
+    second = _guard(path=path)
+
+    assert first.claim(17, 1794567428426116, 'vip_snipe') is True
+
+    assert second.last_fire_age(17) is not None, '必须读到另一个进程写的记录'
+    assert second.seconds_until_allowed(17, 1794567428426116) > 0
+    assert second.claim(17, 1794567428426116, 'vip_snipe') is False
+
+
+def test_release_from_one_instance_frees_the_other():
+    """一个实例把许可还回去之后，另一个实例应当能重新申请到。"""
+    path = _tmp_path()
+    first = _guard(path=path)
+    second = _guard(path=path)
+
+    assert first.claim(17, 1794567428426116, 'vip_snipe') is True
+    assert second.claim(17, 1794567428426116, 'vip_snipe') is False
+
+    first.release(17, 1794567428426116)
+
+    assert second.claim(17, 1794567428426116, 'vip_snipe') is True
 
 
 if __name__ == "__main__":

@@ -56,9 +56,10 @@ class _FakeConfig:
 class _FakeDriver:
     """只模拟 VipSnipeState 用到的三个动作：get / readyState / 两段脚本。"""
 
-    def __init__(self, has_button=True, can_select=True):
+    def __init__(self, has_button=True, can_select=True, load_fails=0):
         self.has_button = has_button
         self.can_select = can_select
+        self.load_fails = load_fails  # 前 N 次 get 抛异常，模拟页面打不开
         self.get_calls = []
         self.warmup_calls = 0
         self.fire_calls = []
@@ -66,23 +67,33 @@ class _FakeDriver:
 
     def get(self, url):
         self.get_calls.append((time.time(), url))
+        if self.load_fails:
+            self.load_fails -= 1
+            raise RuntimeError('net::ERR_CONNECTION_RESET')
         self.current_url = url
 
     def execute_script(self, script, *args):
         if 'document.readyState' in script:
             return 'complete'
-        if 'has_form' in script:
+        # 收尾时读落地页正文（只读，不算出手）
+        if 'innerText' in script:
+            return 'boom'
+        # 预热脚本的特征：返回体里有 form_action（构造表单的那一段）
+        if 'form_action' in script:
             self.warmup_calls += 1
             return {
-                'selected': len(args[0]) if self.can_select else 0,
-                'expected': len(args[0]),
-                'missing': 0 if self.can_select else len(args[0]),
-                'has_battle_button': self.has_button,
-                'has_form': True,
+                'ok': True,
+                'created': not self.has_button,
+                'checked': len(args[0]),
+                # 页面上已经有那些角色复选框时算"复用"，否则是我们自己补的
+                'reused': len(args[0]) if self.can_select else 0,
+                'added': 0 if self.can_select else len(args[0]),
+                'has_native_button': self.has_button,
+                'form_action': 'index2.php?union=17',
             }
         self.fire_calls.append(time.time())
-        # 页面上有按钮 -> click；没有按钮 -> 就地重建表单 submit
-        return 'clicked' if self.has_button else 'submitted'
+        # 预构建好的表单只需一次 submit
+        return 'submitted'
 
 
 class _FakeBot:
@@ -112,8 +123,9 @@ class _FakeBot:
         self.current_state = state
 
 
-def _make(has_button=True, can_select=True, spawn_in=0.3):
-    driver = _FakeDriver(has_button=has_button, can_select=can_select)
+def _make(has_button=True, can_select=True, spawn_in=0.3, load_fails=0):
+    driver = _FakeDriver(has_button=has_button, can_select=can_select,
+                         load_fails=load_fails)
     bot = _FakeBot(driver, spawn_in=spawn_in)
     spawn_ts = bot.next_vip_boss_spawn_timestamp
     state = VipSnipeState(bot, 17, ACTION_CONFIG, spawn_ts)
@@ -160,9 +172,28 @@ def test_missing_battle_button_reuses_same_page_instead_of_reloading():
         f'提交应当压在 T 上，实际偏差 {driver.fire_calls[0] - target:+.3f}s'
 
 
+def test_page_without_character_checkboxes_is_not_a_warmup_failure():
+    """boss 还没刷出来、页面里没有角色复选框时，预热依然要成功。
+
+    服务端只读 POST body，不关心页面渲染。预热阶段自己把角色项补齐即可，
+    绝对不能因此判成失败、再到 T 之后重新加载一次页面（那要多花 1 秒左右，
+    正是历史上"VIP 晚 0.7~1.2 秒"的来源）。
+    """
+    bot, driver, state, target = _make(has_button=False, can_select=False)
+
+    state.process()
+
+    assert len(driver.get_calls) == 1, f'页面只应加载一次（预热），实际 {len(driver.get_calls)} 次'
+    assert len(driver.fire_calls) == 1, f'T 之后只允许提交一次，实际 {len(driver.fire_calls)} 次'
+    assert state._warmup_ok is True, '页面里没有复选框不该判成预热失败'
+    assert state._prepared.get('added') == len(CHAR_IDS)
+    assert state.last_post_ms is not None and state.last_post_ms < 30, \
+        f'提交动作本身必须是毫秒级，实际 {state.last_post_ms}'
+
+
 def test_warmup_failure_falls_back_to_exactly_one_blind_shot():
-    """连队伍表单都勾不上（预热彻底失败）时，到点重载一次并打一下，仅此一次。"""
-    bot, driver, state, _ = _make(can_select=False)
+    """预热时页面打不开（预热彻底失败）时，到点重载一次并打一下，仅此一次。"""
+    bot, driver, state, _ = _make(load_fails=1)
 
     state.process()
 

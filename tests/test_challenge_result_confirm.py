@@ -114,10 +114,22 @@ def test_stale_first_read_does_not_look_like_failure():
     assert bot.hunt_reads >= 2
 
 
-def test_boss_disappeared_counts_as_accepted():
-    """没有冷却但有别的 boss 存活、且目标已不在列表 —— 说明页面确实更新了，算受理。"""
+def test_boss_disappeared_without_cooldown_is_not_accepted():
+    """boss 消失但本号没有冷却 —— 是被别人抢先打死的，不能算我们受理。
+
+    2026-11-13 14:57 / 18:57 两轮 VIP 狙击就是这么被误判成"打成了"的：
+    存活列表里 17 确实没了，但这个号从头到尾没有冷却，战报也没有我们的记录。
+    """
     bot = _Bot([{'cooldown': 0, 'alive': ['16', '18']}])
-    assert _confirm(bot, attempts=2, interval=0.01, first_wait=0) is True
+    assert _confirm(bot, attempts=2, interval=0.01, first_wait=0) is False
+    assert bot.hunt_reads == 2, f'应把轮询跑完，实际 {bot.hunt_reads}'
+
+
+def test_cooldown_showing_up_late_still_counts_as_accepted():
+    """第一次读还没有冷却，随后读到冷却 —— 属于服务端写库延迟，算受理。"""
+    bot = _Bot([{'cooldown': 0, 'alive': ['16', '18']},
+                {'cooldown': 3599, 'alive': ['16', '18']}])
+    assert _confirm(bot, attempts=3, interval=0.01, first_wait=0) is True
 
 
 def test_empty_alive_list_is_not_evidence():

@@ -15,7 +15,10 @@ boss，等于自己承认用了非常手段。
 
   1. 同一轮刷新（spawn_key 相同）只允许发一次请求；
   2. 同一个 boss 两次请求之间至少间隔 min_interval 秒（默认 600）；
-  3. 记录落盘，进程重启也记得刚才打过 —— 重启后重复打是最容易翻车的一种。
+  3. 记录落盘，进程重启也记得刚才打过 —— 重启后重复打是最容易翻车的一种；
+  4. 落盘的读写要跨进程加锁：同一个号开两个实例时，两个进程各自 hold 一份
+     内存记录，只有进程内 RLock 是拦不住的（实测 2026-11-13 18:57 两个实例
+     各发了一次，相差 18ms）。
 
 claim() 在任何不确定的情况下都返回 False（宁可少打一只，也不多发一次）。
 """
@@ -24,6 +27,12 @@ import json
 import os
 import threading
 import time
+from contextlib import contextmanager
+
+try:
+    import fcntl
+except ImportError:  # Windows 没有 flock，退化成进程内互斥
+    fcntl = None
 
 DEFAULT_MIN_INTERVAL_SECONDS = 600.0
 # 记录保留时长：只是为了日志可回溯，超过这个时间的条目会被清掉
@@ -72,59 +81,67 @@ class BossChallengeGuard:
         spawn = self._spawn(spawn_key)
         now = time.time()
         with self._lock:
-            self._prune(now)
-            record = self._records.get(uid)
-            if record:
-                if spawn is not None and record.get('spawn_key') == spawn:
-                    self._warn(
-                        f'挑战闸门拦截 boss({uid})：同一轮刷新({spawn})已经发过请求，拒绝重复发送'
-                    )
-                    return False
-                age = now - self._float(record.get('ts'))
-                remain = self.min_interval - age
-                if remain > 0:
-                    self._warn(
-                        f'挑战闸门拦截 boss({uid})：距上次请求仅 {age:.0f}s，'
-                        f'不足最小间隔 {self.min_interval:.0f}s（还差 {remain:.0f}s），拒绝重复发送'
-                    )
-                    return False
-            self._records[uid] = {
-                'ts': now,
-                'spawn_key': spawn,
-                'purpose': purpose,
-                'accepted': None,
-            }
-            self._save()
-            return True
+            with self._state_lock():
+                # 先读一次盘：同一只号开两个实例时，另一个进程刚写的记录在这里才能看见
+                self._load()
+                self._prune(now)
+                record = self._records.get(uid)
+                if record:
+                    if spawn is not None and record.get('spawn_key') == spawn:
+                        self._warn(
+                            f'挑战闸门拦截 boss({uid})：同一轮刷新({spawn})已经发过请求，拒绝重复发送'
+                        )
+                        return False
+                    age = now - self._float(record.get('ts'))
+                    remain = self.min_interval - age
+                    if remain > 0:
+                        self._warn(
+                            f'挑战闸门拦截 boss({uid})：距上次请求仅 {age:.0f}s，'
+                            f'不足最小间隔 {self.min_interval:.0f}s（还差 {remain:.0f}s），拒绝重复发送'
+                        )
+                        return False
+                self._records[uid] = {
+                    'ts': now,
+                    'spawn_key': spawn,
+                    'purpose': purpose,
+                    'accepted': None,
+                }
+                self._save()
+                return True
 
     def release(self, union_id, spawn_key=None) -> None:
         """撤销刚才那次 claim：用于"许可拿到了但请求其实没发出去"。"""
         uid = self._uid(union_id)
         spawn = self._spawn(spawn_key)
         with self._lock:
-            record = self._records.get(uid)
-            if not record:
-                return
-            if spawn is not None and record.get('spawn_key') != spawn:
-                return
-            self._records.pop(uid, None)
-            self._save()
+            with self._state_lock():
+                self._load()
+                record = self._records.get(uid)
+                if not record:
+                    return
+                if spawn is not None and record.get('spawn_key') != spawn:
+                    return
+                self._records.pop(uid, None)
+                self._save()
 
     def record_result(self, union_id, accepted: bool) -> None:
         """记一笔服务端是否真的受理了这次请求，只用于事后排查。"""
         uid = self._uid(union_id)
         with self._lock:
-            record = self._records.get(uid)
-            if not record:
-                return
-            record['accepted'] = bool(accepted)
-            self._save()
+            with self._state_lock():
+                self._load()
+                record = self._records.get(uid)
+                if not record:
+                    return
+                record['accepted'] = bool(accepted)
+                self._save()
 
     def seconds_until_allowed(self, union_id, spawn_key=None) -> float:
         """还要等多少秒才允许再对这只 boss 出手；0 表示现在就可以。"""
         uid = self._uid(union_id)
         spawn = self._spawn(spawn_key)
         with self._lock:
+            self._load()
             record = self._records.get(uid)
             if not record:
                 return 0.0
@@ -137,6 +154,7 @@ class BossChallengeGuard:
     def last_fire_age(self, union_id):
         """距这只 boss 上次请求过去了多少秒；没记录时返回 None。"""
         with self._lock:
+            self._load()
             record = self._records.get(self._uid(union_id))
             if not record:
                 return None
@@ -166,6 +184,37 @@ class BossChallengeGuard:
                    if now - self._float(rec.get('ts')) > RECORD_TTL_SECONDS]
         for uid in expired:
             self._records.pop(uid, None)
+
+    @contextmanager
+    def _state_lock(self):
+        """跨进程排他锁：同一个号开多个实例时，读改写记录必须串行。
+
+        只锁进程内的 RLock 是不够的 —— 两个进程各读一份文件、各自判定"没打过"，
+        然后各自发一次请求（2026-11-13 18:57 实测相差 18ms 就发生了）。
+        """
+        if fcntl is None:
+            yield
+            return
+        lock_path = self.state_path + '.lock'
+        try:
+            directory = os.path.dirname(lock_path)
+            if directory:
+                os.makedirs(directory, exist_ok=True)
+            handle = open(lock_path, 'a+')
+        except OSError as e:
+            # 锁文件都建不出来，只能退化成进程内互斥，但要留痕
+            self._warn(f'挑战闸门无法创建跨进程锁文件（降级为进程内互斥）：{e}')
+            yield
+            return
+        try:
+            fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
+            yield
+        finally:
+            try:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            except OSError:
+                pass
+            handle.close()
 
     def _load(self):
         try:

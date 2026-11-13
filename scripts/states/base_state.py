@@ -25,6 +25,12 @@ class BaseState:
         上层于是又走"没打成"的分支，白折腾一轮，甚至补发第二次请求。
 
         这里只读页面、不发任何挑战请求，所以多轮询几次没有副作用。
+
+        判定口径（2026-11-13 修正）：**只有"我们这个号进入挑战冷却"才算受理**。
+        boss 从存活列表消失是**全服共享**的状态，别人打死的那一刀同样会让它消失，
+        拿它当受理证据会得到假成功——11-13 14:57 与 18:57 两轮 VIP 狙击都是这样
+        被误判成"打成了"的：boss(17) 确实不见了，但我们这个号从头到尾没有任何冷却，
+        战报里也没有我们的战斗记录。真正的成功（11-13 10:57）是 T+1.3s 就读到 3598s。
         """
         if attempts is None:
             attempts = CONFIRM_ATTEMPTS
@@ -50,17 +56,17 @@ class BaseState:
             if cooldown > 0:
                 self.log(f'挑战结果确认：已进入冷却（{cooldown}秒），第{i + 1}次读取确认受理')
                 return True
-            # "boss 不在存活列表"只有在页面确实解析出了别的 boss 时才算证据，
-            # 否则可能是页面没解析出来（登录页/网络错误），不能据此报成功
+            # boss 消失不算受理证据：那是全服共享状态，别人打死的也会让它消失。
+            # 只在日志里留一条提示，继续等冷却出现。
             if boss_gone and alive_ids:
-                self.log(f'挑战结果确认：boss({union_id}) 已不在存活列表，第{i + 1}次读取确认受理')
-                return True
+                self.log(f'挑战结果确认：boss({union_id}) 已不在存活列表但没有冷却，'
+                         f'第{i + 1}次读取（可能是别人打死的），继续观察')
 
             if i < attempts - 1:
                 time.sleep(interval)
 
         self.log(f'挑战结果确认：{attempts}次读取（约{attempts * interval + first_wait:.1f}秒）'
-                 f'仍未见冷却或boss消失，按未受理处理')
+                 f'仍未见本号冷却，按未受理处理（boss 消失但无冷却=被别人抢先）')
         return False
 
 
