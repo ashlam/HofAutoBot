@@ -21,8 +21,8 @@
   "keep_stamnia_for_change_stage": 3000,
   "keep_stamnia_for_time_limited_stage": 1000,
   "is_keep_pvp_win_rate": true,
-  "challenge_boss_delay_rate": 20,
-  "challenge_boss_delay_seconds_limit": 240,
+  "challenge_boss_delay_rate": 1,
+  "challenge_boss_delay_seconds_limit": 40,
   "vip_boss_need_watch": [
     {
       "union_id": 17,
@@ -36,10 +36,17 @@
       "union_id": 17,
       "plan_action_id": 600170
     },
-
+    {
+      "union_id": 25,
+      "plan_action_id": 600250
+    },
+    {
+      "union_id": 9,
+      "plan_action_id": 600090
+    },
     {
       "union_id": 12,
-      "plan_action_id": 600120
+      "plan_action_id": 600121
     },
     {
       "union_id": 8,
@@ -72,10 +79,6 @@
     {
       "union_id": 20,
       "plan_action_id": 600200
-    },
-    {
-      "union_id": 25,
-      "plan_action_id": 600250
     },
     {
       "union_id": 19,

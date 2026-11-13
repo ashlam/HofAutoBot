@@ -32,7 +32,7 @@
 <input id="SORT_TYPE" name="sort_type" type="hidden" value=""/>
 </td></tr></tbody></table>
 </span></div>
-<ul class="image-grid" id="applications" style="height: 4086px;"><li data-id="id-1" data-type="warrior" data-type2="type_1">
+<ul class="image-grid" id="applications" style="height: 4540px;"><li data-id="id-1" data-type="warrior" data-type2="type_1">
 <div class="carpet_frame">
 <div class="carpet1">
 <div class="chartable">
@@ -105,7 +105,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1340513162741689)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1340513162741689)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:+4 心眼指環&lt;br&gt;徽記:黃天聖印&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214w.gif"/></a>
 </div>
 </div>
 </div>
@@ -156,7 +156,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341059931760690)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_268.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1341059931760690)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 召喚之書&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_268.gif"/></a>
 </div>
 </div>
 </div>
@@ -224,7 +224,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341490339532287)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:+7 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_315m.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1341490339532287)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:+7 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_315m.gif"/></a>
 </div>
 </div>
 </div>
@@ -241,7 +241,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1341630067887846)" style="height:128px" title="武器:+6 真-加太&lt;br&gt;副手:&lt;br&gt;　甲:+4 普林斯特護甲&lt;br&gt;道具:+5 魔法指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_237.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1341630067887846)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_237.gif"/></a>
 </div>
 </div>
 </div>
@@ -513,7 +513,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1355917854628872)" style="height:128px" title="武器:&lt;br&gt;副手:+4 席飛斯的生活手冊&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:狂暴指環&lt;br&gt;徽記:&lt;br&gt;卡片:獸拳師女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n415w_1.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1355917854628872)" style="height:128px" title="武器:+5 銀尾鞭&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 靈感外袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:&lt;br&gt;卡片:獸拳師女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_n415w_1.gif"/></a>
 </div>
 </div>
 </div>
@@ -704,7 +704,7 @@
 </div>
 </div>
 </div>
-				小ＨＨ<br/>Lv.60 神獸師				<div style="display:none">
+				小ＨＨ<span class="bold charge">*</span><br/>Lv.60 神獸師				<div style="display:none">
 <span data-type="base">7</span>
 <span data-type="job">412</span>
 <span data-type="name">小ＨＨ</span>
@@ -734,7 +734,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1377693084376417)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+6 王者外套&lt;br&gt;道具:+7 魔法指環&lt;br&gt;徽記:惡魔寶珠&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1377693084376417)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+7 靈感外袍&lt;br&gt;道具:速度指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n414m.gif"/></a>
 </div>
 </div>
 </div>
@@ -836,7 +836,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1395921567796858)" style="height:128px" title="武器:+6 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1395921567796858)" style="height:128px" title="武器:+6 真-濡摘&lt;br&gt;副手:+4 咒語日記&lt;br&gt;　甲:+4 王者外套&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213w.gif"/></a>
 </div>
 </div>
 </div>
@@ -870,7 +870,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1398349218541528)" style="height:128px" title="武器:+4 戮龍劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:退魔戰將女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_245_01.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1398349218541528)" style="height:128px" title="武器:+4 戮龍劍&lt;br&gt;副手:+4 黑鐵盾&lt;br&gt;　甲:+4 鬼靈面罩&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:退魔戰將女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_245_01.gif"/></a>
 </div>
 </div>
 </div>
@@ -1023,7 +1023,7 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1449724926506198)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+4 龍袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216w.png"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1449724926506198)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 忍術密傳&lt;br&gt;　甲:+5 靈感外袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:上將護符&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216w.png"/></a>
 </div>
 </div>
 </div>
@@ -1601,13 +1601,13 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1757503353177035)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_213.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1757503353177035)" style="height:128px" title="武器:棒&lt;br&gt;副手:&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n214m.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.Z<span class="bold charge">*</span><br/>Lv.60 牧師				<div style="display:none">
+				狗头人候补No.Z<br/>Lv.60 武僧				<div style="display:none">
 <span data-type="base">1</span>
-<span data-type="job">300</span>
+<span data-type="job">314</span>
 <span data-type="name">狗头人候补No.Z</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
@@ -1652,13 +1652,13 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1759039809112329)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 重盾&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_079.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1759039809112329)" style="height:128px" title="武器:+4 命運幻象長戟&lt;br&gt;副手:&lt;br&gt;　甲:+6 靈感外袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.W<span class="bold charge">*</span><br/>Lv.60 戰士				<div style="display:none">
+				狗头人候补No.W<br/>Lv.60 亡靈守衛				<div style="display:none">
 <span data-type="base">1</span>
-<span data-type="job">100</span>
+<span data-type="job">110</span>
 <span data-type="name">狗头人候补No.W</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
@@ -1703,11 +1703,11 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1767669676055365)" style="height:128px" title="武器:+4 斬龍劍&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012w.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1767669676055365)" style="height:128px" title="武器:+4 戮龍劍&lt;br&gt;副手:+4 末日鐘&lt;br&gt;　甲:+4 終結長袍&lt;br&gt;道具:時空末日者之戒&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n012w.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.T<span class="bold charge">*</span><br/>Lv.60 絡印勇士				<div style="display:none">
+				狗头人候补No.T<br/>Lv.60 絡印勇士				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">112</span>
 <span data-type="name">狗头人候补No.T</span>
@@ -1720,7 +1720,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1769074476105089)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_106.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1769074476105089)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_106.gif"/></a>
 </div>
 </div>
 </div>
@@ -1754,15 +1754,15 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1773829410943007)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1773829410943007)" style="height:128px" title="武器:香蕉劍&lt;br&gt;副手:精靈盾&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.Q<span class="bold charge">*</span><br/>Lv.20 戰士				<div style="display:none">
+				狗头人候补No.Q<span class="bold charge">*</span><br/>Lv.52 戰士				<div style="display:none">
 <span data-type="base">1</span>
 <span data-type="job">100</span>
 <span data-type="name">狗头人候补No.Q</span>
-<span data-type="level">20</span>
+<span data-type="level">52</span>
 <span data-type="type_0"></span>
 </div>
 </div>
@@ -1805,13 +1805,13 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1777012729519091)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_079.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1777012729519091)" style="height:128px" title="武器:+4 命運幻象長戟&lt;br&gt;副手:&lt;br&gt;　甲:+6 靈感外袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:純白玉兔&lt;br&gt;"> <img src="./image/char/mon_111.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.N<span class="bold charge">*</span><br/>Lv.60 戰士				<div style="display:none">
+				狗头人候补No.N<br/>Lv.60 亡靈守衛				<div style="display:none">
 <span data-type="base">1</span>
-<span data-type="job">100</span>
+<span data-type="job">110</span>
 <span data-type="name">狗头人候补No.N</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
@@ -1822,13 +1822,13 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1778126128905260)" style="height:128px" title="武器:棒&lt;br&gt;副手:&lt;br&gt;　甲:神聖長袍&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1778126128905260)" style="height:128px" title="武器:真-戊&lt;br&gt;副手:&lt;br&gt;　甲:+6 靈感外袍&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:遠粽卡&lt;br&gt;"> <img src="./image/char/special_day_Dumplings2.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.M<span class="bold charge">*</span><br/>Lv.60 女祭司				<div style="display:none">
+				狗头人候补No.M<br/>Lv.60 變形者				<div style="display:none">
 <span data-type="base">1</span>
-<span data-type="job">300</span>
+<span data-type="job">315</span>
 <span data-type="name">狗头人候补No.M</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
@@ -1839,13 +1839,13 @@
 <div class="carpet1">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1783324334342125)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 鐵盾&lt;br&gt;　甲:板甲&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1783324334342125)" style="height:128px" title="武器:+4 阿母牛姿，兄弟會之劍&lt;br&gt;副手:&lt;br&gt;　甲:+4 英魂甲冑&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:聖堂武士女造型卡(一)&lt;br&gt;"> <img src="./image/char/mon_241_01.gif"/></a>
 </div>
 </div>
 </div>
-				狗头人候补No.L<span class="bold charge">*</span><br/>Lv.60 戰士				<div style="display:none">
+				狗头人候补No.L<span class="bold charge">*</span><br/>Lv.60 聖堂武士				<div style="display:none">
 <span data-type="base">1</span>
-<span data-type="job">100</span>
+<span data-type="job">111</span>
 <span data-type="name">狗头人候补No.L</span>
 <span data-type="level">60</span>
 <span data-type="type_0"></span>
@@ -1856,7 +1856,7 @@
 <div class="carpet0">
 <div class="chartable">
 <div class="chartd">
-<a class="show_title" href="#" onclick="RA_Charback(1786416794919057)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_213.gif"/></a>
+<a class="show_title" href="#" onclick="RA_Charback(1786416794919057)" style="height:128px" title="武器:&lt;br&gt;副手:&lt;br&gt;　甲:&lt;br&gt;道具:&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_213.gif"/></a>
 </div>
 </div>
 </div>
@@ -1865,6 +1865,176 @@
 <span data-type="job">300</span>
 <span data-type="name">狗头人候补No.K</span>
 <span data-type="level">60</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-109" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1789713152903979)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.J<span class="bold charge">*</span><br/>Lv.60 女祭司				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">300</span>
+<span data-type="name">狗头人候补No.J</span>
+<span data-type="level">60</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-110" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1789713163899357)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+4 末日典籍&lt;br&gt;　甲:+6 靈感外袍&lt;br&gt;道具:雷王結晶&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:魔化玉兔&lt;br&gt;"> <img src="./image/char/mon_111r.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.I<br/>Lv.60 審判者				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">313</span>
+<span data-type="name">狗头人候补No.I</span>
+<span data-type="level">60</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-111" data-type="hunter" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1791777679226677)" style="height:128px" title="武器:短弓&lt;br&gt;副手:&lt;br&gt;　甲:+4 神聖長袍&lt;br&gt;道具:八寶硬幣&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n414m.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.H<br/>Lv.58 機關師				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">414</span>
+<span data-type="name">狗头人候补No.H</span>
+<span data-type="level">58</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-112" data-type="wizard" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1791777693737882)" style="height:128px" title="武器:棒&lt;br&gt;副手:+4 末日典籍&lt;br&gt;　甲:+5 Iriss外衣&lt;br&gt;道具:+5 生命指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/job_216w.png"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.G<br/>Lv.59 元素使				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">216</span>
+<span data-type="name">狗头人候补No.G</span>
+<span data-type="level">59</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-113" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1791777732718409)" style="height:128px" title="武器:+4 真-濡摘&lt;br&gt;副手:+4 末日典籍&lt;br&gt;　甲:+4 終結長袍&lt;br&gt;道具:心眼指環&lt;br&gt;徽記:元帥號角&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_n213m.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.F<span class="bold charge">*</span><br/>Lv.59 護聖使				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">311</span>
+<span data-type="name">狗头人候补No.F</span>
+<span data-type="level">59</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-114" data-type="warrior" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1794453279343853)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 重盾&lt;br&gt;　甲:棉汗衫&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_079.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.E<span class="bold charge">*</span><br/>Lv.10 戰士				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">100</span>
+<span data-type="name">狗头人候补No.E</span>
+<span data-type="level">10</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-115" data-type="warrior" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1794453301099575)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:鐵盾&lt;br&gt;　甲:板甲&lt;br&gt;道具:龍珠&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_079.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.D<span class="bold charge">*</span><br/>Lv.10 戰士				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">100</span>
+<span data-type="name">狗头人候补No.D</span>
+<span data-type="level">10</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-116" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1794453363178058)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_213.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.C<span class="bold charge">*</span><br/>Lv.10 牧師				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">300</span>
+<span data-type="name">狗头人候补No.C</span>
+<span data-type="level">10</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-117" data-type="pastor" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet1">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1794453439030122)" style="height:128px" title="武器:棒&lt;br&gt;副手:咒語字典&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_214.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.B<span class="bold charge">*</span><br/>Lv.10 女祭司				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">300</span>
+<span data-type="name">狗头人候补No.B</span>
+<span data-type="level">10</span>
+<span data-type="type_0"></span>
+</div>
+</div>
+</li><li data-id="id-118" data-type="warrior" data-type2="type_0">
+<div class="carpet_frame">
+<div class="carpet0">
+<div class="chartable">
+<div class="chartd">
+<a class="show_title" href="#" onclick="RA_Charback(1794453448592193)" style="height:128px" title="武器:+4 香蕉劍&lt;br&gt;副手:+4 Baccrar&lt;br&gt;　甲:棉長袍&lt;br&gt;道具:生命指環&lt;br&gt;徽記:&lt;br&gt;卡片:&lt;br&gt;"> <img src="./image/char/mon_080r.gif"/></a>
+</div>
+</div>
+</div>
+				狗头人候补No.A<span class="bold charge">*</span><br/>Lv.10 戰士				<div style="display:none">
+<span data-type="base">1</span>
+<span data-type="job">100</span>
+<span data-type="name">狗头人候补No.A</span>
+<span data-type="level">10</span>
 <span data-type="type_0"></span>
 </div>
 </div>
