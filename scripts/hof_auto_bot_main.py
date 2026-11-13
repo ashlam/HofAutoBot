@@ -12,6 +12,7 @@ from scripts.server_config_manager import ServerConfigManager
 from scripts.battle_watcher_manager import BattleWatcherManager
 from scripts.log_manager import LogManager
 from scripts.auto_bot_config_manager import AutoBotConfigManager
+from scripts.config_consistency import find_missing_action_ids
 from scripts.boss_battle_manager import BossBattleManager
 from scripts.boss_challenge_guard import BossChallengeGuard
 from scripts.boss_check_watchdog import BossCheckWatchdog
@@ -42,6 +43,8 @@ class HofAutoBot:
         self.action_manager = None
         self.is_finished = False
         self.status_update_signal = None
+        # 配置表每重载一次就 +1：发呆状态靠它发现"配置变了，别按旧配置继续睡"
+        self.config_reload_epoch = 0
 
         self.challenge_next_cooldown = 0
         self.player_stamina = 0
@@ -369,6 +372,12 @@ class HofAutoBot:
         print(log_path)
         self.logger.set_log_path(log_path)
 
+        # 启动时先查一遍配置引用：loop 里写了动作配置中不存在的 id，只会在跑到那一项时
+        # 才刷「未找到动作配置」并且一直空转，事先喊一声比事后翻日志划算。
+        self._warn_missing_action_ids(find_missing_action_ids(
+            getattr(self.auto_bot_config_manager, 'config', {}) or {},
+            self.server_config_manager.all_action_config_by_server or {}))
+
         if not self.driver:
              # 初始化浏览器
             self.driver = webdriver.Chrome()
@@ -386,14 +395,71 @@ class HofAutoBot:
 
 
     def reload_configs(self):
+        """重载配置表，返回一份摘要（dict）供调用方打印。
+
+        想要的是"改了配置立刻按新配置跑"：配置对象整份替换，
+        同时把 config_reload_epoch 加一，让正在发呆的 IdleState 提前醒来
+        回上层重新决策；但正在执行的动作（页面点击、VIP 狙击倒计时）不会被硬打断。
+        """
         if not self.server_config_manager or not self.server_config_manager.current_server_data:
-            return
+            return None
         current_server_data = self.server_config_manager.current_server_data
         auto_bot_config_path = f"{current_server_data.get('config_path')}/{current_server_data.get('auto_bot_loop_config_path')}"
         self.auto_bot_config_manager = AutoBotConfigManager(auto_bot_config_path)
         self.server_config_manager.all_action_config_by_server = self.server_config_manager._load_server_action_config(current_server_data)
+        self.server_config_manager.auto_bot_config = self.server_config_manager._load_auto_bot_config(current_server_data)
         if self.boss_battle_manager and self.server_config_manager.current_server_data:
             self.boss_battle_manager.set_server_id(self.server_config_manager.current_server_data.get("id", 1))
+        # 动作类型配置（每个动作前后的等待毫秒数）是 AdvancedActionManager 在构造时读进内存的，
+        # 原来重载从来不重建它，所以改了 action_type_config.json 只有重启进程才生效。
+        self.action_manager = AdvancedActionManager(server_id=current_server_data.get("id", 1))
+        self.config_reload_epoch = getattr(self, 'config_reload_epoch', 0) + 1
+        summary = self._config_reload_summary(auto_bot_config_path)
+        self.logger.info(f'配置已重载：{summary["path"]}（文件时间 {summary["mtime"]}），'
+                         f'普通boss={summary["normal_boss"]}，挑战冷却={summary["cooldown"]}秒，'
+                         f'动作组={summary["action_groups"]}个')
+        self._warn_missing_action_ids(summary['missing_action_ids'])
+        return summary
+
+    def _config_reload_summary(self, auto_bot_config_path):
+        """把重载后真正生效的关键值整理出来，避免"以为重载了其实没读到"。"""
+        cfg = self.auto_bot_config_manager
+
+        def _get(name, default=None):
+            try:
+                return getattr(cfg, name)
+            except (AttributeError, TypeError, ValueError):
+                return default
+
+        try:
+            mtime = datetime.fromtimestamp(os.path.getmtime(auto_bot_config_path)).strftime('%H:%M:%S')
+        except OSError:
+            mtime = '未知'
+        action_groups = self.server_config_manager.all_action_config_by_server or {}
+        missing = find_missing_action_ids(getattr(cfg, 'config', {}) or {}, action_groups)
+        return {
+            'path': os.path.abspath(auto_bot_config_path),
+            'mtime': mtime,
+            'normal_boss': [b.get('union_id') for b in (_get('normal_boss_loop_order') or [])],
+            'vip_boss': [b.get('union_id') for b in (_get('vip_boss_need_watch') or [])],
+            'cooldown': _get('challenge_boss_cooldown_seconds', 0),
+            'idle': _get('idle_seconds_for_challenge_boss', 0),
+            'snipe_offset_ms': float(_get('vip_snipe_commit_offset_ms', 0) or 0),
+            'action_groups': len(action_groups),
+            'action_types': len(getattr(self.action_manager, 'action_type_config', {}) or {}),
+            'missing_action_ids': missing,
+        }
+
+    def _warn_missing_action_ids(self, missing):
+        """loop 配置引用了动作配置里不存在的动作组时，尽早喊出来。
+
+        不这样喊的话，问题只会在跑到那一项时以「未找到动作配置」的形式零星出现，
+        然后那条循环一直空转，很难注意到。
+        """
+        for m in missing or []:
+            self.logger.error(f"配置不一致：{m['field']} 里 boss/关卡 {m['target']} 引用了动作组 "
+                              f"{m['action_id']}，但动作配置里没有这个 id，跑到这里会直接跳过")
+
     def _initialize_from_command_line(self):
         """等待登录"""
         # 初始化服务器配置管理器
