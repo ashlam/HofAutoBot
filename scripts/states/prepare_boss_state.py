@@ -30,6 +30,13 @@ class PrepareBossState(BaseState):
         if self.bot.challenge_next_cooldown > 0:
             idle_state = StateFactory.create_idle_state(self.bot)
             standard_idle_seconds = self.bot.auto_bot_config_manager.idle_seconds_for_challenge_boss
+            # 冷却会盖过 vip 刷新时刻时，至少把这件事说清楚，别让人以为是没触发
+            checker = getattr(self.bot, 'seconds_until_vip_boss_spawn', None)
+            remain_vip = checker() if callable(checker) else None
+            if remain_vip is not None and remain_vip > 0 and self.bot.challenge_next_cooldown > remain_vip:
+                self.log(f'注意：当前挑战冷却还剩{self.bot.challenge_next_cooldown}秒，'
+                         f'比vip boss刷新的{remain_vip:.0f}秒还长，本轮vip会错过'
+                         f'（冷却结束于刷新之后{self.bot.challenge_next_cooldown - remain_vip:.0f}秒）')
             # 冷却时间还久的很
             if self.bot.challenge_next_cooldown >= standard_idle_seconds:
                 # 如果在冷却中，去干点别的

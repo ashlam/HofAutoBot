@@ -98,6 +98,19 @@ class BaseState:
             # 老版本 bot / 测试桩没有该接口时，按"不受影响"处理
             return False
 
+    def _vip_cooldown_guard_seconds(self) -> float:
+        """VIP 刷新前多久必须停止挑战普通 boss。
+
+        单位是"打一把最坏会锁住多久"：击杀后是 60 分钟、失败是 20 分钟，
+        取长的那个再加余量。用失败值（20 分钟）判断会出现这种情况——
+        "还剩 25 分钟，够打一把"，结果赢了、冷却 60 分钟，刷新点正好锁死在里面。
+        """
+        try:
+            return float(self.bot.auto_bot_config_manager.vip_cooldown_guard_seconds)
+        except AttributeError:
+            # 老配置/测试桩没有该属性时，按 60 分钟 + 3 分钟余量兜底
+            return 3780.0
+
     def _cap_idle_by_vip_spawn(self, idle_seconds: float) -> float:
         """把一次睡眠截断到 vip 刷新前 1 秒，避免一觉睡过刷新时刻。
 

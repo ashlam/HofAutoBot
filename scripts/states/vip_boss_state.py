@@ -71,8 +71,9 @@ class VipBossState(BaseState):
                     minutes, seconds = divmod(seconds, 60)
                     self.log(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒")
                     # TODO: 这里有过期的风险，会一直等
-                    wait_time = min(self.bot.auto_bot_config_manager.challenge_boss_cooldown_seconds, max(0, time_until_spawn))
-                    self.log(f"{'将于%.2f秒后暂停' % wait_time if wait_time > 0 else '已暂停' }挑战普通boss行为，专心等vip")
+                    # 保护窗口按"打一把最坏会锁多久"算（击杀 60 分钟），不能用失败冷却 20 分钟：
+                    # 否则"还剩 25 分钟、够打一把"会因为赢了而被锁 60 分钟，refresh 点正落在里面。
+                    guard_seconds = self._vip_cooldown_guard_seconds()
                     if time_until_spawn <= 0:
                         # 刷新时刻已过：如果这一轮还没出过手，补一次（且只补一次）
                         if self._already_fired():
@@ -81,9 +82,11 @@ class VipBossState(BaseState):
                         self.log(f'VIP boss {union_id} 刷新时刻已过，立刻尝试一次')
                         self.set_state(self._create_snipe_state(union_id, advanced_action_config, next_spawn_timestamp))
                         return
-                    elif time_until_spawn <= wait_time:
-                        # 等待时间较少（20分钟内）
-                        self.log(f'VIP boss {union_id} 将在 {time_until_spawn} 秒后刷新。注意不要打其他Boss，去干别的。')
+                    elif time_until_spawn <= guard_seconds:
+                        # 已进入保护窗口：从现在起到刷新为止，绝不碰普通 boss
+                        self.log(f'VIP boss {union_id} 将在 {time_until_spawn:.0f} 秒后刷新，'
+                                 f'已进入保护窗口（{guard_seconds:.0f} 秒，按击杀冷却+余量算）：'
+                                 f'从现在起不打任何普通 boss，专心等刷新')
                         """
                         # 想办法将PrepareBossState设定为等vip模式，一旦到时间就Dicrect或者转到VipBoss，没到时间就去做除打boss以外的事 
                         """
@@ -94,7 +97,8 @@ class VipBossState(BaseState):
                         self.set_state(wait_vip_boss_state)
                         return
                     else:
-                        # 20分钟以上，看看有没有其他vip boss
+                        # 还在保护窗口之外，这段时间可以正常打普通 boss；
+                        # 每轮结束前还会再查一次，进入窗口就会立刻切成等待
                         continue
 
         # 走到这里说明所有vip boss都处理过了，接下来不属于vip管辖范围了

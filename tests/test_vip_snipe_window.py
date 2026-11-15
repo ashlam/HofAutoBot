@@ -197,6 +197,91 @@ def test_vip_boss_gives_up_after_three_log_failures():
     assert bot.vip_boss_log_fail_streak == 0
 
 
+class _GuardBot(_FakeBot):
+    """知道 VIP 刷新时刻、并且按真实数值配了"击杀冷却 60 分钟"的桩。"""
+
+    KILL_COOLDOWN = 3600
+    GUARD = KILL_COOLDOWN + 180
+
+    def __init__(self, remain_vip, alived=None):
+        super().__init__(remain=None)
+        cfg = self.auto_bot_config_manager
+        cfg.vip_boss_need_watch = [
+            {'union_id': 17, 'plan_action_id': 600170, 'kill_cooldown_seconds': 14400}
+        ]
+        cfg.is_challenge_vip_boss = True
+        cfg.challenge_boss_cooldown_seconds = 1200          # 失败冷却
+        cfg.challenge_boss_kill_cooldown_seconds = self.KILL_COOLDOWN
+        cfg.vip_cooldown_guard_margin_seconds = 180
+        cfg.vip_cooldown_guard_seconds = self.GUARD
+        cfg.challenge_boss_delay_rate = -1                  # 永不触发随机延迟
+        cfg.normal_boss_loop_order = [{'union_id': 25, 'plan_action_id': 600001}]
+        self.all_alived_boss_ids = alived if alived is not None else []
+        self.server_clock_offset = 0.0
+        self.server_config_manager = types.SimpleNamespace(
+            current_server_data={'url': 'https://example.com/hall/'},
+            all_action_config_by_server={'600170': {'name': 'vip', 'actions': []}},
+        )
+        self.boss_battle_manager = types.SimpleNamespace(
+            get_next_vip_boss=lambda *a, **k: {
+                'future_unixtime': int((time.time() + remain_vip) * 1000000)
+            }
+        )
+        self.vip_boss_log_fail_streak = 0
+        self.battle_watcher_manager = types.SimpleNamespace(get_all_alive_boss=lambda: ['25'])
+
+    def set_next_vip_boss_spawn_timestamp(self, union_id, timestamp):
+        self.next_vip_boss_spawn_timestamp = timestamp
+        self.next_vip_boss_id = union_id
+        self.is_waiting_for_vip_boss = True
+
+    def reset_waiting_vip_boss_spawn_info(self):
+        self.is_waiting_for_vip_boss = False
+        self.next_vip_boss_spawn_timestamp = -1
+
+
+def test_vip_boss_guard_uses_kill_cooldown_not_failure_cooldown():
+    """保护窗口必须按击杀冷却（60 分钟）算，只按失败冷却（20 分钟）算等于没保护。"""
+    from scripts.auto_bot_config_manager import AutoBotConfigManager
+
+    mgr = AutoBotConfigManager.__new__(AutoBotConfigManager)
+    mgr.config = {'challege_boss_cooldown_seconds': 1200}
+    assert mgr.challenge_boss_kill_cooldown_seconds == 3600
+    assert mgr.vip_cooldown_guard_seconds == 3600 + 180
+    assert mgr.vip_cooldown_guard_seconds > mgr.challenge_boss_cooldown_seconds
+
+
+def test_vip_boss_enters_guard_window_one_kill_cooldown_early():
+    """距刷新 50 分钟（远超失败的 20 分钟）就该进入保护窗口，不再放行普通 boss。"""
+    from scripts.states.vip_boss_state import VipBossState
+
+    bot = _GuardBot(remain_vip=3000)
+    _run(VipBossState(bot))
+    assert bot.is_waiting_for_vip_boss, '距刷新 50 分钟就该进入保护窗口'
+    assert isinstance(bot.current_state, WaitVipBossState), \
+        f'应转入等待状态，实际 {type(bot.current_state).__name__}'
+
+
+def test_normal_boss_refuses_to_burn_kill_cooldown_before_spawn():
+    """同一场景下普通 boss 也不能打：赢了锁 60 分钟，正好把刷新点锁死在冷却里。"""
+    from scripts.states.normal_boss_state import NormalBossState
+
+    bot = _GuardBot(remain_vip=3000)
+    next_state = _run(NormalBossState(bot))
+    assert isinstance(next_state, IdleState), \
+        f'距刷新不足一个击杀冷却，不该打普通 boss，实际跳到 {type(next_state).__name__}'
+
+
+def test_prepare_boss_warns_when_cooldown_swallows_spawn():
+    """冷却会盖过刷新时刻时必须有明确提示，否则看起来像"根本没触发 VIP 流程"。"""
+    logs = []
+    bot = _FakeBot(remain=600)
+    bot.challenge_next_cooldown = 1800
+    bot.logger.info = lambda msg: logs.append(str(msg))
+    _run(PrepareBossState(bot))
+    assert any('本轮vip会错过' in m for m in logs), f'应提示会错过，实际日志：{logs}'
+
+
 if __name__ == "__main__":
     for name, func in list(globals().items()):
         if name.startswith("test_") and callable(func):

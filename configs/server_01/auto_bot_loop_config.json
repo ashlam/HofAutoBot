@@ -5,6 +5,8 @@
   "max_stamnia_limit": 4000,
   "recover_stamina_per_hour": 1000,
   "challege_boss_cooldown_seconds": 1200,
+  "challege_boss_kill_cooldown_seconds": 3600,
+  "vip_cooldown_guard_margin_seconds": 180,
   "idle_seconds_for_challenge_boss": 30,
   "idle_seconds_for_challenge_vip_boss": 40,
   "vip_snipe_window_seconds": 120,
@@ -45,12 +47,12 @@
       "plan_action_id": 600090
     },
     {
-      "union_id": 12,
-      "plan_action_id": 600122
-    },
-    {
       "union_id": 8,
       "plan_action_id": 600080
+    },
+    {
+      "union_id": 12,
+      "plan_action_id": 600122
     },
     {
       "union_id": 26,

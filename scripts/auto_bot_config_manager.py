@@ -140,4 +140,31 @@ class AutoBotConfigManager:
 
     @property
     def challenge_boss_cooldown_seconds(self) -> int:
+        """打 boss 失败后的冷却（配置名保留了原来的拼写）。"""
         return self.config.get('challege_boss_cooldown_seconds', 1200)
+
+    @property
+    def challenge_boss_kill_cooldown_seconds(self) -> int:
+        """打 boss 成功后锁定的冷却。
+
+        和失败完全不是一个量级：实测失败 20 分钟、击杀 60 分钟（日志里
+        09:28:34 打死普通 boss 后读到 3599 秒）。判断"现在打一把会不会撞上
+        VIP 刷新"必须按这个更长的值算，否则"还剩 20 分钟，够打一把"是个陷阱。
+        """
+        return int(self.config.get('challege_boss_kill_cooldown_seconds', 3600))
+
+    @property
+    def vip_cooldown_guard_margin_seconds(self) -> int:
+        """保护窗口在"最坏占用"之外再留的余量：一次挑战含页面操作约 10~40 秒，
+        再加上战报/冷却起算点的抖动。"""
+        return int(self.config.get('vip_cooldown_guard_margin_seconds', 180))
+
+    @property
+    def vip_cooldown_guard_seconds(self) -> int:
+        """VIP 刷新前多久就必须停手、不再打任何普通 boss。
+
+        取"胜/败两种结局里更长的那个冷却"再加余量：只要这一次挑战有可能把
+        冷却拖过刷新时刻，就不该打——被锁住的那一小时里 VIP 已经刷出来又被打没了。
+        """
+        worst = max(self.challenge_boss_cooldown_seconds, self.challenge_boss_kill_cooldown_seconds)
+        return worst + self.vip_cooldown_guard_margin_seconds

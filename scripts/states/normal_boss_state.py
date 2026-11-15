@@ -46,12 +46,13 @@ class NormalBossState(BaseState):
                     time_until_spawn = (next_spawn_time - datetime.now()).total_seconds() - clock_offset
                     next_vip_spawn_seconds = int(time_until_spawn)
                     break
-            # 打一个普通boss要锁掉整整一个挑战冷却：如果冷却结束不了就要到 VIP 刷新了，
-            # 这一把就不该打，否则等于把刷新点正好错过去。
-            cooldown_seconds = self.bot.auto_bot_config_manager.challenge_boss_cooldown_seconds
+            # 打一个普通boss要锁掉整整一个挑战冷却：赢了锁 60 分钟、输了锁 20 分钟，
+            # 所以要按更长的那个算（guard_seconds）。只要这一把有可能把冷却拖过刷新时刻，
+            # 就不该打——被锁住的那一小时里 VIP 已经刷出来又没了。
+            guard_seconds = self._vip_cooldown_guard_seconds()
             safe_budget = None
             if next_vip_spawn_seconds > 0:
-                safe_budget = max(0, next_vip_spawn_seconds - cooldown_seconds - 30)
+                safe_budget = max(0, next_vip_spawn_seconds - guard_seconds)
             roll_result = random.randint(0, 100)
             elapsed = 0.0
             if roll_result <= self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
@@ -77,10 +78,11 @@ class NormalBossState(BaseState):
                     self.on_finish()
                     return
                 remain = next_vip_spawn_seconds - elapsed
-                if remain < cooldown_seconds + 30:
-                    idle_seconds = max(30, remain - cooldown_seconds + 1)
-                    self.log(f'距vip boss刷新只剩{remain:.0f}秒，此时打普通boss会把冷却用掉、'
-                             f'错过刷新，先等{idle_seconds:.0f}秒')
+                if remain < guard_seconds:
+                    idle_seconds = max(30, remain - guard_seconds + 1)
+                    self.log(f'距vip boss刷新只剩{remain:.0f}秒，小于打一把的最坏占用'
+                             f'（{guard_seconds:.0f}秒，按击杀冷却算），此时打普通boss'
+                             f'可能把冷却拖过刷新，先等{idle_seconds:.0f}秒')
                     idle_state = StateFactory.create_idle_state(self.bot)
                     idle_state.set_idle_time(
                         idle_seconds,
