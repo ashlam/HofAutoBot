@@ -315,7 +315,7 @@
             "job": "415",
             "udid": "1355917854628872",
             "base": "20",
-            "equipment": "武器:+5 銀尾鞭<br>副手:+4 忍術密傳<br>　甲:+4 靈感外袍<br>道具:速度指環<br>徽記:<br>卡片:獸拳師女造型卡(一)<br>",
+            "equipment": "武器:+5 銀尾鞭<br>副手:+4 忍術密傳<br>　甲:+4 靈感外袍<br>道具:狂暴指環<br>徽記:<br>卡片:獸拳師女造型卡(一)<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n415w_1.gif",
             "local_img": ""
         },
@@ -436,7 +436,7 @@
             "job": "412",
             "udid": "1375330697023672",
             "base": "7",
-            "equipment": "武器:馴獸鞭<br>副手:<br>　甲:+4 褶外套<br>道具:+8 魔法指環<br>徽記:惡魔寶珠<br>卡片:<br>",
+            "equipment": "武器:馴獸鞭<br>副手:<br>　甲:+4 棉長袍<br>道具:未爆的大華輪<br>徽記:惡魔寶珠<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_412m.gif",
             "local_img": ""
         },
@@ -458,7 +458,7 @@
             "job": "414",
             "udid": "1377693084376417",
             "base": "9",
-            "equipment": "武器:短弓<br>副手:<br>　甲:+7 靈感外袍<br>道具:速度指環<br>徽記:元帥號角<br>卡片:<br>",
+            "equipment": "武器:短弓<br>副手:<br>　甲:+7 靈感外袍<br>道具:未爆的大華輪<br>徽記:元帥號角<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n414m.gif",
             "local_img": ""
         },
@@ -1114,7 +1114,7 @@
         {
             "name": "狗头人候补No.Q",
             "job_name": "戰士",
-            "level": "52",
+            "level": "55",
             "job": "100",
             "udid": "1773829410943007",
             "base": "1",
@@ -1217,7 +1217,7 @@
             "job": "414",
             "udid": "1791777679226677",
             "base": "1",
-            "equipment": "武器:短弓<br>副手:<br>　甲:+4 神聖長袍<br>道具:八寶硬幣<br>徽記:元帥號角<br>卡片:<br>",
+            "equipment": "武器:短弓<br>副手:<br>　甲:+4 神聖長袍<br>道具:速度指環<br>徽記:元帥號角<br>卡片:<br>",
             "img_url": "https://pim0110.com/hall/image/char/mon_n414m.gif",
             "local_img": ""
         },
