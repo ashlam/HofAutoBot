@@ -70,9 +70,9 @@ class VipBossState(BaseState):
                     seconds = int(time_until_spawn)
                     minutes, seconds = divmod(seconds, 60)
                     self.log(f"vip boss({union_id})将于{next_spawn_time}刷新，距离刷新还有{minutes}分{seconds}秒")
-                    # TODO: 这里有过期的风险，会一直等
-                    # 保护窗口按"打一把最坏会锁多久"算（击杀 60 分钟），不能用失败冷却 20 分钟：
-                    # 否则"还剩 25 分钟、够打一把"会因为赢了而被锁 60 分钟，refresh 点正落在里面。
+                    # 硬保护窗口只按"失败也锁 20 分钟"算：剩不到这么久就停手，保证
+                    # 哪怕打输了也不会把冷却拖过刷新点。打死锁 60 分钟那一档是使用者
+                    # 明确接受的风险（运气不好就认），所以不再提前一小时停手。
                     guard_seconds = self._vip_cooldown_guard_seconds()
                     if time_until_spawn <= 0:
                         # 刷新时刻已过：如果这一轮还没出过手，补一次（且只补一次）
@@ -85,7 +85,7 @@ class VipBossState(BaseState):
                     elif time_until_spawn <= guard_seconds:
                         # 已进入保护窗口：从现在起到刷新为止，绝不碰普通 boss
                         self.log(f'VIP boss {union_id} 将在 {time_until_spawn:.0f} 秒后刷新，'
-                                 f'已进入保护窗口（{guard_seconds:.0f} 秒，按击杀冷却+余量算）：'
+                                 f'已进入保护窗口（{guard_seconds:.0f} 秒 = 失败冷却20分钟+余量）：'
                                  f'从现在起不打任何普通 boss，专心等刷新')
                         """
                         # 想办法将PrepareBossState设定为等vip模式，一旦到时间就Dicrect或者转到VipBoss，没到时间就去做除打boss以外的事 

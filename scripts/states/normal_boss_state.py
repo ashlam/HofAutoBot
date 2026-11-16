@@ -46,13 +46,17 @@ class NormalBossState(BaseState):
                     time_until_spawn = (next_spawn_time - datetime.now()).total_seconds() - clock_offset
                     next_vip_spawn_seconds = int(time_until_spawn)
                     break
-            # 打一个普通boss要锁掉整整一个挑战冷却：赢了锁 60 分钟、输了锁 20 分钟，
-            # 所以要按更长的那个算（guard_seconds）。只要这一把有可能把冷却拖过刷新时刻，
-            # 就不该打——被锁住的那一小时里 VIP 已经刷出来又没了。
+            # 硬保护窗口只按"失败也锁 20 分钟"算：剩不到这么久就不打，保证输了也不会
+            # 撞上刷新点。打死锁 60 分钟那一档是使用者明确接受的风险（运气不好就认），
+            # 所以只在这条线以内额外打一句风险提示，不提前一小时停手。
             guard_seconds = self._vip_cooldown_guard_seconds()
+            risk_seconds = self._vip_kill_risk_seconds()
             safe_budget = None
             if next_vip_spawn_seconds > 0:
                 safe_budget = max(0, next_vip_spawn_seconds - guard_seconds)
+                if next_vip_spawn_seconds <= risk_seconds:
+                    self.log(f'风险提示：距vip boss刷新只剩{next_vip_spawn_seconds}秒，够一次失败冷却但不够'
+                             f'一次击杀冷却（{risk_seconds:.0f}秒）——这一把照打；若打死，本轮vip就错过了')
             roll_result = random.randint(0, 100)
             elapsed = 0.0
             if roll_result <= self.bot.auto_bot_config_manager.challenge_boss_delay_rate:
@@ -80,9 +84,9 @@ class NormalBossState(BaseState):
                 remain = next_vip_spawn_seconds - elapsed
                 if remain < guard_seconds:
                     idle_seconds = max(30, remain - guard_seconds + 1)
-                    self.log(f'距vip boss刷新只剩{remain:.0f}秒，小于打一把的最坏占用'
-                             f'（{guard_seconds:.0f}秒，按击杀冷却算），此时打普通boss'
-                             f'可能把冷却拖过刷新，先等{idle_seconds:.0f}秒')
+                    self.log(f'距vip boss刷新只剩{remain:.0f}秒，连一次失败冷却都不够'
+                             f'（{guard_seconds:.0f}秒 = 失败20分钟+余量），此时打普通boss'
+                             f'无论输赢都会把冷却拖过刷新，先等{idle_seconds:.0f}秒')
                     idle_state = StateFactory.create_idle_state(self.bot)
                     idle_state.set_idle_time(
                         idle_seconds,

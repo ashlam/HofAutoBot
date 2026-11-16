@@ -99,16 +99,27 @@ class BaseState:
             return False
 
     def _vip_cooldown_guard_seconds(self) -> float:
-        """VIP 刷新前多久必须停止挑战普通 boss。
+        """VIP 刷新前多久必须停止挑战普通 boss（硬保护窗口）。
 
-        单位是"打一把最坏会锁住多久"：击杀后是 60 分钟、失败是 20 分钟，
-        取长的那个再加余量。用失败值（20 分钟）判断会出现这种情况——
-        "还剩 25 分钟，够打一把"，结果赢了、冷却 60 分钟，刷新点正好锁死在里面。
+        只按失败冷却（20 分钟）算：剩不到这么久就不打，保证"哪怕打输了也不会
+        把 20 分钟冷却拖过刷新点"。打死锁 60 分钟那一档是使用者接受的风险，
+        单独用 _vip_kill_risk_seconds() 表达，不要混进这个判据。
         """
         try:
             return float(self.bot.auto_bot_config_manager.vip_cooldown_guard_seconds)
         except AttributeError:
-            # 老配置/测试桩没有该属性时，按 60 分钟 + 3 分钟余量兜底
+            # 老配置/测试桩没有该属性时，按 20 分钟 + 3 分钟余量兜底
+            return 1380.0
+
+    def _vip_kill_risk_seconds(self) -> float:
+        """风险区上界（击杀冷却 60 分钟 + 余量）。
+
+        剩余时间落在这条线以内、又大于硬保护窗口时，允许打普通 boss，
+        但打死了本轮 VIP 就错过了——调用方必须把这句话打进日志。
+        """
+        try:
+            return float(self.bot.auto_bot_config_manager.vip_kill_risk_seconds)
+        except AttributeError:
             return 3780.0
 
     def _cap_idle_by_vip_spawn(self, idle_seconds: float) -> float:

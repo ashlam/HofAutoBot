@@ -19,9 +19,16 @@ def test_level_exceed_check_works_with_set_server_id():
     manager = BossBattleManager()
     manager.set_server_id(1)
 
-    # 1服的鸟毛(BOSS ID:8)等级限制是200，而动作 600080 的角色等级和是215
-    result = manager.is_action_level_exceed_boss_limit('600080', 8)
-    assert result is True, f"等级溢出检查应判定为True（215 > 200），实际: {result}"
+    # 断言不复用"角色等级和一定超限"这种会随阵容/等级漂移的硬编码，
+    # 只验证链路：能读到角色 → 能读到真实等级 → 判定与"等级和 vs 上限"一致。
+    action_id, boss_id = '600080', 8      # 1服 鸟毛(BOSS ID:8)
+    chars = manager.get_action_characters(action_id)
+    assert chars, "set_server_id 之后应能读到动作组角色（读不到说明配置路径仍是 None）"
+    total = sum(manager.get_character_level(c) for c in chars)
+    assert total > 0, f"角色等级应读到真实值，实际等级和 {total}（为 0 说明检查形同虚设）"
+    limit = manager.get_boss_level_limit(boss_id)
+    result = manager.is_action_level_exceed_boss_limit(action_id, boss_id)
+    assert result == (total > limit), f"判定应与等级和/上限一致：等级和 {total}，上限 {limit}，实际 {result}"
 
 
 def test_get_action_characters_accepts_int_action_id():

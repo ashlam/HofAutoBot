@@ -198,10 +198,13 @@ def test_vip_boss_gives_up_after_three_log_failures():
 
 
 class _GuardBot(_FakeBot):
-    """知道 VIP 刷新时刻、并且按真实数值配了"击杀冷却 60 分钟"的桩。"""
+    """知道 VIP 刷新时刻、并按真实数值配了"失败 20 分钟 / 击杀 60 分钟"两档的桩。"""
 
+    FAIL_COOLDOWN = 1200
     KILL_COOLDOWN = 3600
-    GUARD = KILL_COOLDOWN + 180
+    MARGIN = 180
+    GUARD = FAIL_COOLDOWN + MARGIN      # 硬保护窗口：剩不到这么久就不打
+    RISK = KILL_COOLDOWN + MARGIN       # 风险区上界：可打，但打死就丢本轮 VIP
 
     def __init__(self, remain_vip, alived=None):
         super().__init__(remain=None)
@@ -210,10 +213,11 @@ class _GuardBot(_FakeBot):
             {'union_id': 17, 'plan_action_id': 600170, 'kill_cooldown_seconds': 14400}
         ]
         cfg.is_challenge_vip_boss = True
-        cfg.challenge_boss_cooldown_seconds = 1200          # 失败冷却
+        cfg.challenge_boss_cooldown_seconds = self.FAIL_COOLDOWN   # 失败冷却
         cfg.challenge_boss_kill_cooldown_seconds = self.KILL_COOLDOWN
-        cfg.vip_cooldown_guard_margin_seconds = 180
+        cfg.vip_cooldown_guard_margin_seconds = self.MARGIN
         cfg.vip_cooldown_guard_seconds = self.GUARD
+        cfg.vip_kill_risk_seconds = self.RISK
         cfg.challenge_boss_delay_rate = -1                  # 永不触发随机延迟
         cfg.normal_boss_loop_order = [{'union_id': 25, 'plan_action_id': 600001}]
         self.all_alived_boss_ids = alived if alived is not None else []
@@ -240,36 +244,60 @@ class _GuardBot(_FakeBot):
         self.next_vip_boss_spawn_timestamp = -1
 
 
-def test_vip_boss_guard_uses_kill_cooldown_not_failure_cooldown():
-    """保护窗口必须按击杀冷却（60 分钟）算，只按失败冷却（20 分钟）算等于没保护。"""
+def test_vip_boss_guard_is_failure_cooldown_and_kill_risk_is_separate():
+    """硬保护窗口只按失败冷却（20 分钟）+余量算；击杀 60 分钟那一档单独作为风险区上界。"""
     from scripts.auto_bot_config_manager import AutoBotConfigManager
 
     mgr = AutoBotConfigManager.__new__(AutoBotConfigManager)
     mgr.config = {'challege_boss_cooldown_seconds': 1200}
     assert mgr.challenge_boss_kill_cooldown_seconds == 3600
-    assert mgr.vip_cooldown_guard_seconds == 3600 + 180
-    assert mgr.vip_cooldown_guard_seconds > mgr.challenge_boss_cooldown_seconds
+    assert mgr.vip_cooldown_guard_seconds == 1200 + 180, '硬窗口必须按失败冷却算，别把击杀冷却绑进来'
+    assert mgr.vip_kill_risk_seconds == 3600 + 180, '风险区上界要按击杀冷却算'
+    assert mgr.vip_cooldown_guard_seconds < mgr.vip_kill_risk_seconds
 
 
-def test_vip_boss_enters_guard_window_one_kill_cooldown_early():
-    """距刷新 50 分钟（远超失败的 20 分钟）就该进入保护窗口，不再放行普通 boss。"""
+def test_vip_boss_enters_guard_window_when_failure_cooldown_would_trip():
+    """距刷新 20 分钟（连一次失败冷却都不够）就必须进入保护窗口。"""
     from scripts.states.vip_boss_state import VipBossState
 
-    bot = _GuardBot(remain_vip=3000)
+    bot = _GuardBot(remain_vip=_GuardBot.FAIL_COOLDOWN - 200)
     _run(VipBossState(bot))
-    assert bot.is_waiting_for_vip_boss, '距刷新 50 分钟就该进入保护窗口'
+    assert bot.is_waiting_for_vip_boss, '剩不到一次失败冷却就该进入保护窗口'
     assert isinstance(bot.current_state, WaitVipBossState), \
         f'应转入等待状态，实际 {type(bot.current_state).__name__}'
 
 
-def test_normal_boss_refuses_to_burn_kill_cooldown_before_spawn():
-    """同一场景下普通 boss 也不能打：赢了锁 60 分钟，正好把刷新点锁死在冷却里。"""
-    from scripts.states.normal_boss_state import NormalBossState
+def test_vip_boss_leaves_kill_risk_zone_to_normal_boss_flow():
+    """距刷新 50 分钟：够一次失败冷却、不够一次击杀冷却——继续放行普通 boss。"""
+    from scripts.states.vip_boss_state import VipBossState
 
     bot = _GuardBot(remain_vip=3000)
+    _run(VipBossState(bot))
+    assert not bot.is_waiting_for_vip_boss, '距刷新 50 分钟已超出硬保护窗口，应交还普通 boss 流程'
+
+
+def test_normal_boss_refuses_to_burn_failure_cooldown_before_spawn():
+    """剩不到一次失败冷却时普通 boss 也不能打：输了锁 20 分钟，正好跨过刷新点。"""
+    from scripts.states.normal_boss_state import NormalBossState
+
+    bot = _GuardBot(remain_vip=_GuardBot.FAIL_COOLDOWN - 200)
     next_state = _run(NormalBossState(bot))
     assert isinstance(next_state, IdleState), \
-        f'距刷新不足一个击杀冷却，不该打普通 boss，实际跳到 {type(next_state).__name__}'
+        f'距刷新不足一次失败冷却，不该打普通 boss，实际跳到 {type(next_state).__name__}'
+
+
+def test_normal_boss_fights_inside_kill_risk_zone_with_warning():
+    """距刷新 50 分钟：照打普通 boss（击杀风险已接受），但日志必须写明打死就丢本轮 VIP。"""
+    from scripts.states.normal_boss_state import NormalBossState
+
+    logs = []
+    bot = _GuardBot(remain_vip=3000)
+    bot.logger.info = lambda msg: logs.append(str(msg))
+    # 存活列表留空，直接走到"没有普通boss需要处理"，避免这里牵扯动作/等级判定
+    bot.battle_watcher_manager = types.SimpleNamespace(get_all_alive_boss=lambda: [])
+    next_state = _run(NormalBossState(bot))
+    assert not isinstance(next_state, IdleState), '风险区内应放行普通 boss'
+    assert any('本轮vip就错过了' in m for m in logs), f'应打出击杀风险提示，实际日志：{logs}'
 
 
 def test_prepare_boss_warns_when_cooldown_swallows_spawn():

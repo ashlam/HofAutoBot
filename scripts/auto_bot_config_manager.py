@@ -161,10 +161,21 @@ class AutoBotConfigManager:
 
     @property
     def vip_cooldown_guard_seconds(self) -> int:
-        """VIP 刷新前多久就必须停手、不再打任何普通 boss。
+        """VIP 刷新前多久必须停手、不再打任何普通 boss（硬保护窗口）。
 
-        取"胜/败两种结局里更长的那个冷却"再加余量：只要这一次挑战有可能把
-        冷却拖过刷新时刻，就不该打——被锁住的那一小时里 VIP 已经刷出来又被打没了。
+        只按"失败也会锁 20 分钟"这一档算：剩余时间连一次失败冷却都不够，就绝不打，
+        保证"打了（哪怕输了）也不会把冷却拖过刷新点"。
+
+        击杀会锁 60 分钟、把刷新点锁死在冷却里——这一档属于使用者显式接受的风险，
+        不再由这里一刀切挡掉，见 vip_kill_risk_seconds。
         """
-        worst = max(self.challenge_boss_cooldown_seconds, self.challenge_boss_kill_cooldown_seconds)
-        return worst + self.vip_cooldown_guard_margin_seconds
+        return self.challenge_boss_cooldown_seconds + self.vip_cooldown_guard_margin_seconds
+
+    @property
+    def vip_kill_risk_seconds(self) -> int:
+        """风险区上界（击杀冷却 60 分钟 + 余量）。
+
+        剩余时间落在 (硬保护窗口, 这条线] 之间时：允许打普通 boss，但一旦打死，
+        本轮 VIP 就报废了。调用方要负责把这件事写进日志，别让它悄悄发生。
+        """
+        return self.challenge_boss_kill_cooldown_seconds + self.vip_cooldown_guard_margin_seconds
