@@ -103,6 +103,13 @@ class NormalBossState(BaseState):
                     continue
                 else:
                     self.log(f'普通boss {boss["union_id"]} 已出现，尝试处理')
+                    # 闸门还没放行就跳过这一只：它很可能是刚被 VIP 狙击打过、
+                    # 或者别的入口刚发过请求。等下去毫无意义，清单里还有别的 boss 可打。
+                    guard_wait = self._boss_guard_wait_seconds(boss['union_id'])
+                    if guard_wait > 0:
+                        self.log(f'普通boss {boss["union_id"]} 距上次挑战请求不足最小间隔'
+                                 f'（还差{guard_wait:.0f}秒），这只跳过，先打下一只')
+                        continue
                     # 执行boss战斗动作
                     action = self.bot.server_config_manager.all_action_config_by_server.get(f"{boss['plan_action_id']}")
                     # 检查等级是否溢出

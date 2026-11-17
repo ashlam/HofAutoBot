@@ -27,11 +27,13 @@ class DirectlyChallengeBossState(BaseState):
             if not self._claim_shot():
                 wait_seconds = self._guard_wait_seconds()
                 self.log(f'【闸门】boss({union_id}) 近期已发过挑战请求，'
-                         f'此次不再发送，{wait_seconds:.0f}秒后再走常规流程')
+                         f'此次不再发送，闸门还差{wait_seconds:.0f}秒')
                 self.is_challaged_success = False
+                # 不要按闸门的剩余时间睡——那可能是一个完整的最小间隔（实测 585 秒），
+                # 整个挂机就白停了。歇一下回常规流程，选 boss 时会跳过被挡的这只去打别的。
                 idle_state = StateFactory.create_idle_state(self.bot)
                 idle_state.set_idle_time(
-                    wait_seconds,
+                    min(wait_seconds, 10.0),
                     partial(self.set_state, StateFactory.create_prepare_boss_state(self.bot)),
                 )
                 self.set_state(idle_state)

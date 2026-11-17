@@ -122,6 +122,20 @@ class BaseState:
         except AttributeError:
             return 3780.0
 
+    def _boss_guard_wait_seconds(self, union_id) -> float:
+        """闸门还要求等多久才允许再对这只 boss 发请求（0 表示可以发）。
+
+        选 boss 的时候就要问一遍：被挡住的直接跳过去打下一只，别等走到
+        发请求那一步才发现被拦，然后傻睡一个最小间隔（实测有过 585 秒）。
+        """
+        guard = getattr(self.bot, 'boss_challenge_guard', None)
+        if guard is None:
+            return 0.0
+        try:
+            return max(0.0, float(guard.seconds_until_allowed(union_id) or 0))
+        except Exception:
+            return 0.0
+
     def _cap_idle_by_vip_spawn(self, idle_seconds: float) -> float:
         """把一次睡眠截断到 vip 刷新前 1 秒，避免一觉睡过刷新时刻。
 

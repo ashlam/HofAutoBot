@@ -300,6 +300,36 @@ def test_normal_boss_fights_inside_kill_risk_zone_with_warning():
     assert any('本轮vip就错过了' in m for m in logs), f'应打出击杀风险提示，实际日志：{logs}'
 
 
+def test_normal_boss_skips_guard_blocked_boss_and_picks_next():
+    """17 刚被 VIP 狙击打过（闸门还差 586 秒）时，普通流程要跳过它去打下一只。
+
+    回归：2026-11-17 11:17 那轮，VIP 狙击提交后 14 秒普通流程又选中 17，
+    直提状态里被闸门拦下后按剩余间隔睡了 585 秒，整段挂机白停。
+    """
+    from scripts.states.directly_challenge_boss_state import DirectlyChallengeBossState
+    from scripts.states.normal_boss_state import NormalBossState
+
+    logs = []
+    bot = _GuardBot(remain_vip=3000)
+    bot.logger.info = lambda msg: logs.append(str(msg))
+    bot.auto_bot_config_manager.normal_boss_loop_order = [
+        {'union_id': 17, 'plan_action_id': 600170},
+        {'union_id': 25, 'plan_action_id': 600001},
+    ]
+    bot.battle_watcher_manager = types.SimpleNamespace(get_all_alive_boss=lambda: [17, 25])
+    bot.boss_challenge_guard = types.SimpleNamespace(
+        seconds_until_allowed=lambda union_id: 586.0 if int(union_id) == 17 else 0.0
+    )
+    bot.server_config_manager.all_action_config_by_server['600001'] = {'name': 'normal', 'actions': []}
+    bot.boss_battle_manager.is_action_level_exceed_boss_limit = lambda *a, **k: False
+
+    next_state = _run(NormalBossState(bot))
+    assert isinstance(next_state, DirectlyChallengeBossState), \
+        f'应跳过被挡的 17 去打 25，实际跳到 {type(next_state).__name__}'
+    assert next_state.union_id == 25, f'应选中 25，实际 {next_state.union_id}'
+    assert any('这只跳过' in m for m in logs), f'应打出跳过日志，实际：{logs}'
+
+
 def test_prepare_boss_warns_when_cooldown_swallows_spawn():
     """冷却会盖过刷新时刻时必须有明确提示，否则看起来像"根本没触发 VIP 流程"。"""
     logs = []
