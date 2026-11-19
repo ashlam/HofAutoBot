@@ -85,6 +85,64 @@ def test_seconds_until_allowed_reports_wait():
     assert 590 < guard.seconds_until_allowed(17) <= 600
 
 
+# ------------------------------------------------ 补枪：只有"被服务端明确拒绝"才放行
+
+
+def test_retry_is_refused_while_first_shot_is_unsettled():
+    """第一枪还没判定（accepted 为空）时绝不能补枪，否则就是两个请求同时在飞。"""
+    guard = _guard(min_interval=0.01)
+    spawn = 1700000000000000
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.0, max_attempts=3) is True
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.0, max_attempts=3) is False
+
+
+def test_retry_is_refused_after_shot_was_accepted():
+    """第一枪已被受理（accepted=True）时不允许补枪。"""
+    guard = _guard(min_interval=0.01)
+    spawn = 1700000000000000
+    assert guard.claim(17, spawn, 'vip_snipe') is True
+    guard.record_result(17, True)
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.0, max_attempts=3) is False
+
+
+def test_retry_is_allowed_only_after_rejection_and_capped():
+    """被拒后可以补枪，但补到 max_attempts 为止。"""
+    guard = _guard(min_interval=0.01)
+    spawn = 1700000000000000
+    assert guard.claim(17, spawn, 'vip_snipe') is True
+    guard.record_result(17, False)
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.0, max_attempts=2) is True
+    guard.record_result(17, False)
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.0, max_attempts=2) is False, '已到次数上限'
+
+
+def test_retry_respects_minimum_gap():
+    """补枪也要满足最小间隔，防止两枪几乎同时发出。"""
+    guard = _guard(min_interval=0.01)
+    spawn = 1700000000000000
+    assert guard.claim(17, spawn, 'vip_snipe') is True
+    guard.record_result(17, False)
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.5, max_attempts=3) is False, '间隔不足不允许补枪'
+    time.sleep(0.55)
+    assert guard.claim(17, spawn, 'vip_snipe', allow_rejected_retry=True,
+                       retry_gap=0.5, max_attempts=3) is True
+
+
+def test_retry_flag_absent_keeps_old_strict_behavior():
+    """不传补枪参数时（普通 boss 流程），同一轮刷新依旧只允许一次出手。"""
+    guard = _guard(min_interval=0.01)
+    spawn = 1700000000000000
+    assert guard.claim(17, spawn, 'directly_challenge') is True
+    guard.record_result(17, False)
+    assert guard.claim(17, spawn, 'directly_challenge') is False
+
+
 class _NoopLogger:
     def __getattr__(self, name):
         def _noop(*args, **kwargs):

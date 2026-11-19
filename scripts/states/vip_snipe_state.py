@@ -131,13 +131,31 @@ return {
 """
 
 # 出手：只提交，不做任何加载/构造。一次同步 JS 调用，毫秒级。
+# 提交前在 window 上留一个标记：页面一旦被 POST 的响应替换掉，这个标记就没了，
+# 于是"标记不见了 + readyState=complete"就等价于"服务端已经答复了我们"。
+# 这是判断"这一枪有没有结果"的唯一可靠信号——靠固定 sleep 猜会误判。
 _FIRE_JS = """
 var form = document.forms.Form_Hu_Union;
 if (!form) { return 'no_form'; }
+window.__snipe_mark = (window.__snipe_mark || 0) + 1;
 // 有些表单里会有 name="submit" 的元素把 form.submit 顶掉，稳妥起见走原型
 HTMLFormElement.prototype.submit.call(form);
 return 'submitted';
 """
+
+# 读落地页：判断"服务端到底受理了没有"。
+# navigated=False 说明我们还在原来那张页面上（提交还没答复/被拦下），不能当结论。
+_VERDICT_JS = """
+var body = document.body;
+return {
+  navigated: (typeof window.__snipe_mark === 'undefined'),
+  ready: document.readyState,
+  text: body ? (body.innerText || '').replace(/\\s+/g, ' ').slice(0, 400) : ''
+};
+"""
+
+# 落地页里出现这句话，才是"服务端明确拒绝、没有生成战斗"的证据。
+_REJECT_MARKERS = ('Defeated or not Exists', 'Defeated or not Exists.')
 
 
 class VipSnipeState(BaseState):
@@ -187,6 +205,22 @@ class VipSnipeState(BaseState):
         """点完之后先等一会儿再刷新页面，别把正在提交的表单打断。"""
         return float(self._cfg('vip_snipe_settle_seconds', 1.0))
 
+    @property
+    def max_attempts(self) -> int:
+        """一轮刷新最多出手几次（含第一枪）。只在被明确拒绝后才会用到。"""
+        try:
+            return max(1, int(self._cfg('vip_snipe_max_attempts', 3)))
+        except (TypeError, ValueError):
+            return 3
+
+    @property
+    def retry_gap(self) -> float:
+        """两次出手之间的最小间隔（秒）：保证不会有两个请求同时在飞。"""
+        try:
+            return max(0.2, float(self._cfg('vip_snipe_retry_gap_seconds', 0.35)))
+        except (TypeError, ValueError):
+            return 0.35
+
     # ------------------------------------------------------------------ 主流程
 
     def process(self):
@@ -206,11 +240,12 @@ class VipSnipeState(BaseState):
         fire_at = target_local + self.commit_offset
         self.log(
             'VIP狙击时间轴：T={T}，预热于 T-{warm:.1f}s，提交预留 {cost:.0f}ms，'
-            '提交偏移 {off:+.0f}ms'.format(
+            '提交偏移 {off:+.0f}ms，最多 {n} 枪（补枪仅限上一枪被明确拒绝）'.format(
                 T=datetime.fromtimestamp(target_local).strftime('%H:%M:%S.%f')[:-3],
                 warm=self.warmup_lead,
                 cost=self.fire_cost * 1000,
                 off=self.commit_offset * 1000,
+                n=self.max_attempts,
             )
         )
 
@@ -226,29 +261,61 @@ class VipSnipeState(BaseState):
         else:
             self.log('VIP狙击：预热失败（页面没拿到），改为到点加载页面后打一次')
 
-        # 2) 定点提交：预热成功时这里只有一次 form.submit()，毫秒级
-        self._wait_until(fire_at - self.fire_cost)
-        fire_ts = time.time()
-        if self._warmup_ok:
-            self._fire_result = self._submit()
+        # 2) 定点提交 + 补枪
+        #
+        # 关键安全前提：同一时刻**只会有一个请求在飞**。补枪只在前一枪的落地页
+        # 明确写着 "Defeated or not Exists"（服务端拒绝了、没有生成战斗）时才会发生，
+        # 所以补枪不会在战报里留下第二条记录。反之只要落地页不是这句话（进战斗页、
+        # 页面读不出来、提交点不到），一律当"已经有结果"收手。
+        fire_ts = None
+        for attempt in range(1, self.max_attempts + 1):
+            if attempt == 1:
+                self._wait_until(fire_at - self.fire_cost)
+            else:
+                # 上一枪已被拒绝：本页就是挑战页，重建表单后隔一小段再打
+                if self.retry_gap > 0:
+                    time.sleep(self.retry_gap)
+                if not self._rewarm():
+                    self.log('VIP狙击：补枪前重建表单失败，停止补枪')
+                    break
+
+            fire_ts = time.time()
+            if attempt == 1 and not self._warmup_ok:
+                # 预热就失败了：没有现成表单，只能现场加载一次再打（不打补枪）
+                self._fire_result = self._blind_fire()
+            else:
+                self._fire_result = self._submit(allow_retry=(attempt > 1))
+            self.last_delta_ms = (fire_ts - target_local) * 1000.0
             if self._fire_result == 'blocked':
                 self.log('VIP狙击：被挑战闸门拦截，本轮不再发送任何请求')
-            elif not self._result_sent(self._fire_result):
-                # 预热页面上表单没了（页面被导航走），只能重新加载页面盲试一次
-                self.log(f'VIP狙击：预构建表单已失效（{self._fire_result}），重新加载页面盲试一次')
-                self._fire_result = self._blind_fire()
-        else:
-            self._fire_result = self._blind_fire()
+                break
+            if not self._result_sent(self._fire_result):
+                # 表单没了（页面已被导航走）：只有第一枪才值得盲试一次
+                if attempt == 1 and self._warmup_ok:
+                    self.log(f'VIP狙击：预构建表单已失效（{self._fire_result}），重新加载页面盲试一次')
+                    self._fire_result = self._blind_fire()
+                break
+
+            post_ms = '' if self.last_post_ms is None else f'，submit 耗时 {self.last_post_ms:.0f}ms'
+            self.log(f'VIP狙击：第{attempt}枪 提交结果={self._fire_result}，'
+                     f'起手相对 T {self.last_delta_ms:+.0f}ms{post_ms}')
+
+            verdict = self._await_verdict()
+            if verdict == 'rejected':
+                # 服务端说还没刷出：这一枪没有生成战斗，可以安全补枪。
+                # 先把"被拒绝"落盘，闸门才会放行下一枪（它也只会因此放行）。
+                self._record_verdict(accepted=False)
+                if attempt < self.max_attempts:
+                    self.log(f'VIP狙击：第{attempt}枪落空（服务端说还没刷出），准备补第 {attempt + 1} 枪')
+                continue
+            if verdict == 'accepted':
+                self._record_verdict(accepted=True)
+                break
+            # unknown：读不到落地页就不赌，宁可少打一枪也不多发一次
+            self.log('VIP狙击：读不到落地页结果，按"已出手"收手，不再补枪')
+            break
 
         self._sent_ts = time.time()
-        self.last_delta_ms = (fire_ts - target_local) * 1000.0
-        if self._fire_result == 'blocked':
-            how = '未发送'
-        else:
-            how = 'submit'
-        post_ms = '' if self.last_post_ms is None else f'，submit 耗时 {self.last_post_ms:.0f}ms'
-        self.log(f'VIP狙击：提交结果={self._fire_result}（{how}），'
-                 f'起手相对 T {self.last_delta_ms:+.0f}ms{post_ms}')
 
         # 3) 结算
         self._settle()
@@ -366,13 +433,22 @@ class VipSnipeState(BaseState):
     def _guard(self):
         return getattr(self.bot, 'boss_challenge_guard', None)
 
-    def _claim_shot(self) -> bool:
-        """发请求前先过闸门：同一只 boss 同一轮刷新只允许一次。"""
+    def _claim_shot(self, allow_retry: bool = False) -> bool:
+        """发请求前先过闸门：同一轮刷新只允许一次**被受理的**出手。
+
+        allow_retry=True 只在前一枪被服务端明确拒绝（落地页 Defeated or not Exists）
+        之后才会传进来，闸门自己还会再核一遍次数和间隔。
+        """
         guard = self._guard()
         if guard is None:
             return True
         try:
-            return bool(guard.claim(self.union_id, self.spawn_timestamp_us, 'vip_snipe'))
+            return bool(guard.claim(
+                self.union_id, self.spawn_timestamp_us, 'vip_snipe',
+                allow_rejected_retry=allow_retry,
+                retry_gap=self.retry_gap,
+                max_attempts=self.max_attempts,
+            ))
         except Exception as e:
             # 闸门自己出问题时宁可不出手，也不冒"发两次"的风险
             self.log(f'VIP狙击：挑战闸门异常（{type(e).__name__}: {e}），放弃本次出手')
@@ -388,8 +464,18 @@ class VipSnipeState(BaseState):
         except Exception:
             pass
 
-    def _submit(self):
-        if not self._claim_shot():
+    def _record_verdict(self, accepted: bool):
+        """把"服务端有没有受理"落到闸门记录里，补枪许可就靠这条判据。"""
+        guard = self._guard()
+        if guard is None:
+            return
+        try:
+            guard.record_result(self.union_id, accepted)
+        except Exception as e:
+            self.log(f'VIP狙击：记录出手结果失败 {type(e).__name__}: {e}')
+
+    def _submit(self, allow_retry: bool = False):
+        if not self._claim_shot(allow_retry):
             return 'blocked'
         t0 = time.time()
         try:
@@ -402,6 +488,56 @@ class VipSnipeState(BaseState):
         if not self._result_sent(result):
             self._release_shot()
         return result
+
+    def _rewarm(self) -> bool:
+        """在当前页（落地页就是挑战页）上把待提交表单再构造一次，不重新导航。"""
+        try:
+            info = self.bot.driver.execute_script(
+                _PREPARE_JS, self._char_ids(), self._battle_button(), self.union_id
+            )
+        except Exception as e:
+            self.log(f'VIP狙击：重建表单异常 {type(e).__name__}: {e}')
+            return False
+        if not isinstance(info, dict) or not info.get('ok'):
+            reason = info.get('reason') if isinstance(info, dict) else 'non_dict'
+            self.log(f'VIP狙击：重建表单失败（{reason}）')
+            return False
+        self._prepared = info
+        return True
+
+    def _await_verdict(self, timeout: float = None) -> str:
+        """等服务端对我们这一枪的答复，返回 'rejected' / 'accepted' / 'unknown'。
+
+        - rejected：落地页明确写着 Defeated or not Exists —— 这一枪没有生成战斗，
+          补枪是安全的（不会在战报里留第二条记录）；
+        - accepted：页面被换掉了、但没有那句拒绝话术 —— 当已出手，收手；
+        - unknown：等到超时也没看到新页面 —— 读不到就不赌，同样收手。
+
+        只有 rejected 才允许补枪，这是整套补枪逻辑的安全底线。
+        """
+        if timeout is None:
+            try:
+                timeout = float(self._cfg('vip_snipe_verdict_timeout_seconds', 3.0))
+            except (TypeError, ValueError):
+                timeout = 3.0
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            try:
+                info = self.bot.driver.execute_script(_VERDICT_JS)
+            except Exception:
+                # 导航过程中 execute_script 会抛（no such frame 之类），继续等
+                time.sleep(0.05)
+                continue
+            if not isinstance(info, dict):
+                time.sleep(0.05)
+                continue
+            text = info.get('text') or ''
+            if info.get('navigated') and info.get('ready') == 'complete' and text:
+                if any(marker in text for marker in _REJECT_MARKERS):
+                    return 'rejected'
+                return 'accepted'
+            time.sleep(0.05)
+        return 'unknown'
 
     def _blind_fire(self):
         """兜底：预热阶段没拿到页面时，才到 T 现场加载一次再提交。"""

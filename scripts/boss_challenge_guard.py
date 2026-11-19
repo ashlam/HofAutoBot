@@ -13,7 +13,10 @@ boss，等于自己承认用了非常手段。
 
 所以任何会真正发出挑战请求的地方，都必须先 claim() 成功才能动手。规则：
 
-  1. 同一轮刷新（spawn_key 相同）只允许发一次请求；
+  1. 同一轮刷新（spawn_key 相同）只允许发一次请求；唯一的例外是
+     "上一枪被服务端明确拒绝（落地页 Defeated or not Exists）"之后补的那几枪
+     ——被拒绝的请求不进战报、不给冷却，补枪在战报里是隐形的，但仍受
+     次数上限和最小间隔约束，绝不会出现两个请求同时在飞；
   2. 同一个 boss 两次请求之间至少间隔 min_interval 秒（默认 600）；
   3. 记录落盘，进程重启也记得刚才打过 —— 重启后重复打是最容易翻车的一种；
   4. 落盘的读写要跨进程加锁：同一个号开两个实例时，两个进程各自 hold 一份
@@ -71,11 +74,24 @@ class BossChallengeGuard:
 
     # ------------------------------------------------------------------ 对外接口
 
-    def claim(self, union_id, spawn_key=None, purpose='') -> bool:
+    def claim(self, union_id, spawn_key=None, purpose='',
+              allow_rejected_retry=False, retry_gap=0.0, max_attempts=1) -> bool:
         """申请一次出手许可。返回 False 表示绝不能再发请求。
 
         必须在"真的要把请求发出去"之前调用；调用成功但最终没发出去时，
         要调用 release() 把许可还回来，否则这个 boss 会被白锁一段时间。
+
+        `allow_rejected_retry` 是唯一一个允许"同一轮刷新第二次出手"的口子，
+        而且只在同时满足下面三条时才放行：
+
+          1. 上一次请求已经被 **服务端明确拒绝**（落地页写着 Defeated or not Exists，
+             由调用方核实后用 record_result(accepted=False) 落盘）；
+          2. 这一轮累计出手次数还没到 max_attempts；
+          3. 距上一次请求至少 retry_gap 秒（保证两次请求永远不会同时在飞）。
+
+        被拒绝的请求不会生成战报、不会给冷却，所以补枪在战报里是隐形的；
+        而"两个请求同时在飞"才是真正会把同一个人写进两条战报的情形——第 3 条
+        就是专门堵这个的。
         """
         uid = self._uid(union_id)
         spawn = self._spawn(spawn_key)
@@ -88,6 +104,19 @@ class BossChallengeGuard:
                 record = self._records.get(uid)
                 if record:
                     if spawn is not None and record.get('spawn_key') == spawn:
+                        attempts = int(record.get('attempts') or 1)
+                        rejected = record.get('accepted') is False
+                        gap = now - self._float(record.get('ts'))
+                        if (allow_rejected_retry and rejected
+                                and attempts < max(1, int(max_attempts))
+                                and gap >= max(0.0, float(retry_gap))):
+                            record['ts'] = now
+                            record['attempts'] = attempts + 1
+                            record['purpose'] = purpose
+                            # 重置成"待判定"：下一枪的结果由调用方再写回来
+                            record['accepted'] = None
+                            self._save()
+                            return True
                         self._warn(
                             f'挑战闸门拦截 boss({uid})：同一轮刷新({spawn})已经发过请求，拒绝重复发送'
                         )
@@ -105,6 +134,7 @@ class BossChallengeGuard:
                     'spawn_key': spawn,
                     'purpose': purpose,
                     'accepted': None,
+                    'attempts': 1,
                 }
                 self._save()
                 return True

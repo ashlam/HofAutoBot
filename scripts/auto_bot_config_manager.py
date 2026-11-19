@@ -130,6 +130,38 @@ class AutoBotConfigManager:
         return float(self.config.get('vip_snipe_settle_seconds', 1.0))
 
     @property
+    def vip_snipe_max_attempts(self) -> int:
+        """一轮刷新里最多出手几次（含第一枪）。
+
+        只在"上一枪被服务端明确拒绝（还没刷出来）"时才补枪；被拒绝的请求
+        不进战报也不给冷却，所以补枪是隐形的。默认 3，别调太大：每多一枪
+        就多一次"万一判定与我们理解不一致"的风险。
+        """
+        try:
+            value = int(self.config.get('vip_snipe_max_attempts', 3))
+        except (TypeError, ValueError):
+            return 3
+        return max(1, value)
+
+    @property
+    def vip_snipe_retry_gap_seconds(self) -> float:
+        """补枪前至少间隔多少秒；保证两个请求绝不会同时在飞。"""
+        try:
+            value = float(self.config.get('vip_snipe_retry_gap_ms', 350))
+        except (TypeError, ValueError):
+            value = 350.0
+        return max(0.2, value / 1000.0)
+
+    @property
+    def vip_snipe_verdict_timeout_seconds(self) -> float:
+        """等落地页答复的最长时间；超时一律当"读不到"，不再补枪。"""
+        try:
+            value = float(self.config.get('vip_snipe_verdict_timeout_seconds', 3.0))
+        except (TypeError, ValueError):
+            value = 3.0
+        return max(0.5, value)
+
+    @property
     def boss_challenge_min_interval_seconds(self) -> float:
         """同一个 boss 两次挑战请求之间的最小间隔。
 

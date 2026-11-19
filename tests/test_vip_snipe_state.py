@@ -51,15 +51,20 @@ class _FakeConfig:
     vip_snipe_fire_cost_seconds = 0.02
     vip_snipe_commit_offset_ms = 0
     vip_snipe_settle_seconds = 0
+    vip_snipe_max_attempts = 3
+    vip_snipe_retry_gap_seconds = 0.2
+    vip_snipe_verdict_timeout_seconds = 0.5
 
 
 class _FakeDriver:
-    """只模拟 VipSnipeState 用到的三个动作：get / readyState / 两段脚本。"""
+    """只模拟 VipSnipeState 用到的几个动作：get / readyState / 几段脚本。"""
 
-    def __init__(self, has_button=True, can_select=True, load_fails=0):
+    def __init__(self, has_button=True, can_select=True, load_fails=0, verdicts=None):
         self.has_button = has_button
         self.can_select = can_select
         self.load_fails = load_fails  # 前 N 次 get 抛异常，模拟页面打不开
+        # 每枪的落地页判定：'rejected' / 'accepted' / 'unknown'，用完后默认 accepted
+        self.verdicts = list(verdicts or [])
         self.get_calls = []
         self.warmup_calls = 0
         self.fire_calls = []
@@ -73,12 +78,20 @@ class _FakeDriver:
         self.current_url = url
 
     def execute_script(self, script, *args):
+        # 落地页判定脚本（补枪逻辑靠它决定要不要再打）；它内部也读 readyState，
+        # 所以必须排在 readyState 分支之前
+        if 'navigated' in script:
+            verdict = self.verdicts.pop(0) if self.verdicts else 'accepted'
+            if verdict == 'unknown':
+                return {'navigated': False, 'ready': 'complete', 'text': ''}
+            text = '特殊怪物 Defeated or not Exists.' if verdict == 'rejected' else '戰鬥 攻擊'
+            return {'navigated': True, 'ready': 'complete', 'text': text}
         if 'document.readyState' in script:
             return 'complete'
         # 收尾时读落地页正文（只读，不算出手）
         if 'innerText' in script:
             return 'boom'
-        # 预热脚本的特征：返回体里有 form_action（构造表单的那一段）
+        # 预热/重建表单脚本的特征：返回体里有 form_action
         if 'form_action' in script:
             self.warmup_calls += 1
             return {
@@ -123,9 +136,9 @@ class _FakeBot:
         self.current_state = state
 
 
-def _make(has_button=True, can_select=True, spawn_in=0.3, load_fails=0):
+def _make(has_button=True, can_select=True, spawn_in=0.3, load_fails=0, verdicts=None):
     driver = _FakeDriver(has_button=has_button, can_select=can_select,
-                         load_fails=load_fails)
+                         load_fails=load_fails, verdicts=verdicts)
     bot = _FakeBot(driver, spawn_in=spawn_in)
     spawn_ts = bot.next_vip_boss_spawn_timestamp
     state = VipSnipeState(bot, 17, ACTION_CONFIG, spawn_ts)
@@ -238,6 +251,59 @@ def test_missing_config_does_not_touch_browser():
 
     assert driver.get_calls == []
     assert driver.fire_calls == []
+
+
+# ---------------------------------------------------------------- 补枪（只补"被拒"）
+
+
+def test_first_shot_accepted_never_retries():
+    """第一枪就被受理（落地页不是"还没刷出"）时，绝不能再打第二枪。"""
+    bot, driver, state, _ = _make(verdicts=['accepted'])
+
+    state.process()
+
+    assert len(driver.fire_calls) == 1, f'受理后不该补枪，实际 {len(driver.fire_calls)} 次'
+    assert driver.warmup_calls == 1, '受理后不该重建表单'
+
+
+def test_rejected_shot_is_retried_until_accepted():
+    """落地页明确写"还没刷出"时补一枪，第二枪被受理就停手。"""
+    bot, driver, state, _ = _make(verdicts=['rejected', 'accepted'])
+
+    state.process()
+
+    assert len(driver.fire_calls) == 2, f'应当补一枪，实际 {len(driver.fire_calls)} 次'
+    assert driver.warmup_calls == 2, '补枪前需要在当前页重建表单'
+    assert len(driver.get_calls) == 1, '补枪不该重新加载页面（落地页本身就是挑战页）'
+
+
+def test_retry_count_is_capped():
+    """一直被拒也只打到 max_attempts 为止，不能无限连打。"""
+    bot, driver, state, _ = _make(verdicts=['rejected'] * 10)
+
+    state.process()
+
+    assert len(driver.fire_calls) == 3, f'最多 3 枪，实际 {len(driver.fire_calls)} 次'
+
+
+def test_two_shots_are_never_in_flight_together():
+    """两次出手之间必须留出最小间隔：保证不存在两个请求同时在飞。"""
+    bot, driver, state, _ = _make(verdicts=['rejected', 'rejected'])
+
+    state.process()
+
+    assert len(driver.fire_calls) >= 2
+    gaps = [b - a for a, b in zip(driver.fire_calls, driver.fire_calls[1:])]
+    assert min(gaps) >= 0.19, f'两枪间隔必须 ≥ 补枪间隔，实际 {min(gaps):.3f}s'
+
+
+def test_unknown_landing_page_stops_retry():
+    """读不到落地页（页面没换掉）时按"已出手"收手，绝不靠猜补枪。"""
+    bot, driver, state, _ = _make(verdicts=['unknown'])
+
+    state.process()
+
+    assert len(driver.fire_calls) == 1, f'读不到结果就不该补枪，实际 {len(driver.fire_calls)} 次'
 
 
 if __name__ == "__main__":
