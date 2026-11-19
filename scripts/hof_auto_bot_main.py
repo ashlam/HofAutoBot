@@ -16,7 +16,8 @@ from scripts.config_consistency import find_missing_action_ids
 from scripts.boss_battle_manager import BossBattleManager
 from scripts.boss_challenge_guard import BossChallengeGuard
 from scripts.boss_check_watchdog import BossCheckWatchdog
-from scripts.captcha_recognizer import recognize_captcha
+from scripts.captcha_recognizer import (recognize_captcha_ex, open_captcha_db,
+                                       record_captcha_success, record_captcha_failure)
 from scripts.account_config_reader import get_account_config
 
 from scripts.states.state_factory import StateFactory
@@ -308,7 +309,11 @@ class HofAutoBot:
             attempts = int(current_server_data.get("captcha_refresh_max", 5))
             interval = float(current_server_data.get("captcha_refresh_interval_sec", 1.0))
             map_file = os.path.join(os.path.dirname(__file__), "..", "configs", "captcha_map.json")
-            code, info = recognize_captcha(d, selector="#captchaImage", attempts=attempts, interval=interval, len_min=4, len_max=5, map_file=map_file)
+            # 先查本服的验证码指纹库：命中即 100% 正确，命中不了才走 OCR
+            db = open_captcha_db(current_server_data.get("config_path"), logger=self.logger)
+            result = recognize_captcha_ex(d, selector="#captchaImage", attempts=attempts, interval=interval,
+                                          len_min=4, len_max=5, map_file=map_file, db=db)
+            code, info = result.code, result.info
             if code and code.isdigit() and len(code) >= 4 and len(code) <= 5:
                 ci = d.find_element(By.NAME, "captcha")
                 ci.clear()
@@ -320,7 +325,12 @@ class HofAutoBot:
                 elems_span = d.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
                 if not elems_img and not elems_span:
                     self.logger.success("重新登录成功")
+                    # 登进去了 = 这个答案是对的，顺手给指纹库补一条标注
+                    record_captcha_success(db, result, logger=self.logger)
                     return True
+                # 提交了却还在登录页：库里的答案被证伪，摘掉它，下轮退回 OCR
+                record_captcha_failure(db, result, logger=self.logger)
+                info = f'{info}（提交后仍在登录页）'
             self.logger.error(f"重新登录失败（验证码识别）: {info}")
             return False
         except Exception as e:

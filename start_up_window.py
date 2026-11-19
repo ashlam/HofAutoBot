@@ -23,7 +23,8 @@ from scripts.hof_auto_bot_main import HofAutoBot
 from scripts.states.state_factory import StateFactory
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from scripts.captcha_recognizer import recognize_captcha
+from scripts.captcha_recognizer import (recognize_captcha_ex, open_captcha_db,
+                                       record_captcha_success, record_captcha_failure)
 
 class BotThread(QThread):
     finished = pyqtSignal()
@@ -556,7 +557,11 @@ class LoginWindow(QMainWindow):
         attempts = int(self.current_server.get("captcha_refresh_max", 5))
         interval = float(self.current_server.get("captcha_refresh_interval_sec", 1.0))
         map_file = os.path.join(os.path.dirname(__file__), "configs", "captcha_map.json")
-        code, info = recognize_captcha(self.driver, selector="#captchaImage", attempts=attempts, interval=interval, len_min=4, len_max=5, map_file=map_file)
+        db = open_captcha_db(self.current_server.get("config_path"))
+        result = recognize_captcha_ex(self.driver, selector="#captchaImage", attempts=attempts, interval=interval,
+                                      len_min=4, len_max=5, map_file=map_file, db=db)
+        code, info = result.code, result.info
+        print(f"验证码识别: code={code} info={info}")
         len_min, len_max = 4, 5
         if code and code.isdigit() and len(code) >= len_min and len(code) <= len_max:
             try:
@@ -571,7 +576,13 @@ class LoginWindow(QMainWindow):
                 elems_img = self.driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
                 elems_span = self.driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
                 if not elems_img and not elems_span:
+                    # 登录成功 = 答案被服务端确认，顺手给指纹库补标注
+                    record_captcha_success(db, result)
                     self.start_run()
+                else:
+                    # 提交了却还在登录页：库里的答案被证伪，摘掉，下次退回 OCR
+                    record_captcha_failure(db, result)
+                    QMessageBox.information(self, '提示', '自动登录未通过（验证码可能识别错），请再点一次「打开浏览器」重试，或手动填写。')
             except Exception as e:
                 QMessageBox.critical(self, '错误', f'自动填写失败: {str(e)}')
         else:

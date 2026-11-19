@@ -14,7 +14,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver import Chrome
-from scripts.captcha_recognizer import recognize_captcha
+from scripts.captcha_recognizer import (recognize_captcha_ex, open_captcha_db,
+                                       record_captcha_success, record_captcha_failure)
 from scripts.hof_auto_bot_main import HofAutoBot
 from scripts.account_config_reader import get_account_config
 
@@ -266,47 +267,114 @@ def _open_driver(headless=True):
         service = Service(ChromeDriverManager().install())
     return Chrome(service=service, options=options)
 
-def _login_and_start(server, headless=True, refresh_max=None, refresh_interval=None, map_file=None, tesseract_path=None):
+def _fill_credentials(driver, server):
+    user_name, password = get_account_config(server["config_path"])
+    ui = driver.find_element(By.NAME, "id")
+    ui.clear()
+    ui.send_keys(user_name)
+    pi = driver.find_element(By.NAME, "pass")
+    pi.clear()
+    pi.send_keys(password)
+
+
+def _still_on_login_page(driver):
+    elems_img = driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
+    elems_span = driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
+    return bool(elems_img or elems_span)
+
+
+def _submit_captcha(driver, code):
+    """填验证码并提交，返回是否已经离开登录页。"""
+    ci = driver.find_element(By.NAME, "captcha")
+    ci.clear()
+    ci.send_keys(code)
+    driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]').click()
+    time.sleep(1.0)
+    return not _still_on_login_page(driver)
+
+
+def _start_bot(server, driver):
+    bot = HofAutoBot()
+    globals()["_GLOBAL_BOT"] = bot
+    bot.initialize_with_driver(server["id"], driver)
+    runner = CLIBotRunner(bot)
+    globals()["_GLOBAL_RUNNER"] = runner
+    try:
+        runner.run()
+    except KeyboardInterrupt:
+        runner.stop()
+        bot.cleanup()
+    return 0
+
+
+def _login_and_start(server, headless=True, refresh_max=None, refresh_interval=None,
+                     map_file=None, tesseract_path=None, login_retry_max=None):
     if tesseract_path:
         os.environ["TESSERACT_PATH"] = tesseract_path
     driver = _open_driver(headless=headless)
     globals()["_GLOBAL_DRIVER"] = driver
-    driver.get(server["url"])
-    driver.implicitly_wait(8)
-    user_name, password = get_account_config(server["config_path"])
-    username_input = driver.find_element(By.NAME, "id")
-    username_input.clear()
-    username_input.send_keys(user_name)
-    password_input = driver.find_element(By.NAME, "pass")
-    password_input.clear()
-    password_input.send_keys(password)
     attempts = int(refresh_max if refresh_max is not None else server.get("captcha_refresh_max", 5))
     interval = float(refresh_interval if refresh_interval is not None else server.get("captcha_refresh_interval_sec", 1.0))
-    code, info = recognize_captcha(driver, selector="#captchaImage", attempts=attempts, interval=interval, len_min=4, len_max=5, map_file=map_file)
-    len_min, len_max = 4, 5
-    if code and code.isdigit() and len(code) >= len_min and len(code) <= len_max:
-        captcha_input = driver.find_element(By.NAME, "captcha")
-        captcha_input.clear()
-        captcha_input.send_keys(code)
-        login_button = driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
-        login_button.click()
-        time.sleep(1.0)
-        elems_img = driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
-        elems_span = driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
-        if not elems_img and not elems_span:
-            bot = HofAutoBot()
-            globals()["_GLOBAL_BOT"] = bot
-            bot.initialize_with_driver(server["id"], driver)
-            runner = CLIBotRunner(bot)
-            globals()["_GLOBAL_RUNNER"] = runner
-            try:
-                runner.run()
-            except KeyboardInterrupt:
-                runner.stop()
-                bot.cleanup()
-            return 0
-        return 1
-    print(f"自动验证码失败: {info}")
+    rounds = int(login_retry_max if login_retry_max is not None else server.get("captcha_login_retry_max", 3))
+    rounds = max(1, rounds)
+    db = open_captcha_db(server.get("config_path"))
+
+    # 为什么要有这个外层循环：验证码会失败，而失败之后老代码直接 return 2 让进程退出。
+    # 无人值守时 stdio 常被重定向到 /dev/null，于是"死了但没人知道"（11-19 16:33 就是这么没的）。
+    # 每轮都重新打开登录页并重新识别（含 DB 命中机会），失败才继续下一轮。
+    last_info = ''
+    for rnd in range(1, rounds + 1):
+        try:
+            driver.get(server["url"])
+            driver.implicitly_wait(8)
+            _fill_credentials(driver, server)
+        except Exception as e:
+            last_info = f'打开登录页/填账号失败: {e}'
+            print(f"[登录 {rnd}/{rounds}] {last_info}")
+            time.sleep(2.0)
+            continue
+
+        res = recognize_captcha_ex(driver, selector="#captchaImage", attempts=attempts, interval=interval,
+                                   len_min=4, len_max=5, map_file=map_file, db=db)
+        code, info = res.code, res.info
+        last_info = info
+        print(f"[登录 {rnd}/{rounds}] 验证码: code={code} info={info}")
+        if not (code and code.isdigit() and 4 <= len(code) <= 5):
+            continue
+
+        try:
+            ok = _submit_captcha(driver, code)
+        except Exception as e:
+            last_info = f'提交验证码失败: {e}'
+            print(f"[登录 {rnd}/{rounds}] {last_info}")
+            continue
+
+        if ok:
+            print(f"[登录 {rnd}/{rounds}] 登录成功")
+            record_captcha_success(db, res)
+            return _start_bot(server, driver)
+
+        # 用了库里的答案还是没过 —— 这条标注是错的，摘掉，下一轮退回 OCR
+        record_captcha_failure(db, res)
+        last_info = '提交后仍停留在登录页'
+        print(f"[登录 {rnd}/{rounds}] {last_info}，继续重试")
+        time.sleep(1.5)
+
+    print(f"自动登录失败（已尝试 {rounds} 轮），最后一次: {last_info}")
+
+    interactive = False
+    try:
+        interactive = bool(sys.stdin and sys.stdin.isatty())
+    except Exception:
+        interactive = False
+    if not interactive:
+        print("非交互环境（stdin 不可用），不等待手工输入；退出码 2，请看日志再重启")
+        try:
+            driver.quit()
+        except Exception:
+            pass
+        return 2
+
     try:
         captcha = input("请输入验证码并回车，或直接回车取消: ").strip()
     except Exception:
@@ -319,26 +387,8 @@ def _login_and_start(server, headless=True, refresh_max=None, refresh_interval=N
             pass
         return 2
     try:
-        captcha_input = driver.find_element(By.NAME, "captcha")
-        captcha_input.clear()
-        captcha_input.send_keys(captcha)
-        login_button = driver.find_element(By.CSS_SELECTOR, 'input[name="Login"][class="btn"]')
-        login_button.click()
-        time.sleep(1.0)
-        elems_img = driver.find_elements(By.CSS_SELECTOR, "#captchaImage")
-        elems_span = driver.find_elements(By.XPATH, "//span[contains(@onclick, 'getCaptcha()')]")
-        if not elems_img and not elems_span:
-            bot = HofAutoBot()
-            globals()["_GLOBAL_BOT"] = bot
-            bot.initialize_with_driver(server["id"], driver)
-            runner = CLIBotRunner(bot)
-            globals()["_GLOBAL_RUNNER"] = runner
-            try:
-                runner.run()
-            except KeyboardInterrupt:
-                runner.stop()
-                bot.cleanup()
-            return 0
+        if _submit_captcha(driver, captcha):
+            return _start_bot(server, driver)
         print("登录后仍检测到验证码元素，登录可能失败")
         return 3
     except Exception as e:
@@ -373,6 +423,7 @@ def main():
     p.add_argument("--refresh-max", type=int, help="验证码刷新最大次数；未提供则从 server_address.json 读取")
     p.add_argument("--refresh-interval", type=float, help="验证码刷新间隔秒数；未提供则从 server_address.json 读取")
     p.add_argument("--map-file", default=os.path.join(os.path.dirname(__file__), "..", "configs", "captcha_map.json"), help="验证码映射表路径")
+    p.add_argument("--login-retry", type=int, help="登录整轮重试次数（验证码失败时重新打开登录页再来一次）；未提供则从 server_address.json 读取，默认 3")
     p.add_argument("--tesseract-path", help="Tesseract 可执行路径（如 /usr/local/bin/tesseract）")
     p.add_argument("--pid-file", help="PID 文件路径（默认按 server-id 自动命名为 hof_auto_bot_server_{id}.pid）")
     p.add_argument("--status", action="store_true", help="查看运行状态")
@@ -456,7 +507,7 @@ def main():
     headless = not args.no_headless
     _write_pid(pid_file)
     try:
-        rc = _login_and_start(server, headless=headless, refresh_max=args.refresh_max, refresh_interval=args.refresh_interval, map_file=args.map_file, tesseract_path=args.tesseract_path)
+        rc = _login_and_start(server, headless=headless, refresh_max=args.refresh_max, refresh_interval=args.refresh_interval, map_file=args.map_file, tesseract_path=args.tesseract_path, login_retry_max=args.login_retry)
         if rc == 0:
             print("自动运行已启动")
         elif rc == 1:
