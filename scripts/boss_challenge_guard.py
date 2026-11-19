@@ -20,7 +20,8 @@ boss，等于自己承认用了非常手段。
   2. 同一个 boss 两次请求之间至少间隔 min_interval 秒（默认 600）；唯一的例外是
      "上一枪已被服务端明确拒绝"——那种请求什么都没生成，这只 boss 在服务端眼里
      仍然是没被碰过的，只保留一个 2 秒的补打间隔；
-  3. 记录落盘，进程重启也记得刚才打过 —— 重启后重复打是最容易翻车的一种；
+  3. 记录落盘（按服隔离，见 bind_server），进程重启也记得刚才打过 —— 重启后
+     重复打是最容易翻车的一种；
   4. 落盘的读写要跨进程加锁：同一个号开两个实例时，两个进程各自 hold 一份
      内存记录，只有进程内 RLock 是拦不住的（实测 2026-11-13 18:57 两个实例
      各发了一次，相差 18ms）。
@@ -73,6 +74,7 @@ class BossChallengeGuard:
         self.rejected_retry_gap = max(0.0, gap)
         self._lock = threading.RLock()
         self._records = {}
+        self._server_id = None
         self._load()
 
     # ------------------------------------------------------------------ 配置
@@ -89,6 +91,36 @@ class BossChallengeGuard:
         return DEFAULT_MIN_INTERVAL_SECONDS
 
     # ------------------------------------------------------------------ 对外接口
+
+    def bind_server(self, server_id) -> None:
+        """把状态文件切到这个服专属的一份。
+
+        boss id 是各服独立的（1 服 17 和 2 服 17 是两个不相干的怪），但状态文件
+        默认按仓库路径算，两个服的进程会写同一份。实测 2026-11-19 16:12:23
+        2 服狙击自己的 17 号成功，记录写进了同一份文件；如果 1 服在 600 秒内
+        也要打 17，就会被这条记录拦下——反之亦然。两个服的 VIP 刷新时刻只差
+        几分钟时（1 服 20:02:33、2 服 20:12:23，相差 590 秒），这种污染会直接
+        让后刷新的那个服在本轮 VIP 上开不出枪。
+
+        切换后旧文件的记录不再影响本进程；两个服各自落盘、互不可见。
+        """
+        try:
+            sid = int(server_id)
+        except (TypeError, ValueError):
+            return
+        if self._server_id == sid:
+            return
+        state_path = os.path.join(
+            os.path.dirname(self.state_path),
+            f'boss_challenge_guard_server_{sid}.json',
+        )
+        with self._lock:
+            self._server_id = sid
+            self.state_path = os.path.abspath(state_path)
+            with self._state_lock():
+                # 换文件后先清掉内存里的旧记录，再从新文件读
+                self._records = {}
+                self._load()
 
     def claim(self, union_id, spawn_key=None, purpose='',
               allow_rejected_retry=False, retry_gap=0.0, max_attempts=1) -> bool:

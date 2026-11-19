@@ -358,6 +358,36 @@ def test_normal_boss_rejection_still_keeps_full_interval():
     assert guard.seconds_until_allowed(8) > 590, '普通 boss 不该放开 600 秒'
 
 
+def test_bind_server_isolates_two_servers():
+    """两个服各自一份记录：2 服打过的 17 不能把 1 服的 17 锁住。
+
+    实测 2026-11-19 16:12:23 2 服狙击自己的 17 成功，记录写进了同一份文件；
+    1 服的 17 号刷新只比它晚 10 分钟，共用一个文件就会开不出枪。
+    """
+    path = os.path.join(tempfile.mkdtemp(), 'boss_challenge_guard.json')
+    g1 = _guard(min_interval=600.0, path=path)
+    g1.bind_server(1)
+    assert g1.state_path.endswith('boss_challenge_guard_server_1.json')
+    assert g1.claim(17, None, 'vip_snipe') is True
+
+    g2 = _guard(min_interval=600.0, path=path)
+    g2.bind_server(2)
+    assert g2.state_path.endswith('boss_challenge_guard_server_2.json')
+    assert g2.claim(17, None, 'vip_snipe') is True, '2 服的 17 不该被 1 服的记录拦住'
+
+
+def test_bind_server_reads_back_own_records():
+    """切回同一个服要读回自己的记录，重启后不会把同一轮打成两枪。"""
+    path = os.path.join(tempfile.mkdtemp(), 'boss_challenge_guard.json')
+    g1 = _guard(min_interval=600.0, path=path)
+    g1.bind_server(1)
+    assert g1.claim(17, None, 'vip_snipe') is True
+
+    g2 = _guard(min_interval=600.0, path=path)
+    g2.bind_server(1)
+    assert g2.claim(17, None, 'vip_snipe') is False, '同一份记录必须能拦住重启后的重复出手'
+
+
 if __name__ == "__main__":
     for name, func in list(globals().items()):
         if name.startswith("test_") and callable(func):

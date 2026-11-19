@@ -355,6 +355,9 @@ class HofAutoBot:
     def initialize_with_driver(self, server_id, driver):
         """初始化自动战斗"""
         self.driver = driver
+        # 闸门的状态文件按服隔离：1 服和 2 服的 boss id 各算各的，
+        # 共用一份会互相锁住（2 服 16:12 狙击 17 成功、1 服 20:02 就被挡）
+        self.boss_challenge_guard.bind_server(server_id)
         self.server_config_manager = ServerConfigManager()
         self.server_config_manager.set_current_server_id(server_id)
         current_server_data = self.server_config_manager.current_server_data
@@ -489,6 +492,8 @@ class HofAutoBot:
         
         # 设置当前服务器
         self.server_config_manager.set_current_server_id(selected_server_id)
+        # 闸门状态文件按服隔离，理由见 initialize_with_driver
+        self.boss_challenge_guard.bind_server(selected_server_id)
         current_server_data = self.server_config_manager.current_server_data
         if not current_server_data:
             print('错误：未找到指定id的服务器数据')
