@@ -17,7 +17,9 @@ boss，等于自己承认用了非常手段。
      "上一枪被服务端明确拒绝（落地页 Defeated or not Exists）"之后补的那几枪
      ——被拒绝的请求不进战报、不给冷却，补枪在战报里是隐形的，但仍受
      次数上限和最小间隔约束，绝不会出现两个请求同时在飞；
-  2. 同一个 boss 两次请求之间至少间隔 min_interval 秒（默认 600）；
+  2. 同一个 boss 两次请求之间至少间隔 min_interval 秒（默认 600）；唯一的例外是
+     "上一枪已被服务端明确拒绝"——那种请求什么都没生成，这只 boss 在服务端眼里
+     仍然是没被碰过的，只保留一个 2 秒的补打间隔；
   3. 记录落盘，进程重启也记得刚才打过 —— 重启后重复打是最容易翻车的一种；
   4. 落盘的读写要跨进程加锁：同一个号开两个实例时，两个进程各自 hold 一份
      内存记录，只有进程内 RLock 是拦不住的（实测 2026-11-13 18:57 两个实例
@@ -38,6 +40,14 @@ except ImportError:  # Windows 没有 flock，退化成进程内互斥
     fcntl = None
 
 DEFAULT_MIN_INTERVAL_SECONDS = 600.0
+# 上一枪被服务端**明确拒绝**（落地页写着 Defeated or not Exists）之后，这只 boss
+# 允许隔这么短就再打一次：被拒绝的请求不生成战斗、不进战报、不给冷却，
+# 服务端看它跟没发生过一样。2026-11-19 15:42 那轮就是被 600 秒卡死的——
+# 狙击在 T+0.17s 打空，boss 1.3 秒后才刷出来，而闸门把这次"打空"当成
+# "已经出过手"，把这只 boss 锁了整整 600 秒。
+DEFAULT_REJECTED_RETRY_GAP_SECONDS = 2.0
+# 只有 VIP 这条路允许"被拒之后马上补打"；普通 boss 仍然按 600 秒保守处理
+VIP_RETRY_PURPOSES = ('vip_snipe', 'vip_chase')
 # 记录保留时长：只是为了日志可回溯，超过这个时间的条目会被清掉
 RECORD_TTL_SECONDS = 2 * 24 * 3600
 DEFAULT_STATE_FILENAME = os.path.join('.runtime', 'boss_challenge_guard.json')
@@ -46,7 +56,8 @@ DEFAULT_STATE_FILENAME = os.path.join('.runtime', 'boss_challenge_guard.json')
 class BossChallengeGuard:
     """记录"谁在什么时候打过哪只 boss"，并据此拒绝重复请求。"""
 
-    def __init__(self, state_path=None, min_interval_provider=None, logger=None):
+    def __init__(self, state_path=None, min_interval_provider=None, logger=None,
+                 rejected_retry_gap=None):
         if state_path is None:
             state_path = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)),
@@ -55,6 +66,11 @@ class BossChallengeGuard:
         self.state_path = os.path.abspath(state_path)
         self._min_interval_provider = min_interval_provider
         self._logger = logger
+        try:
+            gap = float(rejected_retry_gap)
+        except (TypeError, ValueError):
+            gap = DEFAULT_REJECTED_RETRY_GAP_SECONDS
+        self.rejected_retry_gap = max(0.0, gap)
         self._lock = threading.RLock()
         self._records = {}
         self._load()
@@ -122,13 +138,25 @@ class BossChallengeGuard:
                         )
                         return False
                     age = now - self._float(record.get('ts'))
-                    remain = self.min_interval - age
-                    if remain > 0:
-                        self._warn(
-                            f'挑战闸门拦截 boss({uid})：距上次请求仅 {age:.0f}s，'
-                            f'不足最小间隔 {self.min_interval:.0f}s（还差 {remain:.0f}s），拒绝重复发送'
-                        )
-                        return False
+                    if self._is_rejected(record):
+                        # 上一枪被服务端明确拒绝：这只 boss 实际上没被碰过，
+                        # 不该再锁一个完整的最小间隔，只留一个"别让两个请求同时在飞"的小间隔。
+                        gap_required = max(self.rejected_retry_gap, float(retry_gap or 0.0))
+                        remain = gap_required - age
+                        if remain > 0:
+                            self._warn(
+                                f'挑战闸门拦截 boss({uid})：上一枪被拒后仅 {age:.1f}s，'
+                                f'不足补打间隔 {gap_required:.1f}s（还差 {remain:.1f}s），拒绝重复发送'
+                            )
+                            return False
+                    else:
+                        remain = self.min_interval - age
+                        if remain > 0:
+                            self._warn(
+                                f'挑战闸门拦截 boss({uid})：距上次请求仅 {age:.0f}s，'
+                                f'不足最小间隔 {self.min_interval:.0f}s（还差 {remain:.0f}s），拒绝重复发送'
+                            )
+                            return False
                 self._records[uid] = {
                     'ts': now,
                     'spawn_key': spawn,
@@ -167,7 +195,12 @@ class BossChallengeGuard:
                 self._save()
 
     def seconds_until_allowed(self, union_id, spawn_key=None) -> float:
-        """还要等多少秒才允许再对这只 boss 出手；0 表示现在就可以。"""
+        """还要等多少秒才允许再对这只 boss 出手；0 表示现在就可以。
+
+        上一枪被服务端明确拒绝过的话，等待时间按补打间隔（默认 2 秒）算，
+        而不是完整的最小间隔：那一次请求什么都没生成，服务端眼里这只 boss
+        仍然是"没被碰过"的。
+        """
         uid = self._uid(union_id)
         spawn = self._spawn(spawn_key)
         with self._lock:
@@ -175,10 +208,12 @@ class BossChallengeGuard:
             record = self._records.get(uid)
             if not record:
                 return 0.0
-            if spawn is not None and record.get('spawn_key') == spawn:
-                # 同一轮刷新永远不会再放行，返回一个足够大的值让调用方去睡觉
+            rejected = self._is_rejected(record)
+            if spawn is not None and record.get('spawn_key') == spawn and not rejected:
+                # 同一轮刷新的正常请求永远不会再放行，返回一个足够大的值让调用方去睡觉
                 return self.min_interval
-            remain = self.min_interval - (time.time() - self._float(record.get('ts')))
+            gap_required = self.rejected_retry_gap if rejected else self.min_interval
+            remain = gap_required - (time.time() - self._float(record.get('ts')))
             return max(0.0, remain)
 
     def last_fire_age(self, union_id):
@@ -195,6 +230,18 @@ class BossChallengeGuard:
     @staticmethod
     def _uid(union_id):
         return str(union_id)
+
+    @staticmethod
+    def _is_rejected(record) -> bool:
+        """这一枪是不是"服务端明确拒绝"（落地页 Defeated or not Exists）。
+
+        只有 VIP 这条路（vip_snipe / vip_chase）才认这条：VIP 狙击必须在刷出
+        瞬间反复试，而普通 boss 那一侧宁可保守——多锁一段时间最多少打一只，
+        误判成"没打上"却可能真的多发一次请求。
+        """
+        if not record or record.get('accepted') is not False:
+            return False
+        return str(record.get('purpose') or '') in VIP_RETRY_PURPOSES
 
     @staticmethod
     def _spawn(spawn_key):

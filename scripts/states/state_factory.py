@@ -46,9 +46,18 @@ class StateFactory:
         return WaitVipBossState(bot)
 
     @staticmethod
-    def create_directly_challenge_boss_state(bot: 'HofAutoBot') -> 'BaseState':
+    def create_directly_challenge_boss_state(bot: 'HofAutoBot', **kwargs) -> 'BaseState':
         from .directly_challenge_boss_state import DirectlyChallengeBossState
-        return DirectlyChallengeBossState(bot)
+        return DirectlyChallengeBossState(bot, **kwargs)
+
+    @staticmethod
+    def create_vip_chase_state(bot: 'HofAutoBot', union_id=None,
+                               advanced_action_config=None,
+                               spawn_timestamp_us=None, deadline_ts=None,
+                               attempts=0) -> 'BaseState':
+        from .vip_chase_state import VipChaseState
+        return VipChaseState(bot, union_id, advanced_action_config,
+                             spawn_timestamp_us, deadline_ts, attempts)
 
     @staticmethod
     def create_vip_snipe_state(bot: 'HofAutoBot', union_id=None,

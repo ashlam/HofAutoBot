@@ -5,7 +5,8 @@ from .state_factory import StateFactory
 
 class DirectlyChallengeBossState(BaseState):
 
-    def __init__(self, bot: HofAutoBot):
+    def __init__(self, bot: HofAutoBot, allow_rejected_retry=False,
+                 purpose='directly_challenge', retry_gap=0.0, max_attempts=1):
         super().__init__(bot)
         # self.bot = bot
         self.union_id = None
@@ -13,6 +14,12 @@ class DirectlyChallengeBossState(BaseState):
         self.on_challenge_success = None
         self.on_challenge_failed = None
         self.is_challeged_success = False
+        # 只有 VIP 追打会传 True：允许在"上一枪被服务端明确拒绝"之后补打。
+        # 普通 boss 流程保持默认，行为与以前完全一致（同一轮只许一发）。
+        self.allow_rejected_retry = allow_rejected_retry
+        self.purpose = purpose
+        self.retry_gap = retry_gap
+        self.max_attempts = max_attempts
         # self.next_state = None
     def process(self):
         union_id = self.union_id
@@ -58,7 +65,19 @@ class DirectlyChallengeBossState(BaseState):
         if guard is None:
             return True
         try:
-            return bool(guard.claim(self.union_id, None, 'directly_challenge'))
+            return bool(guard.claim(
+                self.union_id, None, self.purpose,
+                allow_rejected_retry=self.allow_rejected_retry,
+                retry_gap=self.retry_gap,
+                max_attempts=self.max_attempts,
+            ))
+        except TypeError:
+            # 老版本闸门没有补打参数：退回最严格的一发
+            try:
+                return bool(guard.claim(self.union_id, None, self.purpose))
+            except Exception as e:
+                self.log(f'【闸门】异常（{type(e).__name__}: {e}），放弃本次挑战')
+                return False
         except Exception as e:
             # 闸门自己出问题时宁可不出手，也不冒"发两次"的风险
             self.log(f'【闸门】异常（{type(e).__name__}: {e}），放弃本次挑战')

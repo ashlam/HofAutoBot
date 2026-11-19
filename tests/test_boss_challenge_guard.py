@@ -305,6 +305,59 @@ def test_release_from_one_instance_frees_the_other():
     assert second.claim(17, 1794567428426116, 'vip_snipe') is True
 
 
+def test_rejected_shot_does_not_lock_the_boss_for_full_interval():
+    """被服务端明确拒绝的一枪等于没打：不能把这只 boss 锁满 600 秒。
+
+    2026-11-19 15:42 现场：VIP 狙击 T+0.17s 打空（落地页 not exists），
+    boss 1.3 秒后才刷出来，闸门却按 600 秒把 17 锁死，20 分钟窗口全废。
+    """
+    guard = _guard(min_interval=600.0, path=_tmp_path())
+    guard.rejected_retry_gap = 2.0
+
+    assert guard.claim(17, 1795074142257361, 'vip_snipe') is True
+    guard.record_result(17, False)  # 落地页写着 not exists
+
+    assert guard.seconds_until_allowed(17) <= 2.0, \
+        f'被拒后不该再等 600 秒，实际 {guard.seconds_until_allowed(17):.1f}'
+    # 同一轮刷新也一样：被拒过就可以补打
+    assert guard.seconds_until_allowed(17, 1795074142257361) <= 2.0
+    # 补打间隔还是要留一点点，防止两个请求同时在飞
+    assert guard.claim(17, None, 'vip_chase') is False
+
+
+def test_accepted_shot_still_locks_for_full_interval():
+    """真正打上了（受理）的那一枪，600 秒最小间隔照旧。"""
+    guard = _guard(min_interval=600.0, path=_tmp_path())
+
+    assert guard.claim(17, 1795074142257361, 'vip_snipe') is True
+    guard.record_result(17, True)
+
+    assert guard.seconds_until_allowed(17) > 590
+    assert guard.claim(17, None, 'directly_challenge') is False
+
+
+def test_rejected_retry_gap_lets_chase_hit_after_two_seconds():
+    """等过补打间隔之后，追打状态必须能拿到许可。"""
+    guard = _guard(min_interval=600.0, path=_tmp_path())
+    guard.rejected_retry_gap = 0.0
+
+    assert guard.claim(17, 1795074142257361, 'vip_snipe') is True
+    guard.record_result(17, False)
+
+    assert guard.claim(17, None, 'vip_chase', allow_rejected_retry=True,
+                       retry_gap=0.0, max_attempts=3) is True
+
+
+def test_normal_boss_rejection_still_keeps_full_interval():
+    """普通 boss 不走这个口子：被拒之后仍然按 600 秒保守处理。"""
+    guard = _guard(min_interval=600.0, path=_tmp_path())
+
+    assert guard.claim(8, None, 'directly_challenge') is True
+    guard.record_result(8, False)
+
+    assert guard.seconds_until_allowed(8) > 590, '普通 boss 不该放开 600 秒'
+
+
 if __name__ == "__main__":
     for name, func in list(globals().items()):
         if name.startswith("test_") and callable(func):

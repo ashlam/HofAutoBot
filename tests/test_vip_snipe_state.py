@@ -226,8 +226,8 @@ def test_success_marks_fire_timestamp_and_clears_waiting_record():
     assert bot.hunt_page_updates >= 1, '出手后必须刷新页面确认结果（可能不止一次，会轮询）'
 
 
-def test_cooldown_wins_over_script_result():
-    """脚本返回成功但服务端没给冷却时，以服务端为准（被抢了就是没打成）。"""
+def test_rejected_shot_hands_over_to_chase_state():
+    """服务端没给冷却（被拒 / 还没刷出）时，交给追打状态盯着 boss 出现，别再躺平。"""
     driver = _FakeDriver(has_button=True)
     bot = _FakeBot(driver)
     state = VipSnipeState(bot, 17, ACTION_CONFIG, bot.next_vip_boss_spawn_timestamp)
@@ -235,10 +235,23 @@ def test_cooldown_wins_over_script_result():
 
     state.process()
 
-    # 失败分支应当回到"准备打 boss"，而不是直接去刷别的
     assert bot.current_state is not None
-    assert type(bot.current_state).__name__ == 'PrepareBossState', \
-        f'没打成应回到 PrepareBossState，实际 {type(bot.current_state).__name__}'
+    assert type(bot.current_state).__name__ == 'VipChaseState', \
+        f'被拒绝应转去追打，实际 {type(bot.current_state).__name__}'
+    assert bot.current_state.union_id == 17
+
+
+def test_cooldown_after_shot_means_round_is_over():
+    """真打上了（本号进了冷却）就是成功，直接去干别的，不再追打——避免同一轮连击。"""
+    driver = _FakeDriver(has_button=True)
+    bot = _FakeBot(driver)
+    state = VipSnipeState(bot, 17, ACTION_CONFIG, bot.next_vip_boss_spawn_timestamp)
+    bot.challenge_next_cooldown = 1199
+
+    state.process()
+
+    assert type(bot.current_state).__name__ == 'WorldPvpState', \
+        f'已进入冷却说明打成了，应去 WorldPvp，实际 {type(bot.current_state).__name__}'
 
 
 def test_missing_config_does_not_touch_browser():

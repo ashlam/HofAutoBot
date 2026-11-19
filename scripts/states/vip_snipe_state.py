@@ -176,6 +176,7 @@ class VipSnipeState(BaseState):
         self.last_delta_ms = None
         self.last_post_ms = None
         self._sent_ts = None
+        self._last_verdict = None
 
     # ------------------------------------------------------------------ 配置
 
@@ -301,6 +302,7 @@ class VipSnipeState(BaseState):
                      f'起手相对 T {self.last_delta_ms:+.0f}ms{post_ms}')
 
             verdict = self._await_verdict()
+            self._last_verdict = verdict
             if verdict == 'rejected':
                 # 服务端说还没刷出：这一枪没有生成战斗，可以安全补枪。
                 # 先把"被拒绝"落盘，闸门才会放行下一枪（它也只会因此放行）。
@@ -589,8 +591,16 @@ class VipSnipeState(BaseState):
         self._capture_landing()
         # 脚本说"点到了"不算数，但也不能只读一次页面：刚提交完的 hunt 页
         # 常常还是提交之前的快照（实测晚了 1 秒才更新），读一次会把打成误判成没打成。
+        #
+        # 不过如果刚才那几枪的落地页已经明确写着 "Defeated or not Exists"，
+        # 结果其实已经知道了，没必要再轮询 4.8 秒——那 4.8 秒正是 boss 刷出来
+        # 后被别人抢走的窗口（2026-11-19 15:42 就差这 1.3 秒）。
+        confirm_kwargs = {}
+        if self._last_verdict == 'rejected':
+            confirm_kwargs = {'attempts': 2, 'interval': 0.5}
         try:
-            success = self._confirm_challenge_result(self.union_id, first_wait=0)
+            success = self._confirm_challenge_result(
+                self.union_id, first_wait=0, **confirm_kwargs)
         except Exception as e:
             self.log(f'VIP狙击：确认挑战结果失败 {type(e).__name__}: {e}')
             success = False
@@ -611,6 +621,22 @@ class VipSnipeState(BaseState):
         self.bot.reset_waiting_vip_boss_spawn_info()
         if success:
             self.set_state(StateFactory.create_world_pvp_state(self.bot))
-        else:
-            # 失败就用掉这一轮，不再连击；PrepareBoss 看到 cooldown 会自然进入别的流程
+            return
+
+        # 没打成要分两种：
+        #   1) 真打上了但输了 → 本号进入挑战冷却，这一轮到此为止；
+        #   2) 落地页写着 not exists（服务端还没刷出）→ 什么都没生成、没有冷却，
+        #      而 boss 往往在几百毫秒后就刷出来了（2026-11-19 15:42 那轮只差 1.3 秒）。
+        #      这种情况交给追打状态盯着，boss 一出现就补一刀。
+        cooldown = getattr(self.bot, 'challenge_next_cooldown', 0) or 0
+        if cooldown > 0:
+            self.log(f'VIP狙击：本号已进入挑战冷却（{cooldown}秒），这一轮打完收工')
             self.set_state(StateFactory.create_prepare_boss_state(self.bot))
+            return
+
+        self.log('VIP狙击：这一枪被服务端拒绝（没生成战斗、没给冷却），'
+                 '转去盯着 boss 刷出来的那一刻补打')
+        self.set_state(StateFactory.create_vip_chase_state(
+            self.bot, self.union_id, self.advanced_action_config,
+            self.spawn_timestamp_us,
+        ))
